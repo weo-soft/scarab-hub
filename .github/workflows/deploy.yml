@@ -3,7 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - 001-flipping-scarabs
+      - main
+      - master
   workflow_dispatch:
 
 permissions:
