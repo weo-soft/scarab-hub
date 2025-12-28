@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - master
+      - 001-flipping-scarabs
   workflow_dispatch:
 
 permissions:
