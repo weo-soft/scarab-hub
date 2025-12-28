@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flipping Scarabs - Path of Exile</title>
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <div id="navigation"></div>
+      <h1>Flipping Scarabs</h1>
+      <p>Determine which Scarabs to vendor using the 3-to-1 recipe</p>
+    </header>
+    
+    <main>
+      <!-- Flipping Scarabs Page -->
+      <div id="flipping-page" class="page-container active">
+        <div id="view-switcher"></div>
+        <div id="merged-views" class="merged-views-container">
+          <div id="grid-view" class="view-container grid-container">
+            <canvas id="scarab-grid-canvas"></canvas>
+            <button id="open-threshold-settings" class="settings-btn grid-settings-btn" aria-label="Open threshold settings" title="Threshold Settings">
+              ⚙️
+            </button>
+          </div>
+          <div class="list-wrapper">
+            <div id="filter-panel"></div>
+            <div id="list-view" class="view-container list-container"></div>
+          </div>
+        </div>
+        <!-- Threshold Settings Overlay -->
+        <div id="threshold-overlay" class="overlay">
+          <div class="overlay-content">
+            <div class="overlay-header">
+              <h2>Economic Threshold Settings</h2>
+              <button id="close-threshold-overlay" class="close-overlay-btn" aria-label="Close overlay">×</button>
+            </div>
+            <div id="threshold-display"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Vendor Simulation Page -->
+      <div id="simulation-page" class="page-container">
+        <div id="simulation-panel"></div>
+      </div>
+    </main>
+  </div>
+  
+  <script type="module" src="/main.js"></script>
+</body>
+</html>
+

@@ -31,7 +31,13 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+Verify compliance with constitution principles:
+
+- **Code Quality**: Design follows established patterns and maintains readability
+- **Testing**: Testing strategy defined (unit, integration, contract, E2E as applicable)
+- **User Experience**: UX consistency maintained (if user-facing feature)
+- **Performance**: Performance targets and constraints identified and measurable
+- **Complexity**: Any deviations from simplicity justified (document in Complexity Tracking if needed)
 
 ## Project Structure
 

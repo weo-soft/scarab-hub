@@ -1,0 +1,632 @@
+[
+  {
+    "name": "Abyss Scarab of Profound Depth",
+    "chaosValue": 1.3,
+    "divineValue": 0.008658,
+    "detailsId": "abyss-scarab-of-profound-depth"
+  },
+  {
+    "name": "Ambush Scarab",
+    "chaosValue": 1.25,
+    "divineValue": 0.008325,
+    "detailsId": "ambush-scarab"
+  },
+  {
+    "name": "Ambush Scarab of Containment",
+    "chaosValue": 127.6,
+    "divineValue": 0.849816,
+    "detailsId": "ambush-scarab-of-containment"
+  },
+  {
+    "name": "Ambush Scarab of Discernment",
+    "chaosValue": 8.53,
+    "divineValue": 0.056809799999999994,
+    "detailsId": "ambush-scarab-of-discernment"
+  },
+  {
+    "name": "Ambush Scarab of Hidden Compartments",
+    "chaosValue": 0.4155,
+    "divineValue": 0.00276723,
+    "detailsId": "ambush-scarab-of-hidden-compartments"
+  },
+  {
+    "name": "Ambush Scarab of Potency",
+    "chaosValue": 0.3846,
+    "divineValue": 0.002561436,
+    "detailsId": "ambush-scarab-of-potency"
+  },
+  {
+    "name": "Anarchy Scarab of Gigantification",
+    "chaosValue": 0.4249,
+    "divineValue": 0.0028298340000000003,
+    "detailsId": "anarchy-scarab-of-gigantification"
+  },
+  {
+    "name": "Anarchy Scarab of Partnership",
+    "chaosValue": 0.3791,
+    "divineValue": 0.002524806,
+    "detailsId": "anarchy-scarab-of-partnership"
+  },
+  {
+    "name": "Betrayal Scarab of the Allflame",
+    "chaosValue": 0.4195,
+    "divineValue": 0.00279387,
+    "detailsId": "betrayal-scarab-of-the-allflame"
+  },
+  {
+    "name": "Beyond Scarab",
+    "chaosValue": 0.4097,
+    "divineValue": 0.002728602,
+    "detailsId": "beyond-scarab"
+  },
+  {
+    "name": "Beyond Scarab of Resurgence",
+    "chaosValue": 0.4252,
+    "divineValue": 0.0028318320000000003,
+    "detailsId": "beyond-scarab-of-resurgence"
+  },
+  {
+    "name": "Blight Scarab",
+    "chaosValue": 0.4221,
+    "divineValue": 0.002811186,
+    "detailsId": "blight-scarab"
+  },
+  {
+    "name": "Blight Scarab of Invigoration",
+    "chaosValue": 70.09,
+    "divineValue": 0.46679940000000003,
+    "detailsId": "blight-scarab-of-invigoration"
+  },
+  {
+    "name": "Blight Scarab of the Blightheart",
+    "chaosValue": 0.3753,
+    "divineValue": 0.002499498,
+    "detailsId": "blight-scarab-of-the-blightheart"
+  },
+  {
+    "name": "Cartography Scarab of Escalation",
+    "chaosValue": 0.4479,
+    "divineValue": 0.002983014,
+    "detailsId": "cartography-scarab-of-escalation"
+  },
+  {
+    "name": "Abyss Scarab",
+    "chaosValue": 0.4947,
+    "divineValue": 0.003294702,
+    "detailsId": "abyss-scarab"
+  },
+  {
+    "name": "Abyss Scarab of Edifice",
+    "chaosValue": 0.5058,
+    "divineValue": 0.0033686280000000002,
+    "detailsId": "abyss-scarab-of-edifice"
+  },
+  {
+    "name": "Abyss Scarab of Multitudes",
+    "chaosValue": 0.4124,
+    "divineValue": 0.002746584,
+    "detailsId": "abyss-scarab-of-multitudes"
+  },
+  {
+    "name": "Anarchy Scarab",
+    "chaosValue": 0.5073,
+    "divineValue": 0.003378618,
+    "detailsId": "anarchy-scarab"
+  },
+  {
+    "name": "Bestiary Scarab",
+    "chaosValue": 0.4232,
+    "divineValue": 0.002818512,
+    "detailsId": "bestiary-scarab"
+  },
+  {
+    "name": "Bestiary Scarab of Duplicating",
+    "chaosValue": 1.53,
+    "divineValue": 0.0101898,
+    "detailsId": "bestiary-scarab-of-duplicating"
+  },
+  {
+    "name": "Bestiary Scarab of the Herd",
+    "chaosValue": 1.26,
+    "divineValue": 0.0083916,
+    "detailsId": "bestiary-scarab-of-the-herd"
+  },
+  {
+    "name": "Betrayal Scarab",
+    "chaosValue": 0.4075,
+    "divineValue": 0.0027139499999999997,
+    "detailsId": "betrayal-scarab"
+  },
+  {
+    "name": "Betrayal Scarab of Reinforcements",
+    "chaosValue": 0.5649,
+    "divineValue": 0.0037622339999999997,
+    "detailsId": "betrayal-scarab-of-reinforcements"
+  },
+  {
+    "name": "Beyond Scarab of Haemophilia",
+    "chaosValue": 0.3819,
+    "divineValue": 0.002543454,
+    "detailsId": "beyond-scarab-of-haemophilia"
+  },
+  {
+    "name": "Beyond Scarab of the Invasion",
+    "chaosValue": 0.7682,
+    "divineValue": 0.005116212,
+    "detailsId": "beyond-scarab-of-the-invasion"
+  },
+  {
+    "name": "Blight Scarab of Blooming",
+    "chaosValue": 14.38,
+    "divineValue": 0.0957708,
+    "detailsId": "blight-scarab-of-blooming"
+  },
+  {
+    "name": "Breach Scarab",
+    "chaosValue": 600.6,
+    "divineValue": 3.9999960000000003,
+    "detailsId": "breach-scarab"
+  },
+  {
+    "name": "Cartography Scarab of Corruption",
+    "chaosValue": 2.31,
+    "divineValue": 0.0153846,
+    "detailsId": "cartography-scarab-of-corruption"
+  },
+  {
+    "name": "Cartography Scarab of Risk",
+    "chaosValue": 41.72,
+    "divineValue": 0.2778552,
+    "detailsId": "cartography-scarab-of-risk"
+  },
+  {
+    "name": "Cartography Scarab of the Multitude",
+    "chaosValue": 0.9056,
+    "divineValue": 0.006031296,
+    "detailsId": "cartography-scarab-of-the-multitude"
+  },
+  {
+    "name": "Delirium Scarab of Delusions",
+    "chaosValue": 0.8063,
+    "divineValue": 0.005369958,
+    "detailsId": "delirium-scarab-of-delusions"
+  },
+  {
+    "name": "Delirium Scarab of Paranoia",
+    "chaosValue": 7.27,
+    "divineValue": 0.048418199999999995,
+    "detailsId": "delirium-scarab-of-paranoia"
+  },
+  {
+    "name": "Divination Scarab of The Cloister",
+    "chaosValue": 6.49,
+    "divineValue": 0.0432234,
+    "detailsId": "divination-scarab-of-the-cloister"
+  },
+  {
+    "name": "Domination Scarab",
+    "chaosValue": 0.4362,
+    "divineValue": 0.0029050919999999997,
+    "detailsId": "domination-scarab"
+  },
+  {
+    "name": "Domination Scarab of Apparitions",
+    "chaosValue": 0.3605,
+    "divineValue": 0.00240093,
+    "detailsId": "domination-scarab-of-apparitions"
+  },
+  {
+    "name": "Essence Scarab",
+    "chaosValue": 0.4456,
+    "divineValue": 0.002967696,
+    "detailsId": "essence-scarab"
+  },
+  {
+    "name": "Essence Scarab of Adaptation",
+    "chaosValue": 6.0,
+    "divineValue": 0.03996,
+    "detailsId": "essence-scarab-of-adaptation"
+  },
+  {
+    "name": "Essence Scarab of Ascent",
+    "chaosValue": 0.5136,
+    "divineValue": 0.003420576,
+    "detailsId": "essence-scarab-of-ascent"
+  },
+  {
+    "name": "Expedition Scarab",
+    "chaosValue": 0.4152,
+    "divineValue": 0.0027652320000000003,
+    "detailsId": "expedition-scarab"
+  },
+  {
+    "name": "Expedition Scarab of Archaeology",
+    "chaosValue": 0.4851,
+    "divineValue": 0.003230766,
+    "detailsId": "expedition-scarab-of-archaeology"
+  },
+  {
+    "name": "Harbinger Scarab of Warhoards",
+    "chaosValue": 4.91,
+    "divineValue": 0.0327006,
+    "detailsId": "harbinger-scarab-of-warhoards"
+  },
+  {
+    "name": "Harvest Scarab",
+    "chaosValue": 0.422,
+    "divineValue": 0.00281052,
+    "detailsId": "harvest-scarab"
+  },
+  {
+    "name": "Harvest Scarab of Doubling",
+    "chaosValue": 32.26,
+    "divineValue": 0.2148516,
+    "detailsId": "harvest-scarab-of-doubling"
+  },
+  {
+    "name": "Horned Scarab of Awakening",
+    "chaosValue": 217.1,
+    "divineValue": 1.445886,
+    "detailsId": "horned-scarab-of-awakening"
+  },
+  {
+    "name": "Horned Scarab of Bloodlines",
+    "chaosValue": 111.3,
+    "divineValue": 0.741258,
+    "detailsId": "horned-scarab-of-bloodlines"
+  },
+  {
+    "name": "Horned Scarab of Glittering",
+    "chaosValue": 15.58,
+    "divineValue": 0.1037628,
+    "detailsId": "horned-scarab-of-glittering"
+  },
+  {
+    "name": "Horned Scarab of Nemeses",
+    "chaosValue": 9.23,
+    "divineValue": 0.06147180000000001,
+    "detailsId": "horned-scarab-of-nemeses"
+  },
+  {
+    "name": "Horned Scarab of Pandemonium",
+    "chaosValue": 386.1,
+    "divineValue": 2.571426,
+    "detailsId": "horned-scarab-of-pandemonium"
+  },
+  {
+    "name": "Horned Scarab of Preservation",
+    "chaosValue": 274.8,
+    "divineValue": 1.830168,
+    "detailsId": "horned-scarab-of-preservation"
+  },
+  {
+    "name": "Incursion Scarab",
+    "chaosValue": 0.4233,
+    "divineValue": 0.0028191780000000003,
+    "detailsId": "incursion-scarab"
+  },
+  {
+    "name": "Incursion Scarab of Champions",
+    "chaosValue": 1.29,
+    "divineValue": 0.0085914,
+    "detailsId": "incursion-scarab-of-champions"
+  },
+  {
+    "name": "Influencing Scarab of Hordes",
+    "chaosValue": 0.9088,
+    "divineValue": 0.006052608,
+    "detailsId": "influencing-scarab-of-hordes"
+  },
+  {
+    "name": "Influencing Scarab of the Elder",
+    "chaosValue": 0.4155,
+    "divineValue": 0.00276723,
+    "detailsId": "influencing-scarab-of-the-elder"
+  },
+  {
+    "name": "Influencing Scarab of the Shaper",
+    "chaosValue": 0.4255,
+    "divineValue": 0.00283383,
+    "detailsId": "influencing-scarab-of-the-shaper"
+  },
+  {
+    "name": "Kalguuran Scarab",
+    "chaosValue": 0.8893,
+    "divineValue": 0.005922738,
+    "detailsId": "kalguuran-scarab"
+  },
+  {
+    "name": "Kalguuran Scarab of Guarded Riches",
+    "chaosValue": 0.627,
+    "divineValue": 0.00417582,
+    "detailsId": "kalguuran-scarab-of-guarded-riches"
+  },
+  {
+    "name": "Legion Scarab of Command",
+    "chaosValue": 0.3607,
+    "divineValue": 0.002402262,
+    "detailsId": "legion-scarab-of-command"
+  },
+  {
+    "name": "Legion Scarab of Officers",
+    "chaosValue": 0.9763,
+    "divineValue": 0.006502158,
+    "detailsId": "legion-scarab-of-officers"
+  },
+  {
+    "name": "Ritual Scarab of Abundance",
+    "chaosValue": 4.09,
+    "divineValue": 0.0272394,
+    "detailsId": "ritual-scarab-of-abundance"
+  },
+  {
+    "name": "Ritual Scarab of Wisps",
+    "chaosValue": 0.3023,
+    "divineValue": 0.002013318,
+    "detailsId": "ritual-scarab-of-wisps"
+  },
+  {
+    "name": "Scarab of Divinity",
+    "chaosValue": 0.3981,
+    "divineValue": 0.002651346,
+    "detailsId": "scarab-of-divinity"
+  },
+  {
+    "name": "Scarab of Hunted Traitors",
+    "chaosValue": 0.2783,
+    "divineValue": 0.001853478,
+    "detailsId": "scarab-of-hunted-traitors"
+  },
+  {
+    "name": "Scarab of Monstrous Lineage",
+    "chaosValue": 2.09,
+    "divineValue": 0.013919399999999998,
+    "detailsId": "scarab-of-monstrous-lineage"
+  },
+  {
+    "name": "Scarab of Wisps",
+    "chaosValue": 4.31,
+    "divineValue": 0.028704599999999997,
+    "detailsId": "scarab-of-wisps"
+  },
+  {
+    "name": "Sulphite Scarab",
+    "chaosValue": 0.4406,
+    "divineValue": 0.002934396,
+    "detailsId": "sulphite-scarab"
+  },
+  {
+    "name": "Sulphite Scarab of Fumes",
+    "chaosValue": 0.3783,
+    "divineValue": 0.0025194780000000003,
+    "detailsId": "sulphite-scarab-of-fumes"
+  },
+  {
+    "name": "Torment Scarab of Peculiarity",
+    "chaosValue": 0.3249,
+    "divineValue": 0.0021638340000000003,
+    "detailsId": "torment-scarab-of-peculiarity"
+  },
+  {
+    "name": "Ultimatum Scarab of Catalysing",
+    "chaosValue": 172.0,
+    "divineValue": 1.14552,
+    "detailsId": "ultimatum-scarab-of-catalysing"
+  },
+  {
+    "name": "Ultimatum Scarab of Inscription",
+    "chaosValue": 0.7501,
+    "divineValue": 0.004995666,
+    "detailsId": "ultimatum-scarab-of-inscription"
+  },
+  {
+    "name": "Delirium Scarab",
+    "chaosValue": 0.418,
+    "divineValue": 0.00278388,
+    "detailsId": "delirium-scarab"
+  },
+  {
+    "name": "Delirium Scarab of Mania",
+    "chaosValue": 1.59,
+    "divineValue": 0.0105894,
+    "detailsId": "delirium-scarab-of-mania"
+  },
+  {
+    "name": "Delirium Scarab of Neuroses",
+    "chaosValue": 0.6164,
+    "divineValue": 0.004105223999999999,
+    "detailsId": "delirium-scarab-of-neuroses"
+  },
+  {
+    "name": "Divination Scarab of Pilfering",
+    "chaosValue": 6.56,
+    "divineValue": 0.043689599999999995,
+    "detailsId": "divination-scarab-of-pilfering"
+  },
+  {
+    "name": "Divination Scarab of Plenty",
+    "chaosValue": 3.25,
+    "divineValue": 0.021645,
+    "detailsId": "divination-scarab-of-plenty"
+  },
+  {
+    "name": "Domination Scarab of Evolution",
+    "chaosValue": 0.4577,
+    "divineValue": 0.003048282,
+    "detailsId": "domination-scarab-of-evolution"
+  },
+  {
+    "name": "Domination Scarab of Terrors",
+    "chaosValue": 135.2,
+    "divineValue": 0.9004319999999999,
+    "detailsId": "domination-scarab-of-terrors"
+  },
+  {
+    "name": "Essence Scarab of Calcification",
+    "chaosValue": 11.55,
+    "divineValue": 0.076923,
+    "detailsId": "essence-scarab-of-calcification"
+  },
+  {
+    "name": "Essence Scarab of Stability",
+    "chaosValue": 0.3444,
+    "divineValue": 0.002293704,
+    "detailsId": "essence-scarab-of-stability"
+  },
+  {
+    "name": "Expedition Scarab of Runefinding",
+    "chaosValue": 0.4149,
+    "divineValue": 0.002763234,
+    "detailsId": "expedition-scarab-of-runefinding"
+  },
+  {
+    "name": "Expedition Scarab of Verisium Powder",
+    "chaosValue": 0.4996,
+    "divineValue": 0.003327336,
+    "detailsId": "expedition-scarab-of-verisium-powder"
+  },
+  {
+    "name": "Harbinger Scarab",
+    "chaosValue": 2.84,
+    "divineValue": 0.018914399999999998,
+    "detailsId": "harbinger-scarab"
+  },
+  {
+    "name": "Harbinger Scarab of Obelisks",
+    "chaosValue": 0.5047,
+    "divineValue": 0.0033613020000000005,
+    "detailsId": "harbinger-scarab-of-obelisks"
+  },
+  {
+    "name": "Harbinger Scarab of Regency",
+    "chaosValue": 13.73,
+    "divineValue": 0.0914418,
+    "detailsId": "harbinger-scarab-of-regency"
+  },
+  {
+    "name": "Harvest Scarab of Cornucopia",
+    "chaosValue": 32.3,
+    "divineValue": 0.21511799999999998,
+    "detailsId": "harvest-scarab-of-cornucopia"
+  },
+  {
+    "name": "Horned Scarab of Tradition",
+    "chaosValue": 0.708,
+    "divineValue": 0.00471528,
+    "detailsId": "horned-scarab-of-tradition"
+  },
+  {
+    "name": "Incursion Scarab of Invasion",
+    "chaosValue": 0.375,
+    "divineValue": 0.0024975,
+    "detailsId": "incursion-scarab-of-invasion"
+  },
+  {
+    "name": "Incursion Scarab of Timelines",
+    "chaosValue": 8.42,
+    "divineValue": 0.0560772,
+    "detailsId": "incursion-scarab-of-timelines"
+  },
+  {
+    "name": "Influencing Scarab of Conversion",
+    "chaosValue": 0.5716,
+    "divineValue": 0.003806856,
+    "detailsId": "influencing-scarab-of-conversion"
+  },
+  {
+    "name": "Kalguuran Scarab of Refinement",
+    "chaosValue": 6.84,
+    "divineValue": 0.0455544,
+    "detailsId": "kalguuran-scarab-of-refinement"
+  },
+  {
+    "name": "Legion Scarab",
+    "chaosValue": 0.5005,
+    "divineValue": 0.00333333,
+    "detailsId": "legion-scarab"
+  },
+  {
+    "name": "Legion Scarab of Eternal Conflict",
+    "chaosValue": 5.22,
+    "divineValue": 0.034765199999999996,
+    "detailsId": "legion-scarab-of-eternal-conflict"
+  },
+  {
+    "name": "Ritual Scarab of Selectiveness",
+    "chaosValue": 0.7704,
+    "divineValue": 0.005130864,
+    "detailsId": "ritual-scarab-of-selectiveness"
+  },
+  {
+    "name": "Scarab of Adversaries",
+    "chaosValue": 0.5204,
+    "divineValue": 0.003465864,
+    "detailsId": "scarab-of-adversaries"
+  },
+  {
+    "name": "Scarab of Bisection",
+    "chaosValue": 0.372,
+    "divineValue": 0.00247752,
+    "detailsId": "scarab-of-bisection"
+  },
+  {
+    "name": "Scarab of Radiant Storms",
+    "chaosValue": 4.37,
+    "divineValue": 0.0291042,
+    "detailsId": "scarab-of-radiant-storms"
+  },
+  {
+    "name": "Scarab of Stability",
+    "chaosValue": 0.3954,
+    "divineValue": 0.002633364,
+    "detailsId": "scarab-of-stability"
+  },
+  {
+    "name": "Titanic Scarab",
+    "chaosValue": 0.4645,
+    "divineValue": 0.0030935700000000003,
+    "detailsId": "titanic-scarab"
+  },
+  {
+    "name": "Titanic Scarab of Legend",
+    "chaosValue": 0.4829,
+    "divineValue": 0.003216114,
+    "detailsId": "titanic-scarab-of-legend"
+  },
+  {
+    "name": "Titanic Scarab of Treasures",
+    "chaosValue": 0.5271,
+    "divineValue": 0.003510486,
+    "detailsId": "titanic-scarab-of-treasures"
+  },
+  {
+    "name": "Torment Scarab",
+    "chaosValue": 0.4221,
+    "divineValue": 0.002811186,
+    "detailsId": "torment-scarab"
+  },
+  {
+    "name": "Torment Scarab of Possession",
+    "chaosValue": 0.4408,
+    "divineValue": 0.0029357280000000003,
+    "detailsId": "torment-scarab-of-possession"
+  },
+  {
+    "name": "Ultimatum Scarab",
+    "chaosValue": 0.4196,
+    "divineValue": 0.002794536,
+    "detailsId": "ultimatum-scarab"
+  },
+  {
+    "name": "Ultimatum Scarab of Bribing",
+    "chaosValue": 0.6365,
+    "divineValue": 0.00423909,
+    "detailsId": "ultimatum-scarab-of-bribing"
+  },
+  {
+    "name": "Ultimatum Scarab of Dueling",
+    "chaosValue": 2.49,
+    "divineValue": 0.0165834,
+    "detailsId": "ultimatum-scarab-of-dueling"
+  }
+]

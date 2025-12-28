@@ -1,0 +1,30 @@
+﻿# scarab-hub Development Guidelines
+
+Auto-generated from all feature plans. Last updated: 2025-12-27
+
+## Active Technologies
+
+- JavaScript (ES6+), HTML5, CSS3 + Vite (build tool and dev server), minimal external libraries (001-flipping-scarabs)
+
+## Project Structure
+
+```text
+backend/
+frontend/
+tests/
+```
+
+## Commands
+
+npm test; npm run lint
+
+## Code Style
+
+JavaScript (ES6+), HTML5, CSS3: Follow standard conventions
+
+## Recent Changes
+
+- 001-flipping-scarabs: Added JavaScript (ES6+), HTML5, CSS3 + Vite (build tool and dev server), minimal external libraries
+
+<!-- MANUAL ADDITIONS START -->
+<!-- MANUAL ADDITIONS END -->

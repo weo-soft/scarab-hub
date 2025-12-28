@@ -1,50 +1,78 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+Version change: N/A → 1.0.0 (Initial constitution)
+Modified principles: N/A (new document)
+Added sections: Code Quality Standards, Testing Standards, User Experience Consistency, Performance Requirements, Development Workflow
+Removed sections: N/A
+Templates requiring updates:
+  ✅ plan-template.md - Constitution Check section aligns with new principles
+  ✅ spec-template.md - User scenarios and testing requirements align with testing standards
+  ✅ tasks-template.md - Test tasks align with testing standards
+Follow-up TODOs: None
+-->
+
+# Scarab Hub Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Code Quality Standards (NON-NEGOTIABLE)
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+All code MUST adhere to established quality standards before merge. Code reviews MUST verify: consistent formatting and style (enforced by automated tools), clear naming conventions that express intent, comprehensive documentation for public APIs and complex logic, proper error handling with meaningful messages, and adherence to SOLID principles where applicable. Code MUST be maintainable, readable, and follow language-specific best practices. Rationale: High code quality reduces technical debt, improves maintainability, and enables faster feature development.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. Testing Standards (NON-NEGOTIABLE)
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+Test coverage MUST meet minimum thresholds: unit tests for all business logic (target: 80%+ coverage), integration tests for service boundaries and external dependencies, contract tests for API endpoints and interfaces, and end-to-end tests for critical user journeys. Tests MUST be written before or alongside implementation (TDD preferred). All tests MUST be deterministic, isolated, and fast. Test failures MUST block merges. Rationale: Comprehensive testing ensures reliability, prevents regressions, and enables confident refactoring.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### III. User Experience Consistency
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+User-facing features MUST provide consistent experiences across the application. This includes: uniform interaction patterns and UI components, predictable error messages and feedback, consistent navigation and information architecture, and accessible design following WCAG guidelines. User-facing changes MUST be validated through user testing or stakeholder approval before release. Rationale: Consistent UX reduces cognitive load, improves usability, and builds user trust.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### IV. Performance Requirements
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+All features MUST meet defined performance benchmarks. Performance requirements MUST be specified during design and validated before release. Common requirements include: response time targets (e.g., API endpoints <200ms p95), resource usage limits (e.g., memory, CPU), scalability thresholds (e.g., concurrent users, data volume), and load testing for critical paths. Performance regressions MUST be identified and addressed before merge. Rationale: Performance directly impacts user satisfaction and system scalability.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### V. Continuous Improvement
+
+Code quality, testing coverage, and performance metrics MUST be monitored and improved over time. Technical debt MUST be tracked and addressed in regular maintenance cycles. Refactoring MUST be prioritized when code quality or performance degrades. Rationale: Sustained quality requires ongoing attention and prevents accumulation of technical debt.
+
+## Development Workflow
+
+### Code Review Process
+
+All code changes MUST undergo peer review before merge. Reviewers MUST verify constitution compliance, including code quality standards, test coverage, and performance considerations. Reviews MUST be completed within defined SLAs to maintain development velocity.
+
+### Quality Gates
+
+The following gates MUST pass before code can be merged: automated linting and formatting checks, all tests passing (unit, integration, contract, E2E as applicable), code coverage thresholds met, performance benchmarks validated (for performance-critical changes), and security scans completed (for security-sensitive changes).
+
+### Testing Workflow
+
+Tests MUST be written as part of feature development, not as afterthoughts. Test failures MUST be fixed before implementation proceeds. Test suites MUST run in CI/CD pipelines and block merges on failure. Flaky tests MUST be identified and fixed immediately.
+
+## Performance Standards
+
+### Response Time Targets
+
+- API endpoints: p95 latency <200ms for standard operations, <500ms for complex operations
+- User interface: initial render <2s, interactions <100ms perceived latency
+- Background jobs: completion within defined SLA windows
+
+### Resource Constraints
+
+- Memory usage: must not exceed defined limits per service/component
+- CPU usage: must not cause degradation under normal load
+- Database queries: must be optimized, with slow query logging enabled
+
+### Scalability Requirements
+
+- System MUST handle expected concurrent user load without degradation
+- Data processing MUST scale with data volume growth
+- Horizontal scaling MUST be supported where applicable
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other development practices and guidelines. All team members MUST comply with these principles. Amendments to this constitution require: documented rationale for the change, team review and approval, version increment following semantic versioning, and update of dependent templates and documentation.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Compliance**: All pull requests and code reviews MUST verify compliance with constitution principles. Violations MUST be addressed before merge. Complexity or deviations from principles MUST be justified and documented.
+
+**Version**: 1.0.0 | **Ratified**: 2025-12-27 | **Last Amended**: 2025-12-27

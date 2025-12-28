@@ -1,0 +1,415 @@
+/**
+ * Application Entry Point
+ * Flipping Scarabs - Path of Exile vendor profitability calculator
+ */
+
+import { loadAndMergeScarabData, loadPreferences, savePreferences } from './js/services/dataService.js';
+import { calculateThreshold, calculateProfitabilityStatus } from './js/services/calculationService.js';
+import { Scarab } from './js/models/scarab.js';
+import { renderThresholdDisplay } from './js/components/thresholdDisplay.js';
+import { renderListView, updateListView, showLoadingState, showErrorState } from './js/views/listView.js';
+import { initGridView, updateGridView, setFilteredScarabs, clearFilteredScarabs } from './js/views/gridView.js';
+import { 
+  renderViewSwitcher, 
+  getViewPreference, 
+  saveViewPreference,
+  updateViewSwitcher,
+  getCurrencyPreference,
+  saveCurrencyPreference
+} from './js/components/viewSwitcher.js';
+import { 
+  renderFilterPanel, 
+  getCurrentFilters, 
+  filterScarabs, 
+  updateFilterCurrency,
+  setupThresholdSettingsButton
+} from './js/components/filterPanel.js';
+import { 
+  renderSimulationPanel,
+  initSimulationPanel 
+} from './js/components/simulationPanel.js';
+import { 
+  renderNavigation,
+  updateNavigation 
+} from './js/components/navigation.js';
+import { handleMissingPriceData, handleMissingDropWeight, sanitizeScarabData } from './js/utils/errorHandler.js';
+import { hideTooltip } from './js/utils/tooltip.js';
+
+// Import debug tools (only in development)
+if (import.meta.env.DEV) {
+  import('./js/utils/debugCellAnalyzer.js').then(module => {
+    console.log('💡 Debug tools available:');
+    console.log('   - window.analyzeCells() - Analyze image and detect cell positions');
+    console.log('   - window.exportCellConfig(cells) - Export cells as config code');
+  });
+}
+
+/**
+ * Initialize application
+ */
+async function init() {
+  // Show loading state
+  const listViewContainer = document.getElementById('list-view');
+  if (listViewContainer) {
+    showLoadingState(listViewContainer);
+  }
+
+  try {
+    console.log('Loading Scarab data...');
+    
+    // Load user preferences
+    const preferences = loadPreferences();
+    const currency = preferences.currencyPreference || 'chaos';
+    currentConfidencePercentile = preferences.confidencePercentile || 0.9;
+    currentTradeMode = preferences.tradeMode || 'returnable';
+
+    // Load and merge Scarab data
+    const rawData = await loadAndMergeScarabData();
+    
+    // Sanitize and create Scarab instances
+    const scarabs = rawData
+      .map(data => sanitizeScarabData(data))
+      .map(data => new Scarab(data))
+      .filter(scarab => {
+        // Filter out invalid Scarabs
+        if (!scarab.validate()) {
+          console.warn(`Invalid Scarab data: ${scarab.id}`);
+          return false;
+        }
+        return true;
+      });
+
+    console.log(`Loaded ${scarabs.length} Scarabs`);
+
+    // Handle missing data
+    scarabs.forEach(scarab => {
+      handleMissingPriceData(scarab);
+      handleMissingDropWeight(scarab);
+    });
+
+    // Calculate threshold
+    console.log('Calculating threshold...');
+    const threshold = calculateThreshold(scarabs, currentConfidencePercentile, 10000, currentTradeMode);
+    console.log(`Threshold calculated: ${threshold.value.toFixed(2)} chaos (mode: ${currentTradeMode})`);
+
+    // Calculate profitability status for all Scarabs
+    calculateProfitabilityStatus(scarabs, threshold);
+
+    // Count profitability statuses
+    const profitableCount = scarabs.filter(s => s.profitabilityStatus === 'profitable').length;
+    const notProfitableCount = scarabs.filter(s => s.profitabilityStatus === 'not_profitable').length;
+    const unknownCount = scarabs.filter(s => s.profitabilityStatus === 'unknown').length;
+    
+    console.log(`Profitability breakdown: ${profitableCount} profitable, ${notProfitableCount} not profitable, ${unknownCount} unknown`);
+
+    // Render navigation
+    const navigationContainer = document.getElementById('navigation');
+    if (navigationContainer) {
+      renderNavigation(navigationContainer, currentPage, handlePageChange);
+    }
+
+    // Render UI
+    renderUI(scarabs, threshold, currency);
+
+    // Initialize simulation panel (data only, will render when page is shown)
+    initSimulationPanel(scarabs, threshold);
+
+    console.log('Application initialized successfully');
+  } catch (error) {
+    console.error('Failed to initialize application:', error);
+    if (listViewContainer) {
+      showErrorState(listViewContainer, 'Failed to load Scarab data. Please refresh the page.');
+    } else {
+      showError('Failed to load Scarab data. Please refresh the page.');
+    }
+  }
+}
+
+// Global state
+let currentScarabs = [];
+let currentThreshold = null;
+let currentCurrency = 'chaos';
+let currentView = 'list';
+let currentFilters = null;
+let currentPage = 'flipping'; // 'flipping' or 'simulation'
+let currentConfidencePercentile = 0.9; // Default 90% confidence
+let currentTradeMode = 'returnable'; // Default trade mode: 'returnable', 'lowest_value', or 'optimal_combination'
+
+/**
+ * Render the main UI
+ * @param {Array<Scarab>} scarabs
+ * @param {ExpectedValueThreshold} threshold
+ * @param {string} currency
+ */
+function renderUI(scarabs, threshold, currency) {
+  // Store in global state
+  currentScarabs = scarabs;
+  currentThreshold = threshold;
+  currentCurrency = currency;
+  
+  // Load view preference
+  currentView = getViewPreference();
+
+  // Render threshold display
+  const thresholdContainer = document.getElementById('threshold-display');
+  if (thresholdContainer) {
+    renderThresholdDisplay(thresholdContainer, threshold, currency, currentConfidencePercentile, handleConfidencePercentileChange, currentTradeMode, handleTradeModeChange);
+  }
+
+  // Render filter panel
+  const filterPanelContainer = document.getElementById('filter-panel');
+  if (filterPanelContainer) {
+    renderFilterPanel(filterPanelContainer, currency, handleFilterChange);
+  }
+
+  // Setup threshold settings button (outside filter panel)
+  setupThresholdSettingsButton();
+
+  // View switcher is no longer rendered (currency dropdown removed)
+
+  // Render appropriate view
+  renderCurrentView();
+}
+
+/**
+ * Render both views simultaneously (merged layout)
+ */
+async function renderCurrentView() {
+  const listViewContainer = document.getElementById('list-view');
+  const gridViewContainer = document.getElementById('grid-view');
+  const canvas = document.getElementById('scarab-grid-canvas');
+
+  // Apply filters if active
+  let displayScarabs = currentScarabs;
+  if (currentFilters) {
+    displayScarabs = filterScarabs(currentScarabs);
+    
+    // Update grid view with filtered scarab IDs for highlighting
+    const filteredIds = displayScarabs.map(s => s.id);
+    setFilteredScarabs(filteredIds);
+  } else {
+    clearFilteredScarabs();
+  }
+
+  // Always show both views
+  if (listViewContainer) {
+    listViewContainer.style.display = 'block';
+    renderListView(listViewContainer, currentScarabs, currentCurrency, currentFilters);
+  }
+  
+  if (gridViewContainer) {
+    gridViewContainer.style.display = 'block';
+  }
+  
+  if (canvas) {
+    // Initialize or update grid view
+    try {
+      // Load image - Vite will handle the path from src/assets
+      // Since root is 'src', the path should be relative to src
+      await initGridView(canvas, currentScarabs, './assets/Scarab-tab.png');
+      
+      // Apply filter highlights if filters are active
+      if (currentFilters && displayScarabs.length > 0) {
+        const filteredIds = displayScarabs.map(s => s.id);
+        setFilteredScarabs(filteredIds);
+      }
+      
+      // Sync list wrapper height with grid canvas height (filter panel + list view)
+      const listWrapper = document.querySelector('.list-wrapper');
+      if (listWrapper && canvas.offsetHeight > 0) {
+        listWrapper.style.height = `${canvas.offsetHeight}px`;
+      }
+    } catch (error) {
+      console.error('Error rendering grid view:', error);
+    }
+  }
+}
+
+/**
+ * Handle view change (no longer used, but kept for compatibility)
+ * @param {string} view - 'list' or 'grid'
+ */
+function handleViewChange(view) {
+  // Views are now always shown together, so this is a no-op
+  // Kept for compatibility with viewSwitcher component
+}
+
+/**
+ * Handle filter change
+ * @param {object} filters - Filter criteria
+ */
+function handleFilterChange(filters) {
+  currentFilters = filters;
+  renderCurrentView();
+}
+
+/**
+ * Handle confidence percentile change
+ * @param {number} confidencePercentile - New confidence percentile (0-1)
+ */
+function handleConfidencePercentileChange(confidencePercentile) {
+  currentConfidencePercentile = confidencePercentile;
+  
+  // Save preference
+  const preferences = loadPreferences();
+  preferences.confidencePercentile = confidencePercentile;
+  savePreferences(preferences);
+  
+  // Recalculate threshold with new confidence percentile
+  if (currentScarabs.length > 0) {
+    console.log(`Recalculating threshold with ${(confidencePercentile * 100).toFixed(0)}% confidence...`);
+    const newThreshold = calculateThreshold(currentScarabs, confidencePercentile, 10000, currentTradeMode);
+    currentThreshold = newThreshold;
+    console.log(`New threshold: ${newThreshold.value.toFixed(2)} chaos`);
+    
+    // Recalculate profitability status
+    calculateProfitabilityStatus(currentScarabs, newThreshold);
+    
+    // Update threshold display
+    const thresholdContainer = document.getElementById('threshold-display');
+    if (thresholdContainer) {
+      renderThresholdDisplay(thresholdContainer, newThreshold, currentCurrency, confidencePercentile, handleConfidencePercentileChange, currentTradeMode, handleTradeModeChange);
+    }
+    
+    // Update views to reflect new profitability statuses
+    renderCurrentView();
+    
+    // Update simulation panel if on simulation page
+    if (currentPage === 'simulation') {
+      const simulationPanelContainer = document.getElementById('simulation-panel');
+      if (simulationPanelContainer) {
+        renderSimulationPanel(simulationPanelContainer);
+      }
+    }
+  }
+}
+
+/**
+ * Handle trade mode change
+ * @param {string} tradeMode - New trade mode ('returnable', 'lowest_value', or 'optimal_combination')
+ */
+function handleTradeModeChange(tradeMode) {
+  currentTradeMode = tradeMode;
+  
+  // Save preference
+  const preferences = loadPreferences();
+  preferences.tradeMode = tradeMode;
+  savePreferences(preferences);
+  
+  // Recalculate threshold with new trade mode
+  if (currentScarabs.length > 0) {
+    console.log(`Recalculating threshold with trade mode: ${tradeMode}...`);
+    const newThreshold = calculateThreshold(currentScarabs, currentConfidencePercentile, 10000, tradeMode);
+    currentThreshold = newThreshold;
+    console.log(`New threshold: ${newThreshold.value.toFixed(2)} chaos (mode: ${tradeMode})`);
+    
+    // Recalculate profitability status
+    calculateProfitabilityStatus(currentScarabs, newThreshold);
+    
+    // Update threshold display
+    const thresholdContainer = document.getElementById('threshold-display');
+    if (thresholdContainer) {
+      renderThresholdDisplay(thresholdContainer, newThreshold, currentCurrency, currentConfidencePercentile, handleConfidencePercentileChange, tradeMode, handleTradeModeChange);
+    }
+    
+    // Update views to reflect new profitability statuses
+    renderCurrentView();
+    
+    // Update simulation panel if on simulation page
+    if (currentPage === 'simulation') {
+      const simulationPanelContainer = document.getElementById('simulation-panel');
+      if (simulationPanelContainer) {
+        renderSimulationPanel(simulationPanelContainer);
+      }
+    }
+  }
+}
+
+/**
+ * Handle currency change
+ * @param {string} currency - 'chaos' or 'divine'
+ */
+function handleCurrencyChange(currency) {
+  currentCurrency = currency;
+  
+  // Update threshold display (in overlay)
+  const thresholdContainer = document.getElementById('threshold-display');
+  if (thresholdContainer && currentThreshold) {
+    renderThresholdDisplay(thresholdContainer, currentThreshold, currency, currentConfidencePercentile, handleConfidencePercentileChange, currentTradeMode, handleTradeModeChange);
+  }
+  
+  // Update filter panel currency
+  const filterPanelContainer = document.getElementById('filter-panel');
+  if (filterPanelContainer) {
+    updateFilterCurrency(filterPanelContainer, currency);
+  }
+  
+  // Update current view
+  renderCurrentView();
+  
+  // Update simulation panel if on simulation page
+  if (currentPage === 'simulation') {
+    const simulationPanelContainer = document.getElementById('simulation-panel');
+    if (simulationPanelContainer) {
+      renderSimulationPanel(simulationPanelContainer);
+    }
+  }
+}
+
+/**
+ * Handle page change
+ * @param {string} page - 'flipping' or 'simulation'
+ */
+function handlePageChange(page) {
+  currentPage = page;
+  
+  // Update navigation
+  const navigationContainer = document.getElementById('navigation');
+  if (navigationContainer) {
+    updateNavigation(navigationContainer, page);
+  }
+  
+  // Show/hide pages
+  const flippingPage = document.getElementById('flipping-page');
+  const simulationPage = document.getElementById('simulation-page');
+  
+  if (flippingPage && simulationPage) {
+    if (page === 'flipping') {
+      flippingPage.classList.add('active');
+      simulationPage.classList.remove('active');
+    } else if (page === 'simulation') {
+      flippingPage.classList.remove('active');
+      simulationPage.classList.add('active');
+      
+      // Render simulation panel when switching to simulation page
+      const simulationPanelContainer = document.getElementById('simulation-panel');
+      if (simulationPanelContainer) {
+        renderSimulationPanel(simulationPanelContainer);
+      }
+    }
+  }
+}
+
+/**
+ * Show error message to user
+ * @param {string} message
+ */
+function showError(message) {
+  const app = document.getElementById('app');
+  if (app) {
+    app.innerHTML = `
+      <div class="error-message">
+        <h2>Error</h2>
+        <p>${message}</p>
+        <button onclick="location.reload()">Reload Page</button>
+      </div>
+    `;
+  }
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
