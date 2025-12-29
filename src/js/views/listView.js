@@ -233,7 +233,7 @@ function renderScarabItem(scarab, currency) {
   const bgColor = getProfitabilityBackgroundColor(status);
   const statusLabel = getStatusLabel(status);
   const statusIcon = getStatusIcon(status);
-  const imagePath = `./assets/scarabs/${scarab.id}.png`;
+  const imagePath = `/assets/scarabs/${scarab.id}.png`;
 
   return `
     <div class="scarab-item compact" data-scarab-id="${scarab.id}" 

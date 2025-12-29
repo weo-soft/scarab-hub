@@ -377,7 +377,7 @@ function renderGrid(canvas) {
 function getScarabImagePath(scarab) {
   if (!scarab || !scarab.id) return null;
   // Image path matches scarab ID: {id}.png
-  return `./assets/scarabs/${scarab.id}.png`;
+  return `/assets/scarabs/${scarab.id}.png`;
 }
 
 /**

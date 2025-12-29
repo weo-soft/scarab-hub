@@ -204,9 +204,8 @@ async function renderCurrentView() {
   if (canvas) {
     // Initialize or update grid view
     try {
-      // Load image - Vite will handle the path from src/assets
-      // Since root is 'src', the path should be relative to src
-      await initGridView(canvas, currentScarabs, './assets/Scarab-tab.png');
+      // Load image from public assets
+      await initGridView(canvas, currentScarabs, '/assets/Scarab-tab.png');
       
       // Apply filter highlights if filters are active
       if (currentFilters && displayScarabs.length > 0) {
