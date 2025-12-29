@@ -3,24 +3,30 @@
  * Handles loading and merging JSON files, LocalStorage management
  */
 
+import { fetchDataWithFallback, forceRefreshData } from '../utils/dataFetcher.js';
+import { getPriceFileName, getPriceFileLocalPath } from './leagueService.js';
+
 /**
  * Load and merge Scarab details and prices
  * @returns {Promise<Array<Scarab>>}
  */
 export async function loadAndMergeScarabData() {
   try {
-    // Load both JSON files
-    const [detailsResponse, pricesResponse] = await Promise.all([
-      fetch('/data/scarabDetails.json'),
-      fetch('/data/scarabPrices_Keepers.json'),
-    ]);
-
-    if (!detailsResponse.ok || !pricesResponse.ok) {
-      throw new Error('Failed to load Scarab data files');
+    // Load details from local (static data)
+    const detailsResponse = await fetch('/data/scarabDetails.json');
+    if (!detailsResponse.ok) {
+      throw new Error('Failed to load Scarab details file');
     }
-
     const details = await detailsResponse.json();
-    const prices = await pricesResponse.json();
+
+    // Load prices from remote with fallback to local (using selected league)
+    const priceFileName = getPriceFileName();
+    const priceFileLocalPath = getPriceFileLocalPath();
+    
+    const prices = await fetchDataWithFallback(
+      priceFileName,
+      priceFileLocalPath
+    );
 
     // Create a map of prices by detailsId for quick lookup
     const priceMap = new Map();
@@ -135,16 +141,18 @@ export function getLastUpdate() {
 }
 
 /**
- * Refresh price data (reload from JSON)
+ * Refresh price data (force refresh from remote)
  * @returns {Promise<Array>}
  */
 export async function refreshPriceData() {
   try {
-    const response = await fetch('/data/scarabPrices_Keepers.json');
-    if (!response.ok) {
-      throw new Error('Failed to refresh price data');
-    }
-    const prices = await response.json();
+    const priceFileName = getPriceFileName();
+    const priceFileLocalPath = getPriceFileLocalPath();
+    
+    const prices = await forceRefreshData(
+      priceFileName,
+      priceFileLocalPath
+    );
     saveCachedPrices(prices);
     return prices;
   } catch (error) {

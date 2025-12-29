@@ -33,6 +33,11 @@ export function renderNavigation(container, currentPage = 'flipping', onPageChan
                 aria-label="Vendor Simulation page">
           <span>⚙️</span> Vendor Simulation
         </button>
+        <button class="nav-item" 
+                id="data-status-nav-item"
+                aria-label="Data Status">
+          <span>📊</span> Data Status
+        </button>
       </div>
     </nav>
   `;
@@ -64,6 +69,14 @@ function setupEventListeners(container, onPageChange) {
       const page = item.dataset.page;
       if (page && onPageChange) {
         onPageChange(page);
+        // Close menu after selection
+        navMenu.classList.remove('open');
+        burgerMenu.classList.remove('active');
+      } else if (item.id === 'data-status-nav-item') {
+        // Handle data status overlay
+        import('./dataStatusOverlay.js').then(module => {
+          module.openDataStatusOverlay();
+        });
         // Close menu after selection
         navMenu.classList.remove('open');
         burgerMenu.classList.remove('active');

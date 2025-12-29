@@ -10,8 +10,8 @@
   <div id="app">
     <header>
       <div id="navigation"></div>
-      <h1>Flipping Scarabs</h1>
-      <p>Determine which Scarabs to vendor using the 3-to-1 recipe</p>
+      <h1>3-to-1 Flipping Scarabs</h1>
+      <div id="league-selector-container"></div>
     </header>
     
     <main>
@@ -38,6 +38,16 @@
               <button id="close-threshold-overlay" class="close-overlay-btn" aria-label="Close overlay">×</button>
             </div>
             <div id="threshold-display"></div>
+          </div>
+        </div>
+        <!-- Data Status Overlay -->
+        <div id="data-status-overlay" class="overlay">
+          <div class="overlay-content">
+            <div class="overlay-header">
+              <h2>Data Status</h2>
+              <button id="close-data-status-overlay" class="close-overlay-btn" aria-label="Close overlay">×</button>
+            </div>
+            <div id="data-status-content"></div>
           </div>
         </div>
       </div>

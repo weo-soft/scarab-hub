@@ -5,6 +5,8 @@
 
 import { loadAndMergeScarabData, loadPreferences, savePreferences } from './js/services/dataService.js';
 import { calculateThreshold, calculateProfitabilityStatus } from './js/services/calculationService.js';
+import { priceUpdateService } from './js/services/priceUpdateService.js';
+import { initLeagueService } from './js/services/leagueService.js';
 import { Scarab } from './js/models/scarab.js';
 import { renderThresholdDisplay } from './js/components/thresholdDisplay.js';
 import { renderListView, updateListView, showLoadingState, showErrorState } from './js/views/listView.js';
@@ -34,6 +36,9 @@ import {
 } from './js/components/navigation.js';
 import { handleMissingPriceData, handleMissingDropWeight, sanitizeScarabData } from './js/utils/errorHandler.js';
 import { hideTooltip } from './js/utils/tooltip.js';
+import { initDataStatusOverlay, setOnRefreshCallback } from './js/components/dataStatusOverlay.js';
+import { renderLeagueSelector, setOnLeagueChange } from './js/components/leagueSelector.js';
+import { showErrorToast, showWarningToast } from './js/utils/toast.js';
 
 // Import debug tools (only in development)
 if (import.meta.env.DEV) {
@@ -42,6 +47,115 @@ if (import.meta.env.DEV) {
     console.log('   - window.analyzeCells() - Analyze image and detect cell positions');
     console.log('   - window.exportCellConfig(cells) - Export cells as config code');
   });
+}
+
+/**
+ * Reload scarab data with updated prices
+ * @param {Array|null} updatedPrices - Updated price data, or null to reload from service
+ */
+async function reloadScarabDataWithPrices(updatedPrices) {
+  try {
+    console.log('Reloading scarab data with updated prices...');
+    
+    let merged;
+    
+    if (updatedPrices === null) {
+      // League changed, reload from service
+      merged = await loadAndMergeScarabData();
+    } else {
+      // Prices updated, merge with existing details
+      // Load details from local (static data)
+      const detailsResponse = await fetch('/data/scarabDetails.json');
+      if (!detailsResponse.ok) {
+        throw new Error('Failed to load Scarab details file');
+      }
+      const details = await detailsResponse.json();
+
+      // Create a map of prices by detailsId for quick lookup
+      const priceMap = new Map();
+      updatedPrices.forEach(price => {
+        if (price.detailsId) {
+          priceMap.set(price.detailsId, price);
+        }
+      });
+
+      // Merge details with updated prices
+      merged = details.map(detail => {
+        const price = priceMap.get(detail.id);
+        return {
+          ...detail,
+          chaosValue: price?.chaosValue ?? null,
+          divineValue: price?.divineValue ?? null,
+        };
+      });
+    }
+
+    // Sanitize and create Scarab instances
+    const scarabs = merged
+      .map(data => sanitizeScarabData(data))
+      .map(data => new Scarab(data))
+      .filter(scarab => {
+        if (!scarab.validate()) {
+          console.warn(`Invalid Scarab data: ${scarab.id}`);
+          return false;
+        }
+        return true;
+      });
+
+    // Handle missing data
+    scarabs.forEach(scarab => {
+      handleMissingPriceData(scarab);
+      handleMissingDropWeight(scarab);
+    });
+
+    // Recalculate threshold
+    const threshold = calculateThreshold(scarabs, currentConfidencePercentile, 10000, currentTradeMode);
+    
+    // Recalculate profitability status
+    calculateProfitabilityStatus(scarabs, threshold);
+
+    // Update global state
+    currentScarabs = scarabs;
+    currentThreshold = threshold;
+
+    // Update threshold display
+    const thresholdContainer = document.getElementById('threshold-display');
+    if (thresholdContainer) {
+      renderThresholdDisplay(thresholdContainer, threshold, currentCurrency, currentConfidencePercentile, handleConfidencePercentileChange, currentTradeMode, handleTradeModeChange);
+    }
+
+    // Update views
+    renderCurrentView();
+
+    // Update league selector (in case it needs refresh)
+    const leagueSelectorContainer = document.getElementById('league-selector-container');
+    if (leagueSelectorContainer) {
+      import('./js/components/leagueSelector.js').then(module => {
+        module.updateLeagueSelector(leagueSelectorContainer);
+      });
+    }
+
+    // Update simulation panel if initialized
+    initSimulationPanel(scarabs, threshold);
+
+    console.log(`✓ Scarab data reloaded with updated prices (${scarabs.length} scarabs)`);
+  } catch (error) {
+    console.error('Error reloading scarab data with updated prices:', error);
+    
+    // Show error toast if it's a data loading error
+    if (error.message && (error.message.includes('Unable to load') || error.message.includes('file not found') || error.message.includes('404'))) {
+      const { getSelectedLeague } = await import('./js/services/leagueService.js');
+      const league = getSelectedLeague();
+      const leagueName = league ? league.name : 'selected league';
+      
+      showErrorToast(
+        `There is insufficient price data for ${leagueName}. ` +
+        `Please try another league or check back later.`
+      );
+    } else {
+      showErrorToast('Failed to reload scarab data. Please try again.');
+    }
+  }
 }
 
 /**
@@ -57,13 +171,16 @@ async function init() {
   try {
     console.log('Loading Scarab data...');
     
+    // Initialize league service first
+    await initLeagueService();
+    
     // Load user preferences
     const preferences = loadPreferences();
     const currency = preferences.currencyPreference || 'chaos';
     currentConfidencePercentile = preferences.confidencePercentile || 0.9;
     currentTradeMode = preferences.tradeMode || 'returnable';
 
-    // Load and merge Scarab data
+    // Load and merge Scarab data (will use selected league)
     const rawData = await loadAndMergeScarabData();
     
     // Sanitize and create Scarab instances
@@ -114,9 +231,51 @@ async function init() {
     // Initialize simulation panel (data only, will render when page is shown)
     initSimulationPanel(scarabs, threshold);
 
+    // Set up price update callback to reload data when prices change
+    priceUpdateService.setOnPriceUpdate(async (updatedPrices) => {
+      await reloadScarabDataWithPrices(updatedPrices);
+    });
+
+    // Set up data status overlay refresh callback
+    setOnRefreshCallback(async (updatedPrices) => {
+      await reloadScarabDataWithPrices(updatedPrices);
+    });
+
+    // Set up league selector callback
+    setOnLeagueChange(async () => {
+      await reloadScarabDataWithPrices(null);
+    });
+
+    // Render league selector in header
+    const leagueSelectorContainer = document.getElementById('league-selector-container');
+    if (leagueSelectorContainer) {
+      renderLeagueSelector(leagueSelectorContainer);
+    }
+
+    // Initialize data status overlay
+    initDataStatusOverlay();
+
+    // Start automatic price updates
+    priceUpdateService.startAutomaticUpdates();
+
     console.log('Application initialized successfully');
   } catch (error) {
     console.error('Failed to initialize application:', error);
+    
+    // Show error toast
+    if (error.message && (error.message.includes('Unable to load') || error.message.includes('file not found') || error.message.includes('404'))) {
+      const { getSelectedLeague } = await import('./js/services/leagueService.js');
+      const league = getSelectedLeague();
+      const leagueName = league ? league.name : 'selected league';
+      
+      showErrorToast(
+        `There is insufficient price data for ${leagueName}. ` +
+        `Please try another league or check back later.`
+      );
+    } else {
+      showErrorToast('Failed to load Scarab data. Please refresh the page.');
+    }
+    
     if (listViewContainer) {
       showErrorState(listViewContainer, 'Failed to load Scarab data. Please refresh the page.');
     } else {
