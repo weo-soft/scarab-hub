@@ -1,15 +1,18 @@
 /**
  * Navigation Component
- * Handles navigation between pages with a burger menu
+ * Handles navigation between different item categories and pages
  */
 
 /**
- * Render navigation with burger menu
+ * Render horizontal navigation bar
  * @param {HTMLElement} container - Container element
+ * @param {string} currentCategory - Current category ('scarabs', 'essences', 'tattoos', 'catalysts', 'temple', 't17')
  * @param {string} currentPage - Current page ('flipping' or 'simulation')
+ * @param {Function} onCategoryChange - Callback when category changes
  * @param {Function} onPageChange - Callback when page changes
+ * @param {Function} onLeagueSelectorReady - Callback when league selector container is ready
  */
-export function renderNavigation(container, currentPage = 'flipping', onPageChange) {
+export function renderNavigation(container, currentCategory = 'scarabs', currentPage = 'flipping', onCategoryChange, onPageChange, onLeagueSelectorReady) {
   if (!container) {
     console.error('Navigation: missing container');
     return;
@@ -17,96 +20,108 @@ export function renderNavigation(container, currentPage = 'flipping', onPageChan
 
   container.innerHTML = `
     <nav class="main-navigation">
-      <button class="burger-menu" id="burger-menu" aria-label="Toggle navigation menu">
-        <span class="burger-line"></span>
-        <span class="burger-line"></span>
-        <span class="burger-line"></span>
-      </button>
-      <div class="nav-menu" id="nav-menu">
-        <button class="nav-item ${currentPage === 'flipping' ? 'active' : ''}" 
-                data-page="flipping" 
-                aria-label="Flipping Scarabs page">
-          <span>📋</span> Flipping Scarabs
-        </button>
-        <button class="nav-item ${currentPage === 'simulation' ? 'active' : ''}" 
-                data-page="simulation" 
-                aria-label="Vendor Simulation page">
-          <span>⚙️</span> Vendor Simulation
-        </button>
-        <button class="nav-item" 
+      <div class="nav-bar">
+        <a href="#" class="nav-link ${currentCategory === 'scarabs' ? 'active' : ''}" 
+           data-category="scarabs" 
+           aria-label="Scarabs">
+          Scarabs
+        </a>
+        <a href="#" class="nav-link ${currentCategory === 'essences' ? 'active' : ''}" 
+           data-category="essences" 
+           aria-label="Essences">
+          Essences
+        </a>
+        <a href="#" class="nav-link ${currentCategory === 'tattoos' ? 'active' : ''}" 
+           data-category="tattoos" 
+           aria-label="Tattoos">
+          Tattoos
+        </a>
+        <a href="#" class="nav-link ${currentCategory === 'catalysts' ? 'active' : ''}" 
+           data-category="catalysts" 
+           aria-label="Catalysts">
+          Catalysts
+        </a>
+        <a href="#" class="nav-link ${currentCategory === 'temple' ? 'active' : ''}" 
+           data-category="temple" 
+           aria-label="Temple">
+          Temple
+        </a>
+        <a href="#" class="nav-link ${currentCategory === 't17' ? 'active' : ''}" 
+           data-category="t17" 
+           aria-label="T17">
+          T17
+        </a>
+      </div>
+      <div class="nav-actions">
+        <div id="league-selector-container"></div>
+        <button class="nav-action-btn" 
                 id="data-status-nav-item"
                 aria-label="Data Status">
-          <span>📊</span> Data Status
+          Data Status
         </button>
       </div>
     </nav>
   `;
 
   // Setup event listeners
-  setupEventListeners(container, onPageChange);
+  setupEventListeners(container, onCategoryChange, onPageChange);
+
+  // Notify that league selector container is ready
+  if (onLeagueSelectorReady) {
+    const leagueSelectorContainer = container.querySelector('#league-selector-container');
+    if (leagueSelectorContainer) {
+      onLeagueSelectorReady(leagueSelectorContainer);
+    }
+  }
 }
 
 /**
  * Setup event listeners for navigation
  * @param {HTMLElement} container
+ * @param {Function} onCategoryChange
  * @param {Function} onPageChange
  */
-function setupEventListeners(container, onPageChange) {
-  const burgerMenu = container.querySelector('#burger-menu');
-  const navMenu = container.querySelector('#nav-menu');
-  const navItems = container.querySelectorAll('.nav-item');
+function setupEventListeners(container, onCategoryChange, onPageChange) {
+  const navLinks = container.querySelectorAll('.nav-link');
+  const navActionBtns = container.querySelectorAll('.nav-action-btn');
 
-  // Toggle burger menu
-  burgerMenu.addEventListener('click', (e) => {
-    e.stopPropagation();
-    navMenu.classList.toggle('open');
-    burgerMenu.classList.toggle('active');
-  });
-
-  // Handle nav item clicks
-  navItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const page = item.dataset.page;
-      if (page && onPageChange) {
-        onPageChange(page);
-        // Close menu after selection
-        navMenu.classList.remove('open');
-        burgerMenu.classList.remove('active');
-      } else if (item.id === 'data-status-nav-item') {
-        // Handle data status overlay
-        import('./dataStatusOverlay.js').then(module => {
-          module.openDataStatusOverlay();
-        });
-        // Close menu after selection
-        navMenu.classList.remove('open');
-        burgerMenu.classList.remove('active');
+  // Handle category navigation links
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const category = link.dataset.category;
+      if (category && onCategoryChange) {
+        onCategoryChange(category);
       }
     });
   });
 
-  // Close menu when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!container.contains(e.target)) {
-      navMenu.classList.remove('open');
-      burgerMenu.classList.remove('active');
-    }
+  // Handle action buttons (data status)
+  navActionBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (btn.id === 'data-status-nav-item') {
+        // Handle data status overlay
+        import('./dataStatusOverlay.js').then(module => {
+          module.openDataStatusOverlay();
+        });
+      }
+    });
   });
 }
 
 /**
- * Update active page in navigation
+ * Update active category and page in navigation
  * @param {HTMLElement} container
+ * @param {string} activeCategory
  * @param {string} activePage
+ * @param {Function} onCategoryChange
+ * @param {Function} onPageChange
+ * @param {Function} onLeagueSelectorReady
  */
-export function updateNavigation(container, activePage) {
-  const navItems = container.querySelectorAll('.nav-item');
-  navItems.forEach(item => {
-    if (item.dataset.page === activePage) {
-      item.classList.add('active');
-    } else {
-      item.classList.remove('active');
-    }
-  });
+export function updateNavigation(container, activeCategory, activePage, onCategoryChange, onPageChange, onLeagueSelectorReady) {
+  // Re-render navigation to update submenu visibility
+  renderNavigation(container, activeCategory, activePage, onCategoryChange, onPageChange, onLeagueSelectorReady);
 }
 
 

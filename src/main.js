@@ -128,11 +128,14 @@ async function reloadScarabDataWithPrices(updatedPrices) {
     renderCurrentView();
 
     // Update league selector (in case it needs refresh)
-    const leagueSelectorContainer = document.getElementById('league-selector-container');
-    if (leagueSelectorContainer) {
-      import('./js/components/leagueSelector.js').then(module => {
-        module.updateLeagueSelector(leagueSelectorContainer);
-      });
+    const navigationContainer = document.getElementById('navigation');
+    if (navigationContainer) {
+      const leagueSelectorContainer = navigationContainer.querySelector('#league-selector-container');
+      if (leagueSelectorContainer) {
+        import('./js/components/leagueSelector.js').then(module => {
+          module.updateLeagueSelector(leagueSelectorContainer);
+        });
+      }
     }
 
     // Update simulation panel if initialized
@@ -222,8 +225,21 @@ async function init() {
     // Render navigation
     const navigationContainer = document.getElementById('navigation');
     if (navigationContainer) {
-      renderNavigation(navigationContainer, currentPage, handlePageChange);
+      renderNavigation(
+        navigationContainer, 
+        currentCategory, 
+        currentPage, 
+        handleCategoryChange, 
+        handlePageChange,
+        (leagueSelectorContainer) => {
+          // Render league selector in navigation bar
+          renderLeagueSelector(leagueSelectorContainer);
+        }
+      );
     }
+
+    // Setup header page buttons
+    setupHeaderPageButtons();
 
     // Render UI
     renderUI(scarabs, threshold, currency);
@@ -245,12 +261,6 @@ async function init() {
     setOnLeagueChange(async () => {
       await reloadScarabDataWithPrices(null);
     });
-
-    // Render league selector in header
-    const leagueSelectorContainer = document.getElementById('league-selector-container');
-    if (leagueSelectorContainer) {
-      renderLeagueSelector(leagueSelectorContainer);
-    }
 
     // Initialize data status overlay
     initDataStatusOverlay();
@@ -291,6 +301,7 @@ let currentCurrency = 'chaos';
 let currentView = 'list';
 let currentFilters = null;
 let currentPage = 'flipping'; // 'flipping' or 'simulation'
+let currentCategory = 'scarabs'; // 'scarabs', 'essences', 'tattoos', 'catalysts', 'temple', 't17'
 let currentConfidencePercentile = 0.9; // Default 90% confidence
 let currentTradeMode = 'returnable'; // Default trade mode: 'returnable', 'lowest_value', or 'optimal_combination'
 
@@ -515,6 +526,80 @@ function handleCurrencyChange(currency) {
 }
 
 /**
+ * Handle category change
+ * @param {string} category - 'scarabs', 'essences', 'tattoos', 'catalysts', 'temple', 't17'
+ */
+function handleCategoryChange(category) {
+  currentCategory = category;
+  
+  // Update navigation
+  const navigationContainer = document.getElementById('navigation');
+  if (navigationContainer) {
+    updateNavigation(
+      navigationContainer, 
+      category, 
+      currentPage,
+      handleCategoryChange,
+      handlePageChange,
+      (leagueSelectorContainer) => {
+        // Re-render league selector when navigation updates
+        renderLeagueSelector(leagueSelectorContainer);
+      }
+    );
+  }
+  
+  // TODO: Implement category-specific logic
+  // For now, this is a placeholder
+  console.log(`Category changed to: ${category}`);
+  
+  // Show placeholder message or load category-specific data
+  if (category !== 'scarabs') {
+    // For non-scarab categories, show a placeholder
+    showWarningToast(`${category.charAt(0).toUpperCase() + category.slice(1)} category is coming soon!`);
+  }
+}
+
+/**
+ * Setup header page buttons (Flipping, Simulation)
+ */
+function setupHeaderPageButtons() {
+  const headerPageButtons = document.getElementById('header-page-buttons');
+  if (!headerPageButtons) return;
+
+  const buttons = headerPageButtons.querySelectorAll('.header-page-btn');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const page = btn.dataset.page;
+      if (page) {
+        handlePageChange(page);
+      }
+    });
+  });
+
+  // Set initial active state
+  updateHeaderPageButtons(currentPage);
+}
+
+/**
+ * Update header page buttons active state
+ * @param {string} activePage - 'flipping' or 'simulation'
+ */
+function updateHeaderPageButtons(activePage) {
+  const headerPageButtons = document.getElementById('header-page-buttons');
+  if (!headerPageButtons) return;
+
+  const buttons = headerPageButtons.querySelectorAll('.header-page-btn');
+  buttons.forEach(btn => {
+    if (btn.dataset.page === activePage) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+}
+
+/**
  * Handle page change
  * @param {string} page - 'flipping' or 'simulation'
  */
@@ -524,8 +609,21 @@ function handlePageChange(page) {
   // Update navigation
   const navigationContainer = document.getElementById('navigation');
   if (navigationContainer) {
-    updateNavigation(navigationContainer, page);
+    updateNavigation(
+      navigationContainer, 
+      currentCategory, 
+      page,
+      handleCategoryChange,
+      handlePageChange,
+      (leagueSelectorContainer) => {
+        // Re-render league selector when navigation updates
+        renderLeagueSelector(leagueSelectorContainer);
+      }
+    );
   }
+
+  // Update header page buttons
+  updateHeaderPageButtons(page);
   
   // Show/hide pages
   const flippingPage = document.getElementById('flipping-page');

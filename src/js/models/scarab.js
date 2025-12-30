@@ -159,7 +159,10 @@ export class SimulationResult {
   constructor(data) {
     this.simulationId = data.simulationId || `sim_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     this.configuration = data.configuration;
-    this.yieldCounts = data.yieldCounts || new Map();
+    // Convert yieldCounts to Map if it's an object (from localStorage)
+    this.yieldCounts = data.yieldCounts instanceof Map 
+      ? data.yieldCounts 
+      : (data.yieldCounts ? new Map(Object.entries(data.yieldCounts)) : new Map());
     this.totalTransactions = data.totalTransactions || 0;
     this.totalInputValue = data.totalInputValue ?? 0;
     this.totalOutputValue = data.totalOutputValue ?? 0;
@@ -170,6 +173,19 @@ export class SimulationResult {
     this.transactions = data.transactions || [];
     this.completedAt = data.completedAt || null;
     this.executionTimeMs = data.executionTimeMs ?? 0;
+    
+    // Initial phase values (before continue mode) - only set if continue mode was used
+    this.initialPhaseTransactions = data.initialPhaseTransactions ?? null;
+    this.initialPhaseTotalInputValue = data.initialPhaseTotalInputValue ?? null;
+    this.initialPhaseTotalOutputValue = data.initialPhaseTotalOutputValue ?? null;
+    this.initialPhaseNetProfitLoss = data.initialPhaseNetProfitLoss ?? null;
+    this.initialPhaseCumulativeProfitLoss = data.initialPhaseCumulativeProfitLoss ?? null;
+    // Convert initialPhaseYieldCounts to Map if it's an object (from localStorage)
+    this.initialPhaseYieldCounts = data.initialPhaseYieldCounts 
+      ? (data.initialPhaseYieldCounts instanceof Map 
+          ? data.initialPhaseYieldCounts 
+          : new Map(Object.entries(data.initialPhaseYieldCounts)))
+      : null;
   }
 }
 

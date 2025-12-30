@@ -325,6 +325,25 @@ export async function runSimulation(config, allScarabs, progressCallback = null,
   
   // Phase 2: Continue mode - trade with returned scarabs below threshold
   if (config.continueMode && threshold) {
+    // Capture initial phase values before continue mode starts
+    const initialPhaseTransactions = config.transactionCount;
+    const initialPhaseTransactionsList = result.transactions.slice(0, initialPhaseTransactions);
+    const initialPhaseTotalInputValue = initialPhaseTransactionsList.reduce((sum, t) => sum + t.inputValue, 0);
+    const initialPhaseTotalOutputValue = initialPhaseTransactionsList.reduce((sum, t) => sum + t.returnedValue, 0);
+    const initialPhaseNetProfitLoss = initialPhaseTotalOutputValue - initialPhaseTotalInputValue;
+    const initialPhaseCumulativeProfitLoss = initialPhaseTransactionsList.length > 0 
+      ? initialPhaseTransactionsList[initialPhaseTransactionsList.length - 1].cumulativeProfitLoss 
+      : 0;
+    const initialPhaseYieldCounts = new Map(result.yieldCounts);
+    
+    // Store initial phase values in result
+    result.initialPhaseTransactions = initialPhaseTransactions;
+    result.initialPhaseTotalInputValue = initialPhaseTotalInputValue;
+    result.initialPhaseTotalOutputValue = initialPhaseTotalOutputValue;
+    result.initialPhaseNetProfitLoss = initialPhaseNetProfitLoss;
+    result.initialPhaseCumulativeProfitLoss = initialPhaseCumulativeProfitLoss;
+    result.initialPhaseYieldCounts = initialPhaseYieldCounts;
+    
     // Create a map of scarab ID to Scarab object for quick lookup
     const scarabMap = new Map(allScarabs.map(s => [s.id, s]));
     
@@ -353,11 +372,24 @@ export async function runSimulation(config, allScarabs, progressCallback = null,
       
       // Remove selected scarabs from the pool (remove exactly 3 items, one for each selected)
       // We need to remove by reference/identity, not just by ID, since we can have duplicates
+      // Ensure we remove exactly 3 items - if we can't find one, that's a critical error
+      let removedCount = 0;
       for (const selectedScarab of selectedForTrade) {
         const index = scarabsBelowThreshold.findIndex(s => s === selectedScarab);
         if (index !== -1) {
           scarabsBelowThreshold.splice(index, 1);
+          removedCount++;
+        } else {
+          // This should never happen if selectRandomThree works correctly
+          // But if it does, we have a serious bug - log error and break
+          console.error('Critical error: Selected scarab not found in pool during continue mode removal');
+          throw new Error('Failed to remove selected scarab from pool - simulation state corrupted');
         }
+      }
+      
+      // Verify we removed exactly 3 items
+      if (removedCount !== 3) {
+        throw new Error(`Failed to remove exactly 3 scarabs from pool (removed ${removedCount} instead of 3)`);
       }
       
       const inputScarabIds = selectedForTrade.map(s => s.id);

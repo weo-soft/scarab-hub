@@ -624,7 +624,7 @@ function updateSimulationScarabList(container, yieldCounts) {
   // Sync height after updating list
   syncListWrapperHeight(container);
 
-  // Convert yield counts to array and sort by count (descending)
+  // Convert yield counts to array, filter out zero counts, and sort by count (descending)
   const scarabEntries = Array.from(yieldCounts.entries())
     .map(([scarabId, count]) => {
       const scarab = currentScarabs.find(s => s.id === scarabId);
@@ -637,10 +637,8 @@ function updateSimulationScarabList(container, yieldCounts) {
         imagePath: `/assets/scarabs/${scarabId}.png`,
       };
     })
+    .filter(entry => entry.count > 0) // Remove entries with zero count
     .sort((a, b) => b.count - a.count); // Sort by count descending
-
-  // Calculate total transactions for percentage
-  const totalTransactions = Array.from(yieldCounts.values()).reduce((sum, count) => sum + count, 0);
 
   // Use the same list view structure as main view
   listContainer.innerHTML = `
@@ -649,7 +647,6 @@ function updateSimulationScarabList(container, yieldCounts) {
       <div class="scarab-header-cell name-cell">Name</div>
       <div class="scarab-header-cell value-cell">Value</div>
       <div class="scarab-header-cell yield-cell">Count</div>
-      <div class="scarab-header-cell yield-cell">%</div>
     </div>
     <div class="scarab-list">
       ${scarabEntries.map(scarab => `
@@ -660,7 +657,6 @@ function updateSimulationScarabList(container, yieldCounts) {
             ${scarab.chaosValue !== null ? `${scarab.chaosValue.toFixed(2)}c` : 'N/A'}
           </span>
           <span class="scarab-yield">${scarab.count.toLocaleString()}</span>
-          <span class="scarab-yield">${((scarab.count / totalTransactions) * 100).toFixed(2)}%</span>
         </div>
       `).join('')}
     </div>
@@ -681,6 +677,27 @@ function displayResults(container, result) {
   const isProfit = profitLoss > 0;
   const sign = isProfit ? '+' : '';
 
+  // Check if continue mode was used
+  const hasContinueMode = result.configuration?.continueMode && result.initialPhaseTransactions !== null;
+  
+  // Calculate continue mode changes if applicable
+  let continueModeChanges = null;
+  if (hasContinueMode) {
+    const continueTransactions = result.totalTransactions - result.initialPhaseTransactions;
+    const continueInputValue = result.totalInputValue - result.initialPhaseTotalInputValue;
+    const continueOutputValue = result.totalOutputValue - result.initialPhaseTotalOutputValue;
+    const continueNetProfitLoss = result.netProfitLoss - result.initialPhaseNetProfitLoss;
+    const continueCumulativeChange = result.finalCumulativeProfitLoss - result.initialPhaseCumulativeProfitLoss;
+    
+    continueModeChanges = {
+      transactions: continueTransactions,
+      inputValue: continueInputValue,
+      outputValue: continueOutputValue,
+      netProfitLoss: continueNetProfitLoss,
+      cumulativeChange: continueCumulativeChange,
+    };
+  }
+
   // Get significant events
   const events = getSignificantEvents(result);
   const rareScarabEvents = events.filter(e => e.type === 'rare_scarab_return');
@@ -699,15 +716,46 @@ function displayResults(container, result) {
   resultsContainer.style.display = 'block';
   resultsContainer.innerHTML = `
     <h3>Simulation Results</h3>
+    ${hasContinueMode ? `
+    <div class="continue-mode-summary">
+      <h4>Continue Mode Impact</h4>
+      <div class="continue-mode-stats">
+        <div class="continue-stat">
+          <span class="continue-label">Initial Phase:</span>
+          <span class="continue-value">${result.initialPhaseTransactions.toLocaleString()} transactions</span>
+        </div>
+        <div class="continue-stat">
+          <span class="continue-label">Continue Phase:</span>
+          <span class="continue-value">+${continueModeChanges.transactions.toLocaleString()} transactions</span>
+        </div>
+        <div class="continue-stat highlight">
+          <span class="continue-label">Net Profit/Loss Change:</span>
+          <span class="continue-value" style="color: ${getProfitLossColor(continueModeChanges.netProfitLoss)};">
+            ${continueModeChanges.netProfitLoss >= 0 ? '+' : ''}${continueModeChanges.netProfitLoss.toFixed(2)} chaos
+          </span>
+        </div>
+        <div class="continue-stat">
+          <span class="continue-label">Cumulative Change:</span>
+          <span class="continue-value" style="color: ${getProfitLossColor(continueModeChanges.cumulativeChange)};">
+            ${continueModeChanges.cumulativeChange >= 0 ? '+' : ''}${continueModeChanges.cumulativeChange.toFixed(2)} chaos
+          </span>
+        </div>
+      </div>
+    </div>
+    ` : ''}
     <div class="results-summary">
       <div class="result-item">
         <span class="result-label">Transactions:</span>
-        <span class="result-value">${result.totalTransactions.toLocaleString()}</span>
+        <span class="result-value">
+          ${result.totalTransactions.toLocaleString()}
+          ${hasContinueMode ? ` <span class="value-change">(Initial: ${result.initialPhaseTransactions.toLocaleString()}, +${continueModeChanges.transactions.toLocaleString()})</span>` : ''}
+        </span>
       </div>
       <div class="result-item highlight">
         <span class="result-label">Net Profit/Loss:</span>
         <span class="result-value" style="color: ${profitLossColor}; font-weight: bold;">
           ${sign}${profitLoss.toFixed(2)} chaos
+          ${hasContinueMode ? ` <span class="value-change" style="color: ${getProfitLossColor(continueModeChanges.netProfitLoss)};">(Initial: ${result.initialPhaseNetProfitLoss >= 0 ? '+' : ''}${result.initialPhaseNetProfitLoss.toFixed(2)}, Change: ${continueModeChanges.netProfitLoss >= 0 ? '+' : ''}${continueModeChanges.netProfitLoss.toFixed(2)})</span>` : ''}
         </span>
       </div>
       <div class="result-item">
@@ -718,16 +766,23 @@ function displayResults(container, result) {
       </div>
       <div class="result-item">
         <span class="result-label">Total Input Value:</span>
-        <span class="result-value">${result.totalInputValue.toFixed(2)} chaos</span>
+        <span class="result-value">
+          ${result.totalInputValue.toFixed(2)} chaos
+          ${hasContinueMode ? ` <span class="value-change">(Initial: ${result.initialPhaseTotalInputValue.toFixed(2)}, +${continueModeChanges.inputValue.toFixed(2)})</span>` : ''}
+        </span>
       </div>
       <div class="result-item">
         <span class="result-label">Total Output Value:</span>
-        <span class="result-value">${result.totalOutputValue.toFixed(2)} chaos</span>
+        <span class="result-value">
+          ${result.totalOutputValue.toFixed(2)} chaos
+          ${hasContinueMode ? ` <span class="value-change">(Initial: ${result.initialPhaseTotalOutputValue.toFixed(2)}, +${continueModeChanges.outputValue.toFixed(2)})</span>` : ''}
+        </span>
       </div>
       <div class="result-item">
         <span class="result-label">Final Cumulative:</span>
         <span class="result-value" style="color: ${getProfitLossColor(result.finalCumulativeProfitLoss)};">
           ${result.finalCumulativeProfitLoss >= 0 ? '+' : ''}${result.finalCumulativeProfitLoss.toFixed(2)} chaos
+          ${hasContinueMode ? ` <span class="value-change" style="color: ${getProfitLossColor(continueModeChanges.cumulativeChange)};">(Initial: ${result.initialPhaseCumulativeProfitLoss >= 0 ? '+' : ''}${result.initialPhaseCumulativeProfitLoss.toFixed(2)}, Change: ${continueModeChanges.cumulativeChange >= 0 ? '+' : ''}${continueModeChanges.cumulativeChange.toFixed(2)})</span>` : ''}
         </span>
       </div>
       <div class="result-item">
@@ -994,6 +1049,13 @@ function saveSimulationResult(result) {
         : result.transactions,
       completedAt: result.completedAt,
       executionTimeMs: result.executionTimeMs,
+      // Initial phase values (for continue mode)
+      initialPhaseTransactions: result.initialPhaseTransactions ?? null,
+      initialPhaseTotalInputValue: result.initialPhaseTotalInputValue ?? null,
+      initialPhaseTotalOutputValue: result.initialPhaseTotalOutputValue ?? null,
+      initialPhaseNetProfitLoss: result.initialPhaseNetProfitLoss ?? null,
+      initialPhaseCumulativeProfitLoss: result.initialPhaseCumulativeProfitLoss ?? null,
+      initialPhaseYieldCounts: result.initialPhaseYieldCounts ? Object.fromEntries(result.initialPhaseYieldCounts) : null,
     };
     
     results.push(resultData);
