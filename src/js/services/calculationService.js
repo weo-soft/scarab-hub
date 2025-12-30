@@ -347,8 +347,8 @@ export function calculateOptimizedStrategy(scarabs, threshold, transactionCount)
  * @returns {object} Simulation results
  */
 export function calculateUserChosenStrategy(selectedScarabs, threshold, transactionCount) {
-  if (selectedScarabs.length < 3) {
-    throw new Error('User-chosen strategy requires at least 3 selected Scarabs');
+  if (selectedScarabs.length < 1) {
+    throw new Error('User-chosen strategy requires at least 1 selected Scarab');
   }
 
   // Calculate average input value from selected Scarabs

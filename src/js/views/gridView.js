@@ -19,6 +19,9 @@ let scarabImageCache = new Map(); // Maps scarab ID to loaded image
 let currentCanvas = null; // Store canvas reference for re-rendering
 let highlightedScarabId = null; // Currently highlighted scarab ID
 let filteredScarabIds = new Set(); // Set of scarab IDs that match current filters
+let yieldCounts = new Map(); // Maps scarab ID to yield count from simulation
+let showCellBackgrounds = true; // Whether to show cell background highlights
+let isSimulationMode = false; // Whether we're in simulation mode (only show images for scarabs with yield counts)
 
 /**
  * Initialize grid view
@@ -34,6 +37,20 @@ export async function initGridView(canvas, scarabs, imagePath = null) {
 
   currentCanvas = canvas; // Store canvas reference
   scarabData = scarabs || [];
+  
+  // Check if this is the simulation grid canvas
+  isSimulationMode = canvas.id === 'simulation-grid-canvas';
+  
+  // In simulation mode, hide backgrounds/borders by default
+  if (isSimulationMode) {
+    showCellBackgrounds = false;
+  } else {
+    // Clear yield counts when initializing main grid view (not simulation)
+    // This prevents simulation data from leaking into the main view
+    yieldCounts.clear();
+    // Reset cell backgrounds to default (show) for main view
+    showCellBackgrounds = true;
+  }
   
   try {
     // Load base image
@@ -350,6 +367,7 @@ function renderGrid(canvas) {
       }
       
       // Draw hover highlight if this cell is highlighted (on top of filter grayout)
+      // Always show hover highlight and border regardless of showCellBackgrounds setting
       if (highlightedScarabId === scarab.id) {
         drawCellHighlight(ctx, cell.x, cell.y, cell.width, cell.height, '#ffd700', 0.6);
         drawCellBorder(ctx, cell.x, cell.y, cell.width, cell.height, '#ffd700', 3);
@@ -428,27 +446,88 @@ function drawCellOverlay(ctx, cell, scarab) {
   const color = getProfitabilityColor(status);
   const borderColor = getProfitabilityBorderColor(status);
   
-  // Draw highlight overlay first (as background)
-  if (status !== 'unknown') {
+  // Draw highlight overlay first (as background) - only if enabled
+  if (showCellBackgrounds && status !== 'unknown') {
     drawCellHighlight(ctx, cell.x, cell.y, cell.width, cell.height, color, 0.4);
   }
   
   // Draw scarab image on top (foreground)
-  const scarabImage = scarabImageCache.get(scarab.id);
-  if (scarabImage) {
-    // Calculate image dimensions to fit within cell with padding
-    const padding = 2;
-    const imageX = cell.x + padding;
-    const imageY = cell.y + padding;
-    const imageWidth = cell.width - (padding * 2);
-    const imageHeight = cell.height - (padding * 2);
-    
-    // Draw image
-    ctx.drawImage(scarabImage, imageX, imageY, imageWidth, imageHeight);
+  // In simulation mode, only show images for scarabs that were returned (have yield count > 0)
+  // In main view, always show images
+  const yieldCount = yieldCounts.get(scarab.id);
+  const hasYieldCount = yieldCount !== undefined && yieldCount !== null && yieldCount > 0;
+  const shouldShowImage = !isSimulationMode || hasYieldCount;
+  
+  if (shouldShowImage) {
+    const scarabImage = scarabImageCache.get(scarab.id);
+    if (scarabImage) {
+      // Calculate image dimensions to fit within cell with padding
+      const padding = 2;
+      const imageX = cell.x + padding;
+      const imageY = cell.y + padding;
+      const imageWidth = cell.width - (padding * 2);
+      const imageHeight = cell.height - (padding * 2);
+      
+      // Draw image
+      ctx.drawImage(scarabImage, imageX, imageY, imageWidth, imageHeight);
+    }
   }
   
-  // Draw border
-  drawCellBorder(ctx, cell.x, cell.y, cell.width, cell.height, borderColor, 2);
+  // Draw yield count if available
+  if (yieldCount !== undefined && yieldCount !== null) {
+    ctx.save();
+    ctx.fillStyle = '#ffffff';
+    ctx.strokeStyle = '#000000';
+    ctx.lineWidth = 2;
+    ctx.font = 'bold 10px Arial';
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'bottom';
+    
+    const textX = cell.x + cell.width - 3;
+    const textY = cell.y + cell.height - 3;
+    const text = yieldCount > 0 ? yieldCount.toLocaleString() : '0';
+    
+    // Draw text with outline for readability
+    ctx.strokeText(text, textX, textY);
+    ctx.fillText(text, textX, textY);
+    ctx.restore();
+  }
+  
+  // Draw border - only if backgrounds are enabled
+  if (showCellBackgrounds) {
+    drawCellBorder(ctx, cell.x, cell.y, cell.width, cell.height, borderColor, 2);
+  }
+}
+
+/**
+ * Set yield counts for display in grid view
+ * @param {Map<string, number>|Object} counts - Map or object of scarab ID to yield count
+ */
+export function setYieldCounts(counts) {
+  if (counts instanceof Map) {
+    yieldCounts = new Map(counts);
+  } else if (counts && typeof counts === 'object') {
+    yieldCounts = new Map(Object.entries(counts));
+  } else {
+    yieldCounts = new Map();
+  }
+  
+  // Re-render grid if canvas is available
+  if (currentCanvas) {
+    renderGrid(currentCanvas);
+  }
+}
+
+/**
+ * Clear yield counts from grid view
+ */
+export function clearYieldCounts() {
+  yieldCounts = new Map();
+  
+  // Re-render grid if canvas is available
+  if (currentCanvas) {
+    renderGrid(currentCanvas);
+  }
 }
 
 /**
@@ -565,6 +644,27 @@ export function renderGridOptimized(canvas) {
   requestAnimationFrame(() => {
     renderGrid(canvas);
   });
+}
+
+/**
+ * Toggle cell background visibility
+ * @param {boolean} show - Whether to show cell backgrounds
+ */
+export function setShowCellBackgrounds(show) {
+  showCellBackgrounds = show;
+  
+  // Re-render grid if canvas is available
+  if (currentCanvas) {
+    renderGrid(currentCanvas);
+  }
+}
+
+/**
+ * Get current cell background visibility state
+ * @returns {boolean}
+ */
+export function getShowCellBackgrounds() {
+  return showCellBackgrounds;
 }
 
 /**
