@@ -13,6 +13,7 @@ let currentCurrency = 'chaos';
 let currentSort = { field: 'value', direction: 'asc' };
 let currentFilters = null;
 let tooltipTimeout = null; // Shared timeout for all list items
+let yieldCounts = new Map(); // Maps scarab ID to yield count from simulation
 
 /**
  * Render list view with all Scarabs
@@ -30,6 +31,13 @@ export function renderListView(container, scarabs, currency = 'chaos', filters =
   if (!Array.isArray(scarabs) || scarabs.length === 0) {
     container.innerHTML = '<p>No Scarabs to display</p>';
     return;
+  }
+
+  // Clear yield counts when rendering main list view (not simulation)
+  // This prevents simulation data from leaking into the main view
+  // The simulation panel uses its own updateSimulationScarabList function
+  if (container.id === 'list-view') {
+    yieldCounts.clear();
   }
 
   // Store current state
@@ -53,6 +61,8 @@ export function renderListView(container, scarabs, currency = 'chaos', filters =
     return currentSort.direction === 'asc' ? ' ↑' : ' ↓';
   };
 
+  const hasYieldCounts = yieldCounts.size > 0;
+  
   const html = `
     <div class="scarab-list-header">
       <div class="scarab-header-cell image-cell"></div>
@@ -62,9 +72,11 @@ export function renderListView(container, scarabs, currency = 'chaos', filters =
       <div class="scarab-header-cell value-cell sortable" data-sort-field="value">
         Value${getSortIndicator('value')}
       </div>
-      <div class="scarab-header-cell meta-cell sortable" data-sort-field="weight">
-        Weight${getSortIndicator('weight')}
+      ${hasYieldCounts ? `
+      <div class="scarab-header-cell yield-cell sortable" data-sort-field="yield">
+        Yield Count${getSortIndicator('yield')}
       </div>
+      ` : ''}
     </div>
     <div class="scarab-list">
       ${sortedScarabs.map(scarab => renderScarabItem(scarab, currency)).join('')}
@@ -234,6 +246,8 @@ function renderScarabItem(scarab, currency) {
   const statusLabel = getStatusLabel(status);
   const statusIcon = getStatusIcon(status);
   const imagePath = `/assets/scarabs/${scarab.id}.png`;
+  const yieldCount = yieldCounts.get(scarab.id);
+  const hasYieldCounts = yieldCounts.size > 0;
 
   return `
     <div class="scarab-item compact" data-scarab-id="${scarab.id}" 
@@ -243,11 +257,46 @@ function renderScarabItem(scarab, currency) {
       <span class="scarab-value">
         ${value !== null ? `${value.toFixed(2)} ${currency === 'divine' ? 'Div' : 'c'}` : 'N/A'}
       </span>
-      <span class="scarab-meta-compact">
-        <span class="scarab-weight">W: ${scarab.dropWeight ?? 'N/A'}</span>
+      ${hasYieldCounts ? `
+      <span class="scarab-yield">
+        ${yieldCount !== undefined && yieldCount !== null ? yieldCount.toLocaleString() : '0'}
       </span>
+      ` : ''}
     </div>
   `;
+}
+
+/**
+ * Set yield counts for display in list view
+ * @param {Map<string, number>|Object} counts - Map or object of scarab ID to yield count
+ * @param {HTMLElement} container - Optional container to re-render immediately
+ */
+export function setYieldCounts(counts, container = null) {
+  if (counts instanceof Map) {
+    yieldCounts = new Map(counts);
+  } else if (counts && typeof counts === 'object') {
+    yieldCounts = new Map(Object.entries(counts));
+  } else {
+    yieldCounts = new Map();
+  }
+  
+  // Re-render if container is provided
+  if (container) {
+    renderListView(container, currentScarabs, currentCurrency, currentFilters);
+  }
+}
+
+/**
+ * Clear yield counts from list view
+ * @param {HTMLElement} container - Optional container to re-render immediately
+ */
+export function clearYieldCounts(container = null) {
+  yieldCounts = new Map();
+  
+  // Re-render if container is provided
+  if (container) {
+    renderListView(container, currentScarabs, currentCurrency, currentFilters);
+  }
 }
 
 /**
