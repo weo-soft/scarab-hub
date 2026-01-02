@@ -89,7 +89,14 @@ export function savePreferences(preferences) {
 export function loadPreferences() {
   try {
     const stored = localStorage.getItem(STORAGE_KEYS.PREFERENCES);
-    return stored ? JSON.parse(stored) : {};
+    const preferences = stored ? JSON.parse(stored) : {};
+    
+    // Ensure selectedEssenceIds is an array (for Essence selection state)
+    if (preferences.selectedEssenceIds && !Array.isArray(preferences.selectedEssenceIds)) {
+      preferences.selectedEssenceIds = [];
+    }
+    
+    return preferences;
   } catch (error) {
     console.error('Error loading preferences:', error);
     return {};
@@ -245,6 +252,66 @@ export async function refreshItemTypePrices(itemType) {
   } catch (error) {
     console.error(`Error refreshing ${itemType} prices:`, error);
     throw error;
+  }
+}
+
+/**
+ * Load and merge Essence price data
+ * Essences don't have a separate details file like Scarabs - prices contain all needed data
+ * @returns {Promise<Array>} Array of Essence price objects
+ */
+export async function loadAndMergeEssenceData() {
+  try {
+    // Load Essence prices from remote with fallback to local (using selected league)
+    const prices = await loadItemTypePrices('essence');
+    
+    // Handle missing price data - mark as null if chaosValue is missing
+    const processedPrices = prices.map(price => ({
+      ...price,
+      chaosValue: price.chaosValue ?? null,
+      divineValue: price.divineValue ?? null
+    }));
+    
+    // Log warnings for Essences with missing prices
+    const missingPrices = processedPrices.filter(p => p.chaosValue === null);
+    if (missingPrices.length > 0) {
+      console.warn(`${missingPrices.length} Essences have missing price data`);
+    }
+    
+    // Essence prices already contain all needed data (name, detailsId, chaosValue, divineValue)
+    // No merging needed like Scarabs
+    return processedPrices;
+  } catch (error) {
+    console.error('Error loading Essence data:', error);
+    // Return empty array instead of throwing to allow graceful degradation
+    return [];
+  }
+}
+
+/**
+ * Get Primal Crystallised Lifeforce price from lifeforce prices
+ * @returns {Promise<object|null>} Primal Crystallised Lifeforce price object or null if not found
+ */
+export async function getPrimalLifeforcePrice() {
+  try {
+    // Load lifeforce prices
+    const lifeforcePrices = await loadItemTypePrices('lifeforce');
+    
+    // Find Primal Crystallised Lifeforce
+    const primalLifeforce = lifeforcePrices.find(
+      item => item.name === 'Primal Crystallised Lifeforce' || 
+              item.detailsId === 'primal-crystallised-lifeforce'
+    );
+    
+    if (!primalLifeforce) {
+      console.warn('Primal Crystallised Lifeforce not found in price data');
+      return null;
+    }
+    
+    return primalLifeforce;
+  } catch (error) {
+    console.error('Error loading Primal Crystallised Lifeforce price:', error);
+    return null;
   }
 }
 

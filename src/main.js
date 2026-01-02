@@ -3,11 +3,15 @@
  * Flipping Scarabs - Path of Exile vendor profitability calculator
  */
 
-import { loadAndMergeScarabData, loadPreferences, savePreferences, loadAllItemTypePrices } from './js/services/dataService.js';
+import { loadAndMergeScarabData, loadPreferences, savePreferences, loadAllItemTypePrices, loadAndMergeEssenceData, getPrimalLifeforcePrice } from './js/services/dataService.js';
 import { calculateThreshold, calculateProfitabilityStatus } from './js/services/calculationService.js';
+import { calculateExpectedValueForGroup, calculateThresholdForGroup, calculateProfitabilityStatus as calculateEssenceProfitabilityStatus } from './js/services/essenceCalculationService.js';
 import { priceUpdateService } from './js/services/priceUpdateService.js';
 import { initLeagueService } from './js/services/leagueService.js';
 import { Scarab } from './js/models/scarab.js';
+import { Essence } from './js/models/essence.js';
+import { groupEssencesByRerollType, createRerollGroup } from './js/utils/essenceGroupUtils.js';
+import { renderEssenceList, showLoadingState as showEssenceLoadingState } from './js/views/essenceListView.js';
 import { renderThresholdDisplay } from './js/components/thresholdDisplay.js';
 import { renderListView, updateListView, showLoadingState, showErrorState } from './js/views/listView.js';
 import { initGridView, updateGridView, setFilteredScarabs, clearFilteredScarabs } from './js/views/gridView.js';
@@ -278,7 +282,6 @@ async function init() {
 
     // Set up league selector callback
     setOnLeagueChange(async () => {
-      await reloadScarabDataWithPrices(null);
       // Reload additional item type prices for new league
       if (window.priceData) {
         const additionalItemTypes = ['catalyst', 'deliriumOrb', 'emblem', 'essence', 'fossil', 'lifeforce', 'oil', 'tattoo', 'templeUnique', 'vial'];
@@ -286,6 +289,24 @@ async function init() {
         window.priceData.additional = updatedAdditionalPrices;
         console.log('✓ Additional item type prices refreshed for new league');
       }
+      
+      // Reload data based on current category
+      if (currentCategory === 'essences') {
+        // Reload Essence data for new league
+        try {
+          const { essences, thresholds, rerollCost } = await loadAndProcessEssenceData();
+          const preferences = loadPreferences();
+          const currency = preferences.currencyPreference || 'chaos';
+          await renderEssenceUI(essences, thresholds, rerollCost, currency);
+        } catch (error) {
+          console.error('Error reloading Essence data after league change:', error);
+          showErrorToast('Failed to reload Essence data for new league');
+        }
+      } else if (currentCategory === 'scarabs') {
+        // Reload Scarab data for new league
+        await reloadScarabDataWithPrices(null);
+      }
+      // For other categories, data will be loaded when category is selected
     });
 
     // Initialize data status overlay
@@ -323,6 +344,8 @@ async function init() {
 // Global state
 let currentScarabs = [];
 let currentThreshold = null;
+let currentEssences = [];
+let currentEssenceThresholds = new Map(); // Map of reroll group to threshold
 let currentCurrency = 'chaos';
 let currentView = 'list';
 let currentFilters = null;
@@ -342,7 +365,18 @@ function renderUI(scarabs, threshold, currency) {
   currentScarabs = scarabs;
   currentThreshold = threshold;
   currentCurrency = currency;
+
+  // Show grid view and filter panel for Scarabs
+  const gridViewContainer = document.getElementById('grid-view');
+  if (gridViewContainer) {
+    gridViewContainer.style.display = '';
+  }
   
+  const filterPanelContainer = document.getElementById('filter-panel');
+  if (filterPanelContainer) {
+    filterPanelContainer.style.display = '';
+  }
+
   // Load view preference
   currentView = getViewPreference();
 
@@ -353,7 +387,6 @@ function renderUI(scarabs, threshold, currency) {
   }
 
   // Render filter panel
-  const filterPanelContainer = document.getElementById('filter-panel');
   if (filterPanelContainer) {
     renderFilterPanel(filterPanelContainer, currency, handleFilterChange);
   }
@@ -526,7 +559,29 @@ function handleTradeModeChange(tradeMode) {
  */
 function handleCurrencyChange(currency) {
   currentCurrency = currency;
+  saveCurrencyPreference(currency);
   
+  // Handle Essence category
+  if (currentCategory === 'essences') {
+    // Update Essence threshold display
+    const thresholdContainer = document.getElementById('threshold-display');
+    if (thresholdContainer && currentEssenceThresholds.size > 0) {
+      // Get reroll cost from first threshold (all have same cost)
+      const firstThreshold = Array.from(currentEssenceThresholds.values())[0];
+      const rerollCost = firstThreshold.rerollCost;
+      renderEssenceThresholdDisplay(thresholdContainer, currentEssenceThresholds, rerollCost, currency);
+    }
+    
+    // Update Essence list view
+    const listViewContainer = document.getElementById('list-view');
+    if (listViewContainer && currentEssences.length > 0) {
+      const selectionPanelContainer = document.getElementById('essence-selection-panel');
+      renderEssenceList(listViewContainer, currentEssences, currency, selectionPanelContainer);
+    }
+    return;
+  }
+  
+  // Handle Scarab category (existing logic)
   // Update threshold display (in overlay)
   const thresholdContainer = document.getElementById('threshold-display');
   if (thresholdContainer && currentThreshold) {
@@ -552,10 +607,222 @@ function handleCurrencyChange(currency) {
 }
 
 /**
+ * Load and process Essence data
+ */
+async function loadAndProcessEssenceData() {
+  try {
+    console.log('Loading Essence data...');
+    
+    // Load Essence prices
+    const rawEssenceData = await loadAndMergeEssenceData();
+    
+    // Load Primal Crystallised Lifeforce price
+    const primalLifeforce = await getPrimalLifeforcePrice();
+    if (!primalLifeforce || !primalLifeforce.chaosValue) {
+      console.error('Primal Crystallised Lifeforce price not available');
+      showErrorToast('Cannot calculate Essence thresholds: Primal Crystallised Lifeforce price unavailable');
+      return;
+    }
+    
+    const rerollCost = 30 * primalLifeforce.chaosValue;
+    console.log(`Reroll cost: ${rerollCost.toFixed(2)} chaos (30 × ${primalLifeforce.chaosValue.toFixed(4)})`);
+    
+    // Create Essence instances (classification happens in constructor)
+    const essences = rawEssenceData
+      .map(data => new Essence(data))
+      .filter(essence => {
+        if (!essence.validate()) {
+          console.warn(`Invalid Essence data: ${essence.id}`);
+          return false;
+        }
+        return true;
+      });
+    
+    console.log(`Loaded ${essences.length} Essences`);
+    
+    // Group Essences by reroll type
+    const groupsByType = groupEssencesByRerollType(essences);
+    console.log(`Grouped into ${groupsByType.size} reroll groups`);
+    
+    // Calculate thresholds for each group
+    const thresholds = new Map();
+    
+    groupsByType.forEach((groupEssences, groupType) => {
+      // Calculate expected value (equal weighting)
+      const expectedValue = calculateExpectedValueForGroup(groupEssences);
+      
+      // Calculate threshold
+      const threshold = calculateThresholdForGroup(expectedValue, rerollCost);
+      
+      // Store threshold
+      thresholds.set(groupType, {
+        rerollGroup: groupType,
+        value: threshold,
+        expectedValue: expectedValue,
+        rerollCost: rerollCost,
+        calculationMethod: 'equal_weighted_average',
+        essenceCount: groupEssences.length,
+        calculatedAt: new Date().toISOString()
+      });
+      
+      // Calculate profitability status for each Essence in group
+      groupEssences.forEach(essence => {
+        essence.expectedValue = expectedValue;
+        essence.threshold = threshold;
+        essence.profitabilityStatus = calculateEssenceProfitabilityStatus(essence, threshold);
+      });
+      
+      console.log(`${groupType} group: expectedValue=${expectedValue.toFixed(2)}, threshold=${threshold.toFixed(2)}, essences=${groupEssences.length}`);
+    });
+    
+    // Handle Essences without reroll groups
+    essences.forEach(essence => {
+      if (!essence.hasRerollGroup()) {
+        essence.profitabilityStatus = 'unknown';
+        console.warn(`Essence without reroll group: ${essence.name}`);
+      }
+    });
+    
+    // Filter to only include Essences with valid reroll groups (special, deafening, shrieking)
+    const validRerollGroups = ['special', 'deafening', 'shrieking'];
+    const filteredEssences = essences.filter(essence => {
+      return essence.rerollGroup && validRerollGroups.includes(essence.rerollGroup);
+    });
+    
+    // Count profitability statuses (from filtered Essences)
+    const profitableCount = filteredEssences.filter(e => e.profitabilityStatus === 'profitable').length;
+    const notProfitableCount = filteredEssences.filter(e => e.profitabilityStatus === 'not_profitable').length;
+    const unknownCount = filteredEssences.filter(e => e.profitabilityStatus === 'unknown').length;
+    
+    console.log(`Essence profitability breakdown: ${profitableCount} profitable, ${notProfitableCount} not profitable, ${unknownCount} unknown`);
+    console.log(`Filtered to ${filteredEssences.length} Essences (from ${essences.length} total)`);
+    
+    // Store in global state (store filtered Essences)
+    currentEssences = filteredEssences;
+    currentEssenceThresholds = thresholds;
+    
+    return { essences: filteredEssences, thresholds, rerollCost };
+  } catch (error) {
+    console.error('Error loading Essence data:', error);
+    showErrorToast('Failed to load Essence data');
+    throw error;
+  }
+}
+
+/**
+ * Render Essence UI
+ */
+async function renderEssenceUI(essences, thresholds, rerollCost, currency) {
+  // Store in global state
+  currentEssences = essences;
+  currentEssenceThresholds = thresholds;
+  currentCurrency = currency;
+  
+  // Load selection state from LocalStorage (if available)
+  const { loadSelectionState } = await import('./js/views/essenceListView.js');
+  loadSelectionState(essences);
+  
+  // Render Essence list view
+  const listViewContainer = document.getElementById('list-view');
+  const selectionPanelContainer = document.getElementById('essence-selection-panel');
+  if (listViewContainer) {
+    renderEssenceList(listViewContainer, essences, currency, selectionPanelContainer);
+  }
+  
+  // Hide grid view and filter panel for Essences (list view only)
+  const gridViewContainer = document.getElementById('grid-view');
+  if (gridViewContainer) {
+    gridViewContainer.style.display = 'none';
+  }
+  
+  const filterPanelContainer = document.getElementById('filter-panel');
+  if (filterPanelContainer) {
+    filterPanelContainer.style.display = 'none';
+  }
+  
+  // Update threshold display to show Essence thresholds
+  const thresholdContainer = document.getElementById('threshold-display');
+  if (thresholdContainer) {
+    renderEssenceThresholdDisplay(thresholdContainer, thresholds, rerollCost, currency);
+  }
+}
+
+/**
+ * Render Essence threshold display
+ */
+function renderEssenceThresholdDisplay(container, thresholds, rerollCost, currency) {
+  if (!container || !thresholds || thresholds.size === 0) {
+    return;
+  }
+  
+  const currencySymbol = currency === 'divine' ? 'Div' : 'c';
+  
+  let html = `
+    <div class="essence-threshold-display">
+      <div class="threshold-header">
+        <h2>Essence Reroll Thresholds</h2>
+        <div class="reroll-cost">
+          <strong>Reroll Cost:</strong> 30 Primal Crystallised Lifeforce = ${rerollCost.toFixed(2)} ${currencySymbol}
+        </div>
+      </div>
+      <div class="threshold-groups">
+  `;
+  
+  // Display threshold for each reroll group
+  const groupOrder = ['deafening', 'shrieking', 'special'];
+  groupOrder.forEach(groupType => {
+    const threshold = thresholds.get(groupType);
+    if (threshold) {
+      const value = currency === 'divine' 
+        ? (threshold.value / 150).toFixed(4)
+        : threshold.value.toFixed(2);
+      const expectedValue = currency === 'divine'
+        ? (threshold.expectedValue / 150).toFixed(4)
+        : threshold.expectedValue.toFixed(2);
+      
+      const groupLabel = groupType.charAt(0).toUpperCase() + groupType.slice(1);
+      const isProfitable = threshold.value > 0;
+      const statusClass = isProfitable ? 'profitable' : 'not-profitable';
+      
+      html += `
+        <div class="threshold-group ${statusClass}">
+          <div class="group-header">
+            <h3>${groupLabel} Group</h3>
+            <span class="essence-count">${threshold.essenceCount} Essences</span>
+          </div>
+          <div class="threshold-values">
+            <div class="threshold-value">
+              <label>Threshold:</label>
+              <span class="value">${value} ${currencySymbol}</span>
+            </div>
+            <div class="expected-value">
+              <label>Expected Value:</label>
+              <span class="value">${expectedValue} ${currencySymbol}</span>
+            </div>
+          </div>
+          <div class="threshold-note">
+            ${isProfitable 
+              ? 'Essences below this threshold are profitable to reroll' 
+              : 'This group is not profitable to reroll'}
+          </div>
+        </div>
+      `;
+    }
+  });
+  
+  html += `
+      </div>
+    </div>
+  `;
+  
+  container.innerHTML = html;
+}
+
+/**
  * Handle category change
  * @param {string} category - 'scarabs', 'essences', 'tattoos', 'catalysts', 'temple', 'fossils', 'oils', 'delirium-orbs', 'emblems'
  */
-function handleCategoryChange(category) {
+async function handleCategoryChange(category) {
   currentCategory = category;
   
   // Update navigation
@@ -574,13 +841,38 @@ function handleCategoryChange(category) {
     );
   }
   
-  // TODO: Implement category-specific logic
-  // For now, this is a placeholder
-  console.log(`Category changed to: ${category}`);
-  
-  // Show placeholder message or load category-specific data
-  if (category !== 'scarabs') {
-    // For non-scarab categories, show a placeholder
+  // Handle category-specific logic
+  if (category === 'essences') {
+    try {
+      // Show loading state
+      const listViewContainer = document.getElementById('list-view');
+      if (listViewContainer) {
+        showEssenceLoadingState(listViewContainer);
+      }
+      
+      // Load and process Essence data
+      const { essences, thresholds, rerollCost } = await loadAndProcessEssenceData();
+      
+      // Get currency preference
+      const preferences = loadPreferences();
+      const currency = preferences.currencyPreference || 'chaos';
+      
+      // Render Essence UI
+      await renderEssenceUI(essences, thresholds, rerollCost, currency);
+    } catch (error) {
+      console.error('Error handling Essence category:', error);
+      showErrorToast('Failed to load Essence data');
+    }
+  } else if (category === 'scarabs') {
+    // Reload Scarab UI if we have Scarab data
+    if (currentScarabs.length > 0 && currentThreshold) {
+      const preferences = loadPreferences();
+      const currency = preferences.currencyPreference || 'chaos';
+      renderUI(currentScarabs, currentThreshold, currency);
+    }
+  } else {
+    // For other categories, show placeholder
+    console.log(`Category changed to: ${category}`);
     showWarningToast(`${category.charAt(0).toUpperCase() + category.slice(1)} category is coming soon!`);
   }
 }
