@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Cartographer's Delirium Orb",
+    "chaosValue": 6.44,
+    "divineValue": 0.04178272,
+    "detailsId": "cartographers-delirium-orb"
+  },
+  {
+    "name": "Abyssal Delirium Orb",
+    "chaosValue": 7.06,
+    "divineValue": 0.04580528,
+    "detailsId": "abyssal-delirium-orb"
+  },
+  {
+    "name": "Armoursmith's Delirium Orb",
+    "chaosValue": 7.27,
+    "divineValue": 0.047167759999999996,
+    "detailsId": "armoursmiths-delirium-orb"
+  },
+  {
+    "name": "Blacksmith's Delirium Orb",
+    "chaosValue": 7.2,
+    "divineValue": 0.0467136,
+    "detailsId": "blacksmiths-delirium-orb"
+  },
+  {
+    "name": "Blighted Delirium Orb",
+    "chaosValue": 7.16,
+    "divineValue": 0.04645408,
+    "detailsId": "blighted-delirium-orb"
+  },
+  {
+    "name": "Fine Delirium Orb",
+    "chaosValue": 11.23,
+    "divineValue": 0.07286024,
+    "detailsId": "fine-delirium-orb"
+  },
+  {
+    "name": "Foreboding Delirium Orb",
+    "chaosValue": 7.64,
+    "divineValue": 0.04956832,
+    "detailsId": "foreboding-delirium-orb"
+  },
+  {
+    "name": "Fossilised Delirium Orb",
+    "chaosValue": 10.31,
+    "divineValue": 0.06689128,
+    "detailsId": "fossilised-delirium-orb"
+  },
+  {
+    "name": "Fragmented Delirium Orb",
+    "chaosValue": 7.14,
+    "divineValue": 0.046324319999999995,
+    "detailsId": "fragmented-delirium-orb"
+  },
+  {
+    "name": "Jeweller's Delirium Orb",
+    "chaosValue": 6.53,
+    "divineValue": 0.042366640000000004,
+    "detailsId": "jewellers-delirium-orb"
+  },
+  {
+    "name": "Singular Delirium Orb",
+    "chaosValue": 6.41,
+    "divineValue": 0.04158808,
+    "detailsId": "singular-delirium-orb"
+  },
+  {
+    "name": "Thaumaturge's Delirium Orb",
+    "chaosValue": 6.22,
+    "divineValue": 0.04035536,
+    "detailsId": "thaumaturges-delirium-orb"
+  },
+  {
+    "name": "Whispering Delirium Orb",
+    "chaosValue": 5.56,
+    "divineValue": 0.03607328,
+    "detailsId": "whispering-delirium-orb"
+  },
+  {
+    "name": "Diviner's Delirium Orb",
+    "chaosValue": 12.56,
+    "divineValue": 0.08148928,
+    "detailsId": "diviners-delirium-orb"
+  },
+  {
+    "name": "Skittering Delirium Orb",
+    "chaosValue": 17.83,
+    "divineValue": 0.11568103999999998,
+    "detailsId": "skittering-delirium-orb"
+  },
+  {
+    "name": "Timeless Delirium Orb",
+    "chaosValue": 5.12,
+    "divineValue": 0.03321856,
+    "detailsId": "timeless-delirium-orb"
+  }
+]

@@ -6,7 +6,7 @@
 /**
  * Render horizontal navigation bar
  * @param {HTMLElement} container - Container element
- * @param {string} currentCategory - Current category ('scarabs', 'essences', 'tattoos', 'catalysts', 'temple', 't17')
+ * @param {string} currentCategory - Current category ('scarabs', 'essences', 'tattoos', 'catalysts', 'temple', 'fossils', 'oils', 'delirium-orbs', 'emblems')
  * @param {string} currentPage - Current page ('flipping' or 'simulation')
  * @param {Function} onCategoryChange - Callback when category changes
  * @param {Function} onPageChange - Callback when page changes
@@ -46,10 +46,25 @@ export function renderNavigation(container, currentCategory = 'scarabs', current
            aria-label="Temple">
           Temple
         </a>
-        <a href="#" class="nav-link ${currentCategory === 't17' ? 'active' : ''}" 
-           data-category="t17" 
-           aria-label="T17">
-          T17
+        <a href="#" class="nav-link ${currentCategory === 'fossils' ? 'active' : ''}" 
+           data-category="fossils" 
+           aria-label="Fossils">
+          Fossils
+        </a>
+        <a href="#" class="nav-link ${currentCategory === 'oils' ? 'active' : ''}" 
+           data-category="oils" 
+           aria-label="Oils">
+          Oils
+        </a>
+        <a href="#" class="nav-link ${currentCategory === 'delirium-orbs' ? 'active' : ''}" 
+           data-category="delirium-orbs" 
+           aria-label="Delirium Orbs">
+          Delirium Orbs
+        </a>
+        <a href="#" class="nav-link ${currentCategory === 'emblems' ? 'active' : ''}" 
+           data-category="emblems" 
+           aria-label="Emblems">
+          Emblems
         </a>
       </div>
       <div class="nav-actions">

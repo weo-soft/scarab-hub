@@ -12,6 +12,24 @@ let availableLeagues = [];
 let selectedLeague = null;
 
 /**
+ * Item type configuration
+ * Defines all supported item types and their file name patterns
+ */
+export const ITEM_TYPES = [
+  { id: 'scarab', displayName: 'Scarab', fileNamePattern: 'scarabPrices_{league}.json', isActive: true },
+  { id: 'catalyst', displayName: 'Catalyst', fileNamePattern: 'catalystPrices_{league}.json', isActive: true },
+  { id: 'deliriumOrb', displayName: 'Delirium Orb', fileNamePattern: 'deliriumOrbPrices_{league}.json', isActive: true },
+  { id: 'emblem', displayName: 'Emblem', fileNamePattern: 'emblemPrices_{league}.json', isActive: true },
+  { id: 'essence', displayName: 'Essence', fileNamePattern: 'essencePrices_{league}.json', isActive: true },
+  { id: 'fossil', displayName: 'Fossil', fileNamePattern: 'fossilPrices_{league}.json', isActive: true },
+  { id: 'lifeforce', displayName: 'Lifeforce', fileNamePattern: 'lifeforcePrices_{league}.json', isActive: true },
+  { id: 'oil', displayName: 'Oil', fileNamePattern: 'oilPrices_{league}.json', isActive: true },
+  { id: 'tattoo', displayName: 'Tattoo', fileNamePattern: 'tattooPrices_{league}.json', isActive: true },
+  { id: 'templeUnique', displayName: 'Temple Unique', fileNamePattern: 'templeUniquePrices_{league}.json', isActive: true },
+  { id: 'vial', displayName: 'Vial', fileNamePattern: 'vialPrices_{league}.json', isActive: true },
+];
+
+/**
  * Fetch available leagues from API
  * @returns {Promise<Array>} Array of league objects
  */
@@ -102,28 +120,30 @@ export function setSelectedLeague(leagueId) {
 
 /**
  * Get price file name for selected league
- * @returns {string} Price file name (e.g., 'scarabPrices_Keepers.json')
+ * @param {string} [itemType='scarab'] - Item type identifier (defaults to 'scarab' for backward compatibility)
+ * @returns {string} Price file name (e.g., 'scarabPrices_Keepers.json' or 'catalystPrices_Keepers.json')
  */
-export function getPriceFileName() {
+export function getPriceFileName(itemType = 'scarab') {
   const league = getSelectedLeague();
-  if (!league) {
-    // Fallback to Keepers if no league selected
-    return 'scarabPrices_Keepers.json';
+  const itemTypeConfig = ITEM_TYPES.find(t => t.id === itemType);
+  if (!itemTypeConfig) {
+    throw new Error(`Unknown item type: ${itemType}`);
   }
-  return `scarabPrices_${league.slug}.json`;
+  
+  if (!league) {
+    return itemTypeConfig.fileNamePattern.replace('{league}', 'Keepers');
+  }
+  return itemTypeConfig.fileNamePattern.replace('{league}', league.slug);
 }
 
 /**
  * Get local fallback path for price file
- * @returns {string} Local path (e.g., '/data/scarabPrices_Keepers.json')
+ * @param {string} [itemType='scarab'] - Item type identifier (defaults to 'scarab' for backward compatibility)
+ * @returns {string} Local path (e.g., '/data/scarabPrices_Keepers.json' or '/data/catalystPrices_Keepers.json')
  */
-export function getPriceFileLocalPath() {
-  const league = getSelectedLeague();
-  if (!league) {
-    // Fallback to Keepers if no league selected
-    return '/data/scarabPrices_Keepers.json';
-  }
-  return `/data/scarabPrices_${league.slug}.json`;
+export function getPriceFileLocalPath(itemType = 'scarab') {
+  const fileName = getPriceFileName(itemType);
+  return `/data/${fileName}`;
 }
 
 /**

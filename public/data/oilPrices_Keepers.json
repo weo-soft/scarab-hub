@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Azure Oil",
+    "chaosValue": 0.8846,
+    "divineValue": 0.0057392848,
+    "detailsId": "azure-oil"
+  },
+  {
+    "name": "Amber Oil",
+    "chaosValue": 0.09836,
+    "divineValue": 0.00063815968,
+    "detailsId": "amber-oil"
+  },
+  {
+    "name": "Black Oil",
+    "chaosValue": 3.71,
+    "divineValue": 0.02407048,
+    "detailsId": "black-oil"
+  },
+  {
+    "name": "Clear Oil",
+    "chaosValue": 0.02089,
+    "divineValue": 0.00013553432,
+    "detailsId": "clear-oil"
+  },
+  {
+    "name": "Crimson Oil",
+    "chaosValue": 1.13,
+    "divineValue": 0.007331439999999999,
+    "detailsId": "crimson-oil"
+  },
+  {
+    "name": "Indigo Oil",
+    "chaosValue": 0.4333,
+    "divineValue": 0.0028112504,
+    "detailsId": "indigo-oil"
+  },
+  {
+    "name": "Opalescent Oil",
+    "chaosValue": 11.48,
+    "divineValue": 0.07448224,
+    "detailsId": "opalescent-oil"
+  },
+  {
+    "name": "Reflective Oil",
+    "chaosValue": 13.54,
+    "divineValue": 0.08784752,
+    "detailsId": "reflective-oil"
+  },
+  {
+    "name": "Sepia Oil",
+    "chaosValue": 0.08383,
+    "divineValue": 0.00054388904,
+    "detailsId": "sepia-oil"
+  },
+  {
+    "name": "Silver Oil",
+    "chaosValue": 35.0,
+    "divineValue": 0.22708,
+    "detailsId": "silver-oil"
+  },
+  {
+    "name": "Violet Oil",
+    "chaosValue": 0.5465,
+    "divineValue": 0.003545692,
+    "detailsId": "violet-oil"
+  },
+  {
+    "name": "Golden Oil",
+    "chaosValue": 48.43,
+    "divineValue": 0.31421383999999997,
+    "detailsId": "golden-oil"
+  },
+  {
+    "name": "Prismatic Oil",
+    "chaosValue": 47.07,
+    "divineValue": 0.30539016,
+    "detailsId": "prismatic-oil"
+  },
+  {
+    "name": "Tainted Oil",
+    "chaosValue": 190.0,
+    "divineValue": 1.23272,
+    "detailsId": "tainted-oil"
+  },
+  {
+    "name": "Teal Oil",
+    "chaosValue": 0.4909,
+    "divineValue": 0.0031849592,
+    "detailsId": "teal-oil"
+  },
+  {
+    "name": "Verdant Oil",
+    "chaosValue": 0.2439,
+    "divineValue": 0.0015824232,
+    "detailsId": "verdant-oil"
+  }
+]

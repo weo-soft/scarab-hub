@@ -1,0 +1,416 @@
+[
+  {
+    "name": "Deafening Essence of Doubt",
+    "chaosValue": 0.9062,
+    "divineValue": 0.0058794256,
+    "detailsId": "deafening-essence-of-doubt"
+  },
+  {
+    "name": "Deafening Essence of Fear",
+    "chaosValue": 1.33,
+    "divineValue": 0.008629040000000001,
+    "detailsId": "deafening-essence-of-fear"
+  },
+  {
+    "name": "Deafening Essence of Greed",
+    "chaosValue": 3.03,
+    "divineValue": 0.019658639999999998,
+    "detailsId": "deafening-essence-of-greed"
+  },
+  {
+    "name": "Deafening Essence of Loathing",
+    "chaosValue": 2.63,
+    "divineValue": 0.01706344,
+    "detailsId": "deafening-essence-of-loathing"
+  },
+  {
+    "name": "Deafening Essence of Misery",
+    "chaosValue": 1.61,
+    "divineValue": 0.01044568,
+    "detailsId": "deafening-essence-of-misery"
+  },
+  {
+    "name": "Deafening Essence of Rage",
+    "chaosValue": 3.8,
+    "divineValue": 0.0246544,
+    "detailsId": "deafening-essence-of-rage"
+  },
+  {
+    "name": "Deafening Essence of Sorrow",
+    "chaosValue": 1.92,
+    "divineValue": 0.01245696,
+    "detailsId": "deafening-essence-of-sorrow"
+  },
+  {
+    "name": "Deafening Essence of Torment",
+    "chaosValue": 1.06,
+    "divineValue": 0.00687728,
+    "detailsId": "deafening-essence-of-torment"
+  },
+  {
+    "name": "Essence of Delirium",
+    "chaosValue": 15.19,
+    "divineValue": 0.09855272,
+    "detailsId": "essence-of-delirium"
+  },
+  {
+    "name": "Essence of Horror",
+    "chaosValue": 22.38,
+    "divineValue": 0.14520144,
+    "detailsId": "essence-of-horror"
+  },
+  {
+    "name": "Essence of Hysteria",
+    "chaosValue": 13.53,
+    "divineValue": 0.08778264,
+    "detailsId": "essence-of-hysteria"
+  },
+  {
+    "name": "Essence of Insanity",
+    "chaosValue": 13.76,
+    "divineValue": 0.08927488,
+    "detailsId": "essence-of-insanity"
+  },
+  {
+    "name": "Muttering Essence of Anger",
+    "chaosValue": 1,
+    "divineValue": 0.006488,
+    "detailsId": "muttering-essence-of-anger"
+  },
+  {
+    "name": "Muttering Essence of Greed",
+    "chaosValue": 1,
+    "divineValue": 0.006488,
+    "detailsId": "muttering-essence-of-greed"
+  },
+  {
+    "name": "Muttering Essence of Torment",
+    "chaosValue": 1,
+    "divineValue": 0.006488,
+    "detailsId": "muttering-essence-of-torment"
+  },
+  {
+    "name": "Screaming Essence of Contempt",
+    "chaosValue": 0.2439,
+    "divineValue": 0.0015824232,
+    "detailsId": "screaming-essence-of-contempt"
+  },
+  {
+    "name": "Screaming Essence of Dread",
+    "chaosValue": 0.1667,
+    "divineValue": 0.0010815496,
+    "detailsId": "screaming-essence-of-dread"
+  },
+  {
+    "name": "Screaming Essence of Envy",
+    "chaosValue": 1.17,
+    "divineValue": 0.007590959999999999,
+    "detailsId": "screaming-essence-of-envy"
+  },
+  {
+    "name": "Screaming Essence of Fear",
+    "chaosValue": 0.7662,
+    "divineValue": 0.0049711056,
+    "detailsId": "screaming-essence-of-fear"
+  },
+  {
+    "name": "Screaming Essence of Misery",
+    "chaosValue": 0.6513,
+    "divineValue": 0.0042256344,
+    "detailsId": "screaming-essence-of-misery"
+  },
+  {
+    "name": "Screaming Essence of Rage",
+    "chaosValue": 0.4491,
+    "divineValue": 0.0029137608,
+    "detailsId": "screaming-essence-of-rage"
+  },
+  {
+    "name": "Screaming Essence of Spite",
+    "chaosValue": 2,
+    "divineValue": 0.012976,
+    "detailsId": "screaming-essence-of-spite"
+  },
+  {
+    "name": "Screaming Essence of Suffering",
+    "chaosValue": 0.2,
+    "divineValue": 0.0012976,
+    "detailsId": "screaming-essence-of-suffering"
+  },
+  {
+    "name": "Screaming Essence of Woe",
+    "chaosValue": 0.1667,
+    "divineValue": 0.0010815496,
+    "detailsId": "screaming-essence-of-woe"
+  },
+  {
+    "name": "Shrieking Essence of Anger",
+    "chaosValue": 1.8,
+    "divineValue": 0.0116784,
+    "detailsId": "shrieking-essence-of-anger"
+  },
+  {
+    "name": "Shrieking Essence of Envy",
+    "chaosValue": 2.18,
+    "divineValue": 0.014143840000000001,
+    "detailsId": "shrieking-essence-of-envy"
+  },
+  {
+    "name": "Shrieking Essence of Greed",
+    "chaosValue": 0.3333,
+    "divineValue": 0.0021624504,
+    "detailsId": "shrieking-essence-of-greed"
+  },
+  {
+    "name": "Shrieking Essence of Hatred",
+    "chaosValue": 1,
+    "divineValue": 0.006488,
+    "detailsId": "shrieking-essence-of-hatred"
+  },
+  {
+    "name": "Shrieking Essence of Loathing",
+    "chaosValue": 2,
+    "divineValue": 0.012976,
+    "detailsId": "shrieking-essence-of-loathing"
+  },
+  {
+    "name": "Shrieking Essence of Rage",
+    "chaosValue": 2.89,
+    "divineValue": 0.01875032,
+    "detailsId": "shrieking-essence-of-rage"
+  },
+  {
+    "name": "Shrieking Essence of Scorn",
+    "chaosValue": 2.7,
+    "divineValue": 0.0175176,
+    "detailsId": "shrieking-essence-of-scorn"
+  },
+  {
+    "name": "Shrieking Essence of Spite",
+    "chaosValue": 7.71,
+    "divineValue": 0.05002248,
+    "detailsId": "shrieking-essence-of-spite"
+  },
+  {
+    "name": "Shrieking Essence of Torment",
+    "chaosValue": 0.325,
+    "divineValue": 0.0021086,
+    "detailsId": "shrieking-essence-of-torment"
+  },
+  {
+    "name": "Shrieking Essence of Wrath",
+    "chaosValue": 1.5,
+    "divineValue": 0.009732,
+    "detailsId": "shrieking-essence-of-wrath"
+  },
+  {
+    "name": "Shrieking Essence of Zeal",
+    "chaosValue": 1.62,
+    "divineValue": 0.01051056,
+    "detailsId": "shrieking-essence-of-zeal"
+  },
+  {
+    "name": "Wailing Essence of Doubt",
+    "chaosValue": 0.25,
+    "divineValue": 0.001622,
+    "detailsId": "wailing-essence-of-doubt"
+  },
+  {
+    "name": "Wailing Essence of Wrath",
+    "chaosValue": 1,
+    "divineValue": 0.006488,
+    "detailsId": "wailing-essence-of-wrath"
+  },
+  {
+    "name": "Deafening Essence of Anger",
+    "chaosValue": 2.46,
+    "divineValue": 0.01596048,
+    "detailsId": "deafening-essence-of-anger"
+  },
+  {
+    "name": "Deafening Essence of Anguish",
+    "chaosValue": 0.7272,
+    "divineValue": 0.0047180736,
+    "detailsId": "deafening-essence-of-anguish"
+  },
+  {
+    "name": "Deafening Essence of Contempt",
+    "chaosValue": 2.31,
+    "divineValue": 0.01498728,
+    "detailsId": "deafening-essence-of-contempt"
+  },
+  {
+    "name": "Deafening Essence of Dread",
+    "chaosValue": 1.26,
+    "divineValue": 0.00817488,
+    "detailsId": "deafening-essence-of-dread"
+  },
+  {
+    "name": "Deafening Essence of Envy",
+    "chaosValue": 4.52,
+    "divineValue": 0.029325759999999996,
+    "detailsId": "deafening-essence-of-envy"
+  },
+  {
+    "name": "Deafening Essence of Hatred",
+    "chaosValue": 1.27,
+    "divineValue": 0.00823976,
+    "detailsId": "deafening-essence-of-hatred"
+  },
+  {
+    "name": "Deafening Essence of Scorn",
+    "chaosValue": 12.42,
+    "divineValue": 0.08058096,
+    "detailsId": "deafening-essence-of-scorn"
+  },
+  {
+    "name": "Deafening Essence of Spite",
+    "chaosValue": 12.58,
+    "divineValue": 0.08161904,
+    "detailsId": "deafening-essence-of-spite"
+  },
+  {
+    "name": "Deafening Essence of Suffering",
+    "chaosValue": 0.7796,
+    "divineValue": 0.0050580448,
+    "detailsId": "deafening-essence-of-suffering"
+  },
+  {
+    "name": "Deafening Essence of Woe",
+    "chaosValue": 2.47,
+    "divineValue": 0.016025360000000002,
+    "detailsId": "deafening-essence-of-woe"
+  },
+  {
+    "name": "Deafening Essence of Wrath",
+    "chaosValue": 1.28,
+    "divineValue": 0.00830464,
+    "detailsId": "deafening-essence-of-wrath"
+  },
+  {
+    "name": "Deafening Essence of Zeal",
+    "chaosValue": 1.73,
+    "divineValue": 0.01122424,
+    "detailsId": "deafening-essence-of-zeal"
+  },
+  {
+    "name": "Muttering Essence of Contempt",
+    "chaosValue": 1,
+    "divineValue": 0.006488,
+    "detailsId": "muttering-essence-of-contempt"
+  },
+  {
+    "name": "Muttering Essence of Fear",
+    "chaosValue": 1,
+    "divineValue": 0.006488,
+    "detailsId": "muttering-essence-of-fear"
+  },
+  {
+    "name": "Muttering Essence of Hatred",
+    "chaosValue": 1,
+    "divineValue": 0.006488,
+    "detailsId": "muttering-essence-of-hatred"
+  },
+  {
+    "name": "Muttering Essence of Sorrow",
+    "chaosValue": 1.06,
+    "divineValue": 0.00687728,
+    "detailsId": "muttering-essence-of-sorrow"
+  },
+  {
+    "name": "Muttering Essence of Woe",
+    "chaosValue": 1,
+    "divineValue": 0.006488,
+    "detailsId": "muttering-essence-of-woe"
+  },
+  {
+    "name": "Screaming Essence of Anger",
+    "chaosValue": 0.3333,
+    "divineValue": 0.0021624504,
+    "detailsId": "screaming-essence-of-anger"
+  },
+  {
+    "name": "Screaming Essence of Anguish",
+    "chaosValue": 0.2051,
+    "divineValue": 0.0013306888,
+    "detailsId": "screaming-essence-of-anguish"
+  },
+  {
+    "name": "Screaming Essence of Doubt",
+    "chaosValue": 0.1667,
+    "divineValue": 0.0010815496,
+    "detailsId": "screaming-essence-of-doubt"
+  },
+  {
+    "name": "Screaming Essence of Scorn",
+    "chaosValue": 0.1031,
+    "divineValue": 0.0006689128,
+    "detailsId": "screaming-essence-of-scorn"
+  },
+  {
+    "name": "Screaming Essence of Sorrow",
+    "chaosValue": 1,
+    "divineValue": 0.006488,
+    "detailsId": "screaming-essence-of-sorrow"
+  },
+  {
+    "name": "Screaming Essence of Torment",
+    "chaosValue": 0.7706,
+    "divineValue": 0.0049996528,
+    "detailsId": "screaming-essence-of-torment"
+  },
+  {
+    "name": "Screaming Essence of Wrath",
+    "chaosValue": 0.6503,
+    "divineValue": 0.0042191464,
+    "detailsId": "screaming-essence-of-wrath"
+  },
+  {
+    "name": "Shrieking Essence of Dread",
+    "chaosValue": 1.24,
+    "divineValue": 0.00804512,
+    "detailsId": "shrieking-essence-of-dread"
+  },
+  {
+    "name": "Shrieking Essence of Fear",
+    "chaosValue": 0.4286,
+    "divineValue": 0.0027807568,
+    "detailsId": "shrieking-essence-of-fear"
+  },
+  {
+    "name": "Shrieking Essence of Misery",
+    "chaosValue": 1,
+    "divineValue": 0.006488,
+    "detailsId": "shrieking-essence-of-misery"
+  },
+  {
+    "name": "Shrieking Essence of Sorrow",
+    "chaosValue": 0.9759,
+    "divineValue": 0.0063316392,
+    "detailsId": "shrieking-essence-of-sorrow"
+  },
+  {
+    "name": "Shrieking Essence of Suffering",
+    "chaosValue": 0.98,
+    "divineValue": 0.006358239999999999,
+    "detailsId": "shrieking-essence-of-suffering"
+  },
+  {
+    "name": "Shrieking Essence of Woe",
+    "chaosValue": 1.88,
+    "divineValue": 0.012197439999999999,
+    "detailsId": "shrieking-essence-of-woe"
+  },
+  {
+    "name": "Wailing Essence of Anger",
+    "chaosValue": 1,
+    "divineValue": 0.006488,
+    "detailsId": "wailing-essence-of-anger"
+  },
+  {
+    "name": "Whispering Essence of Greed",
+    "chaosValue": 2.33,
+    "divineValue": 0.01511704,
+    "detailsId": "whispering-essence-of-greed"
+  }
+]

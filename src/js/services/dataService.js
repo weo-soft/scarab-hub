@@ -161,3 +161,90 @@ export async function refreshPriceData() {
   }
 }
 
+/**
+ * Load price data for a specific item type
+ * @param {string} itemType - Item type identifier
+ * @returns {Promise<Array>} Price data array
+ */
+export async function loadItemTypePrices(itemType) {
+  try {
+    const priceFileName = getPriceFileName(itemType);
+    const priceFileLocalPath = getPriceFileLocalPath(itemType);
+    
+    const prices = await fetchDataWithFallback(
+      priceFileName,
+      priceFileLocalPath
+    );
+    
+    console.log(`✓ Loaded ${itemType} prices (${prices.length} items)`);
+    return prices;
+  } catch (error) {
+    console.error(`Error loading ${itemType} prices:`, error);
+    throw error;
+  }
+}
+
+/**
+ * Load price data for multiple item types in parallel
+ * @param {Array<string>} itemTypes - Array of item type identifiers
+ * @returns {Promise<Map<string, Array>>} Map of item type to price data
+ */
+export async function loadAllItemTypePrices(itemTypes) {
+  const loadPromises = itemTypes.map(async (itemType) => {
+    try {
+      const prices = await loadItemTypePrices(itemType);
+      return { itemType, prices, success: true };
+    } catch (error) {
+      console.error(`Failed to load ${itemType} prices:`, error);
+      return { itemType, prices: [], success: false, error: error.message };
+    }
+  });
+  
+  const results = await Promise.allSettled(loadPromises);
+  
+  const priceMap = new Map();
+  results.forEach((result, index) => {
+    if (result.status === 'fulfilled') {
+      const { itemType, prices } = result.value;
+      priceMap.set(itemType, prices);
+      
+      // Log success or failure
+      if (result.value.success) {
+        console.log(`✓ Successfully loaded ${itemType} prices (${prices.length} items)`);
+      } else {
+        console.warn(`⚠ Failed to load ${itemType} prices: ${result.value.error}`);
+      }
+    } else {
+      // Fallback: use empty array if promise rejected
+      const itemType = itemTypes[index];
+      priceMap.set(itemType, []);
+      console.error(`✗ Promise rejected for ${itemType}:`, result.reason);
+    }
+  });
+  
+  return priceMap;
+}
+
+/**
+ * Refresh price data for a specific item type (force refresh from remote)
+ * @param {string} itemType - Item type identifier
+ * @returns {Promise<Array>} Updated price data array
+ */
+export async function refreshItemTypePrices(itemType) {
+  try {
+    const priceFileName = getPriceFileName(itemType);
+    const priceFileLocalPath = getPriceFileLocalPath(itemType);
+    
+    const prices = await forceRefreshData(
+      priceFileName,
+      priceFileLocalPath
+    );
+    
+    console.log(`✓ Refreshed ${itemType} prices (${prices.length} items)`);
+    return prices;
+  } catch (error) {
+    console.error(`Error refreshing ${itemType} prices:`, error);
+    throw error;
+  }
+}
+

@@ -7,7 +7,8 @@ import { getCacheInfo } from '../utils/dataFetcher.js';
 import { priceUpdateService } from '../services/priceUpdateService.js';
 import { 
   getSelectedLeague, 
-  getPriceFileName 
+  getPriceFileName,
+  ITEM_TYPES
 } from '../services/leagueService.js';
 
 let onRefreshCallback = null;
@@ -89,6 +90,75 @@ function getStatusInfo(cacheInfo) {
 }
 
 /**
+ * Get cache info for all item types
+ * @returns {Array} Array of objects with itemType, cacheInfo, and statusInfo
+ */
+function getAllItemTypeStatuses() {
+  const activeItemTypes = ITEM_TYPES.filter(t => t.isActive);
+  return activeItemTypes.map(itemType => {
+    const priceFileName = getPriceFileName(itemType.id);
+    const cacheInfo = getCacheInfo(priceFileName);
+    const statusInfo = getStatusInfo(cacheInfo);
+    return {
+      itemType,
+      cacheInfo,
+      statusInfo,
+      fileName: priceFileName
+    };
+  });
+}
+
+/**
+ * Get aggregate status summary
+ * @param {Array} statuses - Array of item type statuses
+ * @returns {object} Summary with counts and overall status
+ */
+function getAggregateStatus(statuses) {
+  let upToDate = 0;
+  let recent = 0;
+  let outdated = 0;
+  let notLoaded = 0;
+  let localFallback = 0;
+  let oldestTimestamp = null;
+  let newestTimestamp = null;
+
+  statuses.forEach(({ cacheInfo, statusInfo }) => {
+    if (statusInfo.text === 'Up to Date') upToDate++;
+    else if (statusInfo.text === 'Recent') recent++;
+    else if (statusInfo.text === 'Outdated') outdated++;
+    else if (statusInfo.text === 'Not Loaded') notLoaded++;
+    else if (statusInfo.text === 'Local Fallback') localFallback++;
+
+    if (cacheInfo.timestamp) {
+      if (!oldestTimestamp || cacheInfo.timestamp < oldestTimestamp) {
+        oldestTimestamp = cacheInfo.timestamp;
+      }
+      if (!newestTimestamp || cacheInfo.timestamp > newestTimestamp) {
+        newestTimestamp = cacheInfo.timestamp;
+      }
+    }
+  });
+
+  const total = statuses.length;
+  const overallStatus = notLoaded > 0 ? 'warning' : 
+                       outdated > 0 ? 'warning' : 
+                       localFallback > 0 ? 'info' : 
+                       upToDate === total ? 'success' : 'info';
+
+  return {
+    total,
+    upToDate,
+    recent,
+    outdated,
+    notLoaded,
+    localFallback,
+    oldestTimestamp,
+    newestTimestamp,
+    overallStatus
+  };
+}
+
+/**
  * Render the data status overlay content
  * @param {HTMLElement} container - Container element
  */
@@ -99,9 +169,44 @@ export function renderDataStatusOverlay(container) {
   }
 
   const selectedLeague = getSelectedLeague();
-  const priceFileName = getPriceFileName();
-  const cacheInfo = getCacheInfo(priceFileName);
-  const statusInfo = getStatusInfo(cacheInfo);
+  const allStatuses = getAllItemTypeStatuses();
+  const aggregate = getAggregateStatus(allStatuses);
+  
+  // Determine overall status text
+  let overallStatusText = 'All Up to Date';
+  let overallStatusClass = 'status-success';
+  if (aggregate.notLoaded > 0) {
+    overallStatusText = `${aggregate.notLoaded} Not Loaded`;
+    overallStatusClass = 'status-warning';
+  } else if (aggregate.outdated > 0) {
+    overallStatusText = `${aggregate.outdated} Outdated`;
+    overallStatusClass = 'status-warning';
+  } else if (aggregate.localFallback > 0) {
+    overallStatusText = `${aggregate.localFallback} Using Local Fallback`;
+    overallStatusClass = 'status-info';
+  } else if (aggregate.recent > 0) {
+    overallStatusText = 'All Recent';
+    overallStatusClass = 'status-info';
+  }
+
+  // Build item type status list
+  const itemTypeList = allStatuses.map(({ itemType, cacheInfo, statusInfo, fileName }) => {
+    const ageHours = cacheInfo.age ? cacheInfo.age / 1000 / 60 / 60 : null;
+    return `
+      <div class="item-type-status-row">
+        <div class="item-type-name">
+          <span class="status-badge ${statusInfo.class}">${statusInfo.text}</span>
+          <span class="item-type-label">${itemType.displayName}</span>
+        </div>
+        <div class="item-type-details">
+          ${cacheInfo.timestamp ? `
+            <span class="item-type-age">${formatAge(cacheInfo.age)}</span>
+            ${cacheInfo.isLocal ? '<span class="item-type-source">(Local)</span>' : ''}
+          ` : '<span class="item-type-age">Not loaded</span>'}
+        </div>
+      </div>
+    `;
+  }).join('');
 
   container.innerHTML = `
     <div class="data-status-content">
@@ -112,29 +217,31 @@ export function renderDataStatusOverlay(container) {
             <span class="status-label">League:</span>
             <span class="status-value">${selectedLeague ? selectedLeague.name : 'Unknown'}</span>
           </div>
-        <div class="data-status-info">
           <div class="status-row">
-            <span class="status-label">File:</span>
-            <span class="status-value">${priceFileName}</span>
+            <span class="status-label">Item Types:</span>
+            <span class="status-value">${aggregate.total} total</span>
           </div>
           <div class="status-row">
-            <span class="status-label">Source:</span>
-            <span class="status-value">${cacheInfo.isLocal ? 'Local Fallback' : 'https://data.poeatlas.app/'}</span>
+            <span class="status-label">Overall Status:</span>
+            <span class="status-badge ${overallStatusClass}">${overallStatusText}</span>
           </div>
-          <div class="status-row">
-            <span class="status-label">Last Updated:</span>
-            <span class="status-value ${statusInfo.class}">
-              ${formatTimestamp(cacheInfo.timestamp)}
-            </span>
-          </div>
-          <div class="status-row">
-            <span class="status-label">Age:</span>
-            <span class="status-value">${formatAge(cacheInfo.age)}</span>
-          </div>
-          <div class="status-row">
-            <span class="status-label">Status:</span>
-            <span class="status-badge ${statusInfo.class}">${statusInfo.text}</span>
-          </div>
+          ${aggregate.newestTimestamp ? `
+            <div class="status-row">
+              <span class="status-label">Newest Update:</span>
+              <span class="status-value">${formatTimestamp(aggregate.newestTimestamp)}</span>
+            </div>
+            <div class="status-row">
+              <span class="status-label">Newest Age:</span>
+              <span class="status-value">${formatAge(Date.now() - aggregate.newestTimestamp)}</span>
+            </div>
+          ` : ''}
+        </div>
+      </div>
+
+      <div class="data-status-section">
+        <h4>Item Type Details</h4>
+        <div class="item-type-status-list">
+          ${itemTypeList}
         </div>
       </div>
 
@@ -143,7 +250,7 @@ export function renderDataStatusOverlay(container) {
           Check for Updates
         </button>
         <button id="force-refresh-btn" class="btn btn-primary">
-          <span>🔄</span> Refresh Data
+          <span>🔄</span> Refresh All Data
         </button>
       </div>
 
@@ -156,7 +263,7 @@ export function renderDataStatusOverlay(container) {
         </p>
         <p class="text-caption">
           <strong>Source:</strong> Price data from 
-          <a href="https://data.poeatlas.app/${priceFileName}" target="_blank" rel="noopener noreferrer">
+          <a href="https://data.poeatlas.app/" target="_blank" rel="noopener noreferrer">
             data.poeatlas.app
           </a>
         </p>
@@ -184,17 +291,28 @@ function setupEventListeners(container) {
       messageDiv.style.display = 'none';
 
       try {
-        // Check cache info to see if update is needed
-        const priceFileName = getPriceFileName();
-        const cacheInfo = getCacheInfo(priceFileName);
-        const ageHours = cacheInfo.age ? cacheInfo.age / 1000 / 60 / 60 : Infinity;
+        // Check cache info for all item types
+        const allStatuses = getAllItemTypeStatuses();
+        const aggregate = getAggregateStatus(allStatuses);
         
-        if (!cacheInfo.hasCache) {
-          showMessage(messageDiv, 'No cached data found. Click "Refresh Data" to load.', 'info');
-        } else if (ageHours > 1) {
-          showMessage(messageDiv, 'Update available! Your data is older than 1 hour. Click "Refresh Data" to update.', 'warning');
+        let needsUpdate = 0;
+        let notLoaded = 0;
+        
+        allStatuses.forEach(({ cacheInfo }) => {
+          const ageHours = cacheInfo.age ? cacheInfo.age / 1000 / 60 / 60 : Infinity;
+          if (!cacheInfo.hasCache) {
+            notLoaded++;
+          } else if (ageHours > 1) {
+            needsUpdate++;
+          }
+        });
+        
+        if (notLoaded > 0) {
+          showMessage(messageDiv, `${notLoaded} item type${notLoaded > 1 ? 's' : ''} not loaded. Click "Refresh All Data" to load.`, 'info');
+        } else if (needsUpdate > 0) {
+          showMessage(messageDiv, `Update available! ${needsUpdate} item type${needsUpdate > 1 ? 's' : ''} ${needsUpdate > 1 ? 'are' : 'is'} older than 1 hour. Click "Refresh All Data" to update.`, 'warning');
         } else {
-          showMessage(messageDiv, 'Your data is up to date!', 'success');
+          showMessage(messageDiv, `All ${aggregate.total} item types are up to date!`, 'success');
         }
       } catch (error) {
         console.error('Error checking for updates:', error);
@@ -210,11 +328,26 @@ function setupEventListeners(container) {
     refreshBtn.addEventListener('click', async () => {
       refreshBtn.disabled = true;
       const originalText = refreshBtn.innerHTML;
-      refreshBtn.innerHTML = '<span>⏳</span> Refreshing...';
+      refreshBtn.innerHTML = '<span>⏳</span> Refreshing All...';
       messageDiv.style.display = 'none';
 
       try {
-        const prices = await priceUpdateService.forceRefresh();
+        // Refresh all item types
+        const results = await priceUpdateService.forceRefreshAllPrices();
+        
+        // Count successful refreshes
+        let successCount = 0;
+        let totalItems = 0;
+        let failedCount = 0;
+        
+        results.forEach((result, itemType) => {
+          if (result.success && result.itemCount > 0) {
+            successCount++;
+            totalItems += result.itemCount;
+          } else if (!result.success) {
+            failedCount++;
+          }
+        });
         
         // Update the display
         renderDataStatusOverlay(container);
@@ -222,12 +355,26 @@ function setupEventListeners(container) {
         // Get the new message div after re-rendering
         const newMessageDiv = container.querySelector('#data-status-message');
         if (newMessageDiv) {
-          showMessage(newMessageDiv, `Successfully refreshed! Loaded ${prices.length} price entries.`, 'success');
+          if (failedCount === 0) {
+            showMessage(newMessageDiv, `Successfully refreshed all ${successCount} item type${successCount > 1 ? 's' : ''}! Loaded ${totalItems} total price entries.`, 'success');
+          } else {
+            showMessage(newMessageDiv, `Refreshed ${successCount} item type${successCount > 1 ? 's' : ''} (${totalItems} entries). ${failedCount} failed.`, 'warning');
+          }
         }
         
-        // Notify callback if set
+        // Notify callback if set (for backward compatibility, pass Scarab prices)
         if (onRefreshCallback) {
-          onRefreshCallback(prices);
+          const scarabResult = results.get('scarab');
+          if (scarabResult && scarabResult.success) {
+            // Load Scarab prices for callback
+            const { loadItemTypePrices } = await import('../services/dataService.js');
+            try {
+              const scarabPrices = await loadItemTypePrices('scarab');
+              onRefreshCallback(scarabPrices);
+            } catch (err) {
+              console.error('Error loading Scarab prices for callback:', err);
+            }
+          }
         }
       } catch (error) {
         console.error('Error refreshing data:', error);

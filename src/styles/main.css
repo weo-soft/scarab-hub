@@ -2254,6 +2254,68 @@ input:focus {
   border-bottom-color: rgba(200, 170, 110, 0.4);
 }
 
+.data-status-section h4 {
+  color: #c8aa6e;
+  margin-bottom: 12px;
+  font-size: 1em;
+  font-weight: 500;
+}
+
+.item-type-status-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.item-type-status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: rgba(200, 170, 110, 0.05);
+  border: 1px solid rgba(200, 170, 110, 0.1);
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.item-type-status-row:hover {
+  background: rgba(200, 170, 110, 0.08);
+  border-color: rgba(200, 170, 110, 0.2);
+}
+
+.item-type-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.item-type-label {
+  color: #c8aa6e;
+  font-weight: 500;
+  font-size: 0.95em;
+}
+
+.item-type-details {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9em;
+}
+
+.item-type-age {
+  color: #a09070;
+}
+
+.item-type-source {
+  color: #ff9800;
+  font-size: 0.85em;
+  font-style: italic;
+}
+
 .league-selector {
   background: #0f0f0f;
   border: 1px solid rgba(200, 170, 110, 0.2);

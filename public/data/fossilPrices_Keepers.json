@@ -1,0 +1,140 @@
+[
+  {
+    "name": "Bound Fossil",
+    "chaosValue": 3.75,
+    "divineValue": 0.02433,
+    "detailsId": "bound-fossil"
+  },
+  {
+    "name": "Aberrant Fossil",
+    "chaosValue": 0.3975,
+    "divineValue": 0.0025789800000000002,
+    "detailsId": "aberrant-fossil"
+  },
+  {
+    "name": "Aetheric Fossil",
+    "chaosValue": 1.37,
+    "divineValue": 0.00888856,
+    "detailsId": "aetheric-fossil"
+  },
+  {
+    "name": "Dense Fossil",
+    "chaosValue": 1.97,
+    "divineValue": 0.01278136,
+    "detailsId": "dense-fossil"
+  },
+  {
+    "name": "Fractured Fossil",
+    "chaosValue": 9.53,
+    "divineValue": 0.06183063999999999,
+    "detailsId": "fractured-fossil"
+  },
+  {
+    "name": "Fundamental Fossil",
+    "chaosValue": 17.93,
+    "divineValue": 0.11632983999999999,
+    "detailsId": "fundamental-fossil"
+  },
+  {
+    "name": "Gilded Fossil",
+    "chaosValue": 3.17,
+    "divineValue": 0.02056696,
+    "detailsId": "gilded-fossil"
+  },
+  {
+    "name": "Glyphic Fossil",
+    "chaosValue": 25.69,
+    "divineValue": 0.16667672,
+    "detailsId": "glyphic-fossil"
+  },
+  {
+    "name": "Jagged Fossil",
+    "chaosValue": 0.6627,
+    "divineValue": 0.0042995976,
+    "detailsId": "jagged-fossil"
+  },
+  {
+    "name": "Lucent Fossil",
+    "chaosValue": 1.39,
+    "divineValue": 0.00901832,
+    "detailsId": "lucent-fossil"
+  },
+  {
+    "name": "Opulent Fossil",
+    "chaosValue": 0.4331,
+    "divineValue": 0.0028099528,
+    "detailsId": "opulent-fossil"
+  },
+  {
+    "name": "Prismatic Fossil",
+    "chaosValue": 1.54,
+    "divineValue": 0.00999152,
+    "detailsId": "prismatic-fossil"
+  },
+  {
+    "name": "Pristine Fossil",
+    "chaosValue": 0.3196,
+    "divineValue": 0.0020735648,
+    "detailsId": "pristine-fossil"
+  },
+  {
+    "name": "Corroded Fossil",
+    "chaosValue": 5.18,
+    "divineValue": 0.03360784,
+    "detailsId": "corroded-fossil"
+  },
+  {
+    "name": "Deft Fossil",
+    "chaosValue": 3.18,
+    "divineValue": 0.020631840000000002,
+    "detailsId": "deft-fossil"
+  },
+  {
+    "name": "Faceted Fossil",
+    "chaosValue": 29.49,
+    "divineValue": 0.19133112,
+    "detailsId": "faceted-fossil"
+  },
+  {
+    "name": "Frigid Fossil",
+    "chaosValue": 0.2115,
+    "divineValue": 0.0013722119999999998,
+    "detailsId": "frigid-fossil"
+  },
+  {
+    "name": "Hollow Fossil",
+    "chaosValue": 113.4,
+    "divineValue": 0.7357392,
+    "detailsId": "hollow-fossil"
+  },
+  {
+    "name": "Metallic Fossil",
+    "chaosValue": 0.4759,
+    "divineValue": 0.0030876391999999997,
+    "detailsId": "metallic-fossil"
+  },
+  {
+    "name": "Sanctified Fossil",
+    "chaosValue": 36.46,
+    "divineValue": 0.23655248,
+    "detailsId": "sanctified-fossil"
+  },
+  {
+    "name": "Scorched Fossil",
+    "chaosValue": 0.1176,
+    "divineValue": 0.0007629888,
+    "detailsId": "scorched-fossil"
+  },
+  {
+    "name": "Serrated Fossil",
+    "chaosValue": 3.05,
+    "divineValue": 0.019788399999999998,
+    "detailsId": "serrated-fossil"
+  },
+  {
+    "name": "Shuddering Fossil",
+    "chaosValue": 6.21,
+    "divineValue": 0.04029048,
+    "detailsId": "shuddering-fossil"
+  }
+]

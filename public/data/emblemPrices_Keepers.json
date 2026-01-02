@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Timeless Maraketh Emblem",
+    "chaosValue": 3.42,
+    "divineValue": 0.02218896,
+    "detailsId": "timeless-maraketh-emblem"
+  },
+  {
+    "name": "Timeless Templar Emblem",
+    "chaosValue": 2.66,
+    "divineValue": 0.017258080000000002,
+    "detailsId": "timeless-templar-emblem"
+  },
+  {
+    "name": "Unrelenting Timeless Templar Emblem",
+    "chaosValue": 38.4,
+    "divineValue": 0.24913919999999998,
+    "detailsId": "unrelenting-timeless-templar-emblem"
+  },
+  {
+    "name": "Timeless Eternal Emblem",
+    "chaosValue": 0.4075,
+    "divineValue": 0.0026438599999999996,
+    "detailsId": "timeless-eternal-emblem"
+  },
+  {
+    "name": "Timeless Karui Emblem",
+    "chaosValue": 1.58,
+    "divineValue": 0.01025104,
+    "detailsId": "timeless-karui-emblem"
+  },
+  {
+    "name": "Timeless Vaal Emblem",
+    "chaosValue": 1.29,
+    "divineValue": 0.00836952,
+    "detailsId": "timeless-vaal-emblem"
+  },
+  {
+    "name": "Unrelenting Timeless Eternal Emblem",
+    "chaosValue": 61,
+    "divineValue": 0.395768,
+    "detailsId": "unrelenting-timeless-eternal-emblem"
+  },
+  {
+    "name": "Unrelenting Timeless Karui Emblem",
+    "chaosValue": 105,
+    "divineValue": 0.68124,
+    "detailsId": "unrelenting-timeless-karui-emblem"
+  },
+  {
+    "name": "Unrelenting Timeless Maraketh Emblem",
+    "chaosValue": 99,
+    "divineValue": 0.642312,
+    "detailsId": "unrelenting-timeless-maraketh-emblem"
+  },
+  {
+    "name": "Unrelenting Timeless Vaal Emblem",
+    "chaosValue": 38.17,
+    "divineValue": 0.24764696,
+    "detailsId": "unrelenting-timeless-vaal-emblem"
+  }
+]

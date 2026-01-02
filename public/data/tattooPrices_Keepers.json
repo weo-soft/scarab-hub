@@ -1,0 +1,320 @@
+[
+  {
+    "name": "Journey Tattoo of the Soul",
+    "chaosValue": 49.86,
+    "divineValue": 0.32349168,
+    "detailsId": "journey-tattoo-of-the-soul"
+  },
+  {
+    "name": "Tattoo of the Arohongui Warmonger",
+    "chaosValue": 26,
+    "divineValue": 0.168688,
+    "detailsId": "tattoo-of-the-arohongui-warmonger"
+  },
+  {
+    "name": "Tattoo of the Arohongui Warrior",
+    "chaosValue": 26.25,
+    "divineValue": 0.17031,
+    "detailsId": "tattoo-of-the-arohongui-warrior"
+  },
+  {
+    "name": "Tattoo of the Hinekora Deathwarden",
+    "chaosValue": 3.01,
+    "divineValue": 0.01952888,
+    "detailsId": "tattoo-of-the-hinekora-deathwarden"
+  },
+  {
+    "name": "Tattoo of the Hinekora Storyteller",
+    "chaosValue": 22.06,
+    "divineValue": 0.14312528,
+    "detailsId": "tattoo-of-the-hinekora-storyteller"
+  },
+  {
+    "name": "Tattoo of the Hinekora Warmonger",
+    "chaosValue": 7.66,
+    "divineValue": 0.04969808,
+    "detailsId": "tattoo-of-the-hinekora-warmonger"
+  },
+  {
+    "name": "Tattoo of the Kitava Heart Eater",
+    "chaosValue": 2.96,
+    "divineValue": 0.01920448,
+    "detailsId": "tattoo-of-the-kitava-heart-eater"
+  },
+  {
+    "name": "Tattoo of the Kitava Rebel",
+    "chaosValue": 1.8,
+    "divineValue": 0.0116784,
+    "detailsId": "tattoo-of-the-kitava-rebel"
+  },
+  {
+    "name": "Tattoo of the Kitava Warrior",
+    "chaosValue": 1.48,
+    "divineValue": 0.00960224,
+    "detailsId": "tattoo-of-the-kitava-warrior"
+  },
+  {
+    "name": "Tattoo of the Ngamahu Shaman",
+    "chaosValue": 5,
+    "divineValue": 0.03244,
+    "detailsId": "tattoo-of-the-ngamahu-shaman"
+  },
+  {
+    "name": "Tattoo of the Ngamahu Warmonger",
+    "chaosValue": 71.6,
+    "divineValue": 0.4645408,
+    "detailsId": "tattoo-of-the-ngamahu-warmonger"
+  },
+  {
+    "name": "Tattoo of the Ngamahu Warrior",
+    "chaosValue": 9.09,
+    "divineValue": 0.05897592,
+    "detailsId": "tattoo-of-the-ngamahu-warrior"
+  },
+  {
+    "name": "Tattoo of the Ramako Archer",
+    "chaosValue": 3.09,
+    "divineValue": 0.02004792,
+    "detailsId": "tattoo-of-the-ramako-archer"
+  },
+  {
+    "name": "Tattoo of the Ramako Fleetfoot",
+    "chaosValue": 10.99,
+    "divineValue": 0.07130312,
+    "detailsId": "tattoo-of-the-ramako-fleetfoot"
+  },
+  {
+    "name": "Tattoo of the Ramako Scout",
+    "chaosValue": 2.65,
+    "divineValue": 0.0171932,
+    "detailsId": "tattoo-of-the-ramako-scout"
+  },
+  {
+    "name": "Tattoo of the Ramako Sniper",
+    "chaosValue": 5.77,
+    "divineValue": 0.03743576,
+    "detailsId": "tattoo-of-the-ramako-sniper"
+  },
+  {
+    "name": "Tattoo of the Rongokurai Brute",
+    "chaosValue": 0.9583,
+    "divineValue": 0.0062174504,
+    "detailsId": "tattoo-of-the-rongokurai-brute"
+  },
+  {
+    "name": "Tattoo of the Rongokurai Goliath",
+    "chaosValue": 1.02,
+    "divineValue": 0.00661776,
+    "detailsId": "tattoo-of-the-rongokurai-goliath"
+  },
+  {
+    "name": "Tattoo of the Rongokurai Guard",
+    "chaosValue": 1.07,
+    "divineValue": 0.00694216,
+    "detailsId": "tattoo-of-the-rongokurai-guard"
+  },
+  {
+    "name": "Tattoo of the Rongokurai Turtle",
+    "chaosValue": 35.96,
+    "divineValue": 0.23330848,
+    "detailsId": "tattoo-of-the-rongokurai-turtle"
+  },
+  {
+    "name": "Tattoo of the Rongokurai Warrior",
+    "chaosValue": 1.47,
+    "divineValue": 0.00953736,
+    "detailsId": "tattoo-of-the-rongokurai-warrior"
+  },
+  {
+    "name": "Tattoo of the Tasalio Bladedancer",
+    "chaosValue": 1,
+    "divineValue": 0.006488,
+    "detailsId": "tattoo-of-the-tasalio-bladedancer"
+  },
+  {
+    "name": "Tattoo of the Tasalio Scout",
+    "chaosValue": 3.91,
+    "divineValue": 0.02536808,
+    "detailsId": "tattoo-of-the-tasalio-scout"
+  },
+  {
+    "name": "Tattoo of the Tasalio Tideshifter",
+    "chaosValue": 0.125,
+    "divineValue": 0.000811,
+    "detailsId": "tattoo-of-the-tasalio-tideshifter"
+  },
+  {
+    "name": "Tattoo of the Tasalio Warrior",
+    "chaosValue": 5.18,
+    "divineValue": 0.03360784,
+    "detailsId": "tattoo-of-the-tasalio-warrior"
+  },
+  {
+    "name": "Tattoo of the Tawhoa Herbalist",
+    "chaosValue": 6.86,
+    "divineValue": 0.04450768,
+    "detailsId": "tattoo-of-the-tawhoa-herbalist"
+  },
+  {
+    "name": "Tattoo of the Tawhoa Scout",
+    "chaosValue": 1,
+    "divineValue": 0.006488,
+    "detailsId": "tattoo-of-the-tawhoa-scout"
+  },
+  {
+    "name": "Tattoo of the Tawhoa Shaman",
+    "chaosValue": 13.12,
+    "divineValue": 0.08512255999999999,
+    "detailsId": "tattoo-of-the-tawhoa-shaman"
+  },
+  {
+    "name": "Tattoo of the Tukohama Shaman",
+    "chaosValue": 12.43,
+    "divineValue": 0.08064584,
+    "detailsId": "tattoo-of-the-tukohama-shaman"
+  },
+  {
+    "name": "Tattoo of the Tukohama Warrior",
+    "chaosValue": 0.3704,
+    "divineValue": 0.0024031552,
+    "detailsId": "tattoo-of-the-tukohama-warrior"
+  },
+  {
+    "name": "Tattoo of the Valako Scout",
+    "chaosValue": 5.16,
+    "divineValue": 0.03347808,
+    "detailsId": "tattoo-of-the-valako-scout"
+  },
+  {
+    "name": "Tattoo of the Valako Shaman",
+    "chaosValue": 5.61,
+    "divineValue": 0.03639768,
+    "detailsId": "tattoo-of-the-valako-shaman"
+  },
+  {
+    "name": "Tattoo of the Valako Shieldbearer",
+    "chaosValue": 202.9,
+    "divineValue": 1.3164152,
+    "detailsId": "tattoo-of-the-valako-shieldbearer"
+  },
+  {
+    "name": "Tattoo of the Valako Stormrider",
+    "chaosValue": 12.42,
+    "divineValue": 0.08058096,
+    "detailsId": "tattoo-of-the-valako-stormrider"
+  },
+  {
+    "name": "Tattoo of the Valako Warrior",
+    "chaosValue": 5.8,
+    "divineValue": 0.0376304,
+    "detailsId": "tattoo-of-the-valako-warrior"
+  },
+  {
+    "name": "Journey Tattoo of the Mind",
+    "chaosValue": 2312,
+    "divineValue": 15.000256,
+    "detailsId": "journey-tattoo-of-the-mind"
+  },
+  {
+    "name": "Tattoo of the Arohongui Moonwarden",
+    "chaosValue": 26.73,
+    "divineValue": 0.17342424,
+    "detailsId": "tattoo-of-the-arohongui-moonwarden"
+  },
+  {
+    "name": "Tattoo of the Arohongui Scout",
+    "chaosValue": 22.98,
+    "divineValue": 0.14909424,
+    "detailsId": "tattoo-of-the-arohongui-scout"
+  },
+  {
+    "name": "Tattoo of the Arohongui Shaman",
+    "chaosValue": 1007,
+    "divineValue": 6.533416,
+    "detailsId": "tattoo-of-the-arohongui-shaman"
+  },
+  {
+    "name": "Tattoo of the Hinekora Shaman",
+    "chaosValue": 2.29,
+    "divineValue": 0.014857519999999999,
+    "detailsId": "tattoo-of-the-hinekora-shaman"
+  },
+  {
+    "name": "Tattoo of the Hinekora Warrior",
+    "chaosValue": 24.65,
+    "divineValue": 0.1599292,
+    "detailsId": "tattoo-of-the-hinekora-warrior"
+  },
+  {
+    "name": "Tattoo of the Kitava Blood Drinker",
+    "chaosValue": 0.2639,
+    "divineValue": 0.0017121832000000002,
+    "detailsId": "tattoo-of-the-kitava-blood-drinker"
+  },
+  {
+    "name": "Tattoo of the Kitava Shaman",
+    "chaosValue": 2.8,
+    "divineValue": 0.0181664,
+    "detailsId": "tattoo-of-the-kitava-shaman"
+  },
+  {
+    "name": "Tattoo of the Ngamahu Firewalker",
+    "chaosValue": 30.36,
+    "divineValue": 0.19697568,
+    "detailsId": "tattoo-of-the-ngamahu-firewalker"
+  },
+  {
+    "name": "Tattoo of the Ngamahu Woodcarver",
+    "chaosValue": 5.5,
+    "divineValue": 0.035684,
+    "detailsId": "tattoo-of-the-ngamahu-woodcarver"
+  },
+  {
+    "name": "Tattoo of the Ramako Shaman",
+    "chaosValue": 87.97,
+    "divineValue": 0.57074936,
+    "detailsId": "tattoo-of-the-ramako-shaman"
+  },
+  {
+    "name": "Tattoo of the Tasalio Shaman",
+    "chaosValue": 1,
+    "divineValue": 0.006488,
+    "detailsId": "tattoo-of-the-tasalio-shaman"
+  },
+  {
+    "name": "Tattoo of the Tawhoa Warrior",
+    "chaosValue": 1.38,
+    "divineValue": 0.008953439999999998,
+    "detailsId": "tattoo-of-the-tawhoa-warrior"
+  },
+  {
+    "name": "Tattoo of the Tukohama Brawler",
+    "chaosValue": 0.64,
+    "divineValue": 0.00415232,
+    "detailsId": "tattoo-of-the-tukohama-brawler"
+  },
+  {
+    "name": "Tattoo of the Tukohama Warcaller",
+    "chaosValue": 73.67,
+    "divineValue": 0.47797096,
+    "detailsId": "tattoo-of-the-tukohama-warcaller"
+  },
+  {
+    "name": "Tattoo of the Tukohama Warmonger",
+    "chaosValue": 6.5,
+    "divineValue": 0.042172,
+    "detailsId": "tattoo-of-the-tukohama-warmonger"
+  },
+  {
+    "name": "Journey Tattoo of the Body",
+    "chaosValue": 11,
+    "divineValue": 0.071368,
+    "detailsId": "journey-tattoo-of-the-body"
+  },
+  {
+    "name": "Tattoo of the Tawhoa Naturalist",
+    "chaosValue": 2,
+    "divineValue": 0.012976,
+    "detailsId": "tattoo-of-the-tawhoa-naturalist"
+  }
+]
