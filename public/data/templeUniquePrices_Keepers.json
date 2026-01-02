@@ -1,0 +1,134 @@
+[
+  {
+    "name": "Fate of the Vaal",
+    "chaosValue": 16.0,
+    "divineValue": 0.1,
+    "detailsId": "fate-of-the-vaal-gemstone-sword"
+  },
+  {
+    "name": "Story of the Vaal",
+    "chaosValue": 3.2,
+    "divineValue": 0.02,
+    "detailsId": "story-of-the-vaal-gemstone-sword"
+  },
+  {
+    "name": "Mask of the Stitched Demon",
+    "chaosValue": 999.0,
+    "divineValue": 6.48,
+    "detailsId": "mask-of-the-stitched-demon-magistrate-crown"
+  },
+  {
+    "name": "Mask of the Spirit Drinker",
+    "chaosValue": 58.0,
+    "divineValue": 0.38,
+    "detailsId": "mask-of-the-spirit-drinker-magistrate-crown"
+  },
+  {
+    "name": "Slavedriver's Hand",
+    "chaosValue": 50.0,
+    "divineValue": 0.32,
+    "detailsId": "slavedrivers-hand-ambush-mitts"
+  },
+  {
+    "name": "Architect's Hand",
+    "chaosValue": 42.0,
+    "divineValue": 0.27,
+    "detailsId": "architects-hand-ambush-mitts"
+  },
+  {
+    "name": "Apep's Supremacy",
+    "chaosValue": 29.4,
+    "divineValue": 0.19,
+    "detailsId": "apeps-supremacy-vaal-spirit-shield"
+  },
+  {
+    "name": "Omeyocan",
+    "chaosValue": 22.0,
+    "divineValue": 0.14,
+    "detailsId": "omeyocan-carnal-boots"
+  },
+  {
+    "name": "Apep's Slumber",
+    "chaosValue": 6.7,
+    "divineValue": 0.04,
+    "detailsId": "apeps-slumber-vaal-spirit-shield"
+  },
+  {
+    "name": "Dance of the Offered",
+    "chaosValue": 2.0,
+    "divineValue": 0.01,
+    "detailsId": "dance-of-the-offered-carnal-boots"
+  },
+  {
+    "name": "Coward's Legacy",
+    "chaosValue": 87.0,
+    "divineValue": 0.56,
+    "detailsId": "cowards-legacy-chain-belt"
+  },
+  {
+    "name": "Zerphi's Heart",
+    "chaosValue": 65.0,
+    "divineValue": 0.42,
+    "detailsId": "zerphis-heart-paua-amulet"
+  },
+  {
+    "name": "Coward's Chains",
+    "chaosValue": 25.0,
+    "divineValue": 0.16,
+    "detailsId": "cowards-chains-chain-belt"
+  },
+  {
+    "name": "Sacrificial Heart",
+    "chaosValue": 1.1,
+    "divineValue": 0.01,
+    "detailsId": "sacrificial-heart-paua-amulet"
+  },
+  {
+    "name": "Transcendent Spirit",
+    "chaosValue": 105.0,
+    "divineValue": 0.68,
+    "detailsId": "transcendent-spirit-viridian-jewel"
+  },
+  {
+    "name": "Transcendent Flesh",
+    "chaosValue": 104.1,
+    "divineValue": 0.68,
+    "detailsId": "transcendent-flesh-crimson-jewel"
+  },
+  {
+    "name": "Transcendent Mind",
+    "chaosValue": 80.8,
+    "divineValue": 0.52,
+    "detailsId": "transcendent-mind-cobalt-jewel"
+  },
+  {
+    "name": "Tempered Spirit",
+    "chaosValue": 5.0,
+    "divineValue": 0.03,
+    "detailsId": "tempered-spirit-viridian-jewel"
+  },
+  {
+    "name": "Tempered Flesh",
+    "chaosValue": 3.1,
+    "divineValue": 0.02,
+    "detailsId": "tempered-flesh-crimson-jewel"
+  },
+  {
+    "name": "Tempered Mind",
+    "chaosValue": 1.0,
+    "divineValue": 0.01,
+    "detailsId": "tempered-mind-cobalt-jewel"
+  },
+  {
+    "name": "Soul Ripper",
+    "chaosValue": 176.9,
+    "divineValue": 1.15,
+    "detailsId": "soul-ripper"
+  },
+  {
+    "name": "Soul Catcher",
+    "chaosValue": 1.0,
+    "divineValue": 0.01,
+    "detailsId": "soul-catcher"
+  }
+]

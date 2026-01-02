@@ -1,0 +1,68 @@
+[
+  {
+    "name": "Accelerating Catalyst",
+    "chaosValue": 0.9754,
+    "divineValue": 0.0063283952,
+    "detailsId": "accelerating-catalyst"
+  },
+  {
+    "name": "Abrasive Catalyst",
+    "chaosValue": 0.8901,
+    "divineValue": 0.0057749687999999995,
+    "detailsId": "abrasive-catalyst"
+  },
+  {
+    "name": "Fertile Catalyst",
+    "chaosValue": 11.13,
+    "divineValue": 0.07221144,
+    "detailsId": "fertile-catalyst"
+  },
+  {
+    "name": "Imbued Catalyst",
+    "chaosValue": 0.8018,
+    "divineValue": 0.0052020784,
+    "detailsId": "imbued-catalyst"
+  },
+  {
+    "name": "Intrinsic Catalyst",
+    "chaosValue": 1.2,
+    "divineValue": 0.007785599999999999,
+    "detailsId": "intrinsic-catalyst"
+  },
+  {
+    "name": "Tempering Catalyst",
+    "chaosValue": 4.25,
+    "divineValue": 0.027573999999999998,
+    "detailsId": "tempering-catalyst"
+  },
+  {
+    "name": "Turbulent Catalyst",
+    "chaosValue": 0.7975,
+    "divineValue": 0.00517418,
+    "detailsId": "turbulent-catalyst"
+  },
+  {
+    "name": "Noxious Catalyst",
+    "chaosValue": 0.5948,
+    "divineValue": 0.0038590624,
+    "detailsId": "noxious-catalyst"
+  },
+  {
+    "name": "Prismatic Catalyst",
+    "chaosValue": 19.84,
+    "divineValue": 0.12872192,
+    "detailsId": "prismatic-catalyst"
+  },
+  {
+    "name": "Tainted Catalyst",
+    "chaosValue": 4.1,
+    "divineValue": 0.026600799999999997,
+    "detailsId": "tainted-catalyst"
+  },
+  {
+    "name": "Unstable Catalyst",
+    "chaosValue": 3.99,
+    "divineValue": 0.02588712,
+    "detailsId": "unstable-catalyst"
+  }
+]

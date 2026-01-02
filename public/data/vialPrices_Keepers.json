@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Vial of Summoning",
+    "chaosValue": 770.5,
+    "divineValue": 5.0,
+    "detailsId": "vial-of-summoning"
+  },
+  {
+    "name": "Vial of the Ghost",
+    "chaosValue": 300.0,
+    "divineValue": 1.95,
+    "detailsId": "vial-of-the-ghost"
+  },
+  {
+    "name": "Vial of Sacrifice",
+    "chaosValue": 93.0,
+    "divineValue": 0.6,
+    "detailsId": "vial-of-sacrifice"
+  },
+  {
+    "name": "Vial of Transcendence",
+    "chaosValue": 45.0,
+    "divineValue": 0.29,
+    "detailsId": "vial-of-transcendence"
+  },
+  {
+    "name": "Vial of Awakening",
+    "chaosValue": 34.02,
+    "divineValue": 0.22,
+    "detailsId": "vial-of-awakening"
+  },
+  {
+    "name": "Vial of Consequence",
+    "chaosValue": 3.0,
+    "divineValue": 0.02,
+    "detailsId": "vial-of-consequence"
+  },
+  {
+    "name": "Vial of Dominance",
+    "chaosValue": 2.0,
+    "divineValue": 0.01,
+    "detailsId": "vial-of-dominance"
+  },
+  {
+    "name": "Vial of the Ritual",
+    "chaosValue": 1.0,
+    "divineValue": 0.01,
+    "detailsId": "vial-of-the-ritual"
+  },
+  {
+    "name": "Vial of Fate",
+    "chaosValue": 1.0,
+    "divineValue": 0.01,
+    "detailsId": "vial-of-fate"
+  }
+]

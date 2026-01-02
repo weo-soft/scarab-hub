@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Primal Crystallised Lifeforce",
+    "chaosValue": 0.02048,
+    "divineValue": 0.00013287424000000002,
+    "detailsId": "primal-crystallised-lifeforce"
+  },
+  {
+    "name": "Sacred Crystallised Lifeforce",
+    "chaosValue": 49.36,
+    "divineValue": 0.32024768,
+    "detailsId": "sacred-crystallised-lifeforce"
+  },
+  {
+    "name": "Vivid Crystallised Lifeforce",
+    "chaosValue": 0.04045,
+    "divineValue": 0.0002624396,
+    "detailsId": "vivid-crystallised-lifeforce"
+  },
+  {
+    "name": "Wild Crystallised Lifeforce",
+    "chaosValue": 0.01353,
+    "divineValue": 8.778264e-05,
+    "detailsId": "wild-crystallised-lifeforce"
+  }
+]

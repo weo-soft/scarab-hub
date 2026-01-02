@@ -3,7 +3,7 @@
  * Flipping Scarabs - Path of Exile vendor profitability calculator
  */
 
-import { loadAndMergeScarabData, loadPreferences, savePreferences } from './js/services/dataService.js';
+import { loadAndMergeScarabData, loadPreferences, savePreferences, loadAllItemTypePrices } from './js/services/dataService.js';
 import { calculateThreshold, calculateProfitabilityStatus } from './js/services/calculationService.js';
 import { priceUpdateService } from './js/services/priceUpdateService.js';
 import { initLeagueService } from './js/services/leagueService.js';
@@ -186,6 +186,16 @@ async function init() {
     // Load and merge Scarab data (will use selected league)
     const rawData = await loadAndMergeScarabData();
     
+    // Load additional item type prices in parallel
+    const additionalItemTypes = ['catalyst', 'deliriumOrb', 'emblem', 'essence', 'fossil', 'lifeforce', 'oil', 'tattoo', 'templeUnique', 'vial'];
+    const additionalPrices = await loadAllItemTypePrices(additionalItemTypes);
+    
+    // Store prices for later use
+    window.priceData = {
+      scarabs: rawData,
+      additional: additionalPrices
+    };
+    
     // Sanitize and create Scarab instances
     const scarabs = rawData
       .map(data => sanitizeScarabData(data))
@@ -248,8 +258,17 @@ async function init() {
     initSimulationPanel(scarabs, threshold);
 
     // Set up price update callback to reload data when prices change
-    priceUpdateService.setOnPriceUpdate(async (updatedPrices) => {
-      await reloadScarabDataWithPrices(updatedPrices);
+    priceUpdateService.setOnPriceUpdate(async (itemType, updatedPrices) => {
+      if (itemType === 'scarab') {
+        // Existing Scarab update logic
+        await reloadScarabDataWithPrices(updatedPrices);
+      } else {
+        // Update additional item type prices
+        if (window.priceData) {
+          window.priceData.additional.set(itemType, updatedPrices);
+          console.log(`✓ Updated ${itemType} prices (${updatedPrices.length} items)`);
+        }
+      }
     });
 
     // Set up data status overlay refresh callback
@@ -260,6 +279,13 @@ async function init() {
     // Set up league selector callback
     setOnLeagueChange(async () => {
       await reloadScarabDataWithPrices(null);
+      // Reload additional item type prices for new league
+      if (window.priceData) {
+        const additionalItemTypes = ['catalyst', 'deliriumOrb', 'emblem', 'essence', 'fossil', 'lifeforce', 'oil', 'tattoo', 'templeUnique', 'vial'];
+        const updatedAdditionalPrices = await loadAllItemTypePrices(additionalItemTypes);
+        window.priceData.additional = updatedAdditionalPrices;
+        console.log('✓ Additional item type prices refreshed for new league');
+      }
     });
 
     // Initialize data status overlay
@@ -301,7 +327,7 @@ let currentCurrency = 'chaos';
 let currentView = 'list';
 let currentFilters = null;
 let currentPage = 'flipping'; // 'flipping' or 'simulation'
-let currentCategory = 'scarabs'; // 'scarabs', 'essences', 'tattoos', 'catalysts', 'temple', 't17'
+let currentCategory = 'scarabs'; // 'scarabs', 'essences', 'tattoos', 'catalysts', 'temple', 'fossils', 'oils', 'delirium-orbs', 'emblems'
 let currentConfidencePercentile = 0.9; // Default 90% confidence
 let currentTradeMode = 'returnable'; // Default trade mode: 'returnable', 'lowest_value', or 'optimal_combination'
 
@@ -527,7 +553,7 @@ function handleCurrencyChange(currency) {
 
 /**
  * Handle category change
- * @param {string} category - 'scarabs', 'essences', 'tattoos', 'catalysts', 'temple', 't17'
+ * @param {string} category - 'scarabs', 'essences', 'tattoos', 'catalysts', 'temple', 'fossils', 'oils', 'delirium-orbs', 'emblems'
  */
 function handleCategoryChange(category) {
   currentCategory = category;

@@ -3,9 +3,10 @@
  * Handles automatic periodic refresh of scarab price data
  */
 
-import { refreshPriceData } from './dataService.js';
+import { refreshPriceData, refreshItemTypePrices, loadItemTypePrices } from './dataService.js';
 import { getCacheInfo } from '../utils/dataFetcher.js';
 import { getPriceFileName } from './leagueService.js';
+import { ITEM_TYPES } from './leagueService.js';
 
 export class PriceUpdateService {
   constructor() {
@@ -17,6 +18,7 @@ export class PriceUpdateService {
   /**
    * Set callback to be called when prices are updated
    * @param {Function} callback - Function to call with updated prices
+   * Callback signature: (itemType: string, prices: Array) => void
    */
   setOnPriceUpdate(callback) {
     this.onPriceUpdateCallback = callback;
@@ -63,49 +65,169 @@ export class PriceUpdateService {
    * @returns {Promise<void>}
    */
   async checkAndUpdatePrices() {
-    const priceFileName = getPriceFileName();
-    const cacheInfo = getCacheInfo(priceFileName);
-    
-    // If cache is expired or doesn't exist, refresh
-    if (!cacheInfo.hasCache || cacheInfo.age > this.DEFAULT_UPDATE_INTERVAL_MS) {
+    // Use the new method that handles all item types
+    await this.checkAndUpdateAllPrices();
+  }
+
+  /**
+   * Check and update prices for all active item types
+   * @returns {Promise<Map<string, object>>} Map of item type to update result
+   */
+  async checkAndUpdateAllPrices() {
+    const itemTypes = ITEM_TYPES.filter(t => t.isActive).map(t => t.id);
+    const updatePromises = itemTypes.map(async (itemType) => {
       try {
-        console.log('Price data cache expired, refreshing...');
-        const prices = await refreshPriceData();
+        const priceFileName = getPriceFileName(itemType);
+        const cacheInfo = getCacheInfo(priceFileName);
         
-        // Notify callback if set
-        if (this.onPriceUpdateCallback) {
-          this.onPriceUpdateCallback(prices);
+        if (!cacheInfo.hasCache || cacheInfo.age > this.DEFAULT_UPDATE_INTERVAL_MS) {
+          const prices = await refreshItemTypePrices(itemType);
+          return {
+            itemType,
+            success: true,
+            itemCount: prices.length,
+            timestamp: Date.now()
+          };
         }
         
-        console.log(`✓ Price data refreshed (${prices.length} items)`);
+        return {
+          itemType,
+          success: true,
+          itemCount: 0, // No update needed
+          timestamp: Date.now()
+        };
       } catch (error) {
-        console.error('Failed to refresh price data:', error);
+        console.error(`Failed to update ${itemType} prices:`, error);
+        return {
+          itemType,
+          success: false,
+          itemCount: 0,
+          error: error.message,
+          timestamp: Date.now()
+        };
       }
-    } else {
-      console.debug(`Price data cache is still valid (age: ${Math.round(cacheInfo.age / 1000 / 60)} minutes)`);
-    }
+    });
+    
+    const results = await Promise.allSettled(updatePromises);
+    const resultMap = new Map();
+    
+    results.forEach((result, index) => {
+      if (result.status === 'fulfilled') {
+        const updateResult = result.value;
+        resultMap.set(updateResult.itemType, updateResult);
+        
+        // Notify callback if set and update was successful with new data
+        if (this.onPriceUpdateCallback && updateResult.success && updateResult.itemCount > 0) {
+          // Load updated prices to pass to callback
+          loadItemTypePrices(updateResult.itemType).then(prices => {
+            this.onPriceUpdateCallback(updateResult.itemType, prices);
+          }).catch(err => {
+            console.error(`Error loading updated prices for callback:`, err);
+          });
+        }
+        
+        // Log update result
+        if (updateResult.success) {
+          if (updateResult.itemCount > 0) {
+            console.log(`✓ Updated ${updateResult.itemType} prices (${updateResult.itemCount} items)`);
+          } else {
+            console.debug(`✓ ${updateResult.itemType} prices still valid (no update needed)`);
+          }
+        } else {
+          console.warn(`⚠ Failed to update ${updateResult.itemType} prices: ${updateResult.error}`);
+        }
+      } else {
+        const itemType = itemTypes[index];
+        resultMap.set(itemType, {
+          itemType,
+          success: false,
+          itemCount: 0,
+          error: result.reason?.message || 'Unknown error',
+          timestamp: Date.now()
+        });
+        console.error(`✗ Promise rejected for ${itemType} update:`, result.reason);
+      }
+    });
+    
+    return resultMap;
   }
 
   /**
    * Force refresh prices immediately
-   * @returns {Promise<Array>} Updated prices
+   * @returns {Promise<Array>} Updated prices (for backward compatibility, returns Scarab prices)
    */
   async forceRefresh() {
-    try {
-      console.log('Force refreshing price data...');
-      const prices = await refreshPriceData();
-      
-      // Notify callback if set
-      if (this.onPriceUpdateCallback) {
-        this.onPriceUpdateCallback(prices);
-      }
-      
-      console.log(`✓ Price data force refreshed (${prices.length} items)`);
-      return prices;
-    } catch (error) {
-      console.error('Failed to force refresh price data:', error);
-      throw error;
+    // Use the new method that handles all item types
+    const results = await this.forceRefreshAllPrices();
+    // For backward compatibility, return Scarab prices
+    const scarabResult = results.get('scarab');
+    if (scarabResult && scarabResult.success) {
+      return await loadItemTypePrices('scarab');
     }
+    return [];
+  }
+
+  /**
+   * Force refresh all item type prices immediately
+   * @returns {Promise<Map<string, object>>} Map of item type to update result
+   */
+  async forceRefreshAllPrices() {
+    const itemTypes = ITEM_TYPES.filter(t => t.isActive).map(t => t.id);
+    const updatePromises = itemTypes.map(async (itemType) => {
+      try {
+        const prices = await refreshItemTypePrices(itemType);
+        
+        // Notify callback if set
+        if (this.onPriceUpdateCallback) {
+          this.onPriceUpdateCallback(itemType, prices);
+        }
+        
+        return {
+          itemType,
+          success: true,
+          itemCount: prices.length,
+          timestamp: Date.now()
+        };
+      } catch (error) {
+        console.error(`Failed to force refresh ${itemType} prices:`, error);
+        return {
+          itemType,
+          success: false,
+          itemCount: 0,
+          error: error.message,
+          timestamp: Date.now()
+        };
+      }
+    });
+    
+    const results = await Promise.allSettled(updatePromises);
+    const resultMap = new Map();
+    
+    results.forEach((result, index) => {
+      if (result.status === 'fulfilled') {
+        const updateResult = result.value;
+        resultMap.set(updateResult.itemType, updateResult);
+        
+        // Log update result
+        if (updateResult.success) {
+          console.log(`✓ Force refreshed ${updateResult.itemType} prices (${updateResult.itemCount} items)`);
+        } else {
+          console.warn(`⚠ Failed to force refresh ${updateResult.itemType} prices: ${updateResult.error}`);
+        }
+      } else {
+        const itemType = itemTypes[index];
+        resultMap.set(itemType, {
+          itemType,
+          success: false,
+          itemCount: 0,
+          error: result.reason?.message || 'Unknown error',
+          timestamp: Date.now()
+        });
+        console.error(`✗ Promise rejected for ${itemType} force refresh:`, result.reason);
+      }
+    });
+    
+    return resultMap;
   }
 }
 
