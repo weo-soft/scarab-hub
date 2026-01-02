@@ -282,7 +282,6 @@ async function init() {
 
     // Set up league selector callback
     setOnLeagueChange(async () => {
-      await reloadScarabDataWithPrices(null);
       // Reload additional item type prices for new league
       if (window.priceData) {
         const additionalItemTypes = ['catalyst', 'deliriumOrb', 'emblem', 'essence', 'fossil', 'lifeforce', 'oil', 'tattoo', 'templeUnique', 'vial'];
@@ -290,6 +289,24 @@ async function init() {
         window.priceData.additional = updatedAdditionalPrices;
         console.log('✓ Additional item type prices refreshed for new league');
       }
+      
+      // Reload data based on current category
+      if (currentCategory === 'essences') {
+        // Reload Essence data for new league
+        try {
+          const { essences, thresholds, rerollCost } = await loadAndProcessEssenceData();
+          const preferences = loadPreferences();
+          const currency = preferences.currencyPreference || 'chaos';
+          await renderEssenceUI(essences, thresholds, rerollCost, currency);
+        } catch (error) {
+          console.error('Error reloading Essence data after league change:', error);
+          showErrorToast('Failed to reload Essence data for new league');
+        }
+      } else if (currentCategory === 'scarabs') {
+        // Reload Scarab data for new league
+        await reloadScarabDataWithPrices(null);
+      }
+      // For other categories, data will be loaded when category is selected
     });
 
     // Initialize data status overlay
