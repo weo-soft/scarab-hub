@@ -380,6 +380,110 @@ export function getCellDefinitions(imageWidth, imageHeight) {
 }
 
 /**
+ * Grid configuration for essence-tab.png
+ * Image dimensions: 842 x 840 pixels (measured)
+ * Essences are organized in rows; each row contains different tiers of the same essence type.
+ * Left block: 12 rows (4×7 + 4×6 + 4×5 cells). Right block: 8 rows (4×4 + 4×3). Special: 4×1.
+ */
+export const ESSENCE_GRID_CONFIG = {
+  tabImagePath: '/assets/images/stashTabs/essence-tab.png',
+  imageDimensions: {
+    width: 842,
+    height: 840
+  },
+  cellGroups: [
+    // Left block - first 4 rows: 7 members each
+    { x: 34, y: 29, count: 7, padding: 5, type: 'essence' },
+    { x: 35, y: 94, count: 7, padding: 5, type: 'essence' },
+    { x: 34, y: 159, count: 7, padding: 5, type: 'essence' },
+    { x: 34, y: 225, count: 7, padding: 5, type: 'essence' },
+    // Next 4 rows: 6 members each
+    { x: 34, y: 290, count: 6, padding: 5, type: 'essence' },
+    { x: 34, y: 358, count: 6, padding: 5, type: 'essence' },
+    { x: 34, y: 423, count: 6, padding: 5, type: 'essence' },
+    { x: 34, y: 489, count: 6, padding: 5, type: 'essence' },
+    // Next 4 rows: 5 members each
+    { x: 34, y: 553, count: 5, padding: 5, type: 'essence' },
+    { x: 34, y: 619, count: 5, padding: 5, type: 'essence' },
+    { x: 34, y: 685, count: 5, padding: 5, type: 'essence' },
+    { x: 34, y: 755, count: 5, padding: 5, type: 'essence' },
+    // Right block - 4 rows of 4, 4 rows of 3
+    { x: 549, y: 29, count: 4, padding: 5, type: 'essence-right' },
+    { x: 549, y: 94, count: 4, padding: 5, type: 'essence-right' },
+    { x: 549, y: 159, count: 4, padding: 5, type: 'essence-right' },
+    { x: 549, y: 225, count: 4, padding: 5, type: 'essence-right' },
+    { x: 612, y: 291, count: 3, padding: 5, type: 'essence-right' },
+    { x: 614, y: 358, count: 3, padding: 5, type: 'essence-right' },
+    { x: 614, y: 423, count: 3, padding: 5, type: 'essence-right' },
+    { x: 614, y: 489, count: 3, padding: 5, type: 'essence-right' },
+    // Special essences: Insanity, Horror, Delirium, Hysteria
+    { x: 745, y: 553, count: 1, padding: 0, type: 'essence-special' },
+    { x: 745, y: 619, count: 1, padding: 0, type: 'essence-special' },
+    { x: 745, y: 685, count: 1, padding: 0, type: 'essence-special' },
+    { x: 745, y: 755, count: 1, padding: 0, type: 'essence-special' }
+  ],
+  defaultCellSize: {
+    width: 61,
+    height: 60
+  },
+  defaultPadding: 0,
+  itemOrderConfig: {
+    'essence': [],
+    'essence-right': [],
+    'essence-special': []
+  }
+};
+
+/**
+ * Create cell definitions from group configuration for a category grid config
+ * @param {Object} gridConfig - Grid configuration with cellGroups, defaultCellSize, defaultPadding
+ * @returns {Array<Object>} Array of cell definitions
+ */
+export function createCellsFromGroupsForCategory(gridConfig) {
+  if (!gridConfig || !gridConfig.cellGroups) {
+    return [];
+  }
+
+  const cells = [];
+  let cellId = 0;
+  let globalRow = 0;
+  let lastY = -1;
+
+  const defaultCellSize = gridConfig.defaultCellSize || CELL_SIZE;
+  const defaultPadding = gridConfig.defaultPadding ?? CELL_PADDING;
+
+  gridConfig.cellGroups.forEach((group, groupConfigIndex) => {
+    if (lastY === -1 || Math.abs(group.y - lastY) > 10) {
+      if (lastY !== -1) globalRow++;
+      lastY = group.y;
+    }
+
+    const cellWidth = group.cellWidth ?? defaultCellSize.width;
+    const cellHeight = group.cellHeight ?? defaultCellSize.height;
+    const padding = group.padding ?? defaultPadding;
+
+    let colInRow = 0;
+    for (let i = 0; i < group.count; i++) {
+      const cellX = group.x + i * (cellWidth + padding);
+      cells.push({
+        id: `cell-${cellId++}`,
+        x: cellX,
+        y: group.y,
+        width: cellWidth,
+        height: cellHeight,
+        row: globalRow,
+        col: colInRow++,
+        groupIndex: i,
+        groupType: group.type,
+        groupConfigIndex
+      });
+    }
+  });
+
+  return cells;
+}
+
+/**
  * Create a simple grid layout for testing (legacy function)
  * @param {number} cols - Number of columns
  * @param {number} startX - Starting X position

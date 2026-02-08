@@ -64,13 +64,62 @@ export function hideTooltip() {
 }
 
 /**
+ * Show tooltip for an essence (grid view)
+ * @param {Essence} essence - The essence to display
+ * @param {number} x - Mouse X position (screen coordinates)
+ * @param {number} y - Mouse Y position (screen coordinates)
+ */
+export function showEssenceTooltip(essence, x, y) {
+  if (!essence) {
+    hideTooltip();
+    return;
+  }
+  initTooltip();
+  currentScarab = essence;
+  tooltipElement.innerHTML = buildEssenceTooltipContent(essence);
+  positionTooltip(x, y);
+  tooltipElement.style.display = 'block';
+  requestAnimationFrame(() => tooltipElement.classList.add('visible'));
+}
+
+/**
+ * Build tooltip HTML content for an essence
+ * @param {Essence} essence
+ * @returns {string} HTML content
+ */
+function buildEssenceTooltipContent(essence) {
+  const parts = [];
+  parts.push(`<div class="tooltip-name">${escapeHtml(essence.name)}</div>`);
+  parts.push('<div class="tooltip-separator"></div>');
+  parts.push('<div class="tooltip-prices">');
+  if (essence.chaosValue !== null && essence.chaosValue !== undefined) {
+    parts.push(`<div class="tooltip-price-item"><span class="tooltip-price-label">Chaos:</span><span class="tooltip-price-value">${formatPrice(essence.chaosValue)}</span></div>`);
+  }
+  if (essence.divineValue !== null && essence.divineValue !== undefined) {
+    parts.push(`<div class="tooltip-price-item"><span class="tooltip-price-label">Divine:</span><span class="tooltip-price-value">${formatPrice(essence.divineValue)}</span></div>`);
+  }
+  if ((essence.chaosValue === null || essence.chaosValue === undefined) &&
+      (essence.divineValue === null || essence.divineValue === undefined)) {
+    parts.push(`<div class="tooltip-price-item"><span class="tooltip-price-unavailable">Price data unavailable</span></div>`);
+  }
+  parts.push('</div>');
+  if (essence.profitabilityStatus && essence.profitabilityStatus !== 'unknown') {
+    parts.push('<div class="tooltip-separator"></div>');
+    const statusClass = essence.profitabilityStatus === 'profitable' ? 'profitable' : 'not-profitable';
+    const statusText = essence.profitabilityStatus === 'profitable' ? '✓ Profitable' : '✗ Not Profitable';
+    parts.push(`<div class="tooltip-status ${statusClass}">${statusText}</div>`);
+  }
+  return parts.join('');
+}
+
+/**
  * Update tooltip position
  * @param {number} x - Mouse X position (screen coordinates)
  * @param {number} y - Mouse Y position (screen coordinates)
  */
 export function updateTooltipPosition(x, y) {
-  if (!tooltipElement || !currentScarab) return;
-  
+  if (!tooltipElement) return;
+  if (!currentScarab) return;
   positionTooltip(x, y);
 }
 
@@ -159,7 +208,8 @@ function buildTooltipContent(scarab) {
   const details = [];
   
   if (scarab.dropWeight !== null && scarab.dropWeight !== undefined) {
-    details.push(`Drop Weight: ${scarab.dropWeight}`);
+    const weightPercent = (scarab.dropWeight * 100).toFixed(2);
+    details.push(`Drop Weight: ${weightPercent}%`);
   }
   
   if (scarab.dropLevel) {

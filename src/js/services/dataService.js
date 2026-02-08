@@ -6,27 +6,94 @@
 import { fetchDataWithFallback, forceRefreshData } from '../utils/dataFetcher.js';
 import { getPriceFileName, getPriceFileLocalPath } from './leagueService.js';
 
+const MLE_WEIGHTS_URL = 'https://poedata.dev/data/scarabs/calculations/mle.json';
+const ESSENCE_MLE_WEIGHTS_URL = 'https://poedata.dev/data/essences/calculations/mle.json';
+
 /**
- * Load and merge Scarab details and prices
- * @returns {Promise<Array<Scarab>>}
+ * Fetch scarab drop weights from poedata.dev MLE calculations
+ * @returns {Promise<Map<string, number>>} Map of scarab id -> weight (probability)
  */
-export async function loadAndMergeScarabData() {
+async function fetchScarabWeightsFromMle() {
+  const response = await fetch(MLE_WEIGHTS_URL);
+  if (!response.ok) {
+    throw new Error(`Failed to load Scarab weights from ${MLE_WEIGHTS_URL}`);
+  }
+  const data = await response.json();
+  const weightMap = new Map();
+  if (data.items && Array.isArray(data.items)) {
+    data.items.forEach(item => {
+      if (item.id != null && typeof item.weight === 'number') {
+        weightMap.set(item.id, item.weight);
+      }
+    });
+  }
+  return weightMap;
+}
+
+/**
+ * Fetch essence drop weights from poedata.dev MLE calculations.
+ * MLE data only includes Deafening tier; same weight is used for all tiers of each essence type.
+ * @returns {Promise<Map<string, number>>} Map of deafening essence id -> weight (e.g. "deafening-essence-of-woe" -> weight)
+ */
+async function fetchEssenceWeightsFromMle() {
+  const response = await fetch(ESSENCE_MLE_WEIGHTS_URL);
+  if (!response.ok) {
+    throw new Error(`Failed to load Essence weights from ${ESSENCE_MLE_WEIGHTS_URL}`);
+  }
+  const data = await response.json();
+  const weightMap = new Map();
+  if (data.items && Array.isArray(data.items)) {
+    data.items.forEach(item => {
+      if (item.id != null && typeof item.weight === 'number') {
+        weightMap.set(item.id, item.weight);
+      }
+    });
+  }
+  return weightMap;
+}
+
+/**
+ * Get the Deafening essence id for a given essence id (all tiers share the same MLE weight).
+ * e.g. "muttering-essence-of-anger" -> "deafening-essence-of-anger"; "essence-of-horror" -> null.
+ * @param {string} essenceId - Full essence id
+ * @returns {string|null} Deafening id for lookup, or null for special essences
+ */
+function getDeafeningEssenceIdForWeight(essenceId) {
+  if (!essenceId || typeof essenceId !== 'string') return null;
+  if (essenceId.startsWith('essence-of-')) return null; // special essences not in MLE
+  const match = essenceId.match(/-essence-of-(.+)$/);
+  return match ? `deafening-essence-of-${match[1]}` : null;
+}
+
+/**
+ * Load and merge Scarab details (from scarabs.json), weights (from poedata.dev MLE), and prices
+ * @param {Array|null} [pricesOverride] - Optional price data to use instead of fetching (e.g. after refresh)
+ * @returns {Promise<Array>} Merged scarab data with id, name, description, dropWeight, chaosValue, etc.
+ */
+export async function loadAndMergeScarabData(pricesOverride = null) {
   try {
-    // Load details from local (static data)
-    const detailsResponse = await fetch('/data/scarabDetails.json');
+    // Load details from local (static data) - scarabs.json has no weights
+    const detailsResponse = await fetch('/data/scarabs.json');
     if (!detailsResponse.ok) {
       throw new Error('Failed to load Scarab details file');
     }
     const details = await detailsResponse.json();
 
-    // Load prices from remote with fallback to local (using selected league)
-    const priceFileName = getPriceFileName();
-    const priceFileLocalPath = getPriceFileLocalPath();
-    
-    const prices = await fetchDataWithFallback(
-      priceFileName,
-      priceFileLocalPath
-    );
+    // Fetch up-to-date weights from poedata.dev MLE
+    const weightMap = await fetchScarabWeightsFromMle();
+
+    // Load prices (use override if provided, e.g. after refresh)
+    let prices;
+    if (pricesOverride != null) {
+      prices = pricesOverride;
+    } else {
+      const priceFileName = getPriceFileName();
+      const priceFileLocalPath = getPriceFileLocalPath();
+      prices = await fetchDataWithFallback(
+        priceFileName,
+        priceFileLocalPath
+      );
+    }
 
     // Create a map of prices by detailsId for quick lookup
     const priceMap = new Map();
@@ -36,11 +103,13 @@ export async function loadAndMergeScarabData() {
       }
     });
 
-    // Merge details with prices
+    // Merge details + weights + prices
     const merged = details.map(detail => {
       const price = priceMap.get(detail.id);
+      const dropWeight = weightMap.has(detail.id) ? weightMap.get(detail.id) : null;
       return {
         ...detail,
+        dropWeight,
         chaosValue: price?.chaosValue ?? null,
         divineValue: price?.divineValue ?? null,
       };
@@ -261,34 +330,79 @@ export async function refreshItemTypePrices(itemType) {
 }
 
 /**
- * Load and merge Essence price data
- * Essences don't have a separate details file like Scarabs - prices contain all needed data
+ * Load full Essence list from essences.json and merge with price data and MLE drop weights.
+ * Every entry in the details file is returned; price never determines inclusion.
+ * Drop weights from poedata.dev MLE (Deafening tier); same weight is used for all tiers of each type.
+ * @returns {Promise<Array>} Array of merged Essence objects (id, name, tier, chaosValue, divineValue, dropWeight, ...)
+ */
+export async function loadFullEssenceData() {
+  try {
+    const [definitionsRes, prices, essenceWeightMap] = await Promise.all([
+      fetch('/data/essences.json'),
+      loadItemTypePrices('essence').catch(() => []),
+      fetchEssenceWeightsFromMle().catch((err) => {
+        console.warn('Essence MLE weights unavailable, using equal weighting:', err.message);
+        return new Map();
+      })
+    ]);
+    if (!definitionsRes.ok) {
+      throw new Error('Failed to load essences.json');
+    }
+    const definitions = await definitionsRes.json();
+    if (!Array.isArray(definitions)) {
+      throw new Error('essences.json must be an array');
+    }
+    const priceByDetailsId = new Map();
+    (prices || []).forEach((p) => {
+      const id = p.detailsId || p.id;
+      if (id) {
+        priceByDetailsId.set(id, {
+          chaosValue: p.chaosValue ?? null,
+          divineValue: p.divineValue ?? null
+        });
+      }
+    });
+    const merged = definitions.map((def) => {
+      const id = def.id || def.detailsId;
+      const price = priceByDetailsId.get(id);
+      const deafeningId = getDeafeningEssenceIdForWeight(id);
+      const dropWeight = deafeningId != null && essenceWeightMap.has(deafeningId)
+        ? essenceWeightMap.get(deafeningId)
+        : null;
+      return {
+        ...def,
+        id: id || def.id,
+        name: def.name || '',
+        chaosValue: price?.chaosValue ?? null,
+        divineValue: price?.divineValue ?? null,
+        dropWeight
+      };
+    });
+    console.log(`✓ Loaded ${merged.length} Essences (${priceByDetailsId.size} with price data, MLE weights for ${essenceWeightMap.size} types)`);
+    return merged;
+  } catch (error) {
+    console.error('Error loading full Essence data:', error);
+    throw error;
+  }
+}
+
+/**
+ * Load and merge Essence price data (price-only; for backward compatibility).
+ * Prefer loadFullEssenceData() when the full grid list is needed.
  * @returns {Promise<Array>} Array of Essence price objects
  */
 export async function loadAndMergeEssenceData() {
   try {
-    // Load Essence prices from remote with fallback to local (using selected league)
     const prices = await loadItemTypePrices('essence');
-    
-    // Handle missing price data - mark as null if chaosValue is missing
-    const processedPrices = prices.map(price => ({
+    const processedPrices = (prices || []).map((price) => ({
       ...price,
+      id: price.detailsId || price.id,
       chaosValue: price.chaosValue ?? null,
       divineValue: price.divineValue ?? null
     }));
-    
-    // Log warnings for Essences with missing prices
-    const missingPrices = processedPrices.filter(p => p.chaosValue === null);
-    if (missingPrices.length > 0) {
-      console.warn(`${missingPrices.length} Essences have missing price data`);
-    }
-    
-    // Essence prices already contain all needed data (name, detailsId, chaosValue, divineValue)
-    // No merging needed like Scarabs
     return processedPrices;
   } catch (error) {
     console.error('Error loading Essence data:', error);
-    // Return empty array instead of throwing to allow graceful degradation
     return [];
   }
 }

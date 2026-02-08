@@ -634,7 +634,7 @@ function updateSimulationScarabList(container, yieldCounts) {
         count,
         chaosValue: scarab?.chaosValue || null,
         dropWeight: scarab?.dropWeight || null,
-        imagePath: `/assets/scarabs/${scarabId}.png`,
+        imagePath: `/assets/images/scarabs/${scarabId}.png`,
       };
     })
     .filter(entry => entry.count > 0) // Remove entries with zero count
@@ -1097,7 +1097,7 @@ async function initializeSimulationGridView(container) {
     simulationGridCanvas = canvas;
     
     // Initialize grid view with all scarabs
-    await initGridView(canvas, currentScarabs, '/assets/Scarab-tab.png');
+    await initGridView(canvas, currentScarabs, '/assets/images/stashTabs/scarab-tab.png');
     canvas.dataset.initialized = 'true';
     
     // Setup toggle button for cell backgrounds

@@ -245,7 +245,7 @@ function renderScarabItem(scarab, currency) {
   const bgColor = getProfitabilityBackgroundColor(status);
   const statusLabel = getStatusLabel(status);
   const statusIcon = getStatusIcon(status);
-  const imagePath = `/assets/scarabs/${scarab.id}.png`;
+  const imagePath = `/assets/images/scarabs/${scarab.id}.png`;
   const yieldCount = yieldCounts.get(scarab.id);
   const hasYieldCounts = yieldCounts.size > 0;
 

@@ -9,11 +9,15 @@ export class Essence {
   constructor(data) {
     this.id = data.id || data.detailsId || '';
     this.name = data.name || '';
-    
+    this.tier = data.tier ?? null;
+
     // Price data (may be null if unavailable)
     this.chaosValue = data.chaosValue ?? null;
     this.divineValue = data.divineValue ?? null;
-    
+
+    // Drop weight from MLE (poedata.dev); same for all tiers of this essence type; null for special essences
+    this.dropWeight = data.dropWeight ?? null;
+
     // Classify reroll group automatically from name
     this.rerollGroup = data.rerollGroup ?? (this.name ? classifyRerollGroup(this.name) : null);
     

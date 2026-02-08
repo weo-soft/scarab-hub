@@ -1,28 +1,34 @@
 /**
  * Essence Calculation Service
- * Handles expected value calculations, threshold calculations, and profitability analysis for Essences
+ * Handles expected value calculations, threshold calculations, and profitability analysis for Essences.
+ * Uses MLE drop weights from poedata.dev (Deafening tier); same weight applies to all tiers per type.
  */
 
 /**
- * Calculate expected value for a reroll group using equal weighting
+ * Calculate expected value for a reroll group using MLE weights from poedata.dev.
+ * Essences without a weight (e.g. special essences) use weight 1 so they still contribute.
  * @param {Array<Essence>} essences - All Essences in the reroll group
- * @returns {number} Expected value (average of all Essence prices)
+ * @returns {number} Weighted expected value (sum(value * weight) / sum(weight))
  */
 export function calculateExpectedValueForGroup(essences) {
   if (!Array.isArray(essences) || essences.length === 0) {
     return 0;
   }
 
-  // Filter to only Essences with valid price data
   const essencesWithPrices = essences.filter(e => e.hasPriceData());
-  
   if (essencesWithPrices.length === 0) {
     return 0;
   }
 
-  // Equal weighting: simple average
-  const sum = essencesWithPrices.reduce((total, essence) => total + essence.chaosValue, 0);
-  return sum / essencesWithPrices.length;
+  let weightedSum = 0;
+  let totalWeight = 0;
+  for (const essence of essencesWithPrices) {
+    const w = essence.dropWeight != null && essence.dropWeight > 0 ? essence.dropWeight : 1;
+    weightedSum += essence.chaosValue * w;
+    totalWeight += w;
+  }
+  if (totalWeight <= 0) return 0;
+  return weightedSum / totalWeight;
 }
 
 /**
