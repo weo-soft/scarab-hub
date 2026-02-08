@@ -8,6 +8,8 @@ import { getPriceFileName, getPriceFileLocalPath } from './leagueService.js';
 
 const MLE_WEIGHTS_URL = 'https://poedata.dev/data/scarabs/calculations/mle.json';
 const ESSENCE_MLE_WEIGHTS_URL = 'https://poedata.dev/data/essences/calculations/mle.json';
+const CATALYST_MLE_WEIGHTS_URL = 'https://poedata.dev/data/catalysts/calculations/mle.json';
+const FOSSIL_MLE_WEIGHTS_URL = 'https://poedata.dev/data/fossils/calculations/mle.json';
 
 /**
  * Fetch scarab drop weights from poedata.dev MLE calculations
@@ -63,6 +65,48 @@ function getDeafeningEssenceIdForWeight(essenceId) {
   if (essenceId.startsWith('essence-of-')) return null; // special essences not in MLE
   const match = essenceId.match(/-essence-of-(.+)$/);
   return match ? `deafening-essence-of-${match[1]}` : null;
+}
+
+/**
+ * Fetch catalyst drop weights from poedata.dev MLE calculations
+ * @returns {Promise<Map<string, number>>} Map of catalyst id -> weight (probability)
+ */
+async function fetchCatalystWeightsFromMle() {
+  const response = await fetch(CATALYST_MLE_WEIGHTS_URL);
+  if (!response.ok) {
+    throw new Error(`Failed to load Catalyst weights from ${CATALYST_MLE_WEIGHTS_URL}`);
+  }
+  const data = await response.json();
+  const weightMap = new Map();
+  if (data.items && Array.isArray(data.items)) {
+    data.items.forEach((item) => {
+      if (item.id != null && typeof item.weight === 'number') {
+        weightMap.set(item.id, item.weight);
+      }
+    });
+  }
+  return weightMap;
+}
+
+/**
+ * Fetch fossil drop weights from poedata.dev MLE calculations
+ * @returns {Promise<Map<string, number>>} Map of fossil id -> weight (probability)
+ */
+async function fetchFossilWeightsFromMle() {
+  const response = await fetch(FOSSIL_MLE_WEIGHTS_URL);
+  if (!response.ok) {
+    throw new Error(`Failed to load Fossil weights from ${FOSSIL_MLE_WEIGHTS_URL}`);
+  }
+  const data = await response.json();
+  const weightMap = new Map();
+  if (data.items && Array.isArray(data.items)) {
+    data.items.forEach((item) => {
+      if (item.id != null && typeof item.weight === 'number') {
+        weightMap.set(item.id, item.weight);
+      }
+    });
+  }
+  return weightMap;
 }
 
 /**
@@ -491,6 +535,217 @@ export async function getWildLifeforcePrice() {
   } catch (error) {
     console.error('Error loading Wild Crystallised Lifeforce price:', error);
     return null;
+  }
+}
+
+/**
+ * Load and merge Catalyst details (catalysts.json), MLE weights (poedata.dev), and prices
+ * @returns {Promise<Array>} Merged catalyst data with id, name, description, dropWeight, chaosValue, etc.
+ */
+export async function loadAndMergeCatalystData() {
+  try {
+    const detailsResponse = await fetch('/data/catalysts.json');
+    if (!detailsResponse.ok) {
+      throw new Error('Failed to load Catalyst details file');
+    }
+    const details = await detailsResponse.json();
+
+    const weightMap = await fetchCatalystWeightsFromMle().catch((err) => {
+      console.warn('Catalyst MLE weights unavailable:', err.message);
+      return new Map();
+    });
+
+    const prices = await loadItemTypePrices('catalyst').catch(() => []);
+
+    const priceMap = new Map();
+    (prices || []).forEach((price) => {
+      const id = price.detailsId || price.id;
+      if (id) {
+        priceMap.set(id, price);
+      }
+    });
+
+    const merged = details.map((detail) => {
+      const price = priceMap.get(detail.id);
+      const dropWeight = weightMap.has(detail.id) ? weightMap.get(detail.id) : null;
+      return {
+        ...detail,
+        dropWeight,
+        chaosValue: price?.chaosValue ?? null,
+        divineValue: price?.divineValue ?? null
+      };
+    });
+
+    console.log(`✓ Loaded ${merged.length} Catalysts (${priceMap.size} with price data, MLE weights for ${weightMap.size} types)`);
+    return merged;
+  } catch (error) {
+    console.error('Error loading Catalyst data:', error);
+    throw error;
+  }
+}
+
+/**
+ * Load and merge Fossil details (fossils.json), MLE weights (poedata.dev), and prices.
+ * Use for grid view and any display needing name, description, dropWeight.
+ * @returns {Promise<Array>} Merged fossil data with id, name, description, dropWeight, chaosValue, etc.
+ */
+export async function loadFullFossilData() {
+  try {
+    const detailsResponse = await fetch('/data/fossils.json');
+    if (!detailsResponse.ok) {
+      throw new Error('Failed to load Fossil details file');
+    }
+    const details = await detailsResponse.json();
+
+    const weightMap = await fetchFossilWeightsFromMle().catch((err) => {
+      console.warn('Fossil MLE weights unavailable:', err.message);
+      return new Map();
+    });
+
+    const prices = await loadItemTypePrices('fossil').catch(() => []);
+
+    const priceMap = new Map();
+    (prices || []).forEach((price) => {
+      const id = price.detailsId || price.id;
+      if (id) {
+        priceMap.set(id, price);
+      }
+    });
+
+    const merged = details.map((detail) => {
+      const price = priceMap.get(detail.id);
+      const dropWeight = weightMap.has(detail.id) ? weightMap.get(detail.id) : null;
+      return {
+        ...detail,
+        dropWeight,
+        chaosValue: price?.chaosValue ?? null,
+        divineValue: price?.divineValue ?? null
+      };
+    });
+
+    console.log(`✓ Loaded ${merged.length} Fossils (${priceMap.size} with price data, MLE weights for ${weightMap.size} types)`);
+    return merged;
+  } catch (error) {
+    console.error('Error loading full Fossil data:', error);
+    throw error;
+  }
+}
+
+/**
+ * Load and merge Oil details (oils.json) and prices.
+ * No MLE weight data on poedata.dev for oils; order by itemOrderConfig (tier).
+ * @returns {Promise<Array>} Merged oil data with id, name, tier, chaosValue, divineValue, etc.
+ */
+export async function loadFullOilData() {
+  try {
+    const detailsResponse = await fetch('/data/oils.json');
+    if (!detailsResponse.ok) {
+      throw new Error('Failed to load Oil details file');
+    }
+    const details = await detailsResponse.json();
+
+    const prices = await loadItemTypePrices('oil').catch(() => []);
+
+    const priceMap = new Map();
+    (prices || []).forEach((price) => {
+      const id = price.detailsId || price.id;
+      if (id) {
+        priceMap.set(id, price);
+      }
+    });
+
+    const merged = details.map((detail) => {
+      const price = priceMap.get(detail.id);
+      return {
+        ...detail,
+        chaosValue: price?.chaosValue ?? null,
+        divineValue: price?.divineValue ?? null
+      };
+    });
+
+    console.log(`✓ Loaded ${merged.length} Oils (${priceMap.size} with price data)`);
+    return merged;
+  } catch (error) {
+    console.error('Error loading Oil data:', error);
+    throw error;
+  }
+}
+
+/**
+ * Load and merge Delirium Orb details (deliriumOrbs.json) and prices.
+ * @returns {Promise<Array>} Merged delirium orb data with id, name, helpText, chaosValue, divineValue, etc.
+ */
+export async function loadFullDeliriumOrbData() {
+  try {
+    const detailsResponse = await fetch('/data/deliriumOrbs.json');
+    if (!detailsResponse.ok) {
+      throw new Error('Failed to load Delirium Orb details file');
+    }
+    const details = await detailsResponse.json();
+
+    const prices = await loadItemTypePrices('deliriumOrb').catch(() => []);
+
+    const priceMap = new Map();
+    (prices || []).forEach((price) => {
+      const id = price.detailsId || price.id;
+      if (id) {
+        priceMap.set(id, price);
+      }
+    });
+
+    const merged = details.map((detail) => {
+      const price = priceMap.get(detail.id);
+      return {
+        ...detail,
+        chaosValue: price?.chaosValue ?? null,
+        divineValue: price?.divineValue ?? null
+      };
+    });
+
+    console.log(`✓ Loaded ${merged.length} Delirium Orbs (${priceMap.size} with price data)`);
+    return merged;
+  } catch (error) {
+    console.error('Error loading Delirium Orb data:', error);
+    throw error;
+  }
+}
+
+/**
+ * Load and merge Legion Emblem details (legionEmblems.json) and prices.
+ * @returns {Promise<Array>} Merged emblem data with id, name, helpText, chaosValue, divineValue, etc.
+ */
+export async function loadFullEmblemData() {
+  try {
+    const detailsResponse = await fetch('/data/legionEmblems.json');
+    if (!detailsResponse.ok) {
+      throw new Error('Failed to load Legion Emblem details file');
+    }
+    const details = await detailsResponse.json();
+
+    const prices = await loadItemTypePrices('emblem').catch(() => []);
+
+    const priceMap = new Map();
+    (prices || []).forEach((price) => {
+      const id = price.detailsId || price.id;
+      if (id) {
+        priceMap.set(id, price);
+      }
+    });
+
+    const merged = details.map((detail) => {
+      const price = priceMap.get(detail.id);
+      return {
+        ...detail,
+        chaosValue: price?.chaosValue ?? null,
+        divineValue: price?.divineValue ?? null
+      };
+    });
+
+    console.log(`✓ Loaded ${merged.length} Legion Emblems (${priceMap.size} with price data)`);
+    return merged;
+  } catch (error) {
+    console.error('Error loading Legion Emblem data:', error);
+    throw error;
   }
 }
 

@@ -237,6 +237,356 @@ export const SCARAB_ORDER_CONFIG = {
   // Add more group orderings as needed
 };
 
+/**
+ * Grid configuration for catalysts-tab.png
+ * Image dimensions: 844 x 839 pixels (from poedata layout)
+ * Symbol slots: 1 top, 4 second row, 6 third row = 11 catalysts. Order by MLE weight (high = common first).
+ * Weight data: https://poedata.dev/data/catalysts/calculations/mle.json
+ */
+export const CATALYSTS_GRID_CONFIG = {
+  tabImagePath: '/assets/images/stashTabs/catalysts-tab.png',
+  imageDimensions: {
+    width: 844,
+    height: 839
+  },
+  cellGroups: [
+    // Top slot (1 cell)
+    { x: 391, y: 48, count: 1, type: 'catalyst' },
+    // Second row (4 cells)
+    { x: 257, y: 135, count: 1, type: 'catalyst' },
+    { x: 346, y: 135, count: 1, type: 'catalyst' },
+    { x: 434, y: 135, count: 1, type: 'catalyst' },
+    { x: 522, y: 135, count: 1, type: 'catalyst' },
+    // Third row (6 cells, left 3 + right 3 with gap for central slot)
+    { x: 97, y: 230, count: 1, type: 'catalyst' },
+    { x: 185, y: 230, count: 1, type: 'catalyst' },
+    { x: 272, y: 230, count: 1, type: 'catalyst' },
+    { x: 508, y: 230, count: 1, type: 'catalyst' },
+    { x: 593, y: 230, count: 1, type: 'catalyst' },
+    { x: 680, y: 230, count: 1, type: 'catalyst' }
+  ],
+  defaultCellSize: {
+    width: 60,
+    height: 60
+  },
+  defaultPadding: 2,
+  // Order by MLE weight descending (common first). Tainted not in MLE, placed last.
+  itemOrderConfig: {
+    catalyst: [
+      'tainted-catalyst',
+      'abrasive-catalyst',
+      'tempering-catalyst',
+      'fertile-catalyst',
+      'accelerating-catalyst',
+      'unstable-catalyst',
+      'turbulent-catalyst',
+      'imbued-catalyst',
+      'prismatic-catalyst',
+      'intrinsic-catalyst',
+      'noxious-catalyst',
+    ]
+  }
+};
+
+/**
+ * Grid configuration for fossils-tab.png
+ * Image dimensions: 839 x 839 pixels (from poedata layout)
+ * Weight data: https://poedata.dev/data/fossils/calculations/mle.json
+ */
+export const FOSSILS_GRID_CONFIG = {
+  tabImagePath: '/assets/images/stashTabs/fossils-tab.png',
+  imageDimensions: {
+    width: 839,
+    height: 839
+  },
+  cellGroups: [
+    // Top Row - 7 cells
+    { x: 124, y: 67, count: 1, type: 'fossil' },
+    { x: 212, y: 67, count: 1, type: 'fossil' },
+    { x: 300, y: 67, count: 1, type: 'fossil' },
+    { x: 388, y: 67, count: 1, type: 'fossil' },
+    { x: 476, y: 67, count: 1, type: 'fossil' },
+    { x: 565, y: 65, count: 1, type: 'fossil' },
+    { x: 652, y: 64, count: 1, type: 'fossil' },
+    // Second Row - 9 cells
+    { x: 34, y: 155, count: 1, type: 'fossil' },
+    { x: 124, y: 155, count: 1, type: 'fossil' },
+    { x: 212, y: 155, count: 1, type: 'fossil' },
+    { x: 299, y: 155, count: 1, type: 'fossil' },
+    { x: 386, y: 155, count: 1, type: 'fossil' },
+    { x: 475, y: 155, count: 1, type: 'fossil' },
+    { x: 563, y: 155, count: 1, type: 'fossil' },
+    { x: 652, y: 155, count: 1, type: 'fossil' },
+    { x: 742, y: 155, count: 1, type: 'fossil' },
+    // Third Row - 7 cells
+    { x: 78, y: 244, count: 1, type: 'fossil' },
+    { x: 167, y: 244, count: 1, type: 'fossil' },
+    { x: 300, y: 244, count: 1, type: 'fossil' },
+    { x: 387, y: 244, count: 1, type: 'fossil' },
+    { x: 474, y: 244, count: 1, type: 'fossil' },
+    { x: 610, y: 244, count: 1, type: 'fossil' },
+    { x: 698, y: 244, count: 1, type: 'fossil' },
+    // Fourth Row - 2 cells
+    { x: 124, y: 332, count: 1, cellWidth: 62, cellHeight: 62, type: 'fossil' },
+    { x: 654, y: 332, count: 1, cellWidth: 62, cellHeight: 62, type: 'fossil' }
+  ],
+  defaultCellSize: {
+    width: 65,
+    height: 65
+  },
+  defaultPadding: 0,
+  itemOrderConfig: {
+    fossil: [
+      'jagged-fossil',
+      'dense-fossil',
+      'frigid-fossil',
+      'aberrant-fossil',
+      'scorched-fossil',
+      'metallic-fossil',
+      'pristine-fossil',
+      'bound-fossil',
+      'corroded-fossil',
+      'opulent-fossil',
+      'prismatic-fossil',
+      'deft-fossil',
+      'aetheric-fossil',
+      'lucent-fossil',
+      'serrated-fossil',
+      'shuddering-fossil',
+      'tangled-fossil',
+      'bloodstained-fossil',
+      'gilded-fossil',
+      'fundamental-fossil',
+      'sanctified-fossil',
+      'hollow-fossil',
+      'fractured-fossil',
+      'glyphic-fossil',
+      'faceted-fossil'
+    ]
+  }
+};
+
+/**
+ * Grid configuration for oils-tab.png
+ * Image dimensions: 843 x 842 pixels (from poeData layout)
+ * Oils ordered by tier (itemOrderConfig); no MLE weights on poedata.dev for oils.
+ */
+export const OILS_GRID_CONFIG = {
+  tabImagePath: '/assets/images/stashTabs/oils-tab.png',
+  imageDimensions: {
+    width: 843,
+    height: 842
+  },
+  cellGroups: [
+    { x: 45, y: 40, count: 1, type: 'oil' },
+    { x: 128, y: 40, count: 1, type: 'oil' },
+    { x: 210, y: 40, count: 1, type: 'oil' },
+    { x: 292, y: 40, count: 1, type: 'oil' },
+    { x: 374, y: 40, count: 1, type: 'oil' },
+    { x: 456, y: 40, count: 1, type: 'oil' },
+    { x: 538, y: 40, count: 1, type: 'oil' },
+    { x: 657, y: 40, count: 1, type: 'oil' },
+    { x: 86, y: 115, count: 1, type: 'oil' },
+    { x: 170, y: 115, count: 1, type: 'oil' },
+    { x: 252, y: 115, count: 1, type: 'oil' },
+    { x: 335, y: 115, count: 1, type: 'oil' },
+    { x: 420, y: 115, count: 1, type: 'oil' },
+    { x: 505, y: 115, count: 1, type: 'oil' },
+    { x: 658, y: 115, count: 1, type: 'oil' },
+    { x: 748, y: 115, count: 1, type: 'oil' },
+    { x: 45, y: 500, count: 1, type: 'oil' },
+    { x: 110, y: 500, count: 1, type: 'oil' },
+    { x: 173, y: 500, count: 1, type: 'oil' },
+    { x: 235, y: 500, count: 1, type: 'oil' },
+    { x: 300, y: 500, count: 1, type: 'oil' },
+    { x: 364, y: 500, count: 1, type: 'oil' },
+    { x: 428, y: 500, count: 1, type: 'oil' },
+    { x: 492, y: 500, count: 1, type: 'oil' },
+    { x: 555, y: 500, count: 1, type: 'oil' },
+    { x: 618, y: 500, count: 1, type: 'oil' },
+    { x: 680, y: 500, count: 1, type: 'oil' },
+    { x: 742, y: 500, count: 1, type: 'oil' },
+    { x: 45, y: 565, count: 1, type: 'oil' },
+    { x: 110, y: 565, count: 1, type: 'oil' },
+    { x: 173, y: 565, count: 1, type: 'oil' },
+    { x: 235, y: 565, count: 1, type: 'oil' },
+    { x: 300, y: 565, count: 1, type: 'oil' },
+    { x: 364, y: 565, count: 1, type: 'oil' },
+    { x: 428, y: 565, count: 1, type: 'oil' },
+    { x: 492, y: 565, count: 1, type: 'oil' },
+    { x: 555, y: 565, count: 1, type: 'oil' },
+    { x: 618, y: 565, count: 1, type: 'oil' },
+    { x: 680, y: 565, count: 1, type: 'oil' },
+    { x: 742, y: 565, count: 1, type: 'oil' },
+    { x: 45, y: 630, count: 1, type: 'oil' },
+    { x: 110, y: 630, count: 1, type: 'oil' },
+    { x: 173, y: 630, count: 1, type: 'oil' },
+    { x: 235, y: 630, count: 1, type: 'oil' },
+    { x: 300, y: 630, count: 1, type: 'oil' },
+    { x: 364, y: 630, count: 1, type: 'oil' },
+    { x: 428, y: 630, count: 1, type: 'oil' },
+    { x: 492, y: 630, count: 1, type: 'oil' },
+    { x: 555, y: 630, count: 1, type: 'oil' },
+    { x: 618, y: 630, count: 1, type: 'oil' },
+    { x: 680, y: 630, count: 1, type: 'oil' },
+    { x: 742, y: 630, count: 1, type: 'oil' },
+    { x: 45, y: 690, count: 1, type: 'oil' },
+    { x: 110, y: 690, count: 1, type: 'oil' },
+    { x: 173, y: 690, count: 1, type: 'oil' },
+    { x: 235, y: 690, count: 1, type: 'oil' },
+    { x: 300, y: 690, count: 1, type: 'oil' },
+    { x: 364, y: 690, count: 1, type: 'oil' },
+    { x: 428, y: 690, count: 1, type: 'oil' },
+    { x: 492, y: 690, count: 1, type: 'oil' },
+    { x: 555, y: 690, count: 1, type: 'oil' },
+    { x: 618, y: 690, count: 1, type: 'oil' },
+    { x: 680, y: 690, count: 1, type: 'oil' },
+    { x: 742, y: 690, count: 1, type: 'oil' },
+    { x: 45, y: 755, count: 1, type: 'oil' },
+    { x: 110, y: 755, count: 1, type: 'oil' },
+    { x: 173, y: 755, count: 1, type: 'oil' },
+    { x: 235, y: 755, count: 1, type: 'oil' },
+    { x: 300, y: 755, count: 1, type: 'oil' },
+    { x: 364, y: 755, count: 1, type: 'oil' },
+    { x: 428, y: 755, count: 1, type: 'oil' },
+    { x: 492, y: 755, count: 1, type: 'oil' },
+    { x: 555, y: 755, count: 1, type: 'oil' },
+    { x: 618, y: 755, count: 1, type: 'oil' },
+    { x: 680, y: 755, count: 1, type: 'oil' },
+    { x: 742, y: 755, count: 1, type: 'oil' }
+  ],
+  defaultCellSize: {
+    width: 51,
+    height: 51
+  },
+  defaultPadding: 2,
+  itemOrderConfig: {
+    oil: [
+      'clear-oil',
+      'sepia-oil',
+      'amber-oil',
+      'verdant-oil',
+      'teal-oil',
+      'azure-oil',
+      'indigo-oil',
+      'tainted-oil',
+      'violet-oil',
+      'crimson-oil',
+      'black-oil',
+      'opalescent-oil',
+      'silver-oil',
+      'golden-oil',
+      'reflective-oil',
+      'prismatic-oil'
+    ]
+  }
+};
+
+/**
+ * Grid configuration for delirium-orbs-tab.png
+ * Image dimensions: 839 x 841 pixels (from poeData layout)
+ */
+export const DELIRIUM_ORBS_GRID_CONFIG = {
+  tabImagePath: '/assets/images/stashTabs/delirium-orbs-tab.png',
+  imageDimensions: {
+    width: 839,
+    height: 841
+  },
+  cellGroups: [
+    { x: 53, y: 40, count: 1, type: 'delirium-orb' },
+    { x: 728, y: 40, count: 1, type: 'delirium-orb' },
+    { x: 53, y: 128, count: 1, type: 'delirium-orb' },
+    { x: 145, y: 128, count: 1, type: 'delirium-orb' },
+    { x: 53, y: 220, count: 1, type: 'delirium-orb' },
+    { x: 145, y: 220, count: 1, type: 'delirium-orb' },
+    { x: 237, y: 220, count: 1, type: 'delirium-orb' },
+    { x: 53, y: 312, count: 1, type: 'delirium-orb' },
+    { x: 145, y: 312, count: 1, type: 'delirium-orb' },
+    { x: 237, y: 312, count: 1, type: 'delirium-orb' },
+    { x: 636, y: 130, count: 1, type: 'delirium-orb' },
+    { x: 725, y: 130, count: 1, type: 'delirium-orb' },
+    { x: 545, y: 220, count: 1, type: 'delirium-orb' },
+    { x: 636, y: 220, count: 1, type: 'delirium-orb' },
+    { x: 725, y: 220, count: 1, type: 'delirium-orb' },
+    { x: 545, y: 313, count: 1, type: 'delirium-orb' },
+    { x: 637, y: 313, count: 1, type: 'delirium-orb' },
+    { x: 725, y: 313, count: 1, type: 'delirium-orb' },
+    { x: 276, y: 62, count: 1, type: 'delirium-orb' },
+    { x: 503, y: 62, count: 1, type: 'delirium-orb' },
+    { x: 390, y: 130, count: 1, type: 'delirium-orb' },
+    { x: 390, y: 220, count: 1, type: 'delirium-orb' },
+    { x: 390, y: 313, count: 1, type: 'delirium-orb' },
+    { x: 390, y: 410, count: 1, type: 'delirium-orb' },
+    // Bottom storage grid 12×5
+    { x: 51, y: 512, count: 12, cellWidth: 44, cellHeight: 44, padding: 17, type: 'delirium-orb' },
+    { x: 51, y: 575, count: 12, cellWidth: 44, cellHeight: 44, padding: 17, type: 'delirium-orb' },
+    { x: 51, y: 639, count: 12, cellWidth: 44, cellHeight: 44, padding: 17, type: 'delirium-orb' },
+    { x: 51, y: 701, count: 12, cellWidth: 44, cellHeight: 44, padding: 17, type: 'delirium-orb' },
+    { x: 51, y: 765, count: 12, cellWidth: 44, cellHeight: 44, padding: 17, type: 'delirium-orb' }
+  ],
+  defaultCellSize: {
+    width: 61,
+    height: 61
+  },
+  defaultPadding: 2,
+  itemOrderConfig: {
+    'delirium-orb': [
+      'fine-delirium-orb',
+      'primal-delirium-orb',
+      'singular-delirium-orb',
+      'cartographers-delirium-orb',
+      'skittering-delirium-orb',
+      'armoursmiths-delirium-orb',
+      'thaumaturges-delirium-orb',
+      'jewellers-delirium-orb',
+      'foreboding-delirium-orb',
+      'whispering-delirium-orb',
+      'fossilised-delirium-orb',
+      'timeless-delirium-orb',
+      'blacksmiths-delirium-orb',
+      'abyssal-delirium-orb',
+      'obscured-delirium-orb',
+      'fragmented-delirium-orb',
+      'diviners-delirium-orb',
+      'blighted-delirium-orb'
+    ]
+  }
+};
+
+/**
+ * Grid configuration for Legion Emblems (fragments-tab.png, emblem row only)
+ * Image dimensions: 842 x 792 pixels. Single row of 6 emblem cells.
+ */
+export const EMBLEMS_GRID_CONFIG = {
+  tabImagePath: '/assets/images/stashTabs/fragments-tab.png',
+  imageDimensions: {
+    width: 842,
+    height: 792
+  },
+  cellGroups: [
+    { x: 230, y: 280, count: 1, type: 'emblem' },
+    { x: 310, y: 280, count: 1, type: 'emblem' },
+    { x: 390, y: 280, count: 1, type: 'emblem' },
+    { x: 473, y: 280, count: 1, type: 'emblem' },
+    { x: 553, y: 280, count: 1, type: 'emblem' },
+    { x: 650, y: 280, count: 1, type: 'emblem' }
+  ],
+  defaultCellSize: {
+    width: 60,
+    height: 60
+  },
+  defaultPadding: 0,
+  itemOrderConfig: {
+    emblem: [
+      'timeless-eternal-emblem',
+      'timeless-karui-emblem',
+      'timeless-vaal-emblem',
+      'timeless-templar-emblem',
+      'timeless-maraketh-emblem'
+    ]
+  }
+};
+
 export const CELL_GROUP_CONFIG = [
   // Row 1 (y=24)
   { x: 151, y: 24, count: 3, type: 'titanic' }, // Titanic

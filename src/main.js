@@ -3,7 +3,7 @@
  * Flipping Scarabs - Path of Exile vendor profitability calculator
  */
 
-import { loadAndMergeScarabData, loadPreferences, savePreferences, loadAllItemTypePrices, loadFullEssenceData, getPrimalLifeforcePrice, loadAndMergeFossilData, getWildLifeforcePrice } from './js/services/dataService.js';
+import { loadAndMergeScarabData, loadPreferences, savePreferences, loadAllItemTypePrices, loadFullEssenceData, getPrimalLifeforcePrice, loadAndMergeFossilData, getWildLifeforcePrice, loadAndMergeCatalystData, loadFullFossilData, loadFullOilData, loadFullDeliriumOrbData, loadFullEmblemData } from './js/services/dataService.js';
 import { calculateThreshold, calculateProfitabilityStatus } from './js/services/calculationService.js';
 import { calculateExpectedValueForGroup, calculateThresholdForGroup, calculateProfitabilityStatus as calculateEssenceProfitabilityStatus } from './js/services/essenceCalculationService.js';
 import { calculateExpectedValueForGroup as calculateFossilExpectedValueForGroup, calculateThresholdForGroup as calculateFossilThresholdForGroup, calculateProfitabilityStatus as calculateFossilProfitabilityStatus } from './js/services/fossilCalculationService.js';
@@ -20,7 +20,12 @@ import { renderThresholdDisplay } from './js/components/thresholdDisplay.js';
 import { renderListView, updateListView, showLoadingState, showErrorState } from './js/views/listView.js';
 import { initGridView, updateGridView, setFilteredScarabs, clearFilteredScarabs, teardownGridView } from './js/views/gridView.js';
 import { initEssenceGridView, teardownEssenceGridView } from './js/views/essenceGridView.js';
-import { ESSENCE_GRID_CONFIG } from './js/config/gridConfig.js';
+import { initCatalystGridView, teardownCatalystGridView } from './js/views/catalystGridView.js';
+import { initFossilGridView, teardownFossilGridView } from './js/views/fossilGridView.js';
+import { initOilGridView, teardownOilGridView } from './js/views/oilGridView.js';
+import { initDeliriumOrbGridView, teardownDeliriumOrbGridView } from './js/views/deliriumOrbGridView.js';
+import { initEmblemGridView, teardownEmblemGridView } from './js/views/emblemGridView.js';
+import { ESSENCE_GRID_CONFIG, CATALYSTS_GRID_CONFIG, FOSSILS_GRID_CONFIG, OILS_GRID_CONFIG, DELIRIUM_ORBS_GRID_CONFIG, EMBLEMS_GRID_CONFIG } from './js/config/gridConfig.js';
 import { 
   renderViewSwitcher, 
   getViewPreference, 
@@ -337,6 +342,10 @@ let currentEssences = [];
 let currentEssenceThresholds = new Map(); // Map of reroll group to threshold
 let currentFossils = [];
 let currentFossilThreshold = null; // Single threshold for all Fossils (single reroll group)
+let currentCatalysts = [];
+let currentOils = [];
+let currentDeliriumOrbs = [];
+let currentEmblems = [];
 let currentCurrency = 'chaos';
 let currentView = 'list';
 let currentFilters = null;
@@ -424,6 +433,11 @@ async function renderCurrentView() {
   if (canvas) {
     try {
       teardownEssenceGridView(canvas);
+      teardownCatalystGridView(canvas);
+      teardownFossilGridView(canvas);
+      teardownOilGridView(canvas);
+      teardownDeliriumOrbGridView(canvas);
+      teardownEmblemGridView(canvas);
       await initGridView(canvas, currentScarabs, '/assets/images/stashTabs/scarab-tab.png');
       
       // Apply filter highlights if filters are active
@@ -613,6 +627,100 @@ function handleCurrencyChange(currency) {
     return;
   }
   
+  // Handle Catalyst category (re-render list with new currency)
+  if (currentCategory === 'catalysts') {
+    if (currentCatalysts.length > 0) {
+      const listViewContainer = document.getElementById('list-view');
+      if (listViewContainer) {
+        const currencySymbol = currency === 'divine' ? 'Div' : 'c';
+        const rows = currentCatalysts.map((c) => {
+          const value = currency === 'divine' ? (c.divineValue != null ? c.divineValue.toFixed(4) : '—') : (c.chaosValue != null ? c.chaosValue.toFixed(2) : '—');
+          const weightStr = c.dropWeight != null ? (c.dropWeight * 100).toFixed(2) + '%' : '—';
+          return `<div class="catalyst-list-row" data-id="${c.id}">
+            <span class="catalyst-name">${c.name}</span>
+            <span class="catalyst-weight">${weightStr}</span>
+            <span class="catalyst-value">${value} ${currencySymbol}</span>
+          </div>`;
+        });
+        listViewContainer.innerHTML = `
+          <div class="catalyst-list-header">
+            <span class="catalyst-name">Name</span>
+            <span class="catalyst-weight">Drop weight</span>
+            <span class="catalyst-value">Value (${currencySymbol})</span>
+          </div>
+          <div class="catalyst-list">${rows.join('')}</div>
+        `;
+      }
+    }
+    return;
+  }
+
+  // Handle Oil category (re-render list with new currency)
+  if (currentCategory === 'oils') {
+    if (currentOils.length > 0) {
+      const listViewContainer = document.getElementById('list-view');
+      if (listViewContainer) {
+        const currencySymbol = currency === 'divine' ? 'Div' : 'c';
+        const rows = currentOils.map((o) => {
+          const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
+          const tierStr = o.tier != null && o.tier > 0 ? `T${o.tier}` : '—';
+          return `<div class="oil-list-row" data-id="${o.id}">
+            <span class="oil-name">${o.name}</span>
+            <span class="oil-tier">${tierStr}</span>
+            <span class="oil-value">${value} ${currencySymbol}</span>
+          </div>`;
+        });
+        listViewContainer.innerHTML = `
+          <div class="oil-list-header">
+            <span class="oil-name">Name</span>
+            <span class="oil-tier">Tier</span>
+            <span class="oil-value">Value (${currencySymbol})</span>
+          </div>
+          <div class="oil-list">${rows.join('')}</div>
+        `;
+      }
+    }
+    return;
+  }
+
+  if (currentCategory === 'delirium-orbs' && currentDeliriumOrbs.length > 0) {
+    const listViewContainer = document.getElementById('list-view');
+    if (listViewContainer) {
+      const currencySymbol = currency === 'divine' ? 'Div' : 'c';
+      const rows = currentDeliriumOrbs.map((o) => {
+        const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
+        return `<div class="delirium-orb-list-row" data-id="${o.id}"><span class="item-name">${o.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
+      });
+      listViewContainer.innerHTML = `
+        <div class="delirium-orb-list-header">
+          <span class="item-name">Name</span>
+          <span class="item-value">Value (${currencySymbol})</span>
+        </div>
+        <div class="delirium-orb-list">${rows.join('')}</div>
+      `;
+    }
+    return;
+  }
+
+  if (currentCategory === 'emblems' && currentEmblems.length > 0) {
+    const listViewContainer = document.getElementById('list-view');
+    if (listViewContainer) {
+      const currencySymbol = currency === 'divine' ? 'Div' : 'c';
+      const rows = currentEmblems.map((o) => {
+        const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
+        return `<div class="emblem-list-row" data-id="${o.id}"><span class="item-name">${o.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
+      });
+      listViewContainer.innerHTML = `
+        <div class="emblem-list-header">
+          <span class="item-name">Name</span>
+          <span class="item-value">Value (${currencySymbol})</span>
+        </div>
+        <div class="emblem-list">${rows.join('')}</div>
+      `;
+    }
+    return;
+  }
+  
   // Handle Scarab category (existing logic)
   // Update threshold display (in overlay)
   const thresholdContainer = document.getElementById('threshold-display');
@@ -767,6 +875,11 @@ async function renderEssenceUI(essences, thresholds, rerollCost, currency, allEs
   if (gridCanvas) {
     try {
       teardownGridView(gridCanvas);
+      teardownCatalystGridView(gridCanvas);
+      teardownFossilGridView(gridCanvas);
+      teardownOilGridView(gridCanvas);
+      teardownDeliriumOrbGridView(gridCanvas);
+      teardownEmblemGridView(gridCanvas);
       const gridEssences = allEssences && allEssences.length > 0 ? allEssences : essences;
       await initEssenceGridView(gridCanvas, gridEssences, ESSENCE_GRID_CONFIG.tabImagePath);
       const listWrapper = document.querySelector('.list-wrapper');
@@ -969,8 +1082,14 @@ async function loadAndProcessFossilData() {
 
 /**
  * Render Fossil UI
+ * @param {Array} fossils - Fossil instances for list/threshold
+ * @param {Object} threshold - Threshold data
+ * @param {number} rerollCost - Reroll cost
+ * @param {string} currency - Currency preference
+ * @param {Object} [wildLifeforce] - Wild lifeforce price
+ * @param {Array<Object>} [gridFossils] - Full fossil data for grid (details + weights + prices); when provided, grid is shown
  */
-async function renderFossilUI(fossils, threshold, rerollCost, currency) {
+async function renderFossilUI(fossils, threshold, rerollCost, currency, wildLifeforce, gridFossils = null) {
   // Store in global state
   currentFossils = fossils;
   currentFossilThreshold = threshold;
@@ -996,9 +1115,26 @@ async function renderFossilUI(fossils, threshold, rerollCost, currency) {
     renderFossilList(listViewContainer, fossils, currency, fossilSelectionPanel);
   }
   
-  // Hide grid view and filter panel for Fossils (list view only)
   const gridViewContainer = document.getElementById('grid-view');
-  if (gridViewContainer) {
+  const gridCanvas = document.getElementById('scarab-grid-canvas');
+  if (gridFossils && gridFossils.length > 0 && gridViewContainer && gridCanvas) {
+    gridViewContainer.style.display = 'block';
+    try {
+      teardownGridView(gridCanvas);
+      teardownEssenceGridView(gridCanvas);
+      teardownCatalystGridView(gridCanvas);
+      teardownOilGridView(gridCanvas);
+      teardownDeliriumOrbGridView(gridCanvas);
+      teardownEmblemGridView(gridCanvas);
+      await initFossilGridView(gridCanvas, gridFossils, FOSSILS_GRID_CONFIG.tabImagePath);
+      const listWrapper = document.querySelector('.list-wrapper');
+      if (listWrapper && gridCanvas.offsetHeight > 0) {
+        listWrapper.style.height = `${gridCanvas.offsetHeight}px`;
+      }
+    } catch (err) {
+      console.error('Error initializing fossil grid view:', err);
+    }
+  } else if (gridViewContainer) {
     gridViewContainer.style.display = 'none';
   }
   
@@ -1137,6 +1273,232 @@ function renderFossilThresholdDisplay(container, threshold, rerollCost, currency
 }
 
 /**
+ * Render Catalyst UI (list + grid view)
+ * @param {Array<Object>} catalysts - Merged catalyst data (id, name, description, chaosValue, divineValue, dropWeight)
+ * @param {string} currency - 'chaos' or 'divine'
+ */
+async function renderCatalystUI(catalysts, currency) {
+  currentCatalysts = catalysts;
+  currentCurrency = currency;
+
+  const listViewContainer = document.getElementById('list-view');
+  if (listViewContainer) {
+    const currencySymbol = currency === 'divine' ? 'Div' : 'c';
+    const rows = catalysts.map((c) => {
+      const value = currency === 'divine' ? (c.divineValue != null ? c.divineValue.toFixed(4) : '—') : (c.chaosValue != null ? c.chaosValue.toFixed(2) : '—');
+      const weightStr = c.dropWeight != null ? (c.dropWeight * 100).toFixed(2) + '%' : '—';
+      return `<div class="catalyst-list-row" data-id="${c.id}">
+        <span class="catalyst-name">${c.name}</span>
+        <span class="catalyst-weight">${weightStr}</span>
+        <span class="catalyst-value">${value} ${currencySymbol}</span>
+      </div>`;
+    });
+    listViewContainer.innerHTML = `
+      <div class="catalyst-list-header">
+        <span class="catalyst-name">Name</span>
+        <span class="catalyst-weight">Drop weight</span>
+        <span class="catalyst-value">Value (${currencySymbol})</span>
+      </div>
+      <div class="catalyst-list">${rows.join('')}</div>
+    `;
+  }
+
+  const gridViewContainer = document.getElementById('grid-view');
+  const gridCanvas = document.getElementById('scarab-grid-canvas');
+  if (gridViewContainer) {
+    gridViewContainer.style.display = 'block';
+  }
+  if (gridCanvas) {
+    try {
+      teardownGridView(gridCanvas);
+      teardownEssenceGridView(gridCanvas);
+      teardownFossilGridView(gridCanvas);
+      teardownOilGridView(gridCanvas);
+      teardownDeliriumOrbGridView(gridCanvas);
+      teardownEmblemGridView(gridCanvas);
+      await initCatalystGridView(gridCanvas, catalysts, CATALYSTS_GRID_CONFIG.tabImagePath);
+      const listWrapper = document.querySelector('.list-wrapper');
+      if (listWrapper && gridCanvas.offsetHeight > 0) {
+        listWrapper.style.height = `${gridCanvas.offsetHeight}px`;
+      }
+    } catch (err) {
+      console.error('Error initializing catalyst grid view:', err);
+    }
+  }
+
+  const filterPanelContainer = document.getElementById('filter-panel');
+  if (filterPanelContainer) {
+    filterPanelContainer.style.display = 'none';
+  }
+
+  const thresholdContainer = document.getElementById('threshold-display');
+  if (thresholdContainer) {
+    thresholdContainer.innerHTML = '<div class="catalyst-threshold-note">Catalysts: drop weights from <a href="https://poedata.dev/data/catalysts/calculations/mle.json" target="_blank" rel="noopener">poedata.dev MLE</a>.</div>';
+  }
+}
+
+/**
+ * Render Oil UI (list + grid view)
+ * @param {Array<Object>} oils - Merged oil data (id, name, tier, chaosValue, divineValue, helpText)
+ * @param {string} currency - 'chaos' or 'divine'
+ */
+async function renderOilUI(oils, currency) {
+  currentOils = oils;
+  currentCurrency = currency;
+
+  const listViewContainer = document.getElementById('list-view');
+  if (listViewContainer) {
+    const currencySymbol = currency === 'divine' ? 'Div' : 'c';
+    const rows = oils.map((o) => {
+      const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
+      const tierStr = o.tier != null && o.tier > 0 ? `T${o.tier}` : '—';
+      return `<div class="oil-list-row" data-id="${o.id}">
+        <span class="oil-name">${o.name}</span>
+        <span class="oil-tier">${tierStr}</span>
+        <span class="oil-value">${value} ${currencySymbol}</span>
+      </div>`;
+    });
+    listViewContainer.innerHTML = `
+      <div class="oil-list-header">
+        <span class="oil-name">Name</span>
+        <span class="oil-tier">Tier</span>
+        <span class="oil-value">Value (${currencySymbol})</span>
+      </div>
+      <div class="oil-list">${rows.join('')}</div>
+    `;
+  }
+
+  const gridViewContainer = document.getElementById('grid-view');
+  const gridCanvas = document.getElementById('scarab-grid-canvas');
+  if (gridViewContainer) {
+    gridViewContainer.style.display = 'block';
+  }
+  if (gridCanvas) {
+    try {
+      teardownGridView(gridCanvas);
+      teardownEssenceGridView(gridCanvas);
+      teardownCatalystGridView(gridCanvas);
+      teardownFossilGridView(gridCanvas);
+      teardownDeliriumOrbGridView(gridCanvas);
+      teardownEmblemGridView(gridCanvas);
+      await initOilGridView(gridCanvas, oils, OILS_GRID_CONFIG.tabImagePath);
+      const listWrapper = document.querySelector('.list-wrapper');
+      if (listWrapper && gridCanvas.offsetHeight > 0) {
+        listWrapper.style.height = `${gridCanvas.offsetHeight}px`;
+      }
+    } catch (err) {
+      console.error('Error initializing oil grid view:', err);
+    }
+  }
+
+  const filterPanelContainer = document.getElementById('filter-panel');
+  if (filterPanelContainer) {
+    filterPanelContainer.style.display = 'none';
+  }
+
+  const thresholdContainer = document.getElementById('threshold-display');
+  if (thresholdContainer) {
+    thresholdContainer.innerHTML = '<div class="oil-threshold-note">Oils: ordered by tier (itemOrderConfig).</div>';
+  }
+}
+
+/**
+ * Render Delirium Orb UI (list + grid view)
+ */
+async function renderDeliriumOrbUI(items, currency) {
+  currentDeliriumOrbs = items;
+  currentCurrency = currency;
+
+  const listViewContainer = document.getElementById('list-view');
+  if (listViewContainer) {
+    const currencySymbol = currency === 'divine' ? 'Div' : 'c';
+    const rows = items.map((o) => {
+      const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
+      return `<div class="delirium-orb-list-row" data-id="${o.id}"><span class="item-name">${o.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
+    });
+    listViewContainer.innerHTML = `
+      <div class="delirium-orb-list-header">
+        <span class="item-name">Name</span>
+        <span class="item-value">Value (${currencySymbol})</span>
+      </div>
+      <div class="delirium-orb-list">${rows.join('')}</div>
+    `;
+  }
+
+  const gridViewContainer = document.getElementById('grid-view');
+  const gridCanvas = document.getElementById('scarab-grid-canvas');
+  if (gridViewContainer) gridViewContainer.style.display = 'block';
+  if (gridCanvas) {
+    try {
+      teardownGridView(gridCanvas);
+      teardownEssenceGridView(gridCanvas);
+      teardownCatalystGridView(gridCanvas);
+      teardownFossilGridView(gridCanvas);
+      teardownOilGridView(gridCanvas);
+      teardownEmblemGridView(gridCanvas);
+      await initDeliriumOrbGridView(gridCanvas, items, DELIRIUM_ORBS_GRID_CONFIG.tabImagePath);
+      const listWrapper = document.querySelector('.list-wrapper');
+      if (listWrapper && gridCanvas.offsetHeight > 0) listWrapper.style.height = `${gridCanvas.offsetHeight}px`;
+    } catch (err) {
+      console.error('Error initializing delirium orb grid view:', err);
+    }
+  }
+
+  const filterPanelContainer = document.getElementById('filter-panel');
+  if (filterPanelContainer) filterPanelContainer.style.display = 'none';
+  const thresholdContainer = document.getElementById('threshold-display');
+  if (thresholdContainer) thresholdContainer.innerHTML = '<div class="oil-threshold-note">Delirium Orbs</div>';
+}
+
+/**
+ * Render Emblem UI (list + grid view)
+ */
+async function renderEmblemUI(items, currency) {
+  currentEmblems = items;
+  currentCurrency = currency;
+
+  const listViewContainer = document.getElementById('list-view');
+  if (listViewContainer) {
+    const currencySymbol = currency === 'divine' ? 'Div' : 'c';
+    const rows = items.map((o) => {
+      const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
+      return `<div class="emblem-list-row" data-id="${o.id}"><span class="item-name">${o.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
+    });
+    listViewContainer.innerHTML = `
+      <div class="emblem-list-header">
+        <span class="item-name">Name</span>
+        <span class="item-value">Value (${currencySymbol})</span>
+      </div>
+      <div class="emblem-list">${rows.join('')}</div>
+    `;
+  }
+
+  const gridViewContainer = document.getElementById('grid-view');
+  const gridCanvas = document.getElementById('scarab-grid-canvas');
+  if (gridViewContainer) gridViewContainer.style.display = 'block';
+  if (gridCanvas) {
+    try {
+      teardownGridView(gridCanvas);
+      teardownEssenceGridView(gridCanvas);
+      teardownCatalystGridView(gridCanvas);
+      teardownFossilGridView(gridCanvas);
+      teardownOilGridView(gridCanvas);
+      teardownDeliriumOrbGridView(gridCanvas);
+      await initEmblemGridView(gridCanvas, items, EMBLEMS_GRID_CONFIG.tabImagePath);
+      const listWrapper = document.querySelector('.list-wrapper');
+      if (listWrapper && gridCanvas.offsetHeight > 0) listWrapper.style.height = `${gridCanvas.offsetHeight}px`;
+    } catch (err) {
+      console.error('Error initializing emblem grid view:', err);
+    }
+  }
+
+  const filterPanelContainer = document.getElementById('filter-panel');
+  if (filterPanelContainer) filterPanelContainer.style.display = 'none';
+  const thresholdContainer = document.getElementById('threshold-display');
+  if (thresholdContainer) thresholdContainer.innerHTML = '<div class="oil-threshold-note">Legion Emblems</div>';
+}
+
+/**
  * Handle category change
  * @param {string} category - 'scarabs', 'essences', 'tattoos', 'catalysts', 'temple', 'fossils', 'oils', 'delirium-orbs', 'emblems'
  */
@@ -1189,15 +1551,18 @@ async function handleCategoryChange(category) {
         showFossilLoadingState(listViewContainer);
       }
       
-      // Load and process Fossil data
+      // Load and process Fossil data (threshold + list)
       const { fossils, threshold, rerollCost, wildLifeforce } = await loadAndProcessFossilData();
+      
+      // Load full fossil data (details + MLE weights + prices) for grid view
+      const gridFossils = await loadFullFossilData().catch(() => []);
       
       // Get currency preference
       const preferences = loadPreferences();
       const currency = preferences.currencyPreference || 'chaos';
       
-      // Render Fossil UI
-      await renderFossilUI(fossils, threshold, rerollCost, currency, wildLifeforce);
+      // Render Fossil UI (list + threshold + grid when gridFossils available)
+      await renderFossilUI(fossils, threshold, rerollCost, currency, wildLifeforce, gridFossils);
     } catch (error) {
       console.error('Error handling Fossil category:', error);
       showErrorToast('Failed to load Fossil data');
@@ -1208,6 +1573,62 @@ async function handleCategoryChange(category) {
       const preferences = loadPreferences();
       const currency = preferences.currencyPreference || 'chaos';
       renderUI(currentScarabs, currentThreshold, currency);
+    }
+  } else if (category === 'catalysts') {
+    try {
+      const listViewContainer = document.getElementById('list-view');
+      if (listViewContainer) {
+        listViewContainer.innerHTML = '<p class="loading-message">Loading Catalysts...</p>';
+      }
+      const catalysts = await loadAndMergeCatalystData();
+      const preferences = loadPreferences();
+      const currency = preferences.currencyPreference || 'chaos';
+      await renderCatalystUI(catalysts, currency);
+    } catch (error) {
+      console.error('Error handling Catalysts category:', error);
+      showErrorToast('Failed to load Catalyst data');
+    }
+  } else if (category === 'oils') {
+    try {
+      const listViewContainer = document.getElementById('list-view');
+      if (listViewContainer) {
+        listViewContainer.innerHTML = '<p class="loading-message">Loading Oils...</p>';
+      }
+      const oils = await loadFullOilData();
+      const preferences = loadPreferences();
+      const currency = preferences.currencyPreference || 'chaos';
+      await renderOilUI(oils, currency);
+    } catch (error) {
+      console.error('Error handling Oils category:', error);
+      showErrorToast('Failed to load Oil data');
+    }
+  } else if (category === 'delirium-orbs') {
+    try {
+      const listViewContainer = document.getElementById('list-view');
+      if (listViewContainer) {
+        listViewContainer.innerHTML = '<p class="loading-message">Loading Delirium Orbs...</p>';
+      }
+      const items = await loadFullDeliriumOrbData();
+      const preferences = loadPreferences();
+      const currency = preferences.currencyPreference || 'chaos';
+      await renderDeliriumOrbUI(items, currency);
+    } catch (error) {
+      console.error('Error handling Delirium Orbs category:', error);
+      showErrorToast('Failed to load Delirium Orb data');
+    }
+  } else if (category === 'emblems') {
+    try {
+      const listViewContainer = document.getElementById('list-view');
+      if (listViewContainer) {
+        listViewContainer.innerHTML = '<p class="loading-message">Loading Emblems...</p>';
+      }
+      const items = await loadFullEmblemData();
+      const preferences = loadPreferences();
+      const currency = preferences.currencyPreference || 'chaos';
+      await renderEmblemUI(items, currency);
+    } catch (error) {
+      console.error('Error handling Emblems category:', error);
+      showErrorToast('Failed to load Emblem data');
     }
   } else {
     // For other categories, show placeholder

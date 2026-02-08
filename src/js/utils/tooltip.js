@@ -83,6 +83,233 @@ export function showEssenceTooltip(essence, x, y) {
 }
 
 /**
+ * Show tooltip for a catalyst (grid view)
+ * @param {Object} catalyst - Catalyst item (id, name, description, chaosValue, divineValue, dropWeight)
+ * @param {number} x - Mouse X position (screen coordinates)
+ * @param {number} y - Mouse Y position (screen coordinates)
+ */
+export function showCatalystTooltip(catalyst, x, y) {
+  if (!catalyst) {
+    hideTooltip();
+    return;
+  }
+  initTooltip();
+  currentScarab = catalyst;
+  tooltipElement.innerHTML = buildCatalystTooltipContent(catalyst);
+  positionTooltip(x, y);
+  tooltipElement.style.display = 'block';
+  requestAnimationFrame(() => tooltipElement.classList.add('visible'));
+}
+
+/**
+ * Build tooltip HTML content for a catalyst
+ * @param {Object} catalyst
+ * @returns {string} HTML content
+ */
+function buildCatalystTooltipContent(catalyst) {
+  const parts = [];
+  parts.push(`<div class="tooltip-name">${escapeHtml(catalyst.name)}</div>`);
+  if (catalyst.description) {
+    parts.push(`<div class="tooltip-description">${escapeHtml(catalyst.description)}</div>`);
+  }
+  parts.push('<div class="tooltip-separator"></div>');
+  parts.push('<div class="tooltip-prices">');
+  if (catalyst.chaosValue != null) {
+    parts.push(`<div class="tooltip-price-item"><span class="tooltip-price-label">Chaos:</span><span class="tooltip-price-value">${formatPrice(catalyst.chaosValue)}</span></div>`);
+  }
+  if (catalyst.divineValue != null) {
+    parts.push(`<div class="tooltip-price-item"><span class="tooltip-price-label">Divine:</span><span class="tooltip-price-value">${formatPrice(catalyst.divineValue)}</span></div>`);
+  }
+  if (catalyst.chaosValue == null && catalyst.divineValue == null) {
+    parts.push(`<div class="tooltip-price-item"><span class="tooltip-price-unavailable">Price data unavailable</span></div>`);
+  }
+  parts.push('</div>');
+  if (catalyst.dropWeight != null) {
+    parts.push('<div class="tooltip-separator"></div>');
+    parts.push(`<div class="tooltip-details"><div class="tooltip-detail-item">Drop weight: ${(catalyst.dropWeight * 100).toFixed(2)}%</div></div>`);
+  }
+  return parts.join('');
+}
+
+/**
+ * Show tooltip for a fossil (grid view)
+ * @param {Object} fossil - Fossil item (id, name, description, chaosValue, divineValue, dropWeight)
+ * @param {number} x - Mouse X position (screen coordinates)
+ * @param {number} y - Mouse Y position (screen coordinates)
+ */
+export function showFossilTooltip(fossil, x, y) {
+  if (!fossil) {
+    hideTooltip();
+    return;
+  }
+  initTooltip();
+  currentScarab = fossil;
+  tooltipElement.innerHTML = buildFossilTooltipContent(fossil);
+  positionTooltip(x, y);
+  tooltipElement.style.display = 'block';
+  requestAnimationFrame(() => tooltipElement.classList.add('visible'));
+}
+
+/**
+ * Build tooltip HTML content for a fossil
+ * @param {Object} fossil
+ * @returns {string} HTML content
+ */
+function buildFossilTooltipContent(fossil) {
+  const parts = [];
+  parts.push(`<div class="tooltip-name">${escapeHtml(fossil.name)}</div>`);
+  if (fossil.description) {
+    parts.push(`<div class="tooltip-description">${escapeHtml(fossil.description)}</div>`);
+  }
+  parts.push('<div class="tooltip-separator"></div>');
+  parts.push('<div class="tooltip-prices">');
+  if (fossil.chaosValue != null) {
+    parts.push(`<div class="tooltip-price-item"><span class="tooltip-price-label">Chaos:</span><span class="tooltip-price-value">${formatPrice(fossil.chaosValue)}</span></div>`);
+  }
+  if (fossil.divineValue != null) {
+    parts.push(`<div class="tooltip-price-item"><span class="tooltip-price-label">Divine:</span><span class="tooltip-price-value">${formatPrice(fossil.divineValue)}</span></div>`);
+  }
+  if (fossil.chaosValue == null && fossil.divineValue == null) {
+    parts.push(`<div class="tooltip-price-item"><span class="tooltip-price-unavailable">Price data unavailable</span></div>`);
+  }
+  parts.push('</div>');
+  if (fossil.dropWeight != null) {
+    parts.push('<div class="tooltip-separator"></div>');
+    parts.push(`<div class="tooltip-details"><div class="tooltip-detail-item">Drop weight: ${(fossil.dropWeight * 100).toFixed(2)}%</div></div>`);
+  }
+  if (fossil.profitabilityStatus && fossil.profitabilityStatus !== 'unknown') {
+    parts.push('<div class="tooltip-separator"></div>');
+    const statusClass = fossil.profitabilityStatus === 'profitable' ? 'profitable' : 'not-profitable';
+    const statusText = fossil.profitabilityStatus === 'profitable' ? '✓ Profitable' : '✗ Not Profitable';
+    parts.push(`<div class="tooltip-status ${statusClass}">${statusText}</div>`);
+  }
+  return parts.join('');
+}
+
+/**
+ * Show tooltip for an oil (grid view)
+ * @param {Object} oil - Oil item (id, name, tier, chaosValue, divineValue, helpText)
+ * @param {number} x - Mouse X position (screen coordinates)
+ * @param {number} y - Mouse Y position (screen coordinates)
+ */
+export function showOilTooltip(oil, x, y) {
+  if (!oil) {
+    hideTooltip();
+    return;
+  }
+  initTooltip();
+  currentScarab = oil;
+  tooltipElement.innerHTML = buildOilTooltipContent(oil);
+  positionTooltip(x, y);
+  tooltipElement.style.display = 'block';
+  requestAnimationFrame(() => tooltipElement.classList.add('visible'));
+}
+
+/**
+ * Build tooltip HTML content for an oil
+ * @param {Object} oil
+ * @returns {string} HTML content
+ */
+function buildOilTooltipContent(oil) {
+  const parts = [];
+  parts.push(`<div class="tooltip-name">${escapeHtml(oil.name)}</div>`);
+  if (oil.helpText) {
+    parts.push(`<div class="tooltip-description">${escapeHtml(oil.helpText)}</div>`);
+  }
+  if (oil.tier != null && oil.tier > 0) {
+    parts.push('<div class="tooltip-separator"></div>');
+    parts.push(`<div class="tooltip-details"><div class="tooltip-detail-item">Tier ${oil.tier}</div></div>`);
+  }
+  parts.push('<div class="tooltip-separator"></div>');
+  parts.push('<div class="tooltip-prices">');
+  if (oil.chaosValue != null) {
+    parts.push(`<div class="tooltip-price-item"><span class="tooltip-price-label">Chaos:</span><span class="tooltip-price-value">${formatPrice(oil.chaosValue)}</span></div>`);
+  }
+  if (oil.divineValue != null) {
+    parts.push(`<div class="tooltip-price-item"><span class="tooltip-price-label">Divine:</span><span class="tooltip-price-value">${formatPrice(oil.divineValue)}</span></div>`);
+  }
+  if (oil.chaosValue == null && oil.divineValue == null) {
+    parts.push(`<div class="tooltip-price-item"><span class="tooltip-price-unavailable">Price data unavailable</span></div>`);
+  }
+  parts.push('</div>');
+  return parts.join('');
+}
+
+/**
+ * Show tooltip for a delirium orb (grid view)
+ */
+export function showDeliriumOrbTooltip(item, x, y) {
+  if (!item) {
+    hideTooltip();
+    return;
+  }
+  initTooltip();
+  currentScarab = item;
+  tooltipElement.innerHTML = buildDeliriumOrbTooltipContent(item);
+  positionTooltip(x, y);
+  tooltipElement.style.display = 'block';
+  requestAnimationFrame(() => tooltipElement.classList.add('visible'));
+}
+
+function buildDeliriumOrbTooltipContent(item) {
+  const parts = [];
+  parts.push(`<div class="tooltip-name">${escapeHtml(item.name)}</div>`);
+  if (item.helpText) {
+    parts.push(`<div class="tooltip-description">${escapeHtml(item.helpText)}</div>`);
+  }
+  parts.push('<div class="tooltip-separator"></div>');
+  parts.push('<div class="tooltip-prices">');
+  if (item.chaosValue != null) {
+    parts.push(`<div class="tooltip-price-item"><span class="tooltip-price-label">Chaos:</span><span class="tooltip-price-value">${formatPrice(item.chaosValue)}</span></div>`);
+  }
+  if (item.divineValue != null) {
+    parts.push(`<div class="tooltip-price-item"><span class="tooltip-price-label">Divine:</span><span class="tooltip-price-value">${formatPrice(item.divineValue)}</span></div>`);
+  }
+  if (item.chaosValue == null && item.divineValue == null) {
+    parts.push(`<div class="tooltip-price-item"><span class="tooltip-price-unavailable">Price data unavailable</span></div>`);
+  }
+  parts.push('</div>');
+  return parts.join('');
+}
+
+/**
+ * Show tooltip for a legion emblem (grid view)
+ */
+export function showEmblemTooltip(item, x, y) {
+  if (!item) {
+    hideTooltip();
+    return;
+  }
+  initTooltip();
+  currentScarab = item;
+  tooltipElement.innerHTML = buildEmblemTooltipContent(item);
+  positionTooltip(x, y);
+  tooltipElement.style.display = 'block';
+  requestAnimationFrame(() => tooltipElement.classList.add('visible'));
+}
+
+function buildEmblemTooltipContent(item) {
+  const parts = [];
+  parts.push(`<div class="tooltip-name">${escapeHtml(item.name)}</div>`);
+  if (item.helpText) {
+    parts.push(`<div class="tooltip-description">${escapeHtml(item.helpText)}</div>`);
+  }
+  parts.push('<div class="tooltip-separator"></div>');
+  parts.push('<div class="tooltip-prices">');
+  if (item.chaosValue != null) {
+    parts.push(`<div class="tooltip-price-item"><span class="tooltip-price-label">Chaos:</span><span class="tooltip-price-value">${formatPrice(item.chaosValue)}</span></div>`);
+  }
+  if (item.divineValue != null) {
+    parts.push(`<div class="tooltip-price-item"><span class="tooltip-price-label">Divine:</span><span class="tooltip-price-value">${formatPrice(item.divineValue)}</span></div>`);
+  }
+  if (item.chaosValue == null && item.divineValue == null) {
+    parts.push(`<div class="tooltip-price-item"><span class="tooltip-price-unavailable">Price data unavailable</span></div>`);
+  }
+  parts.push('</div>');
+  return parts.join('');
+}
+
+/**
  * Build tooltip HTML content for an essence
  * @param {Essence} essence
  * @returns {string} HTML content
