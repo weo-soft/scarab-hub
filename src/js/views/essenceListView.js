@@ -175,8 +175,8 @@ function renderEssenceItem(essence, currency) {
  */
 function getStatusLabel(status) {
   const labels = {
-    'profitable': 'Profitable',
-    'not_profitable': 'Not Profitable',
+    'profitable': 'Reroll',
+    'not_profitable': 'Keep',
     'unknown': 'Unknown'
   };
   return labels[status] || 'Unknown';

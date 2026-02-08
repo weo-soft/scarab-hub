@@ -96,6 +96,11 @@ export function loadPreferences() {
       preferences.selectedEssenceIds = [];
     }
     
+    // Ensure selectedFossilIds is an array (for Fossil selection state)
+    if (preferences.selectedFossilIds && !Array.isArray(preferences.selectedFossilIds)) {
+      preferences.selectedFossilIds = [];
+    }
+    
     return preferences;
   } catch (error) {
     console.error('Error loading preferences:', error);
@@ -311,6 +316,66 @@ export async function getPrimalLifeforcePrice() {
     return primalLifeforce;
   } catch (error) {
     console.error('Error loading Primal Crystallised Lifeforce price:', error);
+    return null;
+  }
+}
+
+/**
+ * Load and merge Fossil price data
+ * Fossils don't have a separate details file like Scarabs - prices contain all needed data
+ * @returns {Promise<Array>} Array of Fossil price objects
+ */
+export async function loadAndMergeFossilData() {
+  try {
+    // Load Fossil prices from remote with fallback to local (using selected league)
+    const prices = await loadItemTypePrices('fossil');
+    
+    // Handle missing price data - mark as null if chaosValue is missing
+    const processedPrices = prices.map(price => ({
+      ...price,
+      chaosValue: price.chaosValue ?? null,
+      divineValue: price.divineValue ?? null
+    }));
+    
+    // Log warnings for Fossils with missing prices
+    const missingPrices = processedPrices.filter(p => p.chaosValue === null);
+    if (missingPrices.length > 0) {
+      console.warn(`${missingPrices.length} Fossils have missing price data`);
+    }
+    
+    // Fossil prices already contain all needed data (name, detailsId, chaosValue, divineValue)
+    // No merging needed like Scarabs
+    return processedPrices;
+  } catch (error) {
+    console.error('Error loading Fossil data:', error);
+    // Return empty array instead of throwing to allow graceful degradation
+    return [];
+  }
+}
+
+/**
+ * Get Wild Crystallised Lifeforce price from lifeforce prices
+ * @returns {Promise<object|null>} Wild Crystallised Lifeforce price object or null if not found
+ */
+export async function getWildLifeforcePrice() {
+  try {
+    // Load lifeforce prices
+    const lifeforcePrices = await loadItemTypePrices('lifeforce');
+    
+    // Find Wild Crystallised Lifeforce
+    const wildLifeforce = lifeforcePrices.find(
+      item => item.name === 'Wild Crystallised Lifeforce' || 
+              item.detailsId === 'wild-crystallised-lifeforce'
+    );
+    
+    if (!wildLifeforce) {
+      console.warn('Wild Crystallised Lifeforce not found in price data');
+      return null;
+    }
+    
+    return wildLifeforce;
+  } catch (error) {
+    console.error('Error loading Wild Crystallised Lifeforce price:', error);
     return null;
   }
 }
