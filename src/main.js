@@ -3,15 +3,19 @@
  * Flipping Scarabs - Path of Exile vendor profitability calculator
  */
 
-import { loadAndMergeScarabData, loadPreferences, savePreferences, loadAllItemTypePrices, loadAndMergeEssenceData, getPrimalLifeforcePrice } from './js/services/dataService.js';
+import { loadAndMergeScarabData, loadPreferences, savePreferences, loadAllItemTypePrices, loadAndMergeEssenceData, getPrimalLifeforcePrice, loadAndMergeFossilData, getWildLifeforcePrice } from './js/services/dataService.js';
 import { calculateThreshold, calculateProfitabilityStatus } from './js/services/calculationService.js';
 import { calculateExpectedValueForGroup, calculateThresholdForGroup, calculateProfitabilityStatus as calculateEssenceProfitabilityStatus } from './js/services/essenceCalculationService.js';
+import { calculateExpectedValueForGroup as calculateFossilExpectedValueForGroup, calculateThresholdForGroup as calculateFossilThresholdForGroup, calculateProfitabilityStatus as calculateFossilProfitabilityStatus } from './js/services/fossilCalculationService.js';
 import { priceUpdateService } from './js/services/priceUpdateService.js';
 import { initLeagueService } from './js/services/leagueService.js';
 import { Scarab } from './js/models/scarab.js';
 import { Essence } from './js/models/essence.js';
+import { Fossil } from './js/models/fossil.js';
 import { groupEssencesByRerollType, createRerollGroup } from './js/utils/essenceGroupUtils.js';
+import { groupFossilsByRerollType, createRerollGroup as createFossilRerollGroup } from './js/utils/fossilGroupUtils.js';
 import { renderEssenceList, showLoadingState as showEssenceLoadingState } from './js/views/essenceListView.js';
+import { renderFossilList, showLoadingState as showFossilLoadingState } from './js/views/fossilListView.js';
 import { renderThresholdDisplay } from './js/components/thresholdDisplay.js';
 import { renderListView, updateListView, showLoadingState, showErrorState } from './js/views/listView.js';
 import { initGridView, updateGridView, setFilteredScarabs, clearFilteredScarabs } from './js/views/gridView.js';
@@ -302,6 +306,17 @@ async function init() {
           console.error('Error reloading Essence data after league change:', error);
           showErrorToast('Failed to reload Essence data for new league');
         }
+      } else if (currentCategory === 'fossils') {
+        // Reload Fossil data for new league
+        try {
+          const { fossils, threshold, rerollCost, wildLifeforce } = await loadAndProcessFossilData();
+          const preferences = loadPreferences();
+          const currency = preferences.currencyPreference || 'chaos';
+          await renderFossilUI(fossils, threshold, rerollCost, currency, wildLifeforce);
+        } catch (error) {
+          console.error('Error reloading Fossil data after league change:', error);
+          showErrorToast('Failed to reload Fossil data for new league');
+        }
       } else if (currentCategory === 'scarabs') {
         // Reload Scarab data for new league
         await reloadScarabDataWithPrices(null);
@@ -346,6 +361,8 @@ let currentScarabs = [];
 let currentThreshold = null;
 let currentEssences = [];
 let currentEssenceThresholds = new Map(); // Map of reroll group to threshold
+let currentFossils = [];
+let currentFossilThreshold = null; // Single threshold for all Fossils (single reroll group)
 let currentCurrency = 'chaos';
 let currentView = 'list';
 let currentFilters = null;
@@ -563,6 +580,16 @@ function handleCurrencyChange(currency) {
   
   // Handle Essence category
   if (currentCategory === 'essences') {
+    // Hide/show selection panels
+    const essenceSelectionPanel = document.getElementById('essence-selection-panel');
+    const fossilSelectionPanel = document.getElementById('fossil-selection-panel');
+    if (essenceSelectionPanel) {
+      essenceSelectionPanel.style.display = '';
+    }
+    if (fossilSelectionPanel) {
+      fossilSelectionPanel.style.display = 'none';
+    }
+    
     // Update Essence threshold display
     const thresholdContainer = document.getElementById('threshold-display');
     if (thresholdContainer && currentEssenceThresholds.size > 0) {
@@ -577,6 +604,38 @@ function handleCurrencyChange(currency) {
     if (listViewContainer && currentEssences.length > 0) {
       const selectionPanelContainer = document.getElementById('essence-selection-panel');
       renderEssenceList(listViewContainer, currentEssences, currency, selectionPanelContainer);
+    }
+    return;
+  }
+  
+  // Handle Fossil category
+  if (currentCategory === 'fossils') {
+    // Hide/show selection panels
+    const essenceSelectionPanel = document.getElementById('essence-selection-panel');
+    const fossilSelectionPanel = document.getElementById('fossil-selection-panel');
+    if (essenceSelectionPanel) {
+      essenceSelectionPanel.style.display = 'none';
+    }
+    if (fossilSelectionPanel) {
+      fossilSelectionPanel.style.display = '';
+    }
+    
+    // Update Fossil threshold display
+    const thresholdContainer = document.getElementById('threshold-display');
+    if (thresholdContainer && currentFossilThreshold) {
+      const rerollCost = currentFossilThreshold.rerollCost;
+      // Use stored wildLifeforce price from threshold data if available
+      const wildLifeforce = currentFossilThreshold.wildLifeforcePrice ? {
+        chaosValue: currentFossilThreshold.wildLifeforcePrice
+      } : null;
+      renderFossilThresholdDisplay(thresholdContainer, currentFossilThreshold, rerollCost, currency, wildLifeforce);
+    }
+    
+    // Update Fossil list view
+    const listViewContainer = document.getElementById('list-view');
+    if (listViewContainer && currentFossils.length > 0) {
+      const selectionPanelContainer = document.getElementById('fossil-selection-panel');
+      renderFossilList(listViewContainer, currentFossils, currency, selectionPanelContainer);
     }
     return;
   }
@@ -802,8 +861,8 @@ function renderEssenceThresholdDisplay(container, thresholds, rerollCost, curren
           </div>
           <div class="threshold-note">
             ${isProfitable 
-              ? 'Essences below this threshold are profitable to reroll' 
-              : 'This group is not profitable to reroll'}
+              ? 'Essences below this threshold should be rerolled' 
+              : 'This group should be kept (not rerolled)'}
           </div>
         </div>
       `;
@@ -811,6 +870,281 @@ function renderEssenceThresholdDisplay(container, thresholds, rerollCost, curren
   });
   
   html += `
+      </div>
+    </div>
+  `;
+  
+  container.innerHTML = html;
+}
+
+/**
+ * Load and process Fossil data
+ */
+async function loadAndProcessFossilData() {
+  try {
+    console.log('Loading Fossil data...');
+    
+    // Load Fossil prices
+    const rawFossilData = await loadAndMergeFossilData();
+    
+    // Load Wild Crystallised Lifeforce price
+    const wildLifeforce = await getWildLifeforcePrice();
+    if (!wildLifeforce || !wildLifeforce.chaosValue) {
+      console.error('Wild Crystallised Lifeforce price not available');
+      showErrorToast('Cannot calculate Fossil thresholds: Wild Crystallised Lifeforce price unavailable');
+      return;
+    }
+    
+    const rerollCost = 30 * wildLifeforce.chaosValue;
+    console.log(`Reroll cost: ${rerollCost.toFixed(2)} chaos (30 × ${wildLifeforce.chaosValue.toFixed(4)})`);
+    
+    // Create Fossil instances (classification happens in constructor)
+    const fossils = rawFossilData
+      .map(data => new Fossil(data))
+      .filter(fossil => {
+        if (!fossil.validate()) {
+          console.warn(`Invalid Fossil data: ${fossil.id}`);
+          return false;
+        }
+        return true;
+      });
+    
+    console.log(`Loaded ${fossils.length} Fossils`);
+    
+    // Group Fossils by reroll type (all belong to 'fossil' group)
+    const groupsByType = groupFossilsByRerollType(fossils);
+    console.log(`Grouped into ${groupsByType.size} reroll groups`);
+    
+    // Calculate threshold for the single Fossil group
+    const fossilGroup = groupsByType.get('fossil');
+    if (!fossilGroup || fossilGroup.length === 0) {
+      console.error('No Fossils found in reroll group');
+      showErrorToast('No valid Fossils found');
+      return;
+    }
+    
+    // Calculate expected value (equal weighting)
+    const expectedValue = calculateFossilExpectedValueForGroup(fossilGroup);
+    
+    // Calculate threshold
+    const threshold = calculateFossilThresholdForGroup(expectedValue, rerollCost);
+    
+    // Store threshold
+    const thresholdData = {
+      rerollGroup: 'fossil',
+      value: threshold,
+      expectedValue: expectedValue,
+      rerollCost: rerollCost,
+      calculationMethod: 'equal_weighted_average',
+      fossilCount: fossilGroup.length,
+      calculatedAt: new Date().toISOString(),
+      wildLifeforcePrice: wildLifeforce.chaosValue
+    };
+    
+    // Calculate profitability status for each Fossil
+    fossilGroup.forEach(fossil => {
+      fossil.expectedValue = expectedValue;
+      fossil.threshold = threshold;
+      fossil.profitabilityStatus = calculateFossilProfitabilityStatus(fossil, threshold);
+    });
+    
+    console.log(`Fossil group: expectedValue=${expectedValue.toFixed(2)}, threshold=${threshold.toFixed(2)}, fossils=${fossilGroup.length}`);
+    
+    // Handle Fossils without reroll groups
+    fossils.forEach(fossil => {
+      if (!fossil.hasRerollGroup()) {
+        fossil.profitabilityStatus = 'unknown';
+        console.warn(`Fossil without reroll group: ${fossil.name}`);
+      }
+    });
+    
+    // Filter to only include Fossils with valid reroll group (fossil)
+    const filteredFossils = fossils.filter(fossil => {
+      return fossil.rerollGroup === 'fossil';
+    });
+    
+    // Count profitability statuses (from filtered Fossils)
+    const profitableCount = filteredFossils.filter(f => f.profitabilityStatus === 'profitable').length;
+    const notProfitableCount = filteredFossils.filter(f => f.profitabilityStatus === 'not_profitable').length;
+    const unknownCount = filteredFossils.filter(f => f.profitabilityStatus === 'unknown').length;
+    
+    console.log(`Fossil profitability breakdown: ${profitableCount} profitable, ${notProfitableCount} not profitable, ${unknownCount} unknown`);
+    console.log(`Filtered to ${filteredFossils.length} Fossils (from ${fossils.length} total)`);
+    
+    // Store in global state (store filtered Fossils)
+    currentFossils = filteredFossils;
+    currentFossilThreshold = thresholdData;
+    
+    return { fossils: filteredFossils, threshold: thresholdData, rerollCost, wildLifeforce };
+  } catch (error) {
+    console.error('Error loading Fossil data:', error);
+    showErrorToast('Failed to load Fossil data');
+    throw error;
+  }
+}
+
+/**
+ * Render Fossil UI
+ */
+async function renderFossilUI(fossils, threshold, rerollCost, currency) {
+  // Store in global state
+  currentFossils = fossils;
+  currentFossilThreshold = threshold;
+  currentCurrency = currency;
+  
+  // Load selection state from LocalStorage (if available)
+  const { loadSelectionState } = await import('./js/views/fossilListView.js');
+  loadSelectionState(fossils);
+  
+  // Hide/show selection panels based on category
+  const essenceSelectionPanel = document.getElementById('essence-selection-panel');
+  const fossilSelectionPanel = document.getElementById('fossil-selection-panel');
+  if (essenceSelectionPanel) {
+    essenceSelectionPanel.style.display = 'none';
+  }
+  if (fossilSelectionPanel) {
+    fossilSelectionPanel.style.display = '';
+  }
+  
+  // Render Fossil list view
+  const listViewContainer = document.getElementById('list-view');
+  if (listViewContainer) {
+    renderFossilList(listViewContainer, fossils, currency, fossilSelectionPanel);
+  }
+  
+  // Hide grid view and filter panel for Fossils (list view only)
+  const gridViewContainer = document.getElementById('grid-view');
+  if (gridViewContainer) {
+    gridViewContainer.style.display = 'none';
+  }
+  
+  const filterPanelContainer = document.getElementById('filter-panel');
+  if (filterPanelContainer) {
+    filterPanelContainer.style.display = 'none';
+  }
+  
+  // Update threshold display to show Fossil threshold
+  const thresholdContainer = document.getElementById('threshold-display');
+  if (thresholdContainer) {
+    renderFossilThresholdDisplay(thresholdContainer, threshold, rerollCost, currency, wildLifeforce);
+  }
+}
+
+/**
+ * Render Fossil threshold display
+ * @param {HTMLElement} container - Container element
+ * @param {object} threshold - Threshold data object
+ * @param {number} rerollCost - Total reroll cost
+ * @param {string} currency - 'chaos' or 'divine'
+ * @param {object|null} wildLifeforce - Wild Crystallised Lifeforce price object
+ */
+function renderFossilThresholdDisplay(container, threshold, rerollCost, currency, wildLifeforce = null) {
+  if (!container || !threshold) {
+    return;
+  }
+  
+  const currencySymbol = currency === 'divine' ? 'Div' : 'c';
+  const value = currency === 'divine' 
+    ? (threshold.value / 150).toFixed(4)
+    : threshold.value.toFixed(2);
+  const expectedValue = currency === 'divine'
+    ? (threshold.expectedValue / 150).toFixed(4)
+    : threshold.expectedValue.toFixed(2);
+  const costDisplay = currency === 'divine'
+    ? (rerollCost / 150).toFixed(4)
+    : rerollCost.toFixed(2);
+  
+  // Calculate Wild Crystallised Lifeforce price display
+  let wildLifeforcePriceDisplay = '';
+  if (wildLifeforce && wildLifeforce.chaosValue) {
+    const wildPrice = currency === 'divine'
+      ? (wildLifeforce.chaosValue / 150).toFixed(4)
+      : wildLifeforce.chaosValue.toFixed(4);
+    wildLifeforcePriceDisplay = `
+      <div class="calculation-breakdown">
+        <div class="breakdown-item">
+          <span class="breakdown-label">Wild Crystallised Lifeforce price:</span>
+          <span class="breakdown-value">${wildPrice} ${currencySymbol}</span>
+        </div>
+        <div class="breakdown-item">
+          <span class="breakdown-label">Reroll cost (30 × price):</span>
+          <span class="breakdown-value">30 × ${wildPrice} ${currencySymbol} = ${costDisplay} ${currencySymbol}</span>
+        </div>
+      </div>
+    `;
+  } else if (threshold.wildLifeforcePrice) {
+    // Fallback to stored price if available
+    const wildPrice = currency === 'divine'
+      ? (threshold.wildLifeforcePrice / 150).toFixed(4)
+      : threshold.wildLifeforcePrice.toFixed(4);
+    wildLifeforcePriceDisplay = `
+      <div class="calculation-breakdown">
+        <div class="breakdown-item">
+          <span class="breakdown-label">Wild Crystallised Lifeforce price:</span>
+          <span class="breakdown-value">${wildPrice} ${currencySymbol}</span>
+        </div>
+        <div class="breakdown-item">
+          <span class="breakdown-label">Reroll cost (30 × price):</span>
+          <span class="breakdown-value">30 × ${wildPrice} ${currencySymbol} = ${costDisplay} ${currencySymbol}</span>
+        </div>
+      </div>
+    `;
+  }
+  
+  const isProfitable = threshold.value > 0;
+  const statusClass = isProfitable ? 'profitable' : 'not-profitable';
+  
+  const html = `
+    <div class="fossil-threshold-display">
+      <div class="threshold-header">
+        <h2>Fossil Reroll Threshold</h2>
+        <div class="reroll-cost">
+          <strong>Reroll Cost:</strong> 30 Wild Crystallised Lifeforce = ${costDisplay} ${currencySymbol}
+        </div>
+      </div>
+      <div class="threshold-group ${statusClass}">
+        <div class="group-header">
+          <h3>Fossil Group</h3>
+          <span class="fossil-count">${threshold.fossilCount} Fossils</span>
+        </div>
+        <div class="threshold-values">
+          <div class="threshold-value">
+            <label>Threshold:</label>
+            <span class="value">${value} ${currencySymbol}</span>
+          </div>
+          <div class="expected-value">
+            <label>Expected Value:</label>
+            <span class="value">${expectedValue} ${currencySymbol}</span>
+          </div>
+        </div>
+        <div class="calculation-details">
+          <div class="calculation-method">
+            <strong>Calculation Method:</strong> Equal-weighted average
+          </div>
+          <div class="calculation-formula">
+            <strong>Formula:</strong> Expected Value - Reroll Cost = Threshold
+          </div>
+          <div class="calculation-steps">
+            <div class="formula-step">
+              <span class="step-label">Step 1:</span>
+              <span class="step-value">Expected Value = Average of all ${threshold.fossilCount} Fossil prices = ${expectedValue} ${currencySymbol}</span>
+            </div>
+            <div class="formula-step">
+              <span class="step-label">Step 2:</span>
+              <span class="step-value">Reroll Cost = 30 × Wild Crystallised Lifeforce = ${costDisplay} ${currencySymbol}</span>
+            </div>
+            <div class="formula-step">
+              <span class="step-label">Step 3:</span>
+              <span class="step-value">Threshold = ${expectedValue} ${currencySymbol} - ${costDisplay} ${currencySymbol} = ${value} ${currencySymbol}</span>
+            </div>
+          </div>
+          ${wildLifeforcePriceDisplay}
+        </div>
+        <div class="threshold-note">
+          ${isProfitable 
+            ? 'Fossils below this threshold should be rerolled' 
+            : 'Fossils should be kept (not rerolled)'}
+        </div>
       </div>
     </div>
   `;
@@ -862,6 +1196,27 @@ async function handleCategoryChange(category) {
     } catch (error) {
       console.error('Error handling Essence category:', error);
       showErrorToast('Failed to load Essence data');
+    }
+  } else if (category === 'fossils') {
+    try {
+      // Show loading state
+      const listViewContainer = document.getElementById('list-view');
+      if (listViewContainer) {
+        showFossilLoadingState(listViewContainer);
+      }
+      
+      // Load and process Fossil data
+      const { fossils, threshold, rerollCost, wildLifeforce } = await loadAndProcessFossilData();
+      
+      // Get currency preference
+      const preferences = loadPreferences();
+      const currency = preferences.currencyPreference || 'chaos';
+      
+      // Render Fossil UI
+      await renderFossilUI(fossils, threshold, rerollCost, currency, wildLifeforce);
+    } catch (error) {
+      console.error('Error handling Fossil category:', error);
+      showErrorToast('Failed to load Fossil data');
     }
   } else if (category === 'scarabs') {
     // Reload Scarab UI if we have Scarab data
