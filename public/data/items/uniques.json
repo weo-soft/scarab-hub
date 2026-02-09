@@ -42,7 +42,8 @@
         "mutatedModifiers": [],
         "flavourText": "From the flesh of the gods, Xibaqua was born.\nFrom the carnage of Xibaqua, we were born.\nIt is our duty to return to the gods what was once theirs.",
         "itemType": "Helmet",
-        "detailsId": "mask-of-the-stitched-demon-magistrate-crown"
+        "detailsId": "mask-of-the-stitched-demon-magistrate-crown",
+        "id": "mask-of-the-stitched-demon"
     },
     {
         "name": "Mask of the Spirit Drinker",
@@ -79,7 +80,8 @@
         "mutatedModifiers": [],
         "flavourText": "Our flesh is our most sacred gift.\nTaint it not with the occult.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Summoning}",
         "itemType": "Helmet",
-        "detailsId": "mask-of-the-spirit-drinker-magistrate-crown"
+        "detailsId": "mask-of-the-spirit-drinker-magistrate-crown",
+        "id": "mask-of-the-spirit-drinker"
     },
     {
         "name": "Slavedriver's Hand",
@@ -120,7 +122,8 @@
         "mutatedModifiers": [],
         "flavourText": "A plan without a deadline stays a plan.",
         "itemType": "Gloves",
-        "detailsId": "slavedrivers-hand-ambush-mitts"
+        "detailsId": "slavedrivers-hand-ambush-mitts",
+        "id": "slavedrivers-hand"
     },
     {
         "name": "Architect's Hand",
@@ -153,7 +156,8 @@
         "mutatedModifiers": [],
         "flavourText": "Great works take time.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Dominance}",
         "itemType": "Gloves",
-        "detailsId": "architects-hand-ambush-mitts"
+        "detailsId": "architects-hand-ambush-mitts",
+        "id": "architects-hand"
     },
     {
         "name": "Fate of the Vaal",
@@ -199,7 +203,8 @@
         "mutatedModifiers": [],
         "flavourText": "Doryani promises immortality, yet we build great structures, \ncarve magnificent works into stone, so a part of us lives onward.\nA sign of faithlessness through action.",
         "itemType": "One Handed Sword",
-        "detailsId": "fate-of-the-vaal-gemstone-sword"
+        "detailsId": "fate-of-the-vaal-gemstone-sword",
+        "id": "fate-of-the-vaal"
     },
     {
         "name": "Story of the Vaal",
@@ -245,7 +250,8 @@
         "mutatedModifiers": [],
         "flavourText": "Through war we found peace. Through death we found advancement.\nOur ancestors did not know where their actions would take them.\nAre we any better?\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Fate}",
         "itemType": "One Handed Sword",
-        "detailsId": "story-of-the-vaal-gemstone-sword"
+        "detailsId": "story-of-the-vaal-gemstone-sword",
+        "id": "story-of-the-vaal"
     },
     {
         "name": "Apep's Supremacy",
@@ -291,7 +297,8 @@
         "mutatedModifiers": [],
         "flavourText": "Give him your body, and your burdens will follow.",
         "itemType": "Shield",
-        "detailsId": "apeps-supremacy-vaal-spirit-shield"
+        "detailsId": "apeps-supremacy-vaal-spirit-shield",
+        "id": "apeps-supremacy"
     },
     {
         "name": "Apep's Slumber",
@@ -333,7 +340,8 @@
         "mutatedModifiers": [],
         "flavourText": "The heart grows slow,\nthe spirit grows strong.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Awakening}",
         "itemType": "Shield",
-        "detailsId": "apeps-slumber-vaal-spirit-shield"
+        "detailsId": "apeps-slumber-vaal-spirit-shield",
+        "id": "apeps-slumber"
     },
     {
         "name": "Dance of the Offered",
@@ -366,7 +374,8 @@
         "mutatedModifiers": [],
         "flavourText": "Facing their death,\nthe mind of a sacrifice\nretreats into instinct and madness.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of the Ritual}",
         "itemType": "Boots",
-        "detailsId": "dance-of-the-offered-carnal-boots"
+        "detailsId": "dance-of-the-offered-carnal-boots",
+        "id": "dance-of-the-offered"
     },
     {
         "name": "Omeyocan",
@@ -403,7 +412,8 @@
         "mutatedModifiers": [],
         "flavourText": "Only a fool seeks meaning\nin a life so fleeting.",
         "itemType": "Boots",
-        "detailsId": "omeyocan-carnal-boots"
+        "detailsId": "omeyocan-carnal-boots",
+        "id": "omeyocan"
     },
     {
         "name": "Coward's Legacy",
@@ -441,7 +451,8 @@
         "mutatedModifiers": [],
         "flavourText": "Death is your most important duty.\nFace it, or curse your bloodline for all eternity.",
         "itemType": "Belt",
-        "detailsId": "cowards-legacy-chain-belt"
+        "detailsId": "cowards-legacy-chain-belt",
+        "id": "cowards-legacy"
     },
     {
         "name": "Coward's Chains",
@@ -479,7 +490,8 @@
         "mutatedModifiers": [],
         "flavourText": "As a gift or as punishment,\nthe Empire will have your blood.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Consequence}",
         "itemType": "Belt",
-        "detailsId": "cowards-chains-chain-belt"
+        "detailsId": "cowards-chains-chain-belt",
+        "id": "cowards-chains"
     },
     {
         "name": "Zerphi's Heart",
@@ -513,7 +525,8 @@
         "mutatedModifiers": [],
         "flavourText": "We are incapable of change without sacrifice, for we are both the iron and the forge.",
         "itemType": "Amulet",
-        "detailsId": "zerphis-heart-paua-amulet"
+        "detailsId": "zerphis-heart-paua-amulet",
+        "id": "zerphis-heart"
     },
     {
         "name": "Sacrificial Heart",
@@ -555,7 +568,8 @@
         "mutatedModifiers": [],
         "flavourText": "The seed of life, saved and savoured.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Sacrifice}",
         "itemType": "Amulet",
-        "detailsId": "sacrificial-heart-paua-amulet"
+        "detailsId": "sacrificial-heart-paua-amulet",
+        "id": "sacrificial-heart"
     },
     {
         "name": "Transcendent Spirit",
@@ -583,7 +597,8 @@
         "mutatedModifiers": [],
         "flavourText": "Take comfort knowing that, even in death,\nwe may serve our Queen and fuel her empire.",
         "itemType": "Jewel",
-        "detailsId": "transcendent-spirit-viridian-jewel"
+        "detailsId": "transcendent-spirit-viridian-jewel",
+        "id": "transcendent-spirit"
     },
     {
         "name": "Transcendent Flesh",
@@ -611,7 +626,8 @@
         "mutatedModifiers": [],
         "flavourText": "We are as much shaped by what we do\nas what is done to us.",
         "itemType": "Jewel",
-        "detailsId": "transcendent-flesh-crimson-jewel"
+        "detailsId": "transcendent-flesh-crimson-jewel",
+        "id": "transcendent-flesh"
     },
     {
         "name": "Transcendent Mind",
@@ -639,7 +655,8 @@
         "mutatedModifiers": [],
         "flavourText": "A keen mind sees what others do not,\nmakes connections where others do not, \nand is dangerous in a way that others are not.",
         "itemType": "Jewel",
-        "detailsId": "transcendent-mind-cobalt-jewel"
+        "detailsId": "transcendent-mind-cobalt-jewel",
+        "id": "transcendent-mind"
     },
     {
         "name": "Tempered Spirit",
@@ -659,7 +676,8 @@
         "mutatedModifiers": [],
         "flavourText": "Though the body rots, the spirit lives on.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Transcendence}",
         "itemType": "Jewel",
-        "detailsId": "tempered-spirit-viridian-jewel"
+        "detailsId": "tempered-spirit-viridian-jewel",
+        "id": "tempered-spirit"
     },
     {
         "name": "Tempered Flesh",
@@ -679,7 +697,8 @@
         "mutatedModifiers": [],
         "flavourText": "We are born raw and untested, and we are shaped by life.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Transcendence}",
         "itemType": "Jewel",
-        "detailsId": "tempered-flesh-crimson-jewel"
+        "detailsId": "tempered-flesh-crimson-jewel",
+        "id": "tempered-flesh"
     },
     {
         "name": "Tempered Mind",
@@ -699,7 +718,8 @@
         "mutatedModifiers": [],
         "flavourText": "Any thought, no matter how fleeting, changes the thinker.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Transcendence}",
         "itemType": "Jewel",
-        "detailsId": "tempered-mind-cobalt-jewel"
+        "detailsId": "tempered-mind-cobalt-jewel",
+        "id": "tempered-mind"
     },
     {
         "name": "Soul Ripper",
@@ -727,7 +747,8 @@
         ],
         "mutatedModifiers": [],
         "flavourText": "\"What care have I for their pain? They're already dead.\"\n- Atalui, Vaal Priestess",
-        "detailsId": "soul-ripper"
+        "detailsId": "soul-ripper",
+        "id": "soul-ripper"
     },
     {
         "name": "Soul Catcher",
@@ -755,6 +776,7 @@
         ],
         "mutatedModifiers": [],
         "flavourText": "Freedom is for the privileged, even in death.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of the Ghost}",
-        "detailsId": "soul-catcher"
+        "detailsId": "soul-catcher",
+        "id": "soul-catcher"
     }
 ]

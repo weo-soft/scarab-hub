@@ -61,6 +61,9 @@ import { hideTooltip } from './js/utils/tooltip.js';
 import { initDataStatusOverlay, setOnRefreshCallback } from './js/components/dataStatusOverlay.js';
 import { renderLeagueSelector, setOnLeagueChange } from './js/components/leagueSelector.js';
 import { showErrorToast, showWarningToast } from './js/utils/toast.js';
+import { setCategory as setSelectionCategory, subscribe as subscribeSelection } from './js/services/selectionState.js';
+import { buildCategoryItemNames, loadSusById } from './js/utils/categoryItemNames.js';
+import { renderRegexSearchDisplay } from './js/components/regexSearchDisplay.js';
 
 // Import debug tools (only in development)
 if (import.meta.env.DEV) {
@@ -425,6 +428,9 @@ let currentPage = 'flipping'; // 'flipping' or 'simulation'
 let currentCategory = 'scarabs'; // 'scarabs', 'essences', 'tattoos', 'catalysts', 'temple', 'fossils', 'oils', 'delirium-orbs', 'emblems'
 let currentConfidencePercentile = 0.9; // Default 90% confidence
 let currentTradeMode = 'returnable'; // Default trade mode: 'returnable', 'lowest_value', or 'optimal_combination'
+let selectionSubscriptionActive = false;
+/** Cache SUS data by category: { susById, groups } for regex builder */
+const susCacheByCategory = new Map();
 
 /**
  * Render the main UI
@@ -490,6 +496,33 @@ async function renderCurrentView() {
     setFilteredScarabs(filteredIds);
   } else {
     clearFilteredScarabs();
+  }
+
+  // Regex search: for scarabs, set selection category and show regex display (use SUS tokens when available)
+  const regexSearchContainer = document.getElementById('regex-search-display');
+  if (currentCategory === 'scarabs' && currentScarabs.length > 0) {
+    setSelectionCategory('scarabs');
+    if (regexSearchContainer) {
+      regexSearchContainer.style.display = 'block';
+      let susData = susCacheByCategory.get('scarabs');
+      if (susData === undefined) {
+        susData = await loadSusById('scarabs');
+        susCacheByCategory.set('scarabs', susData);
+      }
+      const categoryNames = buildCategoryItemNames(
+        'scarabs',
+        currentScarabs,
+        susData.susById,
+        susData.groups
+      );
+      renderRegexSearchDisplay(regexSearchContainer, categoryNames);
+    }
+    if (!selectionSubscriptionActive) {
+      subscribeSelection(() => renderCurrentView());
+      selectionSubscriptionActive = true;
+    }
+  } else if (regexSearchContainer) {
+    regexSearchContainer.style.display = 'none';
   }
 
   // Always show both views
@@ -1986,7 +2019,8 @@ async function renderTempleUpgradeUI(combinations, currency) {
  */
 async function handleCategoryChange(category) {
   currentCategory = category;
-  
+  setSelectionCategory(category, true);
+
   // Update navigation
   const navigationContainer = document.getElementById('navigation');
   if (navigationContainer) {

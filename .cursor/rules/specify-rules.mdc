@@ -10,6 +10,8 @@ Auto-generated from all feature plans. Last updated: 2025-12-27
 - LocalStorage (browser) for user preferences and cached market data, same as Essence feature (001-fossil-reroll)
 - JavaScript (ES6+), HTML5, CSS3 + Vanilla JavaScript (no external frameworks), Canvas API for grid views (if needed) (003-temple-upgrade-display)
 - Static JSON files in `/public/data/items/`, images in `/public/assets/images/` (003-temple-upgrade-display)
+- JavaScript (ES6+), HTML5, CSS3 + Vite (build and dev server), existing codebase (generic grid, list view, adapters) (001-regex-item-search)
+- In-memory selection state per category; optional LocalStorage for persistence (out of scope per spec unless added later) (001-regex-item-search)
 
 - JavaScript (ES6+), HTML5, CSS3 + Vite (build tool and dev server), minimal external libraries (001-flipping-scarabs)
 
@@ -30,9 +32,9 @@ npm test; npm run lint
 JavaScript (ES6+), HTML5, CSS3: Follow standard conventions
 
 ## Recent Changes
+- 001-regex-item-search: Added JavaScript (ES6+), HTML5, CSS3 + Vite (build and dev server), existing codebase (generic grid, list view, adapters)
 - 003-temple-upgrade-display: Added JavaScript (ES6+), HTML5, CSS3 + Vanilla JavaScript (no external frameworks), Canvas API for grid views (if needed)
 - 001-fossil-reroll: Added JavaScript (ES6+), HTML5, CSS3 + Vite (build tool and dev server), existing codebase infrastructure
-- 001-essence-reroll: Added JavaScript (ES6+), HTML5, CSS3 + Vite (build tool and dev server), existing codebase infrastructure
 
 
 <!-- MANUAL ADDITIONS START -->

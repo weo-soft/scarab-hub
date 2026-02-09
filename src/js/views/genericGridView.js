@@ -16,6 +16,7 @@ import { loadImage, drawCellHighlight, drawCellBorder, clearCanvas } from '../ut
 import { getProfitabilityColor, getProfitabilityBorderColor } from '../utils/colorUtils.js';
 import { getCellAtPosition, getCellById } from '../utils/cellMapper.js';
 import { hideTooltip, updateTooltipPosition } from '../utils/tooltip.js';
+import { has as selectionHas, toggle as selectionToggle, subscribe as subscribeSelection } from '../services/selectionState.js';
 
 let currentAdapter = null;
 let baseImage = null;
@@ -31,6 +32,7 @@ let yieldCounts = new Map();
 let showCellBackgrounds = true;
 let tooltipHandlers = null;
 let tooltipCanvas = null;
+let selectionUnsubscribe = null;
 
 /**
  * Initialize the generic grid view with an adapter
@@ -87,6 +89,10 @@ export async function initGenericGridView(canvas, items, adapter, imagePath = nu
     await preloadImages(adapter);
     renderGrid(canvas, adapter);
     setupTooltipHandlers(canvas, adapter);
+    setupSelectionHandlers(canvas, adapter);
+    selectionUnsubscribe = subscribeSelection(() => {
+      if (currentCanvas === canvas && currentAdapter) renderGrid(canvas, currentAdapter);
+    });
   } catch (error) {
     console.error('Error initializing generic grid view:', error);
     renderGrid(canvas, adapter);
@@ -186,6 +192,11 @@ function drawCellOverlay(ctx, cell, item, adapter) {
     drawCellHighlight(ctx, cell.x, cell.y, cell.width, cell.height, '#ffd700', 0.6);
     drawCellBorder(ctx, cell.x, cell.y, cell.width, cell.height, '#ffd700', 3);
   }
+
+  if (selectionHas(itemId)) {
+    drawCellHighlight(ctx, cell.x, cell.y, cell.width, cell.height, '#4a9eff', 0.35);
+    drawCellBorder(ctx, cell.x, cell.y, cell.width, cell.height, '#4a9eff', 3);
+  }
 }
 
 function renderGrid(canvas, adapter) {
@@ -245,9 +256,41 @@ export function teardownGenericGridView(canvas) {
   canvas.removeEventListener('mousemove', tooltipHandlers.mousemove);
   canvas.removeEventListener('mouseleave', tooltipHandlers.mouseleave);
   canvas.removeEventListener('mouseenter', tooltipHandlers.mouseenter);
+  if (typeof canvas._selectionClick === 'function') {
+    canvas.removeEventListener('click', canvas._selectionClick);
+    canvas._selectionClick = null;
+  }
+  if (selectionUnsubscribe) {
+    selectionUnsubscribe();
+    selectionUnsubscribe = null;
+  }
   tooltipHandlers = null;
   tooltipCanvas = null;
   hideTooltip();
+}
+
+function setupSelectionHandlers(canvas, adapter) {
+  if (!canvas || !adapter) return;
+  function getCoords(e) {
+    const rect = canvas.getBoundingClientRect();
+    const dims = adapter.getGridConfig()?.imageDimensions || { width: 825, height: 787 };
+    const w = baseImage ? baseImage.width : dims.width;
+    const h = baseImage ? baseImage.height : dims.height;
+    return {
+      x: ((e.clientX - rect.left) / rect.width) * w,
+      y: ((e.clientY - rect.top) / rect.height) * h
+    };
+  }
+  const onClick = (e) => {
+    const { x, y } = getCoords(e);
+    const item = getItemAtPositionInternal(x, y);
+    if (item) {
+      const id = adapter.getItemId(item);
+      selectionToggle(id);
+    }
+  };
+  canvas._selectionClick = onClick;
+  canvas.addEventListener('click', onClick);
 }
 
 function setupTooltipHandlers(canvas, adapter) {

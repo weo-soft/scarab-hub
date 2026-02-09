@@ -7,6 +7,7 @@ import { getProfitabilityColor, getProfitabilityBackgroundColor } from '../utils
 import { highlightCellForScarab, clearHighlight } from './gridView.js';
 import { filterScarabs } from '../components/filterPanel.js';
 import { showTooltip, hideTooltip, updateTooltipPosition } from '../utils/tooltip.js';
+import { toggle as selectionToggle, has as selectionHas } from '../services/selectionState.js';
 
 let currentScarabs = [];
 let currentCurrency = 'chaos';
@@ -91,6 +92,7 @@ export function renderListView(container, scarabs, currency = 'chaos', filters =
   // Attach event listeners
   setupSortListeners(container);
   setupHoverListeners(container);
+  setupSelectionListeners(container);
 }
 
 /**
@@ -162,6 +164,22 @@ function setupHoverListeners(container) {
         hideTooltip();
         tooltipTimeout = null;
       }, 150);
+    });
+  });
+}
+
+/**
+ * Setup click listeners for selection (regex search) on list items
+ * @param {HTMLElement} container
+ */
+function setupSelectionListeners(container) {
+  const scarabItems = container.querySelectorAll('.scarab-item[data-scarab-id]');
+  scarabItems.forEach(item => {
+    const scarabId = item.getAttribute('data-scarab-id');
+    if (!scarabId) return;
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectionToggle(scarabId);
     });
   });
 }
@@ -251,13 +269,14 @@ function renderScarabItem(scarab, currency) {
   const imagePath = `/assets/images/scarabs/${scarab.id}.png`;
   const yieldCount = yieldCounts.get(scarab.id);
   const hasYieldCounts = yieldCounts.size > 0;
+  const isSelected = selectionHas(scarab.id);
 
   const weightPercent = scarab.dropWeight != null
     ? (scarab.dropWeight * 100).toFixed(2) + '%'
     : '—';
 
   return `
-    <div class="scarab-item compact" data-scarab-id="${scarab.id}" 
+    <div class="scarab-item compact ${isSelected ? 'item-selected' : ''}" data-scarab-id="${scarab.id}" 
          style="border-left: 4px solid ${color}; background-color: ${bgColor};">
       <img class="scarab-image" src="${imagePath}" alt="${scarab.name}" onerror="this.style.display='none'">
       <span class="scarab-name">${scarab.name}</span>
