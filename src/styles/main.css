@@ -562,12 +562,13 @@ header p {
   background: #151515;
 }
 
-/* Regex search: selected items (list and grid) */
+/* Regex search: selected items (list and grid) – blue for high contrast */
 .item-selected,
 .scarab-item.item-selected {
-  outline: 2px solid rgba(200, 170, 110, 0.8);
+  outline: 2px solid #4a9eff;
   outline-offset: 1px;
-  box-shadow: 0 0 0 1px rgba(200, 170, 110, 0.4);
+  box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.5), 0 0 12px rgba(74, 158, 255, 0.35);
+  background: rgba(74, 158, 255, 0.12);
 }
 
 /* Regex search display (copy for in-game search) */
@@ -597,7 +598,15 @@ header p {
   color: rgba(200, 170, 110, 0.7);
   margin-bottom: 6px;
 }
-.regex-search-display .regex-search-copy-btn {
+.regex-search-display .regex-search-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.regex-search-display .regex-search-copy-btn,
+.regex-search-display .regex-search-select-all-btn,
+.regex-search-display .regex-search-unselect-all-btn {
   padding: 4px 10px;
   cursor: pointer;
   background: rgba(200, 170, 110, 0.2);
@@ -605,10 +614,14 @@ header p {
   border-radius: 4px;
   color: #c8aa6e;
 }
-.regex-search-display .regex-search-copy-btn:hover:not(:disabled) {
+.regex-search-display .regex-search-copy-btn:hover:not(:disabled),
+.regex-search-display .regex-search-select-all-btn:hover:not(:disabled),
+.regex-search-display .regex-search-unselect-all-btn:hover:not(:disabled) {
   background: rgba(200, 170, 110, 0.3);
 }
-.regex-search-display .regex-search-copy-btn:disabled {
+.regex-search-display .regex-search-copy-btn:disabled,
+.regex-search-display .regex-search-select-all-btn:disabled,
+.regex-search-display .regex-search-unselect-all-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }

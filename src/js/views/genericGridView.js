@@ -194,7 +194,8 @@ function drawCellOverlay(ctx, cell, item, adapter) {
   }
 
   if (selectionHas(itemId)) {
-    drawCellBorder(ctx, cell.x, cell.y, cell.width, cell.height, 'rgba(200, 170, 110, 0.9)', 2);
+    drawCellHighlight(ctx, cell.x, cell.y, cell.width, cell.height, '#4a9eff', 0.35);
+    drawCellBorder(ctx, cell.x, cell.y, cell.width, cell.height, '#4a9eff', 3);
   }
 }
 

@@ -429,7 +429,7 @@ let currentCategory = 'scarabs'; // 'scarabs', 'essences', 'tattoos', 'catalysts
 let currentConfidencePercentile = 0.9; // Default 90% confidence
 let currentTradeMode = 'returnable'; // Default trade mode: 'returnable', 'lowest_value', or 'optimal_combination'
 let selectionSubscriptionActive = false;
-/** Cache SUS tokens by category (id → sus) for regex builder */
+/** Cache SUS data by category: { susById, groups } for regex builder */
 const susCacheByCategory = new Map();
 
 /**
@@ -504,12 +504,17 @@ async function renderCurrentView() {
     setSelectionCategory('scarabs');
     if (regexSearchContainer) {
       regexSearchContainer.style.display = 'block';
-      let susById = susCacheByCategory.get('scarabs');
-      if (susById === undefined) {
-        susById = await loadSusById('scarabs');
-        susCacheByCategory.set('scarabs', susById);
+      let susData = susCacheByCategory.get('scarabs');
+      if (susData === undefined) {
+        susData = await loadSusById('scarabs');
+        susCacheByCategory.set('scarabs', susData);
       }
-      const categoryNames = buildCategoryItemNames('scarabs', currentScarabs, susById);
+      const categoryNames = buildCategoryItemNames(
+        'scarabs',
+        currentScarabs,
+        susData.susById,
+        susData.groups
+      );
       renderRegexSearchDisplay(regexSearchContainer, categoryNames);
     }
     if (!selectionSubscriptionActive) {

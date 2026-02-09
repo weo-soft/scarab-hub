@@ -7,7 +7,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "locus-of-corruption-tier-3-temple"
+            "detailsId": "locus-of-corruption-tier-3-temple",
+            "id": "locus-of-corruption-tier-3"
         },
         {
             "name": "Doryani's Institute (Tier 3)",
@@ -16,7 +17,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "doryanis-institute-tier-3-temple"
+            "detailsId": "doryanis-institute-tier-3-temple",
+            "id": "doryanis-institute-tier-3"
         },
         {
             "name": "Breach Containment Chamber (Tier 2)",
@@ -25,7 +27,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "breach-containment-chamber-tier-2-temple"
+            "detailsId": "breach-containment-chamber-tier-2-temple",
+            "id": "breach-containment-chamber-tier-2"
         },
         {
             "name": "Apex of Ascension (Tier 3)",
@@ -34,7 +37,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "apex-of-ascension-tier-3-temple"
+            "detailsId": "apex-of-ascension-tier-3-temple",
+            "id": "apex-of-ascension-tier-3"
         },
         {
             "name": "Guardhouse (Tier 1)",
@@ -43,7 +47,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "guardhouse-tier-1-temple"
+            "detailsId": "guardhouse-tier-1-temple",
+            "id": "guardhouse-tier-1"
         },
         {
             "name": "Sanctum of Immortality (Tier 3)",
@@ -52,7 +57,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "sanctum-of-immortality-tier-3-temple"
+            "detailsId": "sanctum-of-immortality-tier-3-temple",
+            "id": "sanctum-of-immortality-tier-3"
         },
         {
             "name": "Crucible of Flame (Tier 3)",
@@ -61,7 +67,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "crucible-of-flame-tier-3-temple"
+            "detailsId": "crucible-of-flame-tier-3-temple",
+            "id": "crucible-of-flame-tier-3"
         },
         {
             "name": "Apex of Atzoatl",
@@ -70,7 +77,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "apex-of-atzoatl-temple"
+            "detailsId": "apex-of-atzoatl-temple",
+            "id": "apex-of-atzoatl"
         },
         {
             "name": "Throne of Atziri (Tier 3)",
@@ -79,7 +87,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "throne-of-atziri-tier-3-temple"
+            "detailsId": "throne-of-atziri-tier-3-temple",
+            "id": "throne-of-atziri-tier-3"
         },
         {
             "name": "Atlas of Worlds (Tier 3)",
@@ -88,7 +97,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "atlas-of-worlds-tier-3-temple"
+            "detailsId": "atlas-of-worlds-tier-3-temple",
+            "id": "atlas-of-worlds-tier-3"
         },
         {
             "name": "Hall of Legends (Tier 3)",
@@ -97,7 +107,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "hall-of-legends-tier-3-temple"
+            "detailsId": "hall-of-legends-tier-3-temple",
+            "id": "hall-of-legends-tier-3"
         },
         {
             "name": "Shrine of Empowerment (Tier 1)",
@@ -106,7 +117,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "shrine-of-empowerment-tier-1-temple"
+            "detailsId": "shrine-of-empowerment-tier-1-temple",
+            "id": "shrine-of-empowerment-tier-1"
         },
         {
             "name": "Factory (Tier 3)",
@@ -115,7 +127,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "factory-tier-3-temple"
+            "detailsId": "factory-tier-3-temple",
+            "id": "factory-tier-3"
         },
         {
             "name": "Sanctum of Unity (Tier 2)",
@@ -124,7 +137,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "sanctum-of-unity-tier-2-temple"
+            "detailsId": "sanctum-of-unity-tier-2-temple",
+            "id": "sanctum-of-unity-tier-2"
         },
         {
             "name": "Wealth of the Vaal (Tier 3)",
@@ -133,7 +147,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "wealth-of-the-vaal-tier-3-temple"
+            "detailsId": "wealth-of-the-vaal-tier-3-temple",
+            "id": "wealth-of-the-vaal-tier-3"
         },
         {
             "name": "Strongbox Chamber (Tier 1)",
@@ -142,7 +157,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "strongbox-chamber-tier-1-temple"
+            "detailsId": "strongbox-chamber-tier-1-temple",
+            "id": "strongbox-chamber-tier-1"
         },
         {
             "name": "Storm of Corruption (Tier 3)",
@@ -151,7 +167,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "storm-of-corruption-tier-3-temple"
+            "detailsId": "storm-of-corruption-tier-3-temple",
+            "id": "storm-of-corruption-tier-3"
         },
         {
             "name": "Museum of Artefacts (Tier 3)",
@@ -160,7 +177,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "museum-of-artefacts-tier-3-temple"
+            "detailsId": "museum-of-artefacts-tier-3-temple",
+            "id": "museum-of-artefacts-tier-3"
         },
         {
             "name": "Hall of Locks (Tier 2)",
@@ -169,7 +187,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "hall-of-locks-tier-2-temple"
+            "detailsId": "hall-of-locks-tier-2-temple",
+            "id": "hall-of-locks-tier-2"
         },
         {
             "name": "Temple Nexus (Tier 3)",
@@ -178,7 +197,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "temple-nexus-tier-3-temple"
+            "detailsId": "temple-nexus-tier-3-temple",
+            "id": "temple-nexus-tier-3"
         },
         {
             "name": "Tempest Generator (Tier 1)",
@@ -187,7 +207,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "tempest-generator-tier-1-temple"
+            "detailsId": "tempest-generator-tier-1-temple",
+            "id": "tempest-generator-tier-1"
         },
         {
             "name": "Temple Defense Workshop (Tier 2)",
@@ -196,7 +217,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "temple-defense-workshop-tier-2-temple"
+            "detailsId": "temple-defense-workshop-tier-2-temple",
+            "id": "temple-defense-workshop-tier-2"
         },
         {
             "name": "Sadist's Den (Tier 3)",
@@ -205,7 +227,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "sadists-den-tier-3-temple"
+            "detailsId": "sadists-den-tier-3-temple",
+            "id": "sadists-den-tier-3"
         },
         {
             "name": "Shrine of Unmaking (Tier 3)",
@@ -214,7 +237,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "shrine-of-unmaking-tier-3-temple"
+            "detailsId": "shrine-of-unmaking-tier-3-temple",
+            "id": "shrine-of-unmaking-tier-3"
         },
         {
             "name": "Armourer's Workshop (Tier 1)",
@@ -223,7 +247,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "armourers-workshop-tier-1-temple"
+            "detailsId": "armourers-workshop-tier-1-temple",
+            "id": "armourers-workshop-tier-1"
         },
         {
             "name": "Torment Cells (Tier 1)",
@@ -232,7 +257,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "torment-cells-tier-1-temple"
+            "detailsId": "torment-cells-tier-1-temple",
+            "id": "torment-cells-tier-1"
         },
         {
             "name": "Hybridisation Chamber (Tier 3)",
@@ -241,7 +267,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "hybridisation-chamber-tier-3-temple"
+            "detailsId": "hybridisation-chamber-tier-3-temple",
+            "id": "hybridisation-chamber-tier-3"
         },
         {
             "name": "Hall of War (Tier 3)",
@@ -250,7 +277,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "hall-of-war-tier-3-temple"
+            "detailsId": "hall-of-war-tier-3-temple",
+            "id": "hall-of-war-tier-3"
         },
         {
             "name": "Defense Research Lab (Tier 3)",
@@ -259,7 +287,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "defense-research-lab-tier-3-temple"
+            "detailsId": "defense-research-lab-tier-3-temple",
+            "id": "defense-research-lab-tier-3"
         },
         {
             "name": "Flame Workshop (Tier 1)",
@@ -268,7 +297,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "flame-workshop-tier-1-temple"
+            "detailsId": "flame-workshop-tier-1-temple",
+            "id": "flame-workshop-tier-1"
         },
         {
             "name": "Court of Sealed Death (Tier 3)",
@@ -277,7 +307,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "court-of-sealed-death-tier-3-temple"
+            "detailsId": "court-of-sealed-death-tier-3-temple",
+            "id": "court-of-sealed-death-tier-3"
         },
         {
             "name": "Toxic Grove (Tier 3)",
@@ -286,7 +317,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "toxic-grove-tier-3-temple"
+            "detailsId": "toxic-grove-tier-3-temple",
+            "id": "toxic-grove-tier-3"
         },
         {
             "name": "Lightning Workshop (Tier 1)",
@@ -295,7 +327,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "lightning-workshop-tier-1-temple"
+            "detailsId": "lightning-workshop-tier-1-temple",
+            "id": "lightning-workshop-tier-1"
         },
         {
             "name": "Storage Room (Tier 1)",
@@ -304,7 +337,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "storage-room-tier-1-temple"
+            "detailsId": "storage-room-tier-1-temple",
+            "id": "storage-room-tier-1"
         },
         {
             "name": "Torture Cages (Tier 2)",
@@ -313,7 +347,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "torture-cages-tier-2-temple"
+            "detailsId": "torture-cages-tier-2-temple",
+            "id": "torture-cages-tier-2"
         },
         {
             "name": "Sparring Room (Tier 1)",
@@ -322,7 +357,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "sparring-room-tier-1-temple"
+            "detailsId": "sparring-room-tier-1-temple",
+            "id": "sparring-room-tier-1"
         },
         {
             "name": "Cloister",
@@ -331,7 +367,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "cloister-temple"
+            "detailsId": "cloister-temple",
+            "id": "cloister"
         },
         {
             "name": "Chamber of Iron (Tier 3)",
@@ -340,7 +377,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "chamber-of-iron-tier-3-temple"
+            "detailsId": "chamber-of-iron-tier-3-temple",
+            "id": "chamber-of-iron-tier-3"
         },
         {
             "name": "Banquet Hall",
@@ -349,7 +387,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "banquet-hall-temple"
+            "detailsId": "banquet-hall-temple",
+            "id": "banquet-hall"
         },
         {
             "name": "Conduit of Lightning (Tier 3)",
@@ -358,7 +397,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "conduit-of-lightning-tier-3-temple"
+            "detailsId": "conduit-of-lightning-tier-3-temple",
+            "id": "conduit-of-lightning-tier-3"
         },
         {
             "name": "Explosives Room (Tier 1)",
@@ -367,7 +407,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "explosives-room-tier-1-temple"
+            "detailsId": "explosives-room-tier-1-temple",
+            "id": "explosives-room-tier-1"
         },
         {
             "name": "Royal Meeting Room (Tier 1)",
@@ -376,7 +417,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "royal-meeting-room-tier-1-temple"
+            "detailsId": "royal-meeting-room-tier-1-temple",
+            "id": "royal-meeting-room-tier-1"
         },
         {
             "name": "Vault (Tier 1)",
@@ -385,7 +427,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "vault-tier-1-temple"
+            "detailsId": "vault-tier-1-temple",
+            "id": "vault-tier-1"
         },
         {
             "name": "Demolition Lab (Tier 2)",
@@ -394,7 +437,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "demolition-lab-tier-2-temple"
+            "detailsId": "demolition-lab-tier-2-temple",
+            "id": "demolition-lab-tier-2"
         },
         {
             "name": "Pits",
@@ -403,7 +447,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "pits-temple"
+            "detailsId": "pits-temple",
+            "id": "pits"
         },
         {
             "name": "Hall of Lords (Tier 2)",
@@ -412,7 +457,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "hall-of-lords-tier-2-temple"
+            "detailsId": "hall-of-lords-tier-2-temple",
+            "id": "hall-of-lords-tier-2"
         },
         {
             "name": "Tunnels",
@@ -421,7 +467,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "tunnels-temple"
+            "detailsId": "tunnels-temple",
+            "id": "tunnels"
         },
         {
             "name": "Warehouses (Tier 2)",
@@ -430,7 +477,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "warehouses-tier-2-temple"
+            "detailsId": "warehouses-tier-2-temple",
+            "id": "warehouses-tier-2"
         },
         {
             "name": "Treasury (Tier 2)",
@@ -439,7 +487,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "treasury-tier-2-temple"
+            "detailsId": "treasury-tier-2-temple",
+            "id": "treasury-tier-2"
         },
         {
             "name": "Hall of Mettle (Tier 1)",
@@ -448,7 +497,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "hall-of-mettle-tier-1-temple"
+            "detailsId": "hall-of-mettle-tier-1-temple",
+            "id": "hall-of-mettle-tier-1"
         },
         {
             "name": "Automaton Lab (Tier 2)",
@@ -457,7 +507,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "automaton-lab-tier-2-temple"
+            "detailsId": "automaton-lab-tier-2-temple",
+            "id": "automaton-lab-tier-2"
         },
         {
             "name": "Poison Garden (Tier 1)",
@@ -466,7 +517,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "poison-garden-tier-1-temple"
+            "detailsId": "poison-garden-tier-1-temple",
+            "id": "poison-garden-tier-1"
         },
         {
             "name": "Department of Thaumaturgy (Tier 2)",
@@ -475,7 +527,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "department-of-thaumaturgy-tier-2-temple"
+            "detailsId": "department-of-thaumaturgy-tier-2-temple",
+            "id": "department-of-thaumaturgy-tier-2"
         },
         {
             "name": "Hurricane Engine (Tier 2)",
@@ -484,7 +537,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "hurricane-engine-tier-2-temple"
+            "detailsId": "hurricane-engine-tier-2-temple",
+            "id": "hurricane-engine-tier-2"
         },
         {
             "name": "Surveyor's Study (Tier 1)",
@@ -493,7 +547,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "surveyors-study-tier-1-temple"
+            "detailsId": "surveyors-study-tier-1-temple",
+            "id": "surveyors-study-tier-1"
         },
         {
             "name": "Office of Cartography (Tier 2)",
@@ -502,7 +557,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "office-of-cartography-tier-2-temple"
+            "detailsId": "office-of-cartography-tier-2-temple",
+            "id": "office-of-cartography-tier-2"
         },
         {
             "name": "Hall of Offerings (Tier 2)",
@@ -511,7 +567,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "hall-of-offerings-tier-2-temple"
+            "detailsId": "hall-of-offerings-tier-2-temple",
+            "id": "hall-of-offerings-tier-2"
         },
         {
             "name": "Engineering Department (Tier 2)",
@@ -520,7 +577,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "engineering-department-tier-2-temple"
+            "detailsId": "engineering-department-tier-2-temple",
+            "id": "engineering-department-tier-2"
         },
         {
             "name": "Catalyst of Corruption (Tier 2)",
@@ -529,7 +587,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "catalyst-of-corruption-tier-2-temple"
+            "detailsId": "catalyst-of-corruption-tier-2-temple",
+            "id": "catalyst-of-corruption-tier-2"
         },
         {
             "name": "Tombs",
@@ -538,7 +597,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "tombs-temple"
+            "detailsId": "tombs-temple",
+            "id": "tombs"
         },
         {
             "name": "Jeweller's Workshop (Tier 1)",
@@ -547,7 +607,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "jewellers-workshop-tier-1-temple"
+            "detailsId": "jewellers-workshop-tier-1-temple",
+            "id": "jewellers-workshop-tier-1"
         },
         {
             "name": "Omnitect Forge (Tier 2)",
@@ -556,7 +617,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "omnitect-forge-tier-2-temple"
+            "detailsId": "omnitect-forge-tier-2-temple",
+            "id": "omnitect-forge-tier-2"
         },
         {
             "name": "Sacrificial Chamber (Tier 1)",
@@ -565,7 +627,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "sacrificial-chamber-tier-1-temple"
+            "detailsId": "sacrificial-chamber-tier-1-temple",
+            "id": "sacrificial-chamber-tier-1"
         },
         {
             "name": "Pools of Restoration (Tier 1)",
@@ -574,7 +637,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "pools-of-restoration-tier-1-temple"
+            "detailsId": "pools-of-restoration-tier-1-temple",
+            "id": "pools-of-restoration-tier-1"
         },
         {
             "name": "Workshop (Tier 1)",
@@ -583,7 +647,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "workshop-tier-1-temple"
+            "detailsId": "workshop-tier-1-temple",
+            "id": "workshop-tier-1"
         },
         {
             "name": "Antechamber",
@@ -592,7 +657,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "antechamber-temple"
+            "detailsId": "antechamber-temple",
+            "id": "antechamber"
         },
         {
             "name": "Hall of Champions (Tier 3)",
@@ -601,7 +667,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "hall-of-champions-tier-3-temple"
+            "detailsId": "hall-of-champions-tier-3-temple",
+            "id": "hall-of-champions-tier-3"
         },
         {
             "name": "Jewellery Forge (Tier 2)",
@@ -610,7 +677,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "jewellery-forge-tier-2-temple"
+            "detailsId": "jewellery-forge-tier-2-temple",
+            "id": "jewellery-forge-tier-2"
         },
         {
             "name": "Cultivar Chamber (Tier 2)",
@@ -619,7 +687,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "cultivar-chamber-tier-2-temple"
+            "detailsId": "cultivar-chamber-tier-2-temple",
+            "id": "cultivar-chamber-tier-2"
         },
         {
             "name": "Passageways",
@@ -628,7 +697,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "passageways-temple"
+            "detailsId": "passageways-temple",
+            "id": "passageways"
         },
         {
             "name": "Glittering Halls (Tier 3)",
@@ -637,7 +707,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "glittering-halls-tier-3-temple"
+            "detailsId": "glittering-halls-tier-3-temple",
+            "id": "glittering-halls-tier-3"
         },
         {
             "name": "Sanctum of Vitality (Tier 2)",
@@ -646,7 +717,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "sanctum-of-vitality-tier-2-temple"
+            "detailsId": "sanctum-of-vitality-tier-2-temple",
+            "id": "sanctum-of-vitality-tier-2"
         },
         {
             "name": "Hatchery (Tier 1)",
@@ -655,7 +727,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "hatchery-tier-1-temple"
+            "detailsId": "hatchery-tier-1-temple",
+            "id": "hatchery-tier-1"
         },
         {
             "name": "Hall of Heroes (Tier 2)",
@@ -664,7 +737,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "hall-of-heroes-tier-2-temple"
+            "detailsId": "hall-of-heroes-tier-2-temple",
+            "id": "hall-of-heroes-tier-2"
         },
         {
             "name": "Armoury (Tier 2)",
@@ -673,7 +747,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "armoury-tier-2-temple"
+            "detailsId": "armoury-tier-2-temple",
+            "id": "armoury-tier-2"
         },
         {
             "name": "Barracks (Tier 2)",
@@ -682,7 +757,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "barracks-tier-2-temple"
+            "detailsId": "barracks-tier-2-temple",
+            "id": "barracks-tier-2"
         },
         {
             "name": "Cellar",
@@ -691,7 +767,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "cellar-temple"
+            "detailsId": "cellar-temple",
+            "id": "cellar"
         },
         {
             "name": "Omnitect Reactor Plant (Tier 2)",
@@ -700,7 +777,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "omnitect-reactor-plant-tier-2-temple"
+            "detailsId": "omnitect-reactor-plant-tier-2-temple",
+            "id": "omnitect-reactor-plant-tier-2"
         },
         {
             "name": "Gemcutter's Workshop (Tier 1)",
@@ -709,7 +787,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "gemcutters-workshop-tier-1-temple"
+            "detailsId": "gemcutters-workshop-tier-1-temple",
+            "id": "gemcutters-workshop-tier-1"
         },
         {
             "name": "Halls",
@@ -718,7 +797,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "halls-temple"
+            "detailsId": "halls-temple",
+            "id": "halls"
         },
         {
             "name": "Corruption Chamber (Tier 1)",
@@ -727,7 +807,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "corruption-chamber-tier-1-temple"
+            "detailsId": "corruption-chamber-tier-1-temple",
+            "id": "corruption-chamber-tier-1"
         },
         {
             "name": "Trap Workshop (Tier 1)",
@@ -736,7 +817,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "trap-workshop-tier-1-temple"
+            "detailsId": "trap-workshop-tier-1-temple",
+            "id": "trap-workshop-tier-1"
         },
         {
             "name": "Arena of Valour (Tier 2)",
@@ -745,7 +827,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "arena-of-valour-tier-2-temple"
+            "detailsId": "arena-of-valour-tier-2-temple",
+            "id": "arena-of-valour-tier-2"
         },
         {
             "name": "Chasm",
@@ -754,7 +837,8 @@
             "implicitModifiers": [],
             "explicitModifiers": [],
             "mutatedModifiers": [],
-            "detailsId": "chasm-temple"
+            "detailsId": "chasm-temple",
+            "id": "chasm"
         }
     ]
 }

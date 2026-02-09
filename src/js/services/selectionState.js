@@ -105,6 +105,17 @@ export function clear() {
 }
 
 /**
+ * Set selection to all given IDs (e.g. "select all").
+ * @param {string[]} ids
+ */
+export function selectAll(ids) {
+  if (!currentCategoryId) return;
+  if (!Array.isArray(ids)) return;
+  selectionByCategory.set(currentCategoryId, new Set(ids));
+  notify();
+}
+
+/**
  * Check if an item is selected in the current category
  * @param {string} id
  * @returns {boolean}

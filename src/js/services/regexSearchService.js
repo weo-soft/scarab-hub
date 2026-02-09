@@ -62,13 +62,55 @@ function getShortestCommonUniqueToken(namesInGroup, allOtherNames, groupKey) {
 }
 
 /**
- * Build list of patterns: when all scarabs in a group are selected, use one common token for the group;
- * otherwise use per-item SUS token.
+ * Build patterns using JSON groups: when a group's memberIds are all selected, use the group's token
+ * (greedy by group size). Remaining selected ids use per-item SUS.
+ * @param {Set<string>} selectedIds
+ * @param {{ namesById: Map<string, string>, susById?: Map<string, string>, groups?: Array<{ token: string, memberIds: string[] }> }} categoryNames
+ * @returns {string[]}
+ */
+function buildOptimizedPatternsWithGroups(selectedIds, categoryNames) {
+  const namesById = categoryNames.namesById;
+  const susById = categoryNames.susById;
+  const groups = categoryNames.groups || [];
+  const coveredIds = new Set();
+  const patterns = [];
+
+  // Prefer larger groups first to maximize character savings
+  const sortedGroups = [...groups].sort(
+    (a, b) => (b.memberIds?.length ?? 0) - (a.memberIds?.length ?? 0)
+  );
+
+  for (const group of sortedGroups) {
+    const token = group?.token;
+    const memberIds = group?.memberIds;
+    if (!token || !Array.isArray(memberIds) || memberIds.length === 0) continue;
+    const allSelected = memberIds.every(id => selectedIds.has(id));
+    const noneCovered = memberIds.every(id => !coveredIds.has(id));
+    if (allSelected && noneCovered) {
+      patterns.push(token);
+      for (const id of memberIds) coveredIds.add(id);
+    }
+  }
+
+  for (const id of selectedIds) {
+    if (coveredIds.has(id)) continue;
+    const name = namesById.get(id);
+    if (!name) continue;
+    const pattern = susById?.get(id) ?? name;
+    patterns.push(pattern);
+  }
+
+  return patterns;
+}
+
+/**
+ * Build list of patterns: when all scarabs in a name-based group are selected, use one common token;
+ * otherwise use per-item SUS token. Used when no JSON groups are available.
  * @param {Set<string>} selectedIds
  * @param {{ namesById: Map<string, string>, names: string[], susById?: Map<string, string> }} categoryNames
  * @returns {string[]}
  */
-function buildOptimizedPatterns(selectedIds, categoryNames) {
+function buildOptimizedPatternsFromNames(selectedIds, categoryNames) {
   const namesById = categoryNames.namesById;
   const susById = categoryNames.susById;
   const allNames = categoryNames.names || [];
@@ -100,11 +142,25 @@ function buildOptimizedPatterns(selectedIds, categoryNames) {
 }
 
 /**
- * Build alternation regex from selected items. Uses SUS tokens when available (from .sus.json),
- * and when all scarabs of a group (e.g. all "Betrayal") are selected, uses one common token for the group.
- * If over MAX_LENGTH, uses fallback (shortened unique substrings).
+ * Build list of patterns: use JSON groups when available (optimized); else fall back to name-based grouping.
  * @param {Set<string>} selectedIds
- * @param {{ categoryId: string, namesById: Map<string, string>, names: string[], susById?: Map<string, string> }} categoryNames
+ * @param {{ namesById: Map<string, string>, names: string[], susById?: Map<string, string>, groups?: Array<{ token: string, memberIds: string[] }> }} categoryNames
+ * @returns {string[]}
+ */
+function buildOptimizedPatterns(selectedIds, categoryNames) {
+  if (categoryNames.groups && categoryNames.groups.length > 0) {
+    return buildOptimizedPatternsWithGroups(selectedIds, categoryNames);
+  }
+  return buildOptimizedPatternsFromNames(selectedIds, categoryNames);
+}
+
+/**
+ * Build alternation regex from selected items. Uses SUS tokens when available (from .sus.json).
+ * When categoryNames.groups is present (e.g. scarabs.sus.json), uses group tokens when a matching
+ * group of items is selected (greedy by group size). Otherwise uses name-based grouping when all
+ * scarabs of one type are selected. If over MAX_LENGTH, uses fallback (shortened unique substrings).
+ * @param {Set<string>} selectedIds
+ * @param {{ categoryId: string, namesById: Map<string, string>, names: string[], susById?: Map<string, string>, groups?: Array<{ token: string, memberIds: string[] }> }} categoryNames
  * @returns {{ value: string, length: number, truncated?: boolean, selectedCount: number, categoryId: string } | null}
  */
 export function generateRegex(selectedIds, categoryNames) {

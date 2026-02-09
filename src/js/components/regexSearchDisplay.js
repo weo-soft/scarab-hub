@@ -3,7 +3,7 @@
  */
 
 import { generateRegex } from '../services/regexSearchService.js';
-import { getSelectedIds } from '../services/selectionState.js';
+import { getSelectedIds, selectAll, clear } from '../services/selectionState.js';
 
 /**
  * Render regex display into container. Call when selection or category changes.
@@ -43,18 +43,34 @@ export function renderRegexSearchDisplay(container, categoryNames) {
     ? '<p class="regex-search-truncated-note">Not all selected items could fit in 250 characters. Regex matches a subset or uses shortened patterns.</p>'
     : '';
 
+  const allIds = categoryNames.namesById ? Array.from(categoryNames.namesById.keys()) : [];
+
   container.innerHTML = `
     <div class="regex-search-display">
       <div class="regex-search-label">${message}</div>
       <div class="regex-search-value" title="${escapeAttr(regexValue)}">${escapeHtml(regexValue) || '—'}</div>
       ${truncatedNote}
-      <button type="button" class="regex-search-copy-btn" ${copyDisabled ? 'disabled' : ''}>Copy regex</button>
+      <div class="regex-search-actions">
+        <button type="button" class="regex-search-select-all-btn" ${allIds.length === 0 ? 'disabled' : ''}>Select all</button>
+        <button type="button" class="regex-search-unselect-all-btn">Unselect all</button>
+        <button type="button" class="regex-search-copy-btn" ${copyDisabled ? 'disabled' : ''}>Copy regex</button>
+      </div>
     </div>
   `;
 
-  const btn = container.querySelector('.regex-search-copy-btn');
-  if (btn && !copyDisabled) {
-    btn.addEventListener('click', () => copyRegex(regexValue, btn));
+  const copyBtn = container.querySelector('.regex-search-copy-btn');
+  if (copyBtn && !copyDisabled) {
+    copyBtn.addEventListener('click', () => copyRegex(regexValue, copyBtn));
+  }
+
+  const selectAllBtn = container.querySelector('.regex-search-select-all-btn');
+  if (selectAllBtn && allIds.length > 0) {
+    selectAllBtn.addEventListener('click', () => selectAll(allIds));
+  }
+
+  const unselectAllBtn = container.querySelector('.regex-search-unselect-all-btn');
+  if (unselectAllBtn) {
+    unselectAllBtn.addEventListener('click', () => clear());
   }
 }
 

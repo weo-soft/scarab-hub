@@ -9,7 +9,8 @@
             "explicitModifiers": [],
             "mutatedModifiers": [],
             "flavourText": "Call to place the demon gods of the past.",
-            "detailsId": "vial-of-summoning"
+            "detailsId": "vial-of-summoning",
+            "id": "vial-of-summoning"
         },
         {
             "name": "Vial of Transcendence",
@@ -20,7 +21,8 @@
             "explicitModifiers": [],
             "mutatedModifiers": [],
             "flavourText": "It is not our flesh, our thoughts, or our soul that limits us;\nit is the distinction between them.",
-            "detailsId": "vial-of-transcendence"
+            "detailsId": "vial-of-transcendence",
+            "id": "vial-of-transcendence"
         },
         {
             "name": "Vial of Sacrifice",
@@ -31,7 +33,8 @@
             "explicitModifiers": [],
             "mutatedModifiers": [],
             "flavourText": "Festivities of blood. Bleeding hearts and screaming lungs.",
-            "detailsId": "vial-of-sacrifice"
+            "detailsId": "vial-of-sacrifice",
+            "id": "vial-of-sacrifice"
         },
         {
             "name": "Vial of Awakening",
@@ -42,7 +45,8 @@
             "explicitModifiers": [],
             "mutatedModifiers": [],
             "flavourText": "The eyes of Apep flicker open and the Poisoned One stirs.",
-            "detailsId": "vial-of-awakening"
+            "detailsId": "vial-of-awakening",
+            "id": "vial-of-awakening"
         },
         {
             "name": "Vial of Consequence",
@@ -53,7 +57,8 @@
             "explicitModifiers": [],
             "mutatedModifiers": [],
             "flavourText": "Your actions live but a moment;\ntheir repercussions never die.",
-            "detailsId": "vial-of-consequence"
+            "detailsId": "vial-of-consequence",
+            "id": "vial-of-consequence"
         },
         {
             "name": "Vial of Dominance",
@@ -64,7 +69,8 @@
             "explicitModifiers": [],
             "mutatedModifiers": [],
             "flavourText": "Blood, slaves and stone.\nThe timeless edifice of Dominance.",
-            "detailsId": "vial-of-dominance"
+            "detailsId": "vial-of-dominance",
+            "id": "vial-of-dominance"
         },
         {
             "name": "Vial of the Ritual",
@@ -75,7 +81,8 @@
             "explicitModifiers": [],
             "mutatedModifiers": [],
             "flavourText": "The ritual creates order. \nBoth in the minds of men and gods. \nThe ritual creates order.",
-            "detailsId": "vial-of-the-ritual"
+            "detailsId": "vial-of-the-ritual",
+            "id": "vial-of-the-ritual"
         },
         {
             "name": "Vial of Fate",
@@ -86,7 +93,8 @@
             "explicitModifiers": [],
             "mutatedModifiers": [],
             "flavourText": "Ancient myths of flame, frost and thunder.\nWill we ever know the way forward?",
-            "detailsId": "vial-of-fate"
+            "detailsId": "vial-of-fate",
+            "id": "vial-of-fate"
         }
     ]
 }
