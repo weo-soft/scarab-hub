@@ -1,0 +1,547 @@
+[
+  {
+    "id": "abyss-scarab",
+    "name": "Abyss Scarab",
+    "sus": "Abyss Scarab"
+  },
+  {
+    "id": "abyss-scarab-of-edifice",
+    "name": "Abyss Scarab of Edifice",
+    "sus": "Ed"
+  },
+  {
+    "id": "abyss-scarab-of-multitudes",
+    "name": "Abyss Scarab of Multitudes",
+    "sus": "f Mu"
+  },
+  {
+    "id": "abyss-scarab-of-profound-depth",
+    "name": "Abyss Scarab of Profound Depth",
+    "sus": "ep"
+  },
+  {
+    "id": "ambush-scarab",
+    "name": "Ambush Scarab",
+    "sus": "Ambush Scarab"
+  },
+  {
+    "id": "ambush-scarab-of-containment",
+    "name": "Ambush Scarab of Containment",
+    "sus": "ont"
+  },
+  {
+    "id": "ambush-scarab-of-discernment",
+    "name": "Ambush Scarab of Discernment",
+    "sus": "Dis"
+  },
+  {
+    "id": "ambush-scarab-of-hidden-compartments",
+    "name": "Ambush Scarab of Hidden Compartments",
+    "sus": "Hi"
+  },
+  {
+    "id": "ambush-scarab-of-potency",
+    "name": "Ambush Scarab of Potency",
+    "sus": "ot"
+  },
+  {
+    "id": "anarchy-scarab",
+    "name": "Anarchy Scarab",
+    "sus": "Anarchy Scarab"
+  },
+  {
+    "id": "anarchy-scarab-of-gigantification",
+    "name": "Anarchy Scarab of Gigantification",
+    "sus": "Gi"
+  },
+  {
+    "id": "anarchy-scarab-of-partnership",
+    "name": "Anarchy Scarab of Partnership",
+    "sus": "tn"
+  },
+  {
+    "id": "bestiary-scarab",
+    "name": "Bestiary Scarab",
+    "sus": "Bestiary Scarab"
+  },
+  {
+    "id": "bestiary-scarab-of-duplicating",
+    "name": "Bestiary Scarab of Duplicating",
+    "sus": "Dup"
+  },
+  {
+    "id": "bestiary-scarab-of-the-herd",
+    "name": "Bestiary Scarab of the Herd",
+    "sus": "He"
+  },
+  {
+    "id": "betrayal-scarab",
+    "name": "Betrayal Scarab",
+    "sus": "Betrayal Scarab"
+  },
+  {
+    "id": "betrayal-scarab-of-reinforcements",
+    "name": "Betrayal Scarab of Reinforcements",
+    "sus": "ei"
+  },
+  {
+    "id": "betrayal-scarab-of-the-allflame",
+    "name": "Betrayal Scarab of the Allflame",
+    "sus": "Al"
+  },
+  {
+    "id": "beyond-scarab",
+    "name": "Beyond Scarab",
+    "sus": "Beyond Scarab"
+  },
+  {
+    "id": "beyond-scarab-of-haemophilia",
+    "name": "Beyond Scarab of Haemophilia",
+    "sus": " Ha"
+  },
+  {
+    "id": "beyond-scarab-of-resurgence",
+    "name": "Beyond Scarab of Resurgence",
+    "sus": "rg"
+  },
+  {
+    "id": "beyond-scarab-of-the-invasion",
+    "name": "Beyond Scarab of the Invasion",
+    "sus": "e I"
+  },
+  {
+    "id": "blight-scarab",
+    "name": "Blight Scarab",
+    "sus": "Blight Scarab"
+  },
+  {
+    "id": "blight-scarab-of-blooming",
+    "name": "Blight Scarab of Blooming",
+    "sus": "oom"
+  },
+  {
+    "id": "blight-scarab-of-invigoration",
+    "name": "Blight Scarab of Invigoration",
+    "sus": "go"
+  },
+  {
+    "id": "blight-scarab-of-the-blightheart",
+    "name": "Blight Scarab of the Blightheart",
+    "sus": "e B"
+  },
+  {
+    "id": "breach-scarab",
+    "name": "Breach Scarab",
+    "sus": "Breach Scarab"
+  },
+  {
+    "id": "breach-scarab-of-lordship",
+    "name": "Breach Scarab of Lordship",
+    "sus": "Lo"
+  },
+  {
+    "id": "breach-scarab-of-resonant-cascade",
+    "name": "Breach Scarab of Resonant Cascade",
+    "sus": "so"
+  },
+  {
+    "id": "breach-scarab-of-snares",
+    "name": "Breach Scarab of Snares",
+    "sus": "Sn"
+  },
+  {
+    "id": "breach-scarab-of-splintering",
+    "name": "Breach Scarab of Splintering",
+    "sus": "Sp"
+  },
+  {
+    "id": "cartography-scarab-of-corruption",
+    "name": "Cartography Scarab of Corruption",
+    "sus": "ru"
+  },
+  {
+    "id": "cartography-scarab-of-escalation",
+    "name": "Cartography Scarab of Escalation",
+    "sus": " Es"
+  },
+  {
+    "id": "cartography-scarab-of-risk",
+    "name": "Cartography Scarab of Risk",
+    "sus": "Ris"
+  },
+  {
+    "id": "cartography-scarab-of-the-multitude",
+    "name": "Cartography Scarab of the Multitude",
+    "sus": "e M"
+  },
+  {
+    "id": "delirium-scarab",
+    "name": "Delirium Scarab",
+    "sus": "Delirium Scarab"
+  },
+  {
+    "id": "delirium-scarab-of-delusions",
+    "name": "Delirium Scarab of Delusions",
+    "sus": "elu"
+  },
+  {
+    "id": "delirium-scarab-of-mania",
+    "name": "Delirium Scarab of Mania",
+    "sus": "Ma"
+  },
+  {
+    "id": "delirium-scarab-of-neuroses",
+    "name": "Delirium Scarab of Neuroses",
+    "sus": "eu"
+  },
+  {
+    "id": "delirium-scarab-of-paranoia",
+    "name": "Delirium Scarab of Paranoia",
+    "sus": "no"
+  },
+  {
+    "id": "divination-scarab-of-pilfering",
+    "name": "Divination Scarab of Pilfering",
+    "sus": "Pi"
+  },
+  {
+    "id": "divination-scarab-of-plenty",
+    "name": "Divination Scarab of Plenty",
+    "sus": "Pl"
+  },
+  {
+    "id": "divination-scarab-of-the-cloister",
+    "name": "Divination Scarab of The Cloister",
+    "sus": "Th"
+  },
+  {
+    "id": "domination-scarab",
+    "name": "Domination Scarab",
+    "sus": "Domination Scarab"
+  },
+  {
+    "id": "domination-scarab-of-apparitions",
+    "name": "Domination Scarab of Apparitions",
+    "sus": "Ap"
+  },
+  {
+    "id": "domination-scarab-of-evolution",
+    "name": "Domination Scarab of Evolution",
+    "sus": "Ev"
+  },
+  {
+    "id": "domination-scarab-of-terrors",
+    "name": "Domination Scarab of Terrors",
+    "sus": "Te"
+  },
+  {
+    "id": "essence-scarab",
+    "name": "Essence Scarab",
+    "sus": "Essence Scarab"
+  },
+  {
+    "id": "essence-scarab-of-adaptation",
+    "name": "Essence Scarab of Adaptation",
+    "sus": "Ada"
+  },
+  {
+    "id": "essence-scarab-of-ascent",
+    "name": "Essence Scarab of Ascent",
+    "sus": "As"
+  },
+  {
+    "id": "essence-scarab-of-calcification",
+    "name": "Essence Scarab of Calcification",
+    "sus": "lc"
+  },
+  {
+    "id": "essence-scarab-of-stability",
+    "name": "Essence Scarab of Stability",
+    "sus": "e Scarab of S"
+  },
+  {
+    "id": "expedition-scarab",
+    "name": "Expedition Scarab",
+    "sus": "Expedition Scarab"
+  },
+  {
+    "id": "expedition-scarab-of-archaeology",
+    "name": "Expedition Scarab of Archaeology",
+    "sus": "Ar"
+  },
+  {
+    "id": "expedition-scarab-of-runefinding",
+    "name": "Expedition Scarab of Runefinding",
+    "sus": "Ru"
+  },
+  {
+    "id": "expedition-scarab-of-verisium-powder",
+    "name": "Expedition Scarab of Verisium Powder",
+    "sus": "V"
+  },
+  {
+    "id": "harbinger-scarab",
+    "name": "Harbinger Scarab",
+    "sus": "Harbinger Scarab"
+  },
+  {
+    "id": "harbinger-scarab-of-obelisks",
+    "name": "Harbinger Scarab of Obelisks",
+    "sus": "Ob"
+  },
+  {
+    "id": "harbinger-scarab-of-regency",
+    "name": "Harbinger Scarab of Regency",
+    "sus": "Reg"
+  },
+  {
+    "id": "harbinger-scarab-of-warhoards",
+    "name": "Harbinger Scarab of Warhoards",
+    "sus": "Wa"
+  },
+  {
+    "id": "harvest-scarab",
+    "name": "Harvest Scarab",
+    "sus": "Harvest Scarab"
+  },
+  {
+    "id": "harvest-scarab-of-cornucopia",
+    "name": "Harvest Scarab of Cornucopia",
+    "sus": "nu"
+  },
+  {
+    "id": "harvest-scarab-of-doubling",
+    "name": "Harvest Scarab of Doubling",
+    "sus": "ub"
+  },
+  {
+    "id": "horned-scarab-of-awakening",
+    "name": "Horned Scarab of Awakening",
+    "sus": "Aw"
+  },
+  {
+    "id": "horned-scarab-of-bloodlines",
+    "name": "Horned Scarab of Bloodlines",
+    "sus": "od"
+  },
+  {
+    "id": "horned-scarab-of-glittering",
+    "name": "Horned Scarab of Glittering",
+    "sus": "Gl"
+  },
+  {
+    "id": "horned-scarab-of-nemeses",
+    "name": "Horned Scarab of Nemeses",
+    "sus": "Nem"
+  },
+  {
+    "id": "horned-scarab-of-pandemonium",
+    "name": "Horned Scarab of Pandemonium",
+    "sus": "Pan"
+  },
+  {
+    "id": "horned-scarab-of-preservation",
+    "name": "Horned Scarab of Preservation",
+    "sus": "Pre"
+  },
+  {
+    "id": "horned-scarab-of-tradition",
+    "name": "Horned Scarab of Tradition",
+    "sus": "rad"
+  },
+  {
+    "id": "incursion-scarab",
+    "name": "Incursion Scarab",
+    "sus": "Incursion Scarab"
+  },
+  {
+    "id": "incursion-scarab-of-champions",
+    "name": "Incursion Scarab of Champions",
+    "sus": "Ch"
+  },
+  {
+    "id": "incursion-scarab-of-invasion",
+    "name": "Incursion Scarab of Invasion",
+    "sus": "f Inva"
+  },
+  {
+    "id": "incursion-scarab-of-timelines",
+    "name": "Incursion Scarab of Timelines",
+    "sus": " Ti"
+  },
+  {
+    "id": "influencing-scarab-of-conversion",
+    "name": "Influencing Scarab of Conversion",
+    "sus": "onv"
+  },
+  {
+    "id": "influencing-scarab-of-hordes",
+    "name": "Influencing Scarab of Hordes",
+    "sus": " Ho"
+  },
+  {
+    "id": "influencing-scarab-of-the-elder",
+    "name": "Influencing Scarab of the Elder",
+    "sus": "El"
+  },
+  {
+    "id": "influencing-scarab-of-the-shaper",
+    "name": "Influencing Scarab of the Shaper",
+    "sus": "Sh"
+  },
+  {
+    "id": "kalguuran-scarab",
+    "name": "Kalguuran Scarab",
+    "sus": "Kalguuran Scarab"
+  },
+  {
+    "id": "kalguuran-scarab-of-guarded-riches",
+    "name": "Kalguuran Scarab of Guarded Riches",
+    "sus": "Gu"
+  },
+  {
+    "id": "kalguuran-scarab-of-refinement",
+    "name": "Kalguuran Scarab of Refinement",
+    "sus": "Ref"
+  },
+  {
+    "id": "legion-scarab",
+    "name": "Legion Scarab",
+    "sus": "Legion Scarab"
+  },
+  {
+    "id": "legion-scarab-of-command",
+    "name": "Legion Scarab of Command",
+    "sus": "mm"
+  },
+  {
+    "id": "legion-scarab-of-eternal-conflict",
+    "name": "Legion Scarab of Eternal Conflict",
+    "sus": "Et"
+  },
+  {
+    "id": "legion-scarab-of-officers",
+    "name": "Legion Scarab of Officers",
+    "sus": "Of"
+  },
+  {
+    "id": "ritual-scarab-of-abundance",
+    "name": "Ritual Scarab of Abundance",
+    "sus": " Ab"
+  },
+  {
+    "id": "ritual-scarab-of-selectiveness",
+    "name": "Ritual Scarab of Selectiveness",
+    "sus": "Se"
+  },
+  {
+    "id": "ritual-scarab-of-wisps",
+    "name": "Ritual Scarab of Wisps",
+    "sus": "l Scarab of W"
+  },
+  {
+    "id": "scarab-of-adversaries",
+    "name": "Scarab of Adversaries",
+    "sus": "dv"
+  },
+  {
+    "id": "scarab-of-bisection",
+    "name": "Scarab of Bisection",
+    "sus": "Bi"
+  },
+  {
+    "id": "scarab-of-divinity",
+    "name": "Scarab of Divinity",
+    "sus": "ini"
+  },
+  {
+    "id": "scarab-of-hunted-traitors",
+    "name": "Scarab of Hunted Traitors",
+    "sus": "Hu"
+  },
+  {
+    "id": "scarab-of-monstrous-lineage",
+    "name": "Scarab of Monstrous Lineage",
+    "sus": "Mo"
+  },
+  {
+    "id": "scarab-of-radiant-storms",
+    "name": "Scarab of Radiant Storms",
+    "sus": "Ra"
+  },
+  {
+    "id": "scarab-of-stability",
+    "name": "Scarab of Stability",
+    "sus": "Scarab of Stability"
+  },
+  {
+    "id": "scarab-of-wisps",
+    "name": "Scarab of Wisps",
+    "sus": "Scarab of Wisps"
+  },
+  {
+    "id": "sulphite-scarab",
+    "name": "Sulphite Scarab",
+    "sus": "Sulphite Scarab"
+  },
+  {
+    "id": "sulphite-scarab-of-fumes",
+    "name": "Sulphite Scarab of Fumes",
+    "sus": "F"
+  },
+  {
+    "id": "titanic-scarab",
+    "name": "Titanic Scarab",
+    "sus": "Titanic Scarab"
+  },
+  {
+    "id": "titanic-scarab-of-legend",
+    "name": "Titanic Scarab of Legend",
+    "sus": " Le"
+  },
+  {
+    "id": "titanic-scarab-of-treasures",
+    "name": "Titanic Scarab of Treasures",
+    "sus": "Tre"
+  },
+  {
+    "id": "torment-scarab",
+    "name": "Torment Scarab",
+    "sus": "Torment Scarab"
+  },
+  {
+    "id": "torment-scarab-of-peculiarity",
+    "name": "Torment Scarab of Peculiarity",
+    "sus": "Pe"
+  },
+  {
+    "id": "torment-scarab-of-possession",
+    "name": "Torment Scarab of Possession",
+    "sus": "Pos"
+  },
+  {
+    "id": "ultimatum-scarab",
+    "name": "Ultimatum Scarab",
+    "sus": "Ultimatum Scarab"
+  },
+  {
+    "id": "ultimatum-scarab-of-bribing",
+    "name": "Ultimatum Scarab of Bribing",
+    "sus": "ib"
+  },
+  {
+    "id": "ultimatum-scarab-of-catalysing",
+    "name": "Ultimatum Scarab of Catalysing",
+    "sus": "ly"
+  },
+  {
+    "id": "ultimatum-scarab-of-dueling",
+    "name": "Ultimatum Scarab of Dueling",
+    "sus": "Due"
+  },
+  {
+    "id": "ultimatum-scarab-of-inscription",
+    "name": "Ultimatum Scarab of Inscription",
+    "sus": "cr"
+  }
+]
