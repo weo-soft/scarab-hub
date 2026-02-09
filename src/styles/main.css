@@ -559,6 +559,34 @@ header p {
   background: rgba(0, 0, 0, 0.2);
 }
 
+/* Image styles for all item types */
+.essence-image,
+.fossil-image,
+.catalyst-image,
+.oil-image,
+.delirium-orb-image,
+.emblem-image,
+.tattoo-image {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Image cell styles for headers */
+.essence-header-cell.image-cell,
+.fossil-header-cell.image-cell,
+.catalyst-image-cell,
+.oil-image-cell,
+.delirium-orb-image-cell,
+.emblem-image-cell,
+.tattoo-image-cell {
+  width: 32px;
+  flex-shrink: 0;
+}
+
 .scarab-name {
   font-weight: 500;
   color: #c8aa6e;
@@ -626,7 +654,7 @@ header p {
 .catalyst-list-header,
 .catalyst-list-row {
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: auto 1fr auto auto;
   gap: 12px;
   align-items: center;
   padding: 8px 12px;
@@ -679,7 +707,7 @@ header p {
 .oil-list-header,
 .oil-list-row {
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: auto 1fr auto auto;
   gap: 12px;
   align-items: center;
   padding: 8px 12px;
@@ -720,156 +748,6 @@ header p {
   text-align: right;
 }
 
-/* Temple Upgrade List View */
-.temple-upgrade-list {
-  padding: 20px;
-}
-
-.temple-upgrade-header {
-  margin-bottom: 30px;
-}
-
-.temple-upgrade-header h2 {
-  margin: 0 0 10px 0;
-  font-size: 24px;
-  color: #c8aa6e;
-}
-
-.temple-upgrade-header p {
-  color: #a09070;
-  font-size: 0.95em;
-  margin: 0;
-}
-
-.temple-upgrade-combinations {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.temple-upgrade-combination {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 15px;
-  background: rgba(15, 15, 15, 0.8);
-  border-radius: 8px;
-  border: 1px solid rgba(200, 170, 110, 0.15);
-  transition: border-color 0.2s;
-}
-
-.temple-upgrade-combination:hover {
-  border-color: rgba(200, 170, 110, 0.3);
-}
-
-.upgrade-components-row {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.upgrade-profitability-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 10px;
-  border-top: 1px solid rgba(200, 170, 110, 0.1);
-  gap: 20px;
-}
-
-.profitability-status {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 500;
-}
-
-.status-icon {
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-.status-label {
-  color: #c8aa6e;
-  font-size: 0.95em;
-}
-
-.profitability-details {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-.profit-detail {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.profit-label {
-  color: #a09070;
-  font-size: 0.9em;
-}
-
-.profit-value {
-  color: #c8aa6e;
-  font-weight: 500;
-  font-size: 0.95em;
-}
-
-.component-price {
-  font-size: 0.85em;
-  color: #a09070;
-  margin-top: 4px;
-}
-
-.upgrade-component {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  transition: transform 0.2s;
-  padding: 8px;
-  border-radius: 4px;
-}
-
-.upgrade-component:hover {
-  transform: scale(1.05);
-  background: rgba(200, 170, 110, 0.05);
-}
-
-.component-image {
-  width: 64px;
-  height: 64px;
-  object-fit: contain;
-  image-rendering: pixelated;
-}
-
-.component-name {
-  font-size: 12px;
-  text-align: center;
-  max-width: 100px;
-  word-wrap: break-word;
-  color: #c8aa6e;
-  line-height: 1.3;
-}
-
-.upgrade-operator {
-  font-size: 24px;
-  font-weight: bold;
-  color: rgba(200, 170, 110, 0.6);
-  flex-shrink: 0;
-}
-
-.temple-threshold-note {
-  color: #a09070;
-  font-size: 0.9em;
-  padding: 10px;
-  text-align: center;
-}
-
 .oil-threshold-note {
   color: #a09070;
   font-size: 0.9em;
@@ -882,7 +760,7 @@ header p {
 .tattoo-list-header,
 .tattoo-list-row {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: auto 1fr auto;
   gap: 12px;
   align-items: center;
   padding: 8px 12px;
@@ -2831,47 +2709,6 @@ input:focus {
     padding: 10px 12px;
     font-size: 0.9em;
   }
-
-  .temple-upgrade-combination {
-    padding: 12px;
-  }
-
-  .upgrade-components-row {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .upgrade-component {
-    min-width: 80px;
-  }
-
-  .component-image {
-    width: 48px;
-    height: 48px;
-  }
-
-  .component-name {
-    font-size: 11px;
-    max-width: 80px;
-  }
-
-  .upgrade-operator {
-    font-size: 20px;
-  }
-
-  .upgrade-profitability-info {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .profitability-details {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    width: 100%;
-  }
 }
 
 /* Tooltip Styles */
@@ -2978,47 +2815,6 @@ input:focus {
   color: #f87171;
   background: rgba(248, 113, 113, 0.1);
   border: 1px solid rgba(248, 113, 113, 0.3);
-}
-
-.tooltip-base-type {
-  color: #a09070;
-  font-size: 0.9em;
-  margin-bottom: 8px;
-}
-
-.tooltip-level {
-  color: #a09070;
-  font-size: 0.85em;
-  margin-bottom: 8px;
-}
-
-.tooltip-modifiers {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-bottom: 8px;
-}
-
-.tooltip-modifier {
-  color: #c8aa6e;
-  font-size: 0.9em;
-  line-height: 1.4;
-}
-
-.tooltip-modifier.implicit {
-  color: #88a0d8;
-}
-
-.tooltip-modifier.explicit {
-  color: #c8aa6e;
-}
-
-.tooltip-flavour {
-  color: #a09070;
-  font-style: italic;
-  font-size: 0.85em;
-  line-height: 1.4;
-  margin-top: 8px;
 }
 
 /* Overlay */

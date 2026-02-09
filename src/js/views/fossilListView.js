@@ -62,6 +62,7 @@ export function renderFossilList(container, fossils, currency = 'chaos', panelCo
 
   const html = `
     <div class="fossil-list-header">
+      <div class="fossil-header-cell image-cell"></div>
       <div class="fossil-header-cell name-cell sortable" data-sort-field="name">
         Name${getSortIndicator('name')}
       </div>
@@ -172,10 +173,12 @@ function renderFossilItem(fossil, currency) {
   const statusLabel = getStatusLabel(status);
   const isSelected = selectedFossilIds.has(fossil.id) || fossil.selectedForReroll;
   const selectedClass = isSelected ? 'selected' : '';
+  const imagePath = `/assets/images/fossils/${fossil.id}.png`;
 
   return `
     <div class="fossil-item ${selectedClass}" data-fossil-id="${fossil.id}" 
          style="border-left: 4px solid ${color}; background-color: ${bgColor};">
+      <img class="fossil-image" src="${imagePath}" alt="${fossil.name}" onerror="this.style.display='none'">
       <span class="fossil-name">${fossil.name}</span>
       <span class="fossil-value">
         ${value !== null ? `${value.toFixed(2)} ${currency === 'divine' ? 'Div' : 'c'}` : 'N/A'}

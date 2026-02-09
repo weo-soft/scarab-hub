@@ -63,6 +63,7 @@ export function renderEssenceList(container, essences, currency = 'chaos', panel
 
   const html = `
     <div class="essence-list-header">
+      <div class="essence-header-cell image-cell"></div>
       <div class="essence-header-cell name-cell sortable" data-sort-field="name">
         Name${getSortIndicator('name')}
       </div>
@@ -155,10 +156,12 @@ function renderEssenceItem(essence, currency) {
   const statusLabel = getStatusLabel(status);
   const isSelected = selectedEssenceIds.has(essence.id) || essence.selectedForReroll;
   const selectedClass = isSelected ? 'selected' : '';
+  const imagePath = `/assets/images/essences/${essence.id}.png`;
 
   return `
     <div class="essence-item ${selectedClass}" data-essence-id="${essence.id}" 
          style="border-left: 4px solid ${color}; background-color: ${bgColor};">
+      <img class="essence-image" src="${imagePath}" alt="${essence.name}" onerror="this.style.display='none'">
       <span class="essence-name">${essence.name}</span>
       <span class="essence-value">
         ${value !== null ? `${value.toFixed(2)} ${currency === 'divine' ? 'Div' : 'c'}` : 'N/A'}

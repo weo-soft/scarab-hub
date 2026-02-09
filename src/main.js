@@ -4,12 +4,14 @@
  */
 
 import { loadAndMergeScarabData, loadPreferences, savePreferences, loadAllItemTypePrices, loadFullEssenceData, getPrimalLifeforcePrice, loadAndMergeFossilData, getWildLifeforcePrice, loadAndMergeCatalystData, loadFullFossilData, loadFullOilData, loadFullDeliriumOrbData, loadFullEmblemData, loadFullTattooData, loadTempleUpgradeData } from './js/services/dataService.js';
-import { calculateThreshold, calculateProfitabilityStatus } from './js/services/calculationService.js';
+import { calculateThreshold, calculateProfitabilityStatus, calculateCatalystThreshold, calculateCatalystProfitabilityStatus, calculateTattooThreshold, calculateTattooProfitabilityStatus } from './js/services/calculationService.js';
 import { calculateExpectedValueForGroup, calculateThresholdForGroup, calculateProfitabilityStatus as calculateEssenceProfitabilityStatus } from './js/services/essenceCalculationService.js';
 import { calculateExpectedValueForGroup as calculateFossilExpectedValueForGroup, calculateThresholdForGroup as calculateFossilThresholdForGroup, calculateProfitabilityStatus as calculateFossilProfitabilityStatus } from './js/services/fossilCalculationService.js';
 import { priceUpdateService } from './js/services/priceUpdateService.js';
 import { initLeagueService } from './js/services/leagueService.js';
 import { Scarab } from './js/models/scarab.js';
+import { Catalyst } from './js/models/catalyst.js';
+import { Tattoo } from './js/models/tattoo.js';
 import { Essence } from './js/models/essence.js';
 import { Fossil } from './js/models/fossil.js';
 import { groupEssencesByRerollType, createRerollGroup } from './js/utils/essenceGroupUtils.js';
@@ -18,6 +20,7 @@ import { renderEssenceList, showLoadingState as showEssenceLoadingState } from '
 import { renderFossilList, showLoadingState as showFossilLoadingState } from './js/views/fossilListView.js';
 import { renderTempleUpgradeList } from './js/views/templeUpgradeListView.js';
 import { renderThresholdDisplay } from './js/components/thresholdDisplay.js';
+import { getProfitabilityColor, getProfitabilityBackgroundColor } from './js/utils/colorUtils.js';
 import { renderListView, updateListView, showLoadingState, showErrorState } from './js/views/listView.js';
 import { initGridView, updateGridView, setFilteredScarabs, clearFilteredScarabs, teardownGridView } from './js/views/gridView.js';
 import { initEssenceGridView, teardownEssenceGridView } from './js/views/essenceGridView.js';
@@ -1299,16 +1302,49 @@ function renderFossilThresholdDisplay(container, threshold, rerollCost, currency
  * @param {string} currency - 'chaos' or 'divine'
  */
 async function renderCatalystUI(catalysts, currency) {
-  currentCatalysts = catalysts;
+  // Convert to Catalyst instances
+  const catalystInstances = catalysts
+    .map(data => new Catalyst(data))
+    .filter(catalyst => {
+      if (!catalyst.validate()) {
+        console.warn(`Invalid Catalyst data: ${catalyst.id}`);
+        return false;
+      }
+      return true;
+    });
+
+  // Calculate threshold (excludes Tainted Catalysts from return pool)
+  let threshold = null;
+  try {
+    threshold = calculateCatalystThreshold(catalystInstances, 0.9, 10000, 'returnable');
+    console.log(`Catalyst threshold calculated: ${threshold.value.toFixed(2)} chaos`);
+    
+    // Calculate profitability status for all Catalysts
+    calculateCatalystProfitabilityStatus(catalystInstances, threshold);
+  } catch (error) {
+    console.error('Error calculating Catalyst threshold:', error);
+    // Set all to unknown if calculation fails
+    catalystInstances.forEach(catalyst => {
+      catalyst.profitabilityStatus = 'unknown';
+    });
+  }
+
+  currentCatalysts = catalystInstances;
   currentCurrency = currency;
 
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) {
     const currencySymbol = currency === 'divine' ? 'Div' : 'c';
-    const rows = catalysts.map((c) => {
+    
+    const rows = catalystInstances.map((c) => {
       const value = currency === 'divine' ? (c.divineValue != null ? c.divineValue.toFixed(4) : '—') : (c.chaosValue != null ? c.chaosValue.toFixed(2) : '—');
       const weightStr = c.dropWeight != null ? (c.dropWeight * 100).toFixed(2) + '%' : '—';
-      return `<div class="catalyst-list-row" data-id="${c.id}">
+      const status = c.profitabilityStatus || 'unknown';
+      const color = getProfitabilityColor(status);
+      const bgColor = getProfitabilityBackgroundColor(status);
+      
+      return `<div class="catalyst-list-row" data-id="${c.id}" 
+               style="border-left: 4px solid ${color}; background-color: ${bgColor};">
         <span class="catalyst-name">${c.name}</span>
         <span class="catalyst-weight">${weightStr}</span>
         <span class="catalyst-value">${value} ${currencySymbol}</span>
@@ -1337,7 +1373,7 @@ async function renderCatalystUI(catalysts, currency) {
       teardownOilGridView(gridCanvas);
       teardownDeliriumOrbGridView(gridCanvas);
       teardownEmblemGridView(gridCanvas);
-      await initCatalystGridView(gridCanvas, catalysts, CATALYSTS_GRID_CONFIG.tabImagePath);
+      await initCatalystGridView(gridCanvas, catalystInstances, CATALYSTS_GRID_CONFIG.tabImagePath);
       const listWrapper = document.querySelector('.list-wrapper');
       if (listWrapper && gridCanvas.offsetHeight > 0) {
         listWrapper.style.height = `${gridCanvas.offsetHeight}px`;
@@ -1354,7 +1390,11 @@ async function renderCatalystUI(catalysts, currency) {
 
   const thresholdContainer = document.getElementById('threshold-display');
   if (thresholdContainer) {
-    thresholdContainer.innerHTML = '<div class="catalyst-threshold-note">Catalysts: drop weights from <a href="https://poedata.dev/data/catalysts/calculations/mle.json" target="_blank" rel="noopener">poedata.dev MLE</a>.</div>';
+    if (threshold) {
+      renderThresholdDisplay(thresholdContainer, threshold, currency, 0.9, null, 'returnable', null);
+    } else {
+      thresholdContainer.innerHTML = '<div class="catalyst-threshold-note">Catalysts: drop weights from <a href="https://poedata.dev/data/catalysts/calculations/mle.json" target="_blank" rel="noopener">poedata.dev MLE</a>. Unable to calculate threshold.</div>';
+    }
   }
 }
 
@@ -1521,17 +1561,55 @@ async function renderEmblemUI(items, currency) {
 
 /**
  * Render Tattoo UI (list view)
+ * @param {Array<Object>} items - Merged tattoo data (id, name, description, chaosValue, divineValue, dropWeight)
+ * @param {string} currency - 'chaos' or 'divine'
  */
 async function renderTattooUI(items, currency) {
-  currentTattoos = items;
+  // Convert to Tattoo instances
+  const tattooInstances = items
+    .map(data => new Tattoo(data))
+    .filter(tattoo => {
+      if (!tattoo.validate()) {
+        console.warn(`Invalid Tattoo data: ${tattoo.id}`);
+        return false;
+      }
+      return true;
+    });
+
+  // Calculate threshold (excludes Journey Tattoos from return pool)
+  let threshold = null;
+  try {
+    threshold = calculateTattooThreshold(tattooInstances, 0.9, 10000, 'returnable');
+    console.log(`Tattoo threshold calculated: ${threshold.value.toFixed(2)} chaos`);
+    
+    // Calculate profitability status for all Tattoos
+    calculateTattooProfitabilityStatus(tattooInstances, threshold);
+  } catch (error) {
+    console.error('Error calculating Tattoo threshold:', error);
+    // Set all to unknown if calculation fails
+    tattooInstances.forEach(tattoo => {
+      tattoo.profitabilityStatus = 'unknown';
+    });
+  }
+
+  currentTattoos = tattooInstances;
   currentCurrency = currency;
 
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) {
     const currencySymbol = currency === 'divine' ? 'Div' : 'c';
-    const rows = items.map((t) => {
+    
+    const rows = tattooInstances.map((t) => {
       const value = currency === 'divine' ? (t.divineValue != null ? t.divineValue.toFixed(4) : '—') : (t.chaosValue != null ? t.chaosValue.toFixed(2) : '—');
-      return `<div class="tattoo-list-row" data-id="${t.id}"><span class="item-name">${t.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
+      const status = t.profitabilityStatus || 'unknown';
+      const color = getProfitabilityColor(status);
+      const bgColor = getProfitabilityBackgroundColor(status);
+      
+      return `<div class="tattoo-list-row" data-id="${t.id}" 
+               style="border-left: 4px solid ${color}; background-color: ${bgColor};">
+        <span class="item-name">${t.name}</span>
+        <span class="item-value">${value} ${currencySymbol}</span>
+      </div>`;
     });
     listViewContainer.innerHTML = `
       <div class="tattoo-list-header">
@@ -1547,8 +1625,15 @@ async function renderTattooUI(items, currency) {
 
   const filterPanelContainer = document.getElementById('filter-panel');
   if (filterPanelContainer) filterPanelContainer.style.display = 'none';
+  
   const thresholdContainer = document.getElementById('threshold-display');
-  if (thresholdContainer) thresholdContainer.innerHTML = '<div class="oil-threshold-note">Tattoos</div>';
+  if (thresholdContainer) {
+    if (threshold) {
+      renderThresholdDisplay(thresholdContainer, threshold, currency, 0.9, null, 'returnable', null);
+    } else {
+      thresholdContainer.innerHTML = '<div class="oil-threshold-note">Tattoos: Unable to calculate threshold.</div>';
+    }
+  }
 }
 
 /**

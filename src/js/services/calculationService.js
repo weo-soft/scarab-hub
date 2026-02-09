@@ -4,6 +4,8 @@
  */
 
 import { Scarab, ExpectedValueThreshold } from '../models/scarab.js';
+import { Catalyst } from '../models/catalyst.js';
+import { Tattoo } from '../models/tattoo.js';
 
 /**
  * Calculate variance of expected value
@@ -295,6 +297,378 @@ export function calculateProfitabilityStatus(scarabs, threshold) {
       scarab.profitabilityStatus = 'profitable';
     } else {
       scarab.profitabilityStatus = 'not_profitable';
+    }
+  });
+}
+
+/**
+ * Calculate threshold for Catalysts (excludes Tainted Catalysts from return pool)
+ * @param {Array<Catalyst>} catalysts
+ * @param {number} confidencePercentile - Confidence level (0-1), default 0.9 for 90th percentile
+ * @param {number} numberOfTrades - Number of trades to consider (default: 10000)
+ * @param {string} tradeMode - Trade mode: 'returnable', 'lowest_value', or 'optimal_combination' (default: 'returnable')
+ * @returns {ExpectedValueThreshold}
+ */
+export function calculateCatalystThreshold(catalysts, confidencePercentile = 0.9, numberOfTrades = 10000, tradeMode = 'returnable') {
+  // Filter catalysts with valid dropWeight and price data
+  const validCatalysts = catalysts.filter(
+    catalyst => catalyst.hasDropWeight() && catalyst.hasPriceData()
+  );
+
+  if (validCatalysts.length === 0) {
+    throw new Error('No valid Catalysts with both dropWeight and price data');
+  }
+
+  // Exclude Tainted Catalysts from return pool (they cannot be received when flipping)
+  const returnableCatalysts = validCatalysts.filter(catalyst => !catalyst.isTainted());
+
+  if (returnableCatalysts.length === 0) {
+    throw new Error('No returnable Catalysts available (all are Tainted)');
+  }
+
+  // Determine which catalysts are used as input based on trade mode
+  let inputCatalysts = [];
+  let finalReturnableCatalysts = returnableCatalysts;
+
+  if (tradeMode === 'lowest_value') {
+    const lowestCatalyst = findLowestValueCatalyst(returnableCatalysts);
+    if (lowestCatalyst) {
+      inputCatalysts = [lowestCatalyst];
+      // Exclude input catalysts from return pool
+      finalReturnableCatalysts = returnableCatalysts.filter(c => c.id !== lowestCatalyst.id);
+    }
+  } else if (tradeMode === 'optimal_combination') {
+    const optimalCatalyst = findOptimalInputCatalyst(returnableCatalysts);
+    if (optimalCatalyst) {
+      inputCatalysts = [optimalCatalyst];
+      // Exclude input catalysts from return pool
+      finalReturnableCatalysts = returnableCatalysts.filter(c => c.id !== optimalCatalyst.id);
+    }
+  }
+  // For 'returnable' mode, inputCatalysts remains empty and finalReturnableCatalysts = returnableCatalysts
+
+  // Ensure we have enough catalysts in the return pool
+  if (finalReturnableCatalysts.length === 0) {
+    throw new Error('No catalysts available in return pool after excluding input catalysts');
+  }
+
+  // Calculate total weight from returnable catalysts only
+  const totalWeight = finalReturnableCatalysts.reduce(
+    (sum, catalyst) => sum + catalyst.dropWeight,
+    0
+  );
+
+  if (totalWeight <= 0) {
+    throw new Error('Total weight must be greater than 0');
+  }
+
+  // Calculate expected value using weighted average (only from returnable catalysts)
+  const expectedValue = finalReturnableCatalysts.reduce((sum, catalyst) => {
+    const probability = catalyst.dropWeight / totalWeight;
+    const value = catalyst.chaosValue;
+    return sum + (probability * value);
+  }, 0);
+
+  // Calculate variance and standard deviation (population parameters)
+  const variance = computeVariance(finalReturnableCatalysts, totalWeight, expectedValue);
+  const populationStandardDeviation = Math.sqrt(variance);
+
+  // Calculate standard error for the sampling distribution
+  const standardError = populationStandardDeviation / Math.sqrt(numberOfTrades);
+  
+  // Get z-score for the desired confidence percentile
+  const zScore = getZScore(confidencePercentile);
+
+  // Calculate coefficient of variation
+  const coefficientOfVariation = expectedValue > 0 
+    ? standardError / expectedValue 
+    : Infinity;
+
+  // Calculate the lower bound of the confidence interval
+  const lowerBoundExpectedValue = expectedValue - (zScore * standardError);
+  
+  if (lowerBoundExpectedValue < 0) {
+    console.warn(`Lower bound is negative (${lowerBoundExpectedValue.toFixed(4)}). This suggests numberOfTrades (${numberOfTrades}) may be too small for the variance level.`);
+  }
+
+  // Log detailed calculation for debugging
+  console.log('Catalyst Threshold Calculation Details:', {
+    tradeMode: tradeMode,
+    inputCatalysts: inputCatalysts.map(c => c.name).join(', ') || 'none (returnable)',
+    returnableCatalystsCount: finalReturnableCatalysts.length,
+    taintedExcluded: validCatalysts.length - returnableCatalysts.length,
+    expectedValue: expectedValue.toFixed(4),
+    variance: variance.toFixed(4),
+    populationStandardDeviation: populationStandardDeviation.toFixed(4),
+    numberOfTrades: numberOfTrades,
+    standardError: standardError.toFixed(4),
+    coefficientOfVariation: coefficientOfVariation.toFixed(4),
+    zScore: zScore.toFixed(4),
+    confidencePercentile: confidencePercentile,
+    lowerBoundExpectedValue: lowerBoundExpectedValue.toFixed(4),
+    rawThreshold: (lowerBoundExpectedValue / 3).toFixed(4)
+  });
+
+  // Threshold is the maximum input value where lower bound expected value > 3 × input
+  const rawThreshold = lowerBoundExpectedValue / 3;
+  const threshold = Math.max(0, rawThreshold);
+  
+  if (rawThreshold < 0) {
+    console.warn(`Threshold calculation resulted in negative value (${rawThreshold.toFixed(4)}), clamped to 0.`);
+  }
+
+  return new ExpectedValueThreshold(
+    threshold, 
+    totalWeight, 
+    finalReturnableCatalysts.length,
+    expectedValue,
+    variance,
+    populationStandardDeviation,
+    confidencePercentile,
+    numberOfTrades,
+    standardError,
+    tradeMode
+  );
+}
+
+/**
+ * Find the lowest value catalyst from valid catalysts
+ * @param {Array<Catalyst>} validCatalysts
+ * @returns {Catalyst|null}
+ */
+function findLowestValueCatalyst(validCatalysts) {
+  if (validCatalysts.length === 0) return null;
+  
+  return validCatalysts.reduce((lowest, catalyst) => {
+    if (!lowest) return catalyst;
+    if (catalyst.chaosValue < lowest.chaosValue) return catalyst;
+    return lowest;
+  }, null);
+}
+
+/**
+ * Find optimal combination of catalysts for input (low value, high weighting)
+ * Returns the catalyst that minimizes (value / weight) ratio
+ * @param {Array<Catalyst>} validCatalysts
+ * @returns {Catalyst|null}
+ */
+function findOptimalInputCatalyst(validCatalysts) {
+  if (validCatalysts.length === 0) return null;
+  
+  return validCatalysts.reduce((optimal, catalyst) => {
+    if (!optimal) return catalyst;
+    
+    // Calculate value-to-weight ratio (lower is better)
+    const optimalRatio = optimal.chaosValue / optimal.dropWeight;
+    const catalystRatio = catalyst.chaosValue / catalyst.dropWeight;
+    
+    if (catalystRatio < optimalRatio) return catalyst;
+    return optimal;
+  }, null);
+}
+
+/**
+ * Calculate profitability status for all Catalysts based on threshold
+ * @param {Array<Catalyst>} catalysts
+ * @param {ExpectedValueThreshold} threshold
+ */
+export function calculateCatalystProfitabilityStatus(catalysts, threshold) {
+  catalysts.forEach(catalyst => {
+    if (!catalyst.hasPriceData()) {
+      catalyst.profitabilityStatus = 'unknown';
+      return;
+    }
+
+    if (catalyst.chaosValue < threshold.value) {
+      catalyst.profitabilityStatus = 'profitable';
+    } else {
+      catalyst.profitabilityStatus = 'not_profitable';
+    }
+  });
+}
+
+/**
+ * Calculate threshold for Tattoos (excludes Journey Tattoos from return pool)
+ * @param {Array<Tattoo>} tattoos
+ * @param {number} confidencePercentile - Confidence level (0-1), default 0.9 for 90th percentile
+ * @param {number} numberOfTrades - Number of trades to consider (default: 10000)
+ * @param {string} tradeMode - Trade mode: 'returnable', 'lowest_value', or 'optimal_combination' (default: 'returnable')
+ * @returns {ExpectedValueThreshold}
+ */
+export function calculateTattooThreshold(tattoos, confidencePercentile = 0.9, numberOfTrades = 10000, tradeMode = 'returnable') {
+  // Filter tattoos with valid dropWeight and price data
+  const validTattoos = tattoos.filter(
+    tattoo => tattoo.hasDropWeight() && tattoo.hasPriceData()
+  );
+
+  if (validTattoos.length === 0) {
+    throw new Error('No valid Tattoos with both dropWeight and price data');
+  }
+
+  // Exclude Journey Tattoos from return pool (they cannot be received when flipping)
+  const returnableTattoos = validTattoos.filter(tattoo => !tattoo.isJourneyTattoo());
+
+  if (returnableTattoos.length === 0) {
+    throw new Error('No returnable Tattoos available (all are Journey Tattoos)');
+  }
+
+  // Determine which tattoos are used as input based on trade mode
+  let inputTattoos = [];
+  let finalReturnableTattoos = returnableTattoos;
+
+  if (tradeMode === 'lowest_value') {
+    const lowestTattoo = findLowestValueTattoo(returnableTattoos);
+    if (lowestTattoo) {
+      inputTattoos = [lowestTattoo];
+      // Exclude input tattoos from return pool
+      finalReturnableTattoos = returnableTattoos.filter(t => t.id !== lowestTattoo.id);
+    }
+  } else if (tradeMode === 'optimal_combination') {
+    const optimalTattoo = findOptimalInputTattoo(returnableTattoos);
+    if (optimalTattoo) {
+      inputTattoos = [optimalTattoo];
+      // Exclude input tattoos from return pool
+      finalReturnableTattoos = returnableTattoos.filter(t => t.id !== optimalTattoo.id);
+    }
+  }
+  // For 'returnable' mode, inputTattoos remains empty and finalReturnableTattoos = returnableTattoos
+
+  // Ensure we have enough tattoos in the return pool
+  if (finalReturnableTattoos.length === 0) {
+    throw new Error('No tattoos available in return pool after excluding input tattoos');
+  }
+
+  // Calculate total weight from returnable tattoos only
+  const totalWeight = finalReturnableTattoos.reduce(
+    (sum, tattoo) => sum + tattoo.dropWeight,
+    0
+  );
+
+  if (totalWeight <= 0) {
+    throw new Error('Total weight must be greater than 0');
+  }
+
+  // Calculate expected value using weighted average (only from returnable tattoos)
+  const expectedValue = finalReturnableTattoos.reduce((sum, tattoo) => {
+    const probability = tattoo.dropWeight / totalWeight;
+    const value = tattoo.chaosValue;
+    return sum + (probability * value);
+  }, 0);
+
+  // Calculate variance and standard deviation (population parameters)
+  const variance = computeVariance(finalReturnableTattoos, totalWeight, expectedValue);
+  const populationStandardDeviation = Math.sqrt(variance);
+
+  // Calculate standard error for the sampling distribution
+  const standardError = populationStandardDeviation / Math.sqrt(numberOfTrades);
+  
+  // Get z-score for the desired confidence percentile
+  const zScore = getZScore(confidencePercentile);
+
+  // Calculate coefficient of variation
+  const coefficientOfVariation = expectedValue > 0 
+    ? standardError / expectedValue 
+    : Infinity;
+
+  // Calculate the lower bound of the confidence interval
+  const lowerBoundExpectedValue = expectedValue - (zScore * standardError);
+  
+  if (lowerBoundExpectedValue < 0) {
+    console.warn(`Lower bound is negative (${lowerBoundExpectedValue.toFixed(4)}). This suggests numberOfTrades (${numberOfTrades}) may be too small for the variance level.`);
+  }
+
+  // Log detailed calculation for debugging
+  console.log('Tattoo Threshold Calculation Details:', {
+    tradeMode: tradeMode,
+    inputTattoos: inputTattoos.map(t => t.name).join(', ') || 'none (returnable)',
+    returnableTattoosCount: finalReturnableTattoos.length,
+    journeyExcluded: validTattoos.length - returnableTattoos.length,
+    expectedValue: expectedValue.toFixed(4),
+    variance: variance.toFixed(4),
+    populationStandardDeviation: populationStandardDeviation.toFixed(4),
+    numberOfTrades: numberOfTrades,
+    standardError: standardError.toFixed(4),
+    coefficientOfVariation: coefficientOfVariation.toFixed(4),
+    zScore: zScore.toFixed(4),
+    confidencePercentile: confidencePercentile,
+    lowerBoundExpectedValue: lowerBoundExpectedValue.toFixed(4),
+    rawThreshold: (lowerBoundExpectedValue / 3).toFixed(4)
+  });
+
+  // Threshold is the maximum input value where lower bound expected value > 3 × input
+  const rawThreshold = lowerBoundExpectedValue / 3;
+  const threshold = Math.max(0, rawThreshold);
+  
+  if (rawThreshold < 0) {
+    console.warn(`Threshold calculation resulted in negative value (${rawThreshold.toFixed(4)}), clamped to 0.`);
+  }
+
+  return new ExpectedValueThreshold(
+    threshold, 
+    totalWeight, 
+    finalReturnableTattoos.length,
+    expectedValue,
+    variance,
+    populationStandardDeviation,
+    confidencePercentile,
+    numberOfTrades,
+    standardError,
+    tradeMode
+  );
+}
+
+/**
+ * Find the lowest value tattoo from valid tattoos
+ * @param {Array<Tattoo>} validTattoos
+ * @returns {Tattoo|null}
+ */
+function findLowestValueTattoo(validTattoos) {
+  if (validTattoos.length === 0) return null;
+  
+  return validTattoos.reduce((lowest, tattoo) => {
+    if (!lowest) return tattoo;
+    if (tattoo.chaosValue < lowest.chaosValue) return tattoo;
+    return lowest;
+  }, null);
+}
+
+/**
+ * Find optimal combination of tattoos for input (low value, high weighting)
+ * Returns the tattoo that minimizes (value / weight) ratio
+ * @param {Array<Tattoo>} validTattoos
+ * @returns {Tattoo|null}
+ */
+function findOptimalInputTattoo(validTattoos) {
+  if (validTattoos.length === 0) return null;
+  
+  return validTattoos.reduce((optimal, tattoo) => {
+    if (!optimal) return tattoo;
+    
+    // Calculate value-to-weight ratio (lower is better)
+    const optimalRatio = optimal.chaosValue / optimal.dropWeight;
+    const tattooRatio = tattoo.chaosValue / tattoo.dropWeight;
+    
+    if (tattooRatio < optimalRatio) return tattoo;
+    return optimal;
+  }, null);
+}
+
+/**
+ * Calculate profitability status for all Tattoos based on threshold
+ * @param {Array<Tattoo>} tattoos
+ * @param {ExpectedValueThreshold} threshold
+ */
+export function calculateTattooProfitabilityStatus(tattoos, threshold) {
+  tattoos.forEach(tattoo => {
+    if (!tattoo.hasPriceData()) {
+      tattoo.profitabilityStatus = 'unknown';
+      return;
+    }
+
+    if (tattoo.chaosValue < threshold.value) {
+      tattoo.profitabilityStatus = 'profitable';
+    } else {
+      tattoo.profitabilityStatus = 'not_profitable';
     }
   });
 }

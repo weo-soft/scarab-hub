@@ -10,6 +10,7 @@ const MLE_WEIGHTS_URL = 'https://poedata.dev/data/scarabs/calculations/mle.json'
 const ESSENCE_MLE_WEIGHTS_URL = 'https://poedata.dev/data/essences/calculations/mle.json';
 const CATALYST_MLE_WEIGHTS_URL = 'https://poedata.dev/data/catalysts/calculations/mle.json';
 const FOSSIL_MLE_WEIGHTS_URL = 'https://poedata.dev/data/fossils/calculations/mle.json';
+const TATTOO_MLE_WEIGHTS_URL = 'https://poedata.dev/data/tattoos/calculations/mle.json';
 
 /**
  * Fetch scarab drop weights from poedata.dev MLE calculations
@@ -96,6 +97,27 @@ async function fetchFossilWeightsFromMle() {
   const response = await fetch(FOSSIL_MLE_WEIGHTS_URL);
   if (!response.ok) {
     throw new Error(`Failed to load Fossil weights from ${FOSSIL_MLE_WEIGHTS_URL}`);
+  }
+  const data = await response.json();
+  const weightMap = new Map();
+  if (data.items && Array.isArray(data.items)) {
+    data.items.forEach((item) => {
+      if (item.id != null && typeof item.weight === 'number') {
+        weightMap.set(item.id, item.weight);
+      }
+    });
+  }
+  return weightMap;
+}
+
+/**
+ * Fetch tattoo drop weights from poedata.dev MLE calculations
+ * @returns {Promise<Map<string, number>>} Map of tattoo id -> weight (probability)
+ */
+async function fetchTattooWeightsFromMle() {
+  const response = await fetch(TATTOO_MLE_WEIGHTS_URL);
+  if (!response.ok) {
+    throw new Error(`Failed to load Tattoo weights from ${TATTOO_MLE_WEIGHTS_URL}`);
   }
   const data = await response.json();
   const weightMap = new Map();
@@ -750,8 +772,8 @@ export async function loadFullEmblemData() {
 }
 
 /**
- * Load and merge Tattoo details (tattoos.json) and prices.
- * @returns {Promise<Array>} Merged tattoo data with id, name, description, chaosValue, divineValue, etc.
+ * Load and merge Tattoo details (tattoos.json), MLE weights (poedata.dev), and prices.
+ * @returns {Promise<Array>} Merged tattoo data with id, name, description, dropWeight, chaosValue, divineValue, etc.
  */
 export async function loadFullTattooData() {
   try {
@@ -760,6 +782,11 @@ export async function loadFullTattooData() {
       throw new Error('Failed to load Tattoo details file');
     }
     const details = await detailsResponse.json();
+
+    const weightMap = await fetchTattooWeightsFromMle().catch((err) => {
+      console.warn('Tattoo MLE weights unavailable:', err.message);
+      return new Map();
+    });
 
     const prices = await loadItemTypePrices('tattoo').catch(() => []);
 
@@ -773,14 +800,16 @@ export async function loadFullTattooData() {
 
     const merged = details.map((detail) => {
       const price = priceMap.get(detail.id);
+      const dropWeight = weightMap.has(detail.id) ? weightMap.get(detail.id) : null;
       return {
         ...detail,
+        dropWeight,
         chaosValue: price?.chaosValue ?? null,
         divineValue: price?.divineValue ?? null
       };
     });
 
-    console.log(`✓ Loaded ${merged.length} Tattoos (${priceMap.size} with price data)`);
+    console.log(`✓ Loaded ${merged.length} Tattoos (${priceMap.size} with price data, MLE weights for ${weightMap.size} types)`);
     return merged;
   } catch (error) {
     console.error('Error loading Tattoo data:', error);
