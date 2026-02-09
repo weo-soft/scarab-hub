@@ -1,0 +1,567 @@
+{
+  "entries": [
+    {
+      "id": "runegraft-of-bellows",
+      "name": "Runegraft of Bellows",
+      "sus": "Be"
+    },
+    {
+      "id": "runegraft-of-blasphemy",
+      "name": "Runegraft of Blasphemy",
+      "sus": "Bl"
+    },
+    {
+      "id": "runegraft-of-gemcraft",
+      "name": "Runegraft of Gemcraft",
+      "sus": " G"
+    },
+    {
+      "id": "runegraft-of-loyalty",
+      "name": "Runegraft of Loyalty",
+      "sus": " L"
+    },
+    {
+      "id": "runegraft-of-quaffing",
+      "name": "Runegraft of Quaffing",
+      "sus": "Q"
+    },
+    {
+      "id": "runegraft-of-refraction",
+      "name": "Runegraft of Refraction",
+      "sus": "ef"
+    },
+    {
+      "id": "runegraft-of-restitching",
+      "name": "Runegraft of Restitching",
+      "sus": "hi"
+    },
+    {
+      "id": "runegraft-of-stability",
+      "name": "Runegraft of Stability",
+      "sus": "ab"
+    },
+    {
+      "id": "runegraft-of-the-angler",
+      "name": "Runegraft of the Angler",
+      "sus": " A"
+    },
+    {
+      "id": "runegraft-of-the-bound",
+      "name": "Runegraft of the Bound",
+      "sus": "d"
+    },
+    {
+      "id": "runegraft-of-the-combatant",
+      "name": "Runegraft of the Combatant",
+      "sus": " C"
+    },
+    {
+      "id": "runegraft-of-the-fortress",
+      "name": "Runegraft of the Fortress",
+      "sus": " F"
+    },
+    {
+      "id": "runegraft-of-the-jeweller",
+      "name": "Runegraft of the Jeweller",
+      "sus": "J"
+    },
+    {
+      "id": "runegraft-of-the-novamark",
+      "name": "Runegraft of the Novamark",
+      "sus": " N"
+    },
+    {
+      "id": "runegraft-of-the-river",
+      "name": "Runegraft of the River",
+      "sus": "Ri"
+    },
+    {
+      "id": "runegraft-of-the-sinistral",
+      "name": "Runegraft of the Sinistral",
+      "sus": "Si"
+    },
+    {
+      "id": "runegraft-of-the-soulwick",
+      "name": "Runegraft of the Soulwick",
+      "sus": "So"
+    },
+    {
+      "id": "runegraft-of-the-warp",
+      "name": "Runegraft of the Warp",
+      "sus": "Wa"
+    },
+    {
+      "id": "runegraft-of-the-witchmark",
+      "name": "Runegraft of the Witchmark",
+      "sus": "hm"
+    },
+    {
+      "id": "runegraft-of-time",
+      "name": "Runegraft of Time",
+      "sus": "im"
+    },
+    {
+      "id": "runegraft-of-treachery",
+      "name": "Runegraft of Treachery",
+      "sus": "ea"
+    }
+  ],
+  "groups": [
+    {
+      "token": "r",
+      "memberIds": [
+        "runegraft-of-bellows",
+        "runegraft-of-blasphemy",
+        "runegraft-of-gemcraft",
+        "runegraft-of-loyalty",
+        "runegraft-of-quaffing",
+        "runegraft-of-refraction",
+        "runegraft-of-restitching",
+        "runegraft-of-stability",
+        "runegraft-of-the-angler",
+        "runegraft-of-the-bound",
+        "runegraft-of-the-combatant",
+        "runegraft-of-the-fortress",
+        "runegraft-of-the-jeweller",
+        "runegraft-of-the-novamark",
+        "runegraft-of-the-river",
+        "runegraft-of-the-sinistral",
+        "runegraft-of-the-soulwick",
+        "runegraft-of-the-warp",
+        "runegraft-of-the-witchmark",
+        "runegraft-of-time",
+        "runegraft-of-treachery"
+      ]
+    },
+    {
+      "token": "f b",
+      "memberIds": [
+        "runegraft-of-bellows",
+        "runegraft-of-blasphemy"
+      ]
+    },
+    {
+      "token": " b",
+      "memberIds": [
+        "runegraft-of-bellows",
+        "runegraft-of-blasphemy",
+        "runegraft-of-the-bound"
+      ]
+    },
+    {
+      "token": "b",
+      "memberIds": [
+        "runegraft-of-bellows",
+        "runegraft-of-blasphemy",
+        "runegraft-of-stability",
+        "runegraft-of-the-bound",
+        "runegraft-of-the-combatant"
+      ]
+    },
+    {
+      "token": "el",
+      "memberIds": [
+        "runegraft-of-bellows",
+        "runegraft-of-the-jeweller"
+      ]
+    },
+    {
+      "token": "l",
+      "memberIds": [
+        "runegraft-of-bellows",
+        "runegraft-of-blasphemy",
+        "runegraft-of-loyalty",
+        "runegraft-of-stability",
+        "runegraft-of-the-angler",
+        "runegraft-of-the-jeweller",
+        "runegraft-of-the-sinistral",
+        "runegraft-of-the-soulwick"
+      ]
+    },
+    {
+      "token": "lo",
+      "memberIds": [
+        "runegraft-of-bellows",
+        "runegraft-of-loyalty"
+      ]
+    },
+    {
+      "token": "w",
+      "memberIds": [
+        "runegraft-of-bellows",
+        "runegraft-of-the-jeweller",
+        "runegraft-of-the-soulwick",
+        "runegraft-of-the-warp",
+        "runegraft-of-the-witchmark"
+      ]
+    },
+    {
+      "token": "s",
+      "memberIds": [
+        "runegraft-of-bellows",
+        "runegraft-of-blasphemy",
+        "runegraft-of-restitching",
+        "runegraft-of-stability",
+        "runegraft-of-the-fortress",
+        "runegraft-of-the-sinistral",
+        "runegraft-of-the-soulwick"
+      ]
+    },
+    {
+      "token": "p",
+      "memberIds": [
+        "runegraft-of-blasphemy",
+        "runegraft-of-the-warp"
+      ]
+    },
+    {
+      "token": "h",
+      "memberIds": [
+        "runegraft-of-blasphemy",
+        "runegraft-of-restitching",
+        "runegraft-of-the-angler",
+        "runegraft-of-the-bound",
+        "runegraft-of-the-combatant",
+        "runegraft-of-the-fortress",
+        "runegraft-of-the-jeweller",
+        "runegraft-of-the-novamark",
+        "runegraft-of-the-river",
+        "runegraft-of-the-sinistral",
+        "runegraft-of-the-soulwick",
+        "runegraft-of-the-warp",
+        "runegraft-of-the-witchmark",
+        "runegraft-of-treachery"
+      ]
+    },
+    {
+      "token": "he",
+      "memberIds": [
+        "runegraft-of-blasphemy",
+        "runegraft-of-the-angler",
+        "runegraft-of-the-bound",
+        "runegraft-of-the-combatant",
+        "runegraft-of-the-fortress",
+        "runegraft-of-the-jeweller",
+        "runegraft-of-the-novamark",
+        "runegraft-of-the-river",
+        "runegraft-of-the-sinistral",
+        "runegraft-of-the-soulwick",
+        "runegraft-of-the-warp",
+        "runegraft-of-the-witchmark",
+        "runegraft-of-treachery"
+      ]
+    },
+    {
+      "token": "em",
+      "memberIds": [
+        "runegraft-of-blasphemy",
+        "runegraft-of-gemcraft"
+      ]
+    },
+    {
+      "token": "m",
+      "memberIds": [
+        "runegraft-of-blasphemy",
+        "runegraft-of-gemcraft",
+        "runegraft-of-the-combatant",
+        "runegraft-of-the-novamark",
+        "runegraft-of-the-witchmark",
+        "runegraft-of-time"
+      ]
+    },
+    {
+      "token": "y",
+      "memberIds": [
+        "runegraft-of-blasphemy",
+        "runegraft-of-loyalty",
+        "runegraft-of-stability",
+        "runegraft-of-treachery"
+      ]
+    },
+    {
+      "token": "c",
+      "memberIds": [
+        "runegraft-of-gemcraft",
+        "runegraft-of-refraction",
+        "runegraft-of-restitching",
+        "runegraft-of-the-combatant",
+        "runegraft-of-the-soulwick",
+        "runegraft-of-the-witchmark",
+        "runegraft-of-treachery"
+      ]
+    },
+    {
+      "token": "al",
+      "memberIds": [
+        "runegraft-of-loyalty",
+        "runegraft-of-the-sinistral"
+      ]
+    },
+    {
+      "token": "ty",
+      "memberIds": [
+        "runegraft-of-loyalty",
+        "runegraft-of-stability"
+      ]
+    },
+    {
+      "token": "i",
+      "memberIds": [
+        "runegraft-of-quaffing",
+        "runegraft-of-refraction",
+        "runegraft-of-restitching",
+        "runegraft-of-stability",
+        "runegraft-of-the-river",
+        "runegraft-of-the-sinistral",
+        "runegraft-of-the-soulwick",
+        "runegraft-of-the-witchmark",
+        "runegraft-of-time"
+      ]
+    },
+    {
+      "token": "in",
+      "memberIds": [
+        "runegraft-of-quaffing",
+        "runegraft-of-restitching",
+        "runegraft-of-the-sinistral"
+      ]
+    },
+    {
+      "token": "ing",
+      "memberIds": [
+        "runegraft-of-quaffing",
+        "runegraft-of-restitching"
+      ]
+    },
+    {
+      "token": "ng",
+      "memberIds": [
+        "runegraft-of-quaffing",
+        "runegraft-of-restitching",
+        "runegraft-of-the-angler"
+      ]
+    },
+    {
+      "token": "f r",
+      "memberIds": [
+        "runegraft-of-refraction",
+        "runegraft-of-restitching"
+      ]
+    },
+    {
+      "token": " r",
+      "memberIds": [
+        "runegraft-of-refraction",
+        "runegraft-of-restitching",
+        "runegraft-of-the-river"
+      ]
+    },
+    {
+      "token": "re",
+      "memberIds": [
+        "runegraft-of-refraction",
+        "runegraft-of-restitching",
+        "runegraft-of-the-fortress",
+        "runegraft-of-treachery"
+      ]
+    },
+    {
+      "token": "ac",
+      "memberIds": [
+        "runegraft-of-refraction",
+        "runegraft-of-treachery"
+      ]
+    },
+    {
+      "token": "ti",
+      "memberIds": [
+        "runegraft-of-refraction",
+        "runegraft-of-restitching",
+        "runegraft-of-time"
+      ]
+    },
+    {
+      "token": "es",
+      "memberIds": [
+        "runegraft-of-restitching",
+        "runegraft-of-the-fortress"
+      ]
+    },
+    {
+      "token": "st",
+      "memberIds": [
+        "runegraft-of-restitching",
+        "runegraft-of-stability",
+        "runegraft-of-the-sinistral"
+      ]
+    },
+    {
+      "token": "it",
+      "memberIds": [
+        "runegraft-of-restitching",
+        "runegraft-of-stability",
+        "runegraft-of-the-witchmark"
+      ]
+    },
+    {
+      "token": "tc",
+      "memberIds": [
+        "runegraft-of-restitching",
+        "runegraft-of-the-witchmark"
+      ]
+    },
+    {
+      "token": "ch",
+      "memberIds": [
+        "runegraft-of-restitching",
+        "runegraft-of-the-witchmark",
+        "runegraft-of-treachery"
+      ]
+    },
+    {
+      "token": " s",
+      "memberIds": [
+        "runegraft-of-stability",
+        "runegraft-of-the-sinistral",
+        "runegraft-of-the-soulwick"
+      ]
+    },
+    {
+      "token": "ta",
+      "memberIds": [
+        "runegraft-of-stability",
+        "runegraft-of-the-combatant"
+      ]
+    },
+    {
+      "token": " t",
+      "memberIds": [
+        "runegraft-of-the-angler",
+        "runegraft-of-the-bound",
+        "runegraft-of-the-combatant",
+        "runegraft-of-the-fortress",
+        "runegraft-of-the-jeweller",
+        "runegraft-of-the-novamark",
+        "runegraft-of-the-river",
+        "runegraft-of-the-sinistral",
+        "runegraft-of-the-soulwick",
+        "runegraft-of-the-warp",
+        "runegraft-of-the-witchmark",
+        "runegraft-of-time",
+        "runegraft-of-treachery"
+      ]
+    },
+    {
+      "token": "th",
+      "memberIds": [
+        "runegraft-of-the-angler",
+        "runegraft-of-the-bound",
+        "runegraft-of-the-combatant",
+        "runegraft-of-the-fortress",
+        "runegraft-of-the-jeweller",
+        "runegraft-of-the-novamark",
+        "runegraft-of-the-river",
+        "runegraft-of-the-sinistral",
+        "runegraft-of-the-soulwick",
+        "runegraft-of-the-warp",
+        "runegraft-of-the-witchmark"
+      ]
+    },
+    {
+      "token": "an",
+      "memberIds": [
+        "runegraft-of-the-angler",
+        "runegraft-of-the-combatant"
+      ]
+    },
+    {
+      "token": "le",
+      "memberIds": [
+        "runegraft-of-the-angler",
+        "runegraft-of-the-jeweller"
+      ]
+    },
+    {
+      "token": "er",
+      "memberIds": [
+        "runegraft-of-the-angler",
+        "runegraft-of-the-jeweller",
+        "runegraft-of-the-river",
+        "runegraft-of-treachery"
+      ]
+    },
+    {
+      "token": "ou",
+      "memberIds": [
+        "runegraft-of-the-bound",
+        "runegraft-of-the-soulwick"
+      ]
+    },
+    {
+      "token": "tr",
+      "memberIds": [
+        "runegraft-of-the-fortress",
+        "runegraft-of-the-sinistral",
+        "runegraft-of-treachery"
+      ]
+    },
+    {
+      "token": "tre",
+      "memberIds": [
+        "runegraft-of-the-fortress",
+        "runegraft-of-treachery"
+      ]
+    },
+    {
+      "token": "v",
+      "memberIds": [
+        "runegraft-of-the-novamark",
+        "runegraft-of-the-river"
+      ]
+    },
+    {
+      "token": "ma",
+      "memberIds": [
+        "runegraft-of-the-novamark",
+        "runegraft-of-the-witchmark"
+      ]
+    },
+    {
+      "token": "ar",
+      "memberIds": [
+        "runegraft-of-the-novamark",
+        "runegraft-of-the-warp",
+        "runegraft-of-the-witchmark"
+      ]
+    },
+    {
+      "token": "k",
+      "memberIds": [
+        "runegraft-of-the-novamark",
+        "runegraft-of-the-soulwick",
+        "runegraft-of-the-witchmark"
+      ]
+    },
+    {
+      "token": "e s",
+      "memberIds": [
+        "runegraft-of-the-sinistral",
+        "runegraft-of-the-soulwick"
+      ]
+    },
+    {
+      "token": "wi",
+      "memberIds": [
+        "runegraft-of-the-soulwick",
+        "runegraft-of-the-witchmark"
+      ]
+    },
+    {
+      "token": " w",
+      "memberIds": [
+        "runegraft-of-the-warp",
+        "runegraft-of-the-witchmark"
+      ]
+    }
+  ]
+}

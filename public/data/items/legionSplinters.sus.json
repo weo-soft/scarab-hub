@@ -1,0 +1,77 @@
+{
+  "entries": [
+    {
+      "id": "timeless-eternal-empire-splinter",
+      "name": "Timeless Eternal Empire Splinter",
+      "sus": " E"
+    },
+    {
+      "id": "timeless-karui-splinter",
+      "name": "Timeless Karui Splinter",
+      "sus": "u"
+    },
+    {
+      "id": "timeless-vaal-splinter",
+      "name": "Timeless Vaal Splinter",
+      "sus": "V"
+    },
+    {
+      "id": "timeless-templar-splinter",
+      "name": "Timeless Templar Splinter",
+      "sus": " T"
+    },
+    {
+      "id": "timeless-maraketh-splinter",
+      "name": "Timeless Maraketh Splinter",
+      "sus": "h"
+    }
+  ],
+  "groups": [
+    {
+      "token": "t",
+      "memberIds": [
+        "timeless-eternal-empire-splinter",
+        "timeless-karui-splinter",
+        "timeless-vaal-splinter",
+        "timeless-templar-splinter",
+        "timeless-maraketh-splinter"
+      ]
+    },
+    {
+      "token": "et",
+      "memberIds": [
+        "timeless-eternal-empire-splinter",
+        "timeless-maraketh-splinter"
+      ]
+    },
+    {
+      "token": "al",
+      "memberIds": [
+        "timeless-eternal-empire-splinter",
+        "timeless-vaal-splinter"
+      ]
+    },
+    {
+      "token": "em",
+      "memberIds": [
+        "timeless-eternal-empire-splinter",
+        "timeless-templar-splinter"
+      ]
+    },
+    {
+      "token": "k",
+      "memberIds": [
+        "timeless-karui-splinter",
+        "timeless-maraketh-splinter"
+      ]
+    },
+    {
+      "token": "ar",
+      "memberIds": [
+        "timeless-karui-splinter",
+        "timeless-templar-splinter",
+        "timeless-maraketh-splinter"
+      ]
+    }
+  ]
+}

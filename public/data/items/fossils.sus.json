@@ -1,0 +1,692 @@
+{
+  "entries": [
+    {
+      "id": "aberrant-fossil",
+      "name": "Aberrant Fossil",
+      "sus": "Ab"
+    },
+    {
+      "id": "aetheric-fossil",
+      "name": "Aetheric Fossil",
+      "sus": "Ae"
+    },
+    {
+      "id": "bloodstained-fossil",
+      "name": "Bloodstained Fossil",
+      "sus": "Bl"
+    },
+    {
+      "id": "bound-fossil",
+      "name": "Bound Fossil",
+      "sus": "Bo"
+    },
+    {
+      "id": "corroded-fossil",
+      "name": "Corroded Fossil",
+      "sus": "ro"
+    },
+    {
+      "id": "deft-fossil",
+      "name": "Deft Fossil",
+      "sus": "ef"
+    },
+    {
+      "id": "dense-fossil",
+      "name": "Dense Fossil",
+      "sus": "ns"
+    },
+    {
+      "id": "faceted-fossil",
+      "name": "Faceted Fossil",
+      "sus": "Fa"
+    },
+    {
+      "id": "fractured-fossil",
+      "name": "Fractured Fossil",
+      "sus": "tu"
+    },
+    {
+      "id": "frigid-fossil",
+      "name": "Frigid Fossil",
+      "sus": "ig"
+    },
+    {
+      "id": "fundamental-fossil",
+      "name": "Fundamental Fossil",
+      "sus": "Fu"
+    },
+    {
+      "id": "gilded-fossil",
+      "name": "Gilded Fossil",
+      "sus": "ld"
+    },
+    {
+      "id": "glyphic-fossil",
+      "name": "Glyphic Fossil",
+      "sus": "y"
+    },
+    {
+      "id": "hollow-fossil",
+      "name": "Hollow Fossil",
+      "sus": "w"
+    },
+    {
+      "id": "jagged-fossil",
+      "name": "Jagged Fossil",
+      "sus": "J"
+    },
+    {
+      "id": "lucent-fossil",
+      "name": "Lucent Fossil",
+      "sus": "Lu"
+    },
+    {
+      "id": "metallic-fossil",
+      "name": "Metallic Fossil",
+      "sus": "li"
+    },
+    {
+      "id": "opulent-fossil",
+      "name": "Opulent Fossil",
+      "sus": "Op"
+    },
+    {
+      "id": "prismatic-fossil",
+      "name": "Prismatic Fossil",
+      "sus": "sm"
+    },
+    {
+      "id": "pristine-fossil",
+      "name": "Pristine Fossil",
+      "sus": "ist"
+    },
+    {
+      "id": "sanctified-fossil",
+      "name": "Sanctified Fossil",
+      "sus": "Sa"
+    },
+    {
+      "id": "scorched-fossil",
+      "name": "Scorched Fossil",
+      "sus": "Sc"
+    },
+    {
+      "id": "serrated-fossil",
+      "name": "Serrated Fossil",
+      "sus": "Ser"
+    },
+    {
+      "id": "shuddering-fossil",
+      "name": "Shuddering Fossil",
+      "sus": "Sh"
+    },
+    {
+      "id": "tangled-fossil",
+      "name": "Tangled Fossil",
+      "sus": "Tan"
+    }
+  ],
+  "groups": [
+    {
+      "token": "a",
+      "memberIds": [
+        "aberrant-fossil",
+        "aetheric-fossil",
+        "bloodstained-fossil",
+        "faceted-fossil",
+        "fractured-fossil",
+        "fundamental-fossil",
+        "jagged-fossil",
+        "metallic-fossil",
+        "prismatic-fossil",
+        "sanctified-fossil",
+        "serrated-fossil",
+        "tangled-fossil"
+      ]
+    },
+    {
+      "token": "b",
+      "memberIds": [
+        "aberrant-fossil",
+        "bloodstained-fossil",
+        "bound-fossil"
+      ]
+    },
+    {
+      "token": "e",
+      "memberIds": [
+        "aberrant-fossil",
+        "aetheric-fossil",
+        "bloodstained-fossil",
+        "corroded-fossil",
+        "deft-fossil",
+        "dense-fossil",
+        "faceted-fossil",
+        "fractured-fossil",
+        "fundamental-fossil",
+        "gilded-fossil",
+        "jagged-fossil",
+        "lucent-fossil",
+        "metallic-fossil",
+        "opulent-fossil",
+        "pristine-fossil",
+        "sanctified-fossil",
+        "scorched-fossil",
+        "serrated-fossil",
+        "shuddering-fossil",
+        "tangled-fossil"
+      ]
+    },
+    {
+      "token": "er",
+      "memberIds": [
+        "aberrant-fossil",
+        "aetheric-fossil",
+        "serrated-fossil",
+        "shuddering-fossil"
+      ]
+    },
+    {
+      "token": "err",
+      "memberIds": [
+        "aberrant-fossil",
+        "serrated-fossil"
+      ]
+    },
+    {
+      "token": "r",
+      "memberIds": [
+        "aberrant-fossil",
+        "aetheric-fossil",
+        "corroded-fossil",
+        "fractured-fossil",
+        "frigid-fossil",
+        "prismatic-fossil",
+        "pristine-fossil",
+        "scorched-fossil",
+        "serrated-fossil",
+        "shuddering-fossil"
+      ]
+    },
+    {
+      "token": "rr",
+      "memberIds": [
+        "aberrant-fossil",
+        "corroded-fossil",
+        "serrated-fossil"
+      ]
+    },
+    {
+      "token": "ra",
+      "memberIds": [
+        "aberrant-fossil",
+        "fractured-fossil",
+        "serrated-fossil"
+      ]
+    },
+    {
+      "token": "an",
+      "memberIds": [
+        "aberrant-fossil",
+        "sanctified-fossil",
+        "tangled-fossil"
+      ]
+    },
+    {
+      "token": "n",
+      "memberIds": [
+        "aberrant-fossil",
+        "bloodstained-fossil",
+        "bound-fossil",
+        "dense-fossil",
+        "fundamental-fossil",
+        "lucent-fossil",
+        "opulent-fossil",
+        "pristine-fossil",
+        "sanctified-fossil",
+        "shuddering-fossil",
+        "tangled-fossil"
+      ]
+    },
+    {
+      "token": "nt",
+      "memberIds": [
+        "aberrant-fossil",
+        "fundamental-fossil",
+        "lucent-fossil",
+        "opulent-fossil"
+      ]
+    },
+    {
+      "token": "nt f",
+      "memberIds": [
+        "aberrant-fossil",
+        "lucent-fossil",
+        "opulent-fossil"
+      ]
+    },
+    {
+      "token": "t",
+      "memberIds": [
+        "aberrant-fossil",
+        "aetheric-fossil",
+        "bloodstained-fossil",
+        "deft-fossil",
+        "faceted-fossil",
+        "fractured-fossil",
+        "fundamental-fossil",
+        "lucent-fossil",
+        "metallic-fossil",
+        "opulent-fossil",
+        "prismatic-fossil",
+        "pristine-fossil",
+        "sanctified-fossil",
+        "serrated-fossil",
+        "tangled-fossil"
+      ]
+    },
+    {
+      "token": "t f",
+      "memberIds": [
+        "aberrant-fossil",
+        "deft-fossil",
+        "lucent-fossil",
+        "opulent-fossil"
+      ]
+    },
+    {
+      "token": "f",
+      "memberIds": [
+        "aberrant-fossil",
+        "aetheric-fossil",
+        "bloodstained-fossil",
+        "bound-fossil",
+        "corroded-fossil",
+        "deft-fossil",
+        "dense-fossil",
+        "faceted-fossil",
+        "fractured-fossil",
+        "frigid-fossil",
+        "fundamental-fossil",
+        "gilded-fossil",
+        "glyphic-fossil",
+        "hollow-fossil",
+        "jagged-fossil",
+        "lucent-fossil",
+        "metallic-fossil",
+        "opulent-fossil",
+        "prismatic-fossil",
+        "pristine-fossil",
+        "sanctified-fossil",
+        "scorched-fossil",
+        "serrated-fossil",
+        "shuddering-fossil",
+        "tangled-fossil"
+      ]
+    },
+    {
+      "token": "et",
+      "memberIds": [
+        "aetheric-fossil",
+        "faceted-fossil",
+        "metallic-fossil"
+      ]
+    },
+    {
+      "token": "h",
+      "memberIds": [
+        "aetheric-fossil",
+        "glyphic-fossil",
+        "hollow-fossil",
+        "scorched-fossil",
+        "shuddering-fossil"
+      ]
+    },
+    {
+      "token": "he",
+      "memberIds": [
+        "aetheric-fossil",
+        "scorched-fossil"
+      ]
+    },
+    {
+      "token": "eri",
+      "memberIds": [
+        "aetheric-fossil",
+        "shuddering-fossil"
+      ]
+    },
+    {
+      "token": "ri",
+      "memberIds": [
+        "aetheric-fossil",
+        "frigid-fossil",
+        "prismatic-fossil",
+        "pristine-fossil",
+        "shuddering-fossil"
+      ]
+    },
+    {
+      "token": "ic",
+      "memberIds": [
+        "aetheric-fossil",
+        "glyphic-fossil",
+        "metallic-fossil",
+        "prismatic-fossil"
+      ]
+    },
+    {
+      "token": "c",
+      "memberIds": [
+        "aetheric-fossil",
+        "corroded-fossil",
+        "faceted-fossil",
+        "fractured-fossil",
+        "glyphic-fossil",
+        "lucent-fossil",
+        "metallic-fossil",
+        "prismatic-fossil",
+        "sanctified-fossil",
+        "scorched-fossil"
+      ]
+    },
+    {
+      "token": "lo",
+      "memberIds": [
+        "bloodstained-fossil",
+        "hollow-fossil"
+      ]
+    },
+    {
+      "token": "od",
+      "memberIds": [
+        "bloodstained-fossil",
+        "corroded-fossil"
+      ]
+    },
+    {
+      "token": "d",
+      "memberIds": [
+        "bloodstained-fossil",
+        "bound-fossil",
+        "corroded-fossil",
+        "deft-fossil",
+        "dense-fossil",
+        "faceted-fossil",
+        "fractured-fossil",
+        "frigid-fossil",
+        "fundamental-fossil",
+        "gilded-fossil",
+        "jagged-fossil",
+        "sanctified-fossil",
+        "scorched-fossil",
+        "serrated-fossil",
+        "shuddering-fossil",
+        "tangled-fossil"
+      ]
+    },
+    {
+      "token": "st",
+      "memberIds": [
+        "bloodstained-fossil",
+        "pristine-fossil"
+      ]
+    },
+    {
+      "token": "ta",
+      "memberIds": [
+        "bloodstained-fossil",
+        "fundamental-fossil",
+        "metallic-fossil",
+        "tangled-fossil"
+      ]
+    },
+    {
+      "token": "in",
+      "memberIds": [
+        "bloodstained-fossil",
+        "pristine-fossil",
+        "shuddering-fossil"
+      ]
+    },
+    {
+      "token": "ed",
+      "memberIds": [
+        "bloodstained-fossil",
+        "corroded-fossil",
+        "faceted-fossil",
+        "fractured-fossil",
+        "gilded-fossil",
+        "jagged-fossil",
+        "sanctified-fossil",
+        "scorched-fossil",
+        "serrated-fossil",
+        "tangled-fossil"
+      ]
+    },
+    {
+      "token": "d f",
+      "memberIds": [
+        "bloodstained-fossil",
+        "bound-fossil",
+        "corroded-fossil",
+        "faceted-fossil",
+        "fractured-fossil",
+        "frigid-fossil",
+        "gilded-fossil",
+        "jagged-fossil",
+        "sanctified-fossil",
+        "scorched-fossil",
+        "serrated-fossil",
+        "tangled-fossil"
+      ]
+    },
+    {
+      "token": "u",
+      "memberIds": [
+        "bound-fossil",
+        "fractured-fossil",
+        "fundamental-fossil",
+        "lucent-fossil",
+        "opulent-fossil",
+        "shuddering-fossil"
+      ]
+    },
+    {
+      "token": "un",
+      "memberIds": [
+        "bound-fossil",
+        "fundamental-fossil"
+      ]
+    },
+    {
+      "token": "co",
+      "memberIds": [
+        "corroded-fossil",
+        "scorched-fossil"
+      ]
+    },
+    {
+      "token": "de",
+      "memberIds": [
+        "corroded-fossil",
+        "deft-fossil",
+        "dense-fossil",
+        "gilded-fossil",
+        "shuddering-fossil"
+      ]
+    },
+    {
+      "token": "ded",
+      "memberIds": [
+        "corroded-fossil",
+        "gilded-fossil"
+      ]
+    },
+    {
+      "token": "en",
+      "memberIds": [
+        "dense-fossil",
+        "fundamental-fossil",
+        "lucent-fossil",
+        "opulent-fossil"
+      ]
+    },
+    {
+      "token": "se",
+      "memberIds": [
+        "dense-fossil",
+        "serrated-fossil"
+      ]
+    },
+    {
+      "token": "e f",
+      "memberIds": [
+        "dense-fossil",
+        "pristine-fossil"
+      ]
+    },
+    {
+      "token": "ac",
+      "memberIds": [
+        "faceted-fossil",
+        "fractured-fossil"
+      ]
+    },
+    {
+      "token": "ce",
+      "memberIds": [
+        "faceted-fossil",
+        "lucent-fossil"
+      ]
+    },
+    {
+      "token": "te",
+      "memberIds": [
+        "faceted-fossil",
+        "serrated-fossil"
+      ]
+    },
+    {
+      "token": "fr",
+      "memberIds": [
+        "fractured-fossil",
+        "frigid-fossil"
+      ]
+    },
+    {
+      "token": "ct",
+      "memberIds": [
+        "fractured-fossil",
+        "sanctified-fossil"
+      ]
+    },
+    {
+      "token": "g",
+      "memberIds": [
+        "frigid-fossil",
+        "gilded-fossil",
+        "glyphic-fossil",
+        "jagged-fossil",
+        "shuddering-fossil",
+        "tangled-fossil"
+      ]
+    },
+    {
+      "token": "gi",
+      "memberIds": [
+        "frigid-fossil",
+        "gilded-fossil"
+      ]
+    },
+    {
+      "token": "m",
+      "memberIds": [
+        "fundamental-fossil",
+        "metallic-fossil",
+        "prismatic-fossil"
+      ]
+    },
+    {
+      "token": "me",
+      "memberIds": [
+        "fundamental-fossil",
+        "metallic-fossil"
+      ]
+    },
+    {
+      "token": "ent",
+      "memberIds": [
+        "fundamental-fossil",
+        "lucent-fossil",
+        "opulent-fossil"
+      ]
+    },
+    {
+      "token": "gl",
+      "memberIds": [
+        "glyphic-fossil",
+        "tangled-fossil"
+      ]
+    },
+    {
+      "token": "p",
+      "memberIds": [
+        "glyphic-fossil",
+        "opulent-fossil",
+        "prismatic-fossil",
+        "pristine-fossil"
+      ]
+    },
+    {
+      "token": "ll",
+      "memberIds": [
+        "hollow-fossil",
+        "metallic-fossil"
+      ]
+    },
+    {
+      "token": "ent f",
+      "memberIds": [
+        "lucent-fossil",
+        "opulent-fossil"
+      ]
+    },
+    {
+      "token": "le",
+      "memberIds": [
+        "opulent-fossil",
+        "tangled-fossil"
+      ]
+    },
+    {
+      "token": "pr",
+      "memberIds": [
+        "prismatic-fossil",
+        "pristine-fossil"
+      ]
+    },
+    {
+      "token": "at",
+      "memberIds": [
+        "prismatic-fossil",
+        "serrated-fossil"
+      ]
+    },
+    {
+      "token": "ti",
+      "memberIds": [
+        "prismatic-fossil",
+        "pristine-fossil",
+        "sanctified-fossil"
+      ]
+    },
+    {
+      "token": "ng",
+      "memberIds": [
+        "shuddering-fossil",
+        "tangled-fossil"
+      ]
+    }
+  ]
+}

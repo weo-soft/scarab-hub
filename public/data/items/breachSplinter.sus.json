@@ -1,0 +1,57 @@
+{
+  "entries": [
+    {
+      "id": "splinter-of-chayula",
+      "name": "Splinter of Chayula",
+      "sus": "C"
+    },
+    {
+      "id": "splinter-of-esh",
+      "name": "Splinter of Esh",
+      "sus": " E"
+    },
+    {
+      "id": "splinter-of-tul",
+      "name": "Splinter of Tul",
+      "sus": " T"
+    },
+    {
+      "id": "splinter-of-uul-netol",
+      "name": "Splinter of Uul-Netol",
+      "sus": "-"
+    },
+    {
+      "id": "splinter-of-xoph",
+      "name": "Splinter of Xoph",
+      "sus": "X"
+    }
+  ],
+  "groups": [
+    {
+      "token": "s",
+      "memberIds": [
+        "splinter-of-chayula",
+        "splinter-of-esh",
+        "splinter-of-tul",
+        "splinter-of-uul-netol",
+        "splinter-of-xoph"
+      ]
+    },
+    {
+      "token": "h",
+      "memberIds": [
+        "splinter-of-chayula",
+        "splinter-of-esh",
+        "splinter-of-xoph"
+      ]
+    },
+    {
+      "token": "u",
+      "memberIds": [
+        "splinter-of-chayula",
+        "splinter-of-tul",
+        "splinter-of-uul-netol"
+      ]
+    }
+  ]
+}

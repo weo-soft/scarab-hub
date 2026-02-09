@@ -1,0 +1,384 @@
+{
+  "entries": [
+    {
+      "id": "clear-oil",
+      "name": "Clear Oil",
+      "sus": "Cl"
+    },
+    {
+      "id": "sepia-oil",
+      "name": "Sepia Oil",
+      "sus": "Se"
+    },
+    {
+      "id": "amber-oil",
+      "name": "Amber Oil",
+      "sus": "Am"
+    },
+    {
+      "id": "verdant-oil",
+      "name": "Verdant Oil",
+      "sus": "rd"
+    },
+    {
+      "id": "teal-oil",
+      "name": "Teal Oil",
+      "sus": "Tea"
+    },
+    {
+      "id": "azure-oil",
+      "name": "Azure Oil",
+      "sus": "z"
+    },
+    {
+      "id": "indigo-oil",
+      "name": "Indigo Oil",
+      "sus": "nd"
+    },
+    {
+      "id": "violet-oil",
+      "name": "Violet Oil",
+      "sus": "Vi"
+    },
+    {
+      "id": "crimson-oil",
+      "name": "Crimson Oil",
+      "sus": "Cr"
+    },
+    {
+      "id": "black-oil",
+      "name": "Black Oil",
+      "sus": "k"
+    },
+    {
+      "id": "opalescent-oil",
+      "name": "Opalescent Oil",
+      "sus": "Op"
+    },
+    {
+      "id": "silver-oil",
+      "name": "Silver Oil",
+      "sus": "Si"
+    },
+    {
+      "id": "golden-oil",
+      "name": "Golden Oil",
+      "sus": "ld"
+    },
+    {
+      "id": "prismatic-oil",
+      "name": "Prismatic Oil",
+      "sus": "Pr"
+    },
+    {
+      "id": "reflective-oil",
+      "name": "Reflective Oil",
+      "sus": "f"
+    },
+    {
+      "id": "tainted-oil",
+      "name": "Tainted Oil",
+      "sus": "Ta"
+    }
+  ],
+  "groups": [
+    {
+      "token": "c",
+      "memberIds": [
+        "clear-oil",
+        "crimson-oil",
+        "black-oil",
+        "opalescent-oil",
+        "prismatic-oil",
+        "reflective-oil"
+      ]
+    },
+    {
+      "token": "l",
+      "memberIds": [
+        "clear-oil",
+        "sepia-oil",
+        "amber-oil",
+        "verdant-oil",
+        "teal-oil",
+        "azure-oil",
+        "indigo-oil",
+        "violet-oil",
+        "crimson-oil",
+        "black-oil",
+        "opalescent-oil",
+        "silver-oil",
+        "golden-oil",
+        "prismatic-oil",
+        "reflective-oil",
+        "tainted-oil"
+      ]
+    },
+    {
+      "token": "le",
+      "memberIds": [
+        "clear-oil",
+        "violet-oil",
+        "opalescent-oil",
+        "reflective-oil"
+      ]
+    },
+    {
+      "token": "e",
+      "memberIds": [
+        "clear-oil",
+        "sepia-oil",
+        "amber-oil",
+        "verdant-oil",
+        "teal-oil",
+        "azure-oil",
+        "violet-oil",
+        "opalescent-oil",
+        "silver-oil",
+        "golden-oil",
+        "reflective-oil",
+        "tainted-oil"
+      ]
+    },
+    {
+      "token": "ea",
+      "memberIds": [
+        "clear-oil",
+        "teal-oil"
+      ]
+    },
+    {
+      "token": "a",
+      "memberIds": [
+        "clear-oil",
+        "sepia-oil",
+        "amber-oil",
+        "verdant-oil",
+        "teal-oil",
+        "azure-oil",
+        "black-oil",
+        "opalescent-oil",
+        "prismatic-oil",
+        "tainted-oil"
+      ]
+    },
+    {
+      "token": "r",
+      "memberIds": [
+        "clear-oil",
+        "amber-oil",
+        "verdant-oil",
+        "azure-oil",
+        "crimson-oil",
+        "silver-oil",
+        "prismatic-oil",
+        "reflective-oil"
+      ]
+    },
+    {
+      "token": "r o",
+      "memberIds": [
+        "clear-oil",
+        "amber-oil",
+        "silver-oil"
+      ]
+    },
+    {
+      "token": "s",
+      "memberIds": [
+        "sepia-oil",
+        "crimson-oil",
+        "opalescent-oil",
+        "silver-oil",
+        "prismatic-oil"
+      ]
+    },
+    {
+      "token": "p",
+      "memberIds": [
+        "sepia-oil",
+        "opalescent-oil",
+        "prismatic-oil"
+      ]
+    },
+    {
+      "token": "m",
+      "memberIds": [
+        "amber-oil",
+        "crimson-oil",
+        "prismatic-oil"
+      ]
+    },
+    {
+      "token": "b",
+      "memberIds": [
+        "amber-oil",
+        "black-oil"
+      ]
+    },
+    {
+      "token": "er",
+      "memberIds": [
+        "amber-oil",
+        "verdant-oil",
+        "silver-oil"
+      ]
+    },
+    {
+      "token": "er o",
+      "memberIds": [
+        "amber-oil",
+        "silver-oil"
+      ]
+    },
+    {
+      "token": "v",
+      "memberIds": [
+        "verdant-oil",
+        "violet-oil",
+        "silver-oil",
+        "reflective-oil"
+      ]
+    },
+    {
+      "token": "ve",
+      "memberIds": [
+        "verdant-oil",
+        "silver-oil",
+        "reflective-oil"
+      ]
+    },
+    {
+      "token": "ver",
+      "memberIds": [
+        "verdant-oil",
+        "silver-oil"
+      ]
+    },
+    {
+      "token": "d",
+      "memberIds": [
+        "verdant-oil",
+        "indigo-oil",
+        "golden-oil",
+        "tainted-oil"
+      ]
+    },
+    {
+      "token": "n",
+      "memberIds": [
+        "verdant-oil",
+        "indigo-oil",
+        "crimson-oil",
+        "opalescent-oil",
+        "golden-oil",
+        "tainted-oil"
+      ]
+    },
+    {
+      "token": "nt",
+      "memberIds": [
+        "verdant-oil",
+        "opalescent-oil",
+        "tainted-oil"
+      ]
+    },
+    {
+      "token": "nt o",
+      "memberIds": [
+        "verdant-oil",
+        "opalescent-oil"
+      ]
+    },
+    {
+      "token": "t",
+      "memberIds": [
+        "verdant-oil",
+        "teal-oil",
+        "violet-oil",
+        "opalescent-oil",
+        "prismatic-oil",
+        "reflective-oil",
+        "tainted-oil"
+      ]
+    },
+    {
+      "token": "t o",
+      "memberIds": [
+        "verdant-oil",
+        "violet-oil",
+        "opalescent-oil"
+      ]
+    },
+    {
+      "token": "te",
+      "memberIds": [
+        "teal-oil",
+        "tainted-oil"
+      ]
+    },
+    {
+      "token": "al",
+      "memberIds": [
+        "teal-oil",
+        "opalescent-oil"
+      ]
+    },
+    {
+      "token": "re",
+      "memberIds": [
+        "azure-oil",
+        "reflective-oil"
+      ]
+    },
+    {
+      "token": "in",
+      "memberIds": [
+        "indigo-oil",
+        "tainted-oil"
+      ]
+    },
+    {
+      "token": "g",
+      "memberIds": [
+        "indigo-oil",
+        "golden-oil"
+      ]
+    },
+    {
+      "token": "ol",
+      "memberIds": [
+        "violet-oil",
+        "golden-oil"
+      ]
+    },
+    {
+      "token": "ri",
+      "memberIds": [
+        "crimson-oil",
+        "prismatic-oil"
+      ]
+    },
+    {
+      "token": "n o",
+      "memberIds": [
+        "crimson-oil",
+        "golden-oil"
+      ]
+    },
+    {
+      "token": "en",
+      "memberIds": [
+        "opalescent-oil",
+        "golden-oil"
+      ]
+    },
+    {
+      "token": "ti",
+      "memberIds": [
+        "prismatic-oil",
+        "reflective-oil"
+      ]
+    }
+  ]
+}

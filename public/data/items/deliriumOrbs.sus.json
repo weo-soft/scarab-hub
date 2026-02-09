@@ -1,0 +1,483 @@
+{
+  "entries": [
+    {
+      "id": "abyssal-delirium-orb",
+      "name": "Abyssal Delirium Orb",
+      "sus": "y"
+    },
+    {
+      "id": "obscured-delirium-orb",
+      "name": "Obscured Delirium Orb",
+      "sus": "Ob"
+    },
+    {
+      "id": "armoursmiths-delirium-orb",
+      "name": "Armoursmith's Delirium Orb",
+      "sus": "rm"
+    },
+    {
+      "id": "blacksmiths-delirium-orb",
+      "name": "Blacksmith's Delirium Orb",
+      "sus": "ac"
+    },
+    {
+      "id": "blighted-delirium-orb",
+      "name": "Blighted Delirium Orb",
+      "sus": "ig"
+    },
+    {
+      "id": "cartographers-delirium-orb",
+      "name": "Cartographer's Delirium Orb",
+      "sus": "Ca"
+    },
+    {
+      "id": "diviners-delirium-orb",
+      "name": "Diviner's Delirium Orb",
+      "sus": "v"
+    },
+    {
+      "id": "fine-delirium-orb",
+      "name": "Fine Delirium Orb",
+      "sus": "Fi"
+    },
+    {
+      "id": "primal-delirium-orb",
+      "name": "Primal Delirium Orb",
+      "sus": "Pr"
+    },
+    {
+      "id": "foreboding-delirium-orb",
+      "name": "Foreboding Delirium Orb",
+      "sus": "eb"
+    },
+    {
+      "id": "fossilised-delirium-orb",
+      "name": "Fossilised Delirium Orb",
+      "sus": "os"
+    },
+    {
+      "id": "fragmented-delirium-orb",
+      "name": "Fragmented Delirium Orb",
+      "sus": "Fr"
+    },
+    {
+      "id": "jewellers-delirium-orb",
+      "name": "Jeweller's Delirium Orb",
+      "sus": "J"
+    },
+    {
+      "id": "singular-delirium-orb",
+      "name": "Singular Delirium Orb",
+      "sus": "gu"
+    },
+    {
+      "id": "skittering-delirium-orb",
+      "name": "Skittering Delirium Orb",
+      "sus": "Sk"
+    },
+    {
+      "id": "thaumaturges-delirium-orb",
+      "name": "Thaumaturge's Delirium Orb",
+      "sus": "ha"
+    },
+    {
+      "id": "timeless-delirium-orb",
+      "name": "Timeless Delirium Orb",
+      "sus": "Ti"
+    },
+    {
+      "id": "whispering-delirium-orb",
+      "name": "Whispering Delirium Orb",
+      "sus": "Wh"
+    }
+  ],
+  "groups": [
+    {
+      "token": "a",
+      "memberIds": [
+        "abyssal-delirium-orb",
+        "armoursmiths-delirium-orb",
+        "blacksmiths-delirium-orb",
+        "cartographers-delirium-orb",
+        "primal-delirium-orb",
+        "fragmented-delirium-orb",
+        "singular-delirium-orb",
+        "thaumaturges-delirium-orb"
+      ]
+    },
+    {
+      "token": "b",
+      "memberIds": [
+        "abyssal-delirium-orb",
+        "obscured-delirium-orb",
+        "armoursmiths-delirium-orb",
+        "blacksmiths-delirium-orb",
+        "blighted-delirium-orb",
+        "cartographers-delirium-orb",
+        "diviners-delirium-orb",
+        "fine-delirium-orb",
+        "primal-delirium-orb",
+        "foreboding-delirium-orb",
+        "fossilised-delirium-orb",
+        "fragmented-delirium-orb",
+        "jewellers-delirium-orb",
+        "singular-delirium-orb",
+        "skittering-delirium-orb",
+        "thaumaturges-delirium-orb",
+        "timeless-delirium-orb",
+        "whispering-delirium-orb"
+      ]
+    },
+    {
+      "token": "s",
+      "memberIds": [
+        "abyssal-delirium-orb",
+        "obscured-delirium-orb",
+        "armoursmiths-delirium-orb",
+        "blacksmiths-delirium-orb",
+        "cartographers-delirium-orb",
+        "diviners-delirium-orb",
+        "fossilised-delirium-orb",
+        "jewellers-delirium-orb",
+        "singular-delirium-orb",
+        "skittering-delirium-orb",
+        "thaumaturges-delirium-orb",
+        "timeless-delirium-orb",
+        "whispering-delirium-orb"
+      ]
+    },
+    {
+      "token": "ss",
+      "memberIds": [
+        "abyssal-delirium-orb",
+        "fossilised-delirium-orb",
+        "timeless-delirium-orb"
+      ]
+    },
+    {
+      "token": "al",
+      "memberIds": [
+        "abyssal-delirium-orb",
+        "primal-delirium-orb"
+      ]
+    },
+    {
+      "token": "c",
+      "memberIds": [
+        "obscured-delirium-orb",
+        "blacksmiths-delirium-orb",
+        "cartographers-delirium-orb"
+      ]
+    },
+    {
+      "token": "ur",
+      "memberIds": [
+        "obscured-delirium-orb",
+        "armoursmiths-delirium-orb",
+        "thaumaturges-delirium-orb"
+      ]
+    },
+    {
+      "token": "re",
+      "memberIds": [
+        "obscured-delirium-orb",
+        "foreboding-delirium-orb"
+      ]
+    },
+    {
+      "token": "ed",
+      "memberIds": [
+        "obscured-delirium-orb",
+        "blighted-delirium-orb",
+        "fossilised-delirium-orb",
+        "fragmented-delirium-orb"
+      ]
+    },
+    {
+      "token": "ar",
+      "memberIds": [
+        "armoursmiths-delirium-orb",
+        "cartographers-delirium-orb",
+        "singular-delirium-orb"
+      ]
+    },
+    {
+      "token": "sm",
+      "memberIds": [
+        "armoursmiths-delirium-orb",
+        "blacksmiths-delirium-orb"
+      ]
+    },
+    {
+      "token": "it",
+      "memberIds": [
+        "armoursmiths-delirium-orb",
+        "blacksmiths-delirium-orb",
+        "skittering-delirium-orb"
+      ]
+    },
+    {
+      "token": "t",
+      "memberIds": [
+        "armoursmiths-delirium-orb",
+        "blacksmiths-delirium-orb",
+        "blighted-delirium-orb",
+        "cartographers-delirium-orb",
+        "fragmented-delirium-orb",
+        "skittering-delirium-orb",
+        "thaumaturges-delirium-orb",
+        "timeless-delirium-orb"
+      ]
+    },
+    {
+      "token": "th",
+      "memberIds": [
+        "armoursmiths-delirium-orb",
+        "blacksmiths-delirium-orb",
+        "thaumaturges-delirium-orb"
+      ]
+    },
+    {
+      "token": "h",
+      "memberIds": [
+        "armoursmiths-delirium-orb",
+        "blacksmiths-delirium-orb",
+        "blighted-delirium-orb",
+        "cartographers-delirium-orb",
+        "thaumaturges-delirium-orb",
+        "whispering-delirium-orb"
+      ]
+    },
+    {
+      "token": "'",
+      "memberIds": [
+        "armoursmiths-delirium-orb",
+        "blacksmiths-delirium-orb",
+        "cartographers-delirium-orb",
+        "diviners-delirium-orb",
+        "jewellers-delirium-orb",
+        "thaumaturges-delirium-orb"
+      ]
+    },
+    {
+      "token": "s d",
+      "memberIds": [
+        "armoursmiths-delirium-orb",
+        "blacksmiths-delirium-orb",
+        "cartographers-delirium-orb",
+        "diviners-delirium-orb",
+        "jewellers-delirium-orb",
+        "thaumaturges-delirium-orb",
+        "timeless-delirium-orb"
+      ]
+    },
+    {
+      "token": "bl",
+      "memberIds": [
+        "blacksmiths-delirium-orb",
+        "blighted-delirium-orb"
+      ]
+    },
+    {
+      "token": "la",
+      "memberIds": [
+        "blacksmiths-delirium-orb",
+        "singular-delirium-orb"
+      ]
+    },
+    {
+      "token": "k",
+      "memberIds": [
+        "blacksmiths-delirium-orb",
+        "skittering-delirium-orb"
+      ]
+    },
+    {
+      "token": "g",
+      "memberIds": [
+        "blighted-delirium-orb",
+        "cartographers-delirium-orb",
+        "foreboding-delirium-orb",
+        "fragmented-delirium-orb",
+        "singular-delirium-orb",
+        "skittering-delirium-orb",
+        "thaumaturges-delirium-orb",
+        "whispering-delirium-orb"
+      ]
+    },
+    {
+      "token": "te",
+      "memberIds": [
+        "blighted-delirium-orb",
+        "fragmented-delirium-orb",
+        "skittering-delirium-orb"
+      ]
+    },
+    {
+      "token": "ted",
+      "memberIds": [
+        "blighted-delirium-orb",
+        "fragmented-delirium-orb"
+      ]
+    },
+    {
+      "token": "ra",
+      "memberIds": [
+        "cartographers-delirium-orb",
+        "fragmented-delirium-orb"
+      ]
+    },
+    {
+      "token": "p",
+      "memberIds": [
+        "cartographers-delirium-orb",
+        "primal-delirium-orb",
+        "whispering-delirium-orb"
+      ]
+    },
+    {
+      "token": "er",
+      "memberIds": [
+        "cartographers-delirium-orb",
+        "diviners-delirium-orb",
+        "jewellers-delirium-orb",
+        "skittering-delirium-orb",
+        "whispering-delirium-orb"
+      ]
+    },
+    {
+      "token": "r'",
+      "memberIds": [
+        "cartographers-delirium-orb",
+        "diviners-delirium-orb",
+        "jewellers-delirium-orb"
+      ]
+    },
+    {
+      "token": "di",
+      "memberIds": [
+        "diviners-delirium-orb",
+        "foreboding-delirium-orb"
+      ]
+    },
+    {
+      "token": "in",
+      "memberIds": [
+        "diviners-delirium-orb",
+        "fine-delirium-orb",
+        "foreboding-delirium-orb",
+        "singular-delirium-orb",
+        "skittering-delirium-orb",
+        "whispering-delirium-orb"
+      ]
+    },
+    {
+      "token": "ne",
+      "memberIds": [
+        "diviners-delirium-orb",
+        "fine-delirium-orb"
+      ]
+    },
+    {
+      "token": "n",
+      "memberIds": [
+        "diviners-delirium-orb",
+        "fine-delirium-orb",
+        "foreboding-delirium-orb",
+        "fragmented-delirium-orb",
+        "singular-delirium-orb",
+        "skittering-delirium-orb",
+        "whispering-delirium-orb"
+      ]
+    },
+    {
+      "token": "f",
+      "memberIds": [
+        "fine-delirium-orb",
+        "foreboding-delirium-orb",
+        "fossilised-delirium-orb",
+        "fragmented-delirium-orb"
+      ]
+    },
+    {
+      "token": "im",
+      "memberIds": [
+        "primal-delirium-orb",
+        "timeless-delirium-orb"
+      ]
+    },
+    {
+      "token": "ma",
+      "memberIds": [
+        "primal-delirium-orb",
+        "thaumaturges-delirium-orb"
+      ]
+    },
+    {
+      "token": "fo",
+      "memberIds": [
+        "foreboding-delirium-orb",
+        "fossilised-delirium-orb"
+      ]
+    },
+    {
+      "token": "ng",
+      "memberIds": [
+        "foreboding-delirium-orb",
+        "singular-delirium-orb",
+        "skittering-delirium-orb",
+        "whispering-delirium-orb"
+      ]
+    },
+    {
+      "token": "g d",
+      "memberIds": [
+        "foreboding-delirium-orb",
+        "skittering-delirium-orb",
+        "whispering-delirium-orb"
+      ]
+    },
+    {
+      "token": "si",
+      "memberIds": [
+        "fossilised-delirium-orb",
+        "singular-delirium-orb"
+      ]
+    },
+    {
+      "token": "is",
+      "memberIds": [
+        "fossilised-delirium-orb",
+        "whispering-delirium-orb"
+      ]
+    },
+    {
+      "token": "me",
+      "memberIds": [
+        "fragmented-delirium-orb",
+        "timeless-delirium-orb"
+      ]
+    },
+    {
+      "token": "w",
+      "memberIds": [
+        "jewellers-delirium-orb",
+        "whispering-delirium-orb"
+      ]
+    },
+    {
+      "token": "le",
+      "memberIds": [
+        "jewellers-delirium-orb",
+        "timeless-delirium-orb"
+      ]
+    },
+    {
+      "token": "eri",
+      "memberIds": [
+        "skittering-delirium-orb",
+        "whispering-delirium-orb"
+      ]
+    }
+  ]
+}

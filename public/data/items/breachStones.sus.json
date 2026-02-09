@@ -1,0 +1,63 @@
+{
+  "entries": [
+    {
+      "id": "chayula-s-breachstone",
+      "name": "Chayula's Breachstone",
+      "sus": "y"
+    },
+    {
+      "id": "esh-s-breachstone",
+      "name": "Esh's Breachstone",
+      "sus": "Es"
+    },
+    {
+      "id": "tul-s-breachstone",
+      "name": "Tul's Breachstone",
+      "sus": "Tu"
+    },
+    {
+      "id": "uul-netol-s-breachstone",
+      "name": "Uul-Netol's Breachstone",
+      "sus": "-"
+    },
+    {
+      "id": "xoph-s-breachstone",
+      "name": "Xoph's Breachstone",
+      "sus": "X"
+    }
+  ],
+  "groups": [
+    {
+      "token": "c",
+      "memberIds": [
+        "chayula-s-breachstone",
+        "esh-s-breachstone",
+        "tul-s-breachstone",
+        "uul-netol-s-breachstone",
+        "xoph-s-breachstone"
+      ]
+    },
+    {
+      "token": "u",
+      "memberIds": [
+        "chayula-s-breachstone",
+        "tul-s-breachstone",
+        "uul-netol-s-breachstone"
+      ]
+    },
+    {
+      "token": "h'",
+      "memberIds": [
+        "esh-s-breachstone",
+        "xoph-s-breachstone"
+      ]
+    },
+    {
+      "token": "l'",
+      "memberIds": [
+        "tul-s-breachstone",
+        "uul-netol-s-breachstone"
+      ]
+    }
+  ]
+}

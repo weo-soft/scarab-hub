@@ -1,0 +1,86 @@
+{
+  "entries": [
+    {
+      "id": "timeless-eternal-emblem",
+      "name": "Timeless Eternal Emblem",
+      "sus": "n"
+    },
+    {
+      "id": "timeless-karui-emblem",
+      "name": "Timeless Karui Emblem",
+      "sus": "u"
+    },
+    {
+      "id": "timeless-vaal-emblem",
+      "name": "Timeless Vaal Emblem",
+      "sus": "V"
+    },
+    {
+      "id": "timeless-templar-emblem",
+      "name": "Timeless Templar Emblem",
+      "sus": "p"
+    },
+    {
+      "id": "timeless-maraketh-emblem",
+      "name": "Timeless Maraketh Emblem",
+      "sus": "h"
+    }
+  ],
+  "groups": [
+    {
+      "token": "t",
+      "memberIds": [
+        "timeless-eternal-emblem",
+        "timeless-karui-emblem",
+        "timeless-vaal-emblem",
+        "timeless-templar-emblem",
+        "timeless-maraketh-emblem"
+      ]
+    },
+    {
+      "token": "et",
+      "memberIds": [
+        "timeless-eternal-emblem",
+        "timeless-maraketh-emblem"
+      ]
+    },
+    {
+      "token": "te",
+      "memberIds": [
+        "timeless-eternal-emblem",
+        "timeless-templar-emblem"
+      ]
+    },
+    {
+      "token": "r",
+      "memberIds": [
+        "timeless-eternal-emblem",
+        "timeless-karui-emblem",
+        "timeless-templar-emblem",
+        "timeless-maraketh-emblem"
+      ]
+    },
+    {
+      "token": "al",
+      "memberIds": [
+        "timeless-eternal-emblem",
+        "timeless-vaal-emblem"
+      ]
+    },
+    {
+      "token": "k",
+      "memberIds": [
+        "timeless-karui-emblem",
+        "timeless-maraketh-emblem"
+      ]
+    },
+    {
+      "token": "ar",
+      "memberIds": [
+        "timeless-karui-emblem",
+        "timeless-templar-emblem",
+        "timeless-maraketh-emblem"
+      ]
+    }
+  ]
+}
