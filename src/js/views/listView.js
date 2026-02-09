@@ -69,6 +69,9 @@ export function renderListView(container, scarabs, currency = 'chaos', filters =
       <div class="scarab-header-cell name-cell sortable" data-sort-field="name">
         Name${getSortIndicator('name')}
       </div>
+      <div class="scarab-header-cell weight-cell sortable" data-sort-field="weight">
+        Drop weight${getSortIndicator('weight')}
+      </div>
       <div class="scarab-header-cell value-cell sortable" data-sort-field="value">
         Value${getSortIndicator('value')}
       </div>
@@ -249,11 +252,16 @@ function renderScarabItem(scarab, currency) {
   const yieldCount = yieldCounts.get(scarab.id);
   const hasYieldCounts = yieldCounts.size > 0;
 
+  const weightPercent = scarab.dropWeight != null
+    ? (scarab.dropWeight * 100).toFixed(2) + '%'
+    : '—';
+
   return `
     <div class="scarab-item compact" data-scarab-id="${scarab.id}" 
          style="border-left: 4px solid ${color}; background-color: ${bgColor};">
       <img class="scarab-image" src="${imagePath}" alt="${scarab.name}" onerror="this.style.display='none'">
       <span class="scarab-name">${scarab.name}</span>
+      <span class="scarab-weight">${weightPercent}</span>
       <span class="scarab-value">
         ${value !== null ? `${value.toFixed(2)} ${currency === 'divine' ? 'Div' : 'c'}` : 'N/A'}
       </span>

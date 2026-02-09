@@ -1,11 +1,11 @@
 /**
- * Fossil Model
- * Represents a game item (Fossil) with all attributes needed for profitability analysis
+ * Delirium Orb Model
+ * Represents a game item (Delirium Orb) with all attributes needed for profitability analysis
  */
 
-import { classifyRerollGroup } from '../utils/fossilGroupUtils.js';
+import { classifyRerollGroup } from '../utils/deliriumOrbGroupUtils.js';
 
-export class Fossil {
+export class DeliriumOrb {
   constructor(data) {
     this.id = data.id || data.detailsId || '';
     this.name = data.name || '';
@@ -17,10 +17,11 @@ export class Fossil {
     // Drop weight from MLE (probability weight for reroll outcome); null if unavailable
     this.dropWeight = data.dropWeight ?? null;
 
-    // Classify reroll group automatically (all Fossils belong to 'fossil' group)
+    // Classify reroll group automatically (all Delirium Orbs belong to 'delirium-orb' group)
     this.rerollGroup = data.rerollGroup ?? (this.name ? classifyRerollGroup(this.name) : null);
     
     // Calculated fields (set after calculation)
+    // Note: expectedValue is calculated per-orb (excluding the orb itself)
     this.expectedValue = data.expectedValue ?? 0;
     this.profitabilityStatus = data.profitabilityStatus || 'unknown';
     this.threshold = data.threshold ?? 0;
@@ -28,7 +29,7 @@ export class Fossil {
   }
 
   /**
-   * Validate Fossil data
+   * Validate Delirium Orb data
    * @returns {boolean} True if valid
    */
   validate() {
@@ -36,14 +37,14 @@ export class Fossil {
     if (this.chaosValue !== null && this.chaosValue < 0) return false;
     if (this.divineValue !== null && this.divineValue < 0) return false;
     if (this.dropWeight !== null && this.dropWeight < 0) return false;
-    if (this.rerollGroup !== null && this.rerollGroup !== 'fossil') {
+    if (this.rerollGroup !== null && this.rerollGroup !== 'delirium-orb') {
       return false;
     }
     return true;
   }
 
   /**
-   * Check if Fossil has valid price data
+   * Check if Delirium Orb has valid price data
    * @returns {boolean}
    */
   hasPriceData() {
@@ -51,7 +52,7 @@ export class Fossil {
   }
 
   /**
-   * Check if Fossil has valid drop weight for weighted expected value
+   * Check if Delirium Orb has valid drop weight for weighted expected value
    * @returns {boolean}
    */
   hasDropWeight() {
@@ -59,11 +60,11 @@ export class Fossil {
   }
 
   /**
-   * Check if Fossil has a valid reroll group
+   * Check if Delirium Orb has a valid reroll group
    * @returns {boolean}
    */
   hasRerollGroup() {
-    return this.rerollGroup === 'fossil';
+    return this.rerollGroup === 'delirium-orb';
   }
 
   /**
@@ -81,4 +82,3 @@ export class Fossil {
     this.selectedForReroll = selected;
   }
 }
-

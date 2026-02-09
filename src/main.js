@@ -3,10 +3,11 @@
  * Flipping Scarabs - Path of Exile vendor profitability calculator
  */
 
-import { loadAndMergeScarabData, loadPreferences, savePreferences, loadAllItemTypePrices, loadFullEssenceData, getPrimalLifeforcePrice, loadAndMergeFossilData, getWildLifeforcePrice, loadAndMergeCatalystData, loadFullFossilData, loadFullOilData, loadFullDeliriumOrbData, loadFullEmblemData, loadFullTattooData, loadTempleUpgradeData } from './js/services/dataService.js';
+import { loadAndMergeScarabData, loadPreferences, savePreferences, loadAllItemTypePrices, loadFullEssenceData, getPrimalLifeforcePrice, loadAndMergeFossilData, getWildLifeforcePrice, loadAndMergeCatalystData, loadFullFossilData, loadFullOilData, loadAndMergeDeliriumOrbData, loadFullDeliriumOrbData, loadFullEmblemData, loadFullTattooData, loadTempleUpgradeData } from './js/services/dataService.js';
 import { calculateThreshold, calculateProfitabilityStatus, calculateCatalystThreshold, calculateCatalystProfitabilityStatus, calculateTattooThreshold, calculateTattooProfitabilityStatus } from './js/services/calculationService.js';
 import { calculateExpectedValueForGroup, calculateThresholdForGroup, calculateProfitabilityStatus as calculateEssenceProfitabilityStatus } from './js/services/essenceCalculationService.js';
 import { calculateExpectedValueForGroup as calculateFossilExpectedValueForGroup, calculateThresholdForGroup as calculateFossilThresholdForGroup, calculateProfitabilityStatus as calculateFossilProfitabilityStatus } from './js/services/fossilCalculationService.js';
+import { calculateExpectedValuesForGroup, calculateThresholdForOrb, calculateProfitabilityStatus as calculateDeliriumOrbProfitabilityStatus } from './js/services/deliriumOrbCalculationService.js';
 import { priceUpdateService } from './js/services/priceUpdateService.js';
 import { initLeagueService } from './js/services/leagueService.js';
 import { Scarab } from './js/models/scarab.js';
@@ -14,8 +15,10 @@ import { Catalyst } from './js/models/catalyst.js';
 import { Tattoo } from './js/models/tattoo.js';
 import { Essence } from './js/models/essence.js';
 import { Fossil } from './js/models/fossil.js';
+import { DeliriumOrb } from './js/models/deliriumOrb.js';
 import { groupEssencesByRerollType, createRerollGroup } from './js/utils/essenceGroupUtils.js';
 import { groupFossilsByRerollType, createRerollGroup as createFossilRerollGroup } from './js/utils/fossilGroupUtils.js';
+import { groupDeliriumOrbsByRerollType } from './js/utils/deliriumOrbGroupUtils.js';
 import { renderEssenceList, showLoadingState as showEssenceLoadingState } from './js/views/essenceListView.js';
 import { renderFossilList, showLoadingState as showFossilLoadingState } from './js/views/fossilListView.js';
 import { renderTempleUpgradeList } from './js/views/templeUpgradeListView.js';
@@ -24,11 +27,11 @@ import { getProfitabilityColor, getProfitabilityBackgroundColor } from './js/uti
 import { renderListView, updateListView, showLoadingState, showErrorState } from './js/views/listView.js';
 import { initGridView, updateGridView, setFilteredScarabs, clearFilteredScarabs, teardownGridView } from './js/views/gridView.js';
 import { initEssenceGridView, teardownEssenceGridView } from './js/views/essenceGridView.js';
-import { initCatalystGridView, teardownCatalystGridView } from './js/views/catalystGridView.js';
+import { initCatalystGridView, teardownCatalystGridView, highlightCellForCatalyst, clearCatalystHighlight } from './js/views/catalystGridView.js';
 import { initFossilGridView, teardownFossilGridView } from './js/views/fossilGridView.js';
-import { initOilGridView, teardownOilGridView } from './js/views/oilGridView.js';
-import { initDeliriumOrbGridView, teardownDeliriumOrbGridView } from './js/views/deliriumOrbGridView.js';
-import { initEmblemGridView, teardownEmblemGridView } from './js/views/emblemGridView.js';
+import { initOilGridView, teardownOilGridView, highlightCellForOil, clearOilHighlight } from './js/views/oilGridView.js';
+import { initDeliriumOrbGridView, teardownDeliriumOrbGridView, highlightCellForDeliriumOrb, clearDeliriumOrbHighlight } from './js/views/deliriumOrbGridView.js';
+import { initEmblemGridView, teardownEmblemGridView, highlightCellForEmblem, clearEmblemHighlight } from './js/views/emblemGridView.js';
 import { ESSENCE_GRID_CONFIG, CATALYSTS_GRID_CONFIG, FOSSILS_GRID_CONFIG, OILS_GRID_CONFIG, DELIRIUM_ORBS_GRID_CONFIG, EMBLEMS_GRID_CONFIG } from './js/config/gridConfig.js';
 import { 
   renderViewSwitcher, 
@@ -66,6 +69,54 @@ if (import.meta.env.DEV) {
     console.log('   - window.analyzeCells() - Analyze image and detect cell positions');
     console.log('   - window.exportCellConfig(cells) - Export cells as config code');
   });
+}
+
+/**
+ * Setup hover on list rows to highlight the corresponding grid cell
+ * @param {HTMLElement} container - List view container
+ * @param {string} itemSelector - CSS selector for list rows (e.g. '.catalyst-list-row')
+ * @param {function(string): void} highlightFn - Called with item id on mouseenter
+ * @param {function(): void} clearFn - Called on mouseleave
+ */
+function setupListHoverHighlight(container, itemSelector, highlightFn, clearFn) {
+  if (!container) return;
+  const items = container.querySelectorAll(`${itemSelector}[data-id]`);
+  items.forEach(item => {
+    const id = item.getAttribute('data-id');
+    if (!id) return;
+    item.addEventListener('mouseenter', () => highlightFn(id));
+    item.addEventListener('mouseleave', () => clearFn());
+  });
+}
+
+/**
+ * Setup sortable list headers: click toggles/sets sort and calls reRender
+ * @param {HTMLElement} container - List view container
+ * @param {string} headerSelector - Selector for sortable header cells (e.g. '.catalyst-list-header .sortable')
+ * @param {object} currentSort - { field: string, direction: 'asc'|'desc' }
+ * @param {function(string): void} setSort - Called with new field; should update sort state (toggle direction if same field)
+ * @param {function(): void} reRender - Called after sort change to re-render the list
+ */
+function setupListSort(container, headerSelector, currentSort, setSort, reRender) {
+  if (!container) return;
+  const headers = container.querySelectorAll(headerSelector);
+  headers.forEach(header => {
+    const field = header.getAttribute('data-sort-field');
+    if (!field) return;
+    header.addEventListener('click', () => {
+      if (currentSort.field === field) {
+        setSort(field, currentSort.direction === 'asc' ? 'desc' : 'asc');
+      } else {
+        setSort(field, 'asc');
+      }
+      reRender();
+    });
+  });
+}
+
+function getListSortIndicator(currentSort, field) {
+  if (currentSort.field !== field) return '';
+  return currentSort.direction === 'asc' ? ' ↑' : ' ↓';
 }
 
 /**
@@ -300,6 +351,17 @@ async function init() {
           console.error('Error reloading Fossil data after league change:', error);
           showErrorToast('Failed to reload Fossil data for new league');
         }
+      } else if (currentCategory === 'delirium-orbs') {
+        // Reload Delirium Orb data for new league
+        try {
+          const { deliriumOrbs, rerollCost, primalLifeforce } = await loadAndProcessDeliriumOrbData();
+          const preferences = loadPreferences();
+          const currency = preferences.currencyPreference || 'chaos';
+          await renderDeliriumOrbUI(deliriumOrbs, currency, rerollCost, primalLifeforce);
+        } catch (error) {
+          console.error('Error reloading Delirium Orb data after league change:', error);
+          showErrorToast('Failed to reload Delirium Orb data for new league');
+        }
       } else if (currentCategory === 'scarabs') {
         // Reload Scarab data for new league
         await reloadScarabDataWithPrices(null);
@@ -351,6 +413,11 @@ let currentOils = [];
 let currentDeliriumOrbs = [];
 let currentEmblems = [];
 let currentTattoos = [];
+let currentCatalystSort = { field: 'name', direction: 'asc' };
+let currentOilSort = { field: 'name', direction: 'asc' };
+let currentDeliriumOrbSort = { field: 'name', direction: 'asc' };
+let currentEmblemSort = { field: 'name', direction: 'asc' };
+let currentTattooSort = { field: 'name', direction: 'asc' };
 let currentCurrency = 'chaos';
 let currentView = 'list';
 let currentFilters = null;
@@ -566,7 +633,7 @@ function handleTradeModeChange(tradeMode) {
  * Handle currency change
  * @param {string} currency - 'chaos' or 'divine'
  */
-function handleCurrencyChange(currency) {
+async function handleCurrencyChange(currency) {
   currentCurrency = currency;
   saveCurrencyPreference(currency);
   
@@ -634,77 +701,29 @@ function handleCurrencyChange(currency) {
   
   // Handle Catalyst category (re-render list with new currency)
   if (currentCategory === 'catalysts') {
-    if (currentCatalysts.length > 0) {
-      const listViewContainer = document.getElementById('list-view');
-      if (listViewContainer) {
-        const currencySymbol = currency === 'divine' ? 'Div' : 'c';
-        const rows = currentCatalysts.map((c) => {
-          const value = currency === 'divine' ? (c.divineValue != null ? c.divineValue.toFixed(4) : '—') : (c.chaosValue != null ? c.chaosValue.toFixed(2) : '—');
-          const weightStr = c.dropWeight != null ? (c.dropWeight * 100).toFixed(2) + '%' : '—';
-          return `<div class="catalyst-list-row" data-id="${c.id}">
-            <span class="catalyst-name">${c.name}</span>
-            <span class="catalyst-weight">${weightStr}</span>
-            <span class="catalyst-value">${value} ${currencySymbol}</span>
-          </div>`;
-        });
-        listViewContainer.innerHTML = `
-          <div class="catalyst-list-header">
-            <span class="catalyst-name">Name</span>
-            <span class="catalyst-weight">Drop weight</span>
-            <span class="catalyst-value">Value (${currencySymbol})</span>
-          </div>
-          <div class="catalyst-list">${rows.join('')}</div>
-        `;
-      }
+    const listViewContainer = document.getElementById('list-view');
+    if (listViewContainer && currentCatalysts.length > 0) {
+      renderCatalystList(listViewContainer);
     }
     return;
   }
 
   // Handle Oil category (re-render list with new currency)
   if (currentCategory === 'oils') {
-    if (currentOils.length > 0) {
-      const listViewContainer = document.getElementById('list-view');
-      if (listViewContainer) {
-        const currencySymbol = currency === 'divine' ? 'Div' : 'c';
-        const rows = currentOils.map((o) => {
-          const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
-          const tierStr = o.tier != null && o.tier > 0 ? `T${o.tier}` : '—';
-          return `<div class="oil-list-row" data-id="${o.id}">
-            <span class="oil-name">${o.name}</span>
-            <span class="oil-tier">${tierStr}</span>
-            <span class="oil-value">${value} ${currencySymbol}</span>
-          </div>`;
-        });
-        listViewContainer.innerHTML = `
-          <div class="oil-list-header">
-            <span class="oil-name">Name</span>
-            <span class="oil-tier">Tier</span>
-            <span class="oil-value">Value (${currencySymbol})</span>
-          </div>
-          <div class="oil-list">${rows.join('')}</div>
-        `;
-      }
+    const listViewContainer = document.getElementById('list-view');
+    if (listViewContainer && currentOils.length > 0) {
+      renderOilList(listViewContainer);
     }
     return;
   }
 
   if (currentCategory === 'delirium-orbs' && currentDeliriumOrbs.length > 0) {
-    const listViewContainer = document.getElementById('list-view');
-    if (listViewContainer) {
-      const currencySymbol = currency === 'divine' ? 'Div' : 'c';
-      const rows = currentDeliriumOrbs.map((o) => {
-        const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
-        const imagePath = `/assets/images/deliriumOrbs/${o.id}.png`;
-        return `<div class="delirium-orb-list-row" data-id="${o.id}"><img class="delirium-orb-image" src="${imagePath}" alt="${o.name}" onerror="this.style.display='none'"><span class="item-name">${o.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
-      });
-      listViewContainer.innerHTML = `
-        <div class="delirium-orb-list-header">
-          <span class="delirium-orb-image-cell"></span>
-          <span class="item-name">Name</span>
-          <span class="item-value">Value (${currencySymbol})</span>
-        </div>
-        <div class="delirium-orb-list">${rows.join('')}</div>
-      `;
+    // Reload Delirium Orb data to recalculate with new currency
+    try {
+      const { deliriumOrbs, rerollCost, primalLifeforce } = await loadAndProcessDeliriumOrbData();
+      await renderDeliriumOrbUI(deliriumOrbs, currency, rerollCost, primalLifeforce);
+    } catch (error) {
+      console.error('Error reloading Delirium Orb data:', error);
     }
     return;
   }
@@ -712,42 +731,14 @@ function handleCurrencyChange(currency) {
   if (currentCategory === 'emblems' && currentEmblems.length > 0) {
     const listViewContainer = document.getElementById('list-view');
     if (listViewContainer) {
-      const currencySymbol = currency === 'divine' ? 'Div' : 'c';
-      const rows = currentEmblems.map((o) => {
-        const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
-        const imagePath = `/assets/images/legionEmblems/${o.id}.png`;
-        return `<div class="emblem-list-row" data-id="${o.id}"><img class="emblem-image" src="${imagePath}" alt="${o.name}" onerror="this.style.display='none'"><span class="item-name">${o.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
-      });
-      listViewContainer.innerHTML = `
-        <div class="emblem-list-header">
-          <span class="emblem-image-cell"></span>
-          <span class="item-name">Name</span>
-          <span class="item-value">Value (${currencySymbol})</span>
-        </div>
-        <div class="emblem-list">${rows.join('')}</div>
-      `;
+      renderEmblemList(listViewContainer);
     }
     return;
   }
 
   if (currentCategory === 'tattoos' && currentTattoos.length > 0) {
     const listViewContainer = document.getElementById('list-view');
-    if (listViewContainer) {
-      const currencySymbol = currency === 'divine' ? 'Div' : 'c';
-      const rows = currentTattoos.map((t) => {
-        const value = currency === 'divine' ? (t.divineValue != null ? t.divineValue.toFixed(4) : '—') : (t.chaosValue != null ? t.chaosValue.toFixed(2) : '—');
-        const imagePath = `/assets/images/tattoos/${t.id}.png`;
-        return `<div class="tattoo-list-row" data-id="${t.id}"><img class="tattoo-image" src="${imagePath}" alt="${t.name}" onerror="this.style.display='none'"><span class="item-name">${t.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
-      });
-      listViewContainer.innerHTML = `
-        <div class="tattoo-list-header">
-          <span class="tattoo-image-cell"></span>
-          <span class="item-name">Name</span>
-          <span class="item-value">Value (${currencySymbol})</span>
-        </div>
-        <div class="tattoo-list">${rows.join('')}</div>
-      `;
-    }
+    if (listViewContainer) renderTattooList(listViewContainer);
     return;
   }
   
@@ -1050,19 +1041,20 @@ async function loadAndProcessFossilData() {
       return;
     }
     
-    // Calculate expected value (equal weighting)
-    const expectedValue = calculateFossilExpectedValueForGroup(fossilGroup);
+    // Calculate expected value (weighted by drop probability when MLE weights available)
+    const { expectedValue, method } = calculateFossilExpectedValueForGroup(fossilGroup);
     
     // Calculate threshold
     const threshold = calculateFossilThresholdForGroup(expectedValue, rerollCost);
     
     // Store threshold
+    const calculationMethod = method === 'weighted' ? 'weighted_average' : 'equal_weighted_average';
     const thresholdData = {
       rerollGroup: 'fossil',
       value: threshold,
       expectedValue: expectedValue,
       rerollCost: rerollCost,
-      calculationMethod: 'equal_weighted_average',
+      calculationMethod,
       fossilCount: fossilGroup.length,
       calculatedAt: new Date().toISOString(),
       wildLifeforcePrice: wildLifeforce.chaosValue
@@ -1111,6 +1103,100 @@ async function loadAndProcessFossilData() {
 }
 
 /**
+ * Load and process Delirium Orb data
+ */
+async function loadAndProcessDeliriumOrbData() {
+  try {
+    console.log('Loading Delirium Orb data...');
+    
+    // Load Delirium Orb prices and weights
+    const rawDeliriumOrbData = await loadAndMergeDeliriumOrbData();
+    
+    // Load Primal Lifeforce price
+    const primalLifeforce = await getPrimalLifeforcePrice();
+    if (!primalLifeforce || !primalLifeforce.chaosValue) {
+      console.error('Primal Lifeforce price not available');
+      showErrorToast('Cannot calculate Delirium Orb thresholds: Primal Lifeforce price unavailable');
+      return;
+    }
+    
+    const rerollCost = 30 * primalLifeforce.chaosValue;
+    console.log(`Reroll cost: ${rerollCost.toFixed(2)} chaos (30 × ${primalLifeforce.chaosValue.toFixed(4)})`);
+    
+    // Create Delirium Orb instances (classification happens in constructor)
+    const deliriumOrbs = rawDeliriumOrbData
+      .map(data => new DeliriumOrb(data))
+      .filter(orb => {
+        if (!orb.validate()) {
+          console.warn(`Invalid Delirium Orb data: ${orb.id}`);
+          return false;
+        }
+        return true;
+      });
+    
+    console.log(`Loaded ${deliriumOrbs.length} Delirium Orbs`);
+    
+    // Group Delirium Orbs by reroll type (all belong to 'delirium-orb' group)
+    const groupsByType = groupDeliriumOrbsByRerollType(deliriumOrbs);
+    console.log(`Grouped into ${groupsByType.size} reroll groups`);
+    
+    // Calculate threshold for the single Delirium Orb group
+    const orbGroup = groupsByType.get('delirium-orb');
+    if (!orbGroup || orbGroup.length === 0) {
+      console.error('No Delirium Orbs found in reroll group');
+      showErrorToast('No valid Delirium Orbs found');
+      return;
+    }
+    
+    // Calculate expected values for each orb (excluding the orb itself from its calculation)
+    const expectedValuesByOrbId = calculateExpectedValuesForGroup(orbGroup);
+    
+    // Calculate threshold and profitability status for each orb
+    orbGroup.forEach(orb => {
+      const expectedValueData = expectedValuesByOrbId.get(orb.id);
+      const expectedValue = expectedValueData?.expectedValue ?? 0;
+      const threshold = calculateThresholdForOrb(expectedValue, rerollCost);
+      
+      orb.expectedValue = expectedValue;
+      orb.threshold = threshold;
+      orb.profitabilityStatus = calculateDeliriumOrbProfitabilityStatus(orb, threshold);
+    });
+    
+    console.log(`Delirium Orb group: ${orbGroup.length} orbs processed`);
+    
+    // Handle Delirium Orbs without reroll groups
+    deliriumOrbs.forEach(orb => {
+      if (!orb.hasRerollGroup()) {
+        orb.profitabilityStatus = 'unknown';
+        console.warn(`Delirium Orb without reroll group: ${orb.name}`);
+      }
+    });
+    
+    // Filter to only include Delirium Orbs with valid reroll group (delirium-orb)
+    const filteredOrbs = deliriumOrbs.filter(orb => {
+      return orb.rerollGroup === 'delirium-orb';
+    });
+    
+    // Count profitability statuses (from filtered Orbs)
+    const profitableCount = filteredOrbs.filter(o => o.profitabilityStatus === 'profitable').length;
+    const notProfitableCount = filteredOrbs.filter(o => o.profitabilityStatus === 'not_profitable').length;
+    const unknownCount = filteredOrbs.filter(o => o.profitabilityStatus === 'unknown').length;
+    
+    console.log(`Delirium Orb profitability breakdown: ${profitableCount} profitable, ${notProfitableCount} not profitable, ${unknownCount} unknown`);
+    console.log(`Filtered to ${filteredOrbs.length} Delirium Orbs (from ${deliriumOrbs.length} total)`);
+    
+    // Store in global state (store filtered Orbs)
+    currentDeliriumOrbs = filteredOrbs;
+    
+    return { deliriumOrbs: filteredOrbs, rerollCost, primalLifeforce, expectedValuesByOrbId };
+  } catch (error) {
+    console.error('Error loading Delirium Orb data:', error);
+    showErrorToast('Failed to load Delirium Orb data');
+    throw error;
+  }
+}
+
+/**
  * Render Fossil UI
  * @param {Array} fossils - Fossil instances for list/threshold
  * @param {Object} threshold - Threshold data
@@ -1150,6 +1236,17 @@ async function renderFossilUI(fossils, threshold, rerollCost, currency, wildLife
   if (gridFossils && gridFossils.length > 0 && gridViewContainer && gridCanvas) {
     gridViewContainer.style.display = 'block';
     try {
+      // Enrich grid fossils with profitability status (reroll indicator) using current threshold
+      const thresholdValue = threshold?.value;
+      gridFossils.forEach((fossil) => {
+        const hasPrice = fossil.chaosValue != null && !isNaN(fossil.chaosValue) && fossil.chaosValue >= 0;
+        if (!hasPrice || thresholdValue == null || isNaN(thresholdValue)) {
+          fossil.profitabilityStatus = 'unknown';
+        } else {
+          fossil.profitabilityStatus = fossil.chaosValue < thresholdValue ? 'profitable' : 'not_profitable';
+        }
+      });
+
       teardownGridView(gridCanvas);
       teardownEssenceGridView(gridCanvas);
       teardownCatalystGridView(gridCanvas);
@@ -1269,7 +1366,7 @@ function renderFossilThresholdDisplay(container, threshold, rerollCost, currency
         </div>
         <div class="calculation-details">
           <div class="calculation-method">
-            <strong>Calculation Method:</strong> Equal-weighted average
+            <strong>Calculation Method:</strong> ${threshold.calculationMethod === 'weighted_average' ? 'Drop-weight (probability) weighted average' : 'Equal-weighted average'}
           </div>
           <div class="calculation-formula">
             <strong>Formula:</strong> Expected Value - Reroll Cost = Threshold
@@ -1277,7 +1374,7 @@ function renderFossilThresholdDisplay(container, threshold, rerollCost, currency
           <div class="calculation-steps">
             <div class="formula-step">
               <span class="step-label">Step 1:</span>
-              <span class="step-value">Expected Value = Average of all ${threshold.fossilCount} Fossil prices = ${expectedValue} ${currencySymbol}</span>
+              <span class="step-value">Expected Value = ${threshold.calculationMethod === 'weighted_average' ? 'Sum of (drop weight × price) / total weight' : `Average of all ${threshold.fossilCount} Fossil prices`} = ${expectedValue} ${currencySymbol}</span>
             </div>
             <div class="formula-step">
               <span class="step-label">Step 2:</span>
@@ -1300,6 +1397,284 @@ function renderFossilThresholdDisplay(container, threshold, rerollCost, currency
   `;
   
   container.innerHTML = html;
+}
+
+function sortCatalysts(catalysts, sort, currency) {
+  return [...catalysts].sort((a, b) => {
+    let aVal, bVal;
+    if (sort.field === 'name') {
+      aVal = (a.name || '').toLowerCase();
+      bVal = (b.name || '').toLowerCase();
+      return sort.direction === 'asc' ? (aVal < bVal ? -1 : aVal > bVal ? 1 : 0) : (aVal > bVal ? -1 : aVal < bVal ? 1 : 0);
+    }
+    if (sort.field === 'weight') {
+      aVal = a.dropWeight != null ? a.dropWeight : -1;
+      bVal = b.dropWeight != null ? b.dropWeight : -1;
+    } else {
+      aVal = currency === 'divine' ? (a.divineValue ?? -Infinity) : (a.chaosValue ?? -Infinity);
+      bVal = currency === 'divine' ? (b.divineValue ?? -Infinity) : (b.chaosValue ?? -Infinity);
+    }
+    if (aVal < bVal) return sort.direction === 'asc' ? -1 : 1;
+    if (aVal > bVal) return sort.direction === 'asc' ? 1 : -1;
+    return 0;
+  });
+}
+
+function sortOils(oils, sort, currency) {
+  return [...oils].sort((a, b) => {
+    let aVal, bVal;
+    if (sort.field === 'name') {
+      aVal = (a.name || '').toLowerCase();
+      bVal = (b.name || '').toLowerCase();
+      return sort.direction === 'asc' ? (aVal < bVal ? -1 : aVal > bVal ? 1 : 0) : (aVal > bVal ? -1 : aVal < bVal ? 1 : 0);
+    }
+    if (sort.field === 'dropWeight') {
+      aVal = a.dropWeight != null ? a.dropWeight : Infinity;
+      bVal = b.dropWeight != null ? b.dropWeight : Infinity;
+    } else {
+      aVal = currency === 'divine' ? (a.divineValue ?? -Infinity) : (a.chaosValue ?? -Infinity);
+      bVal = currency === 'divine' ? (b.divineValue ?? -Infinity) : (b.chaosValue ?? -Infinity);
+    }
+    if (aVal < bVal) return sort.direction === 'asc' ? -1 : 1;
+    if (aVal > bVal) return sort.direction === 'asc' ? 1 : -1;
+    return 0;
+  });
+}
+
+function sortDeliriumOrbs(items, sort, currency) {
+  return [...items].sort((a, b) => {
+    let aVal, bVal;
+    if (sort.field === 'name') {
+      aVal = (a.name || '').toLowerCase();
+      bVal = (b.name || '').toLowerCase();
+      return sort.direction === 'asc' ? (aVal < bVal ? -1 : aVal > bVal ? 1 : 0) : (aVal > bVal ? -1 : aVal < bVal ? 1 : 0);
+    }
+    if (sort.field === 'dropWeight') {
+      aVal = a.dropWeight != null ? a.dropWeight : Infinity;
+      bVal = b.dropWeight != null ? b.dropWeight : Infinity;
+    } else {
+      aVal = currency === 'divine' ? (a.divineValue ?? -Infinity) : (a.chaosValue ?? -Infinity);
+      bVal = currency === 'divine' ? (b.divineValue ?? -Infinity) : (b.chaosValue ?? -Infinity);
+    }
+    if (aVal < bVal) return sort.direction === 'asc' ? -1 : 1;
+    if (aVal > bVal) return sort.direction === 'asc' ? 1 : -1;
+    return 0;
+  });
+}
+
+function sortEmblems(items, sort, currency) {
+  return [...items].sort((a, b) => {
+    let aVal, bVal;
+    if (sort.field === 'name') {
+      aVal = (a.name || '').toLowerCase();
+      bVal = (b.name || '').toLowerCase();
+      return sort.direction === 'asc' ? (aVal < bVal ? -1 : aVal > bVal ? 1 : 0) : (aVal > bVal ? -1 : aVal < bVal ? 1 : 0);
+    }
+    if (sort.field === 'dropWeight') {
+      aVal = a.dropWeight != null ? a.dropWeight : Infinity;
+      bVal = b.dropWeight != null ? b.dropWeight : Infinity;
+    } else {
+      aVal = currency === 'divine' ? (a.divineValue ?? -Infinity) : (a.chaosValue ?? -Infinity);
+      bVal = currency === 'divine' ? (b.divineValue ?? -Infinity) : (b.chaosValue ?? -Infinity);
+    }
+    if (aVal < bVal) return sort.direction === 'asc' ? -1 : 1;
+    if (aVal > bVal) return sort.direction === 'asc' ? 1 : -1;
+    return 0;
+  });
+}
+
+function sortTattoos(items, sort, currency) {
+  return [...items].sort((a, b) => {
+    let aVal, bVal;
+    if (sort.field === 'name') {
+      aVal = (a.name || '').toLowerCase();
+      bVal = (b.name || '').toLowerCase();
+      return sort.direction === 'asc' ? (aVal < bVal ? -1 : aVal > bVal ? 1 : 0) : (aVal > bVal ? -1 : aVal < bVal ? 1 : 0);
+    }
+    if (sort.field === 'dropWeight') {
+      aVal = a.dropWeight != null ? a.dropWeight : Infinity;
+      bVal = b.dropWeight != null ? b.dropWeight : Infinity;
+    } else {
+      aVal = currency === 'divine' ? (a.divineValue ?? -Infinity) : (a.chaosValue ?? -Infinity);
+      bVal = currency === 'divine' ? (b.divineValue ?? -Infinity) : (b.chaosValue ?? -Infinity);
+    }
+    if (aVal < bVal) return sort.direction === 'asc' ? -1 : 1;
+    if (aVal > bVal) return sort.direction === 'asc' ? 1 : -1;
+    return 0;
+  });
+}
+
+function renderCatalystList(container) {
+  if (!container || currentCatalysts.length === 0) return;
+  const currency = currentCurrency;
+  const currencySymbol = currency === 'divine' ? 'Div' : 'c';
+  const sorted = sortCatalysts(currentCatalysts, currentCatalystSort, currency);
+  const rows = sorted.map((c) => {
+    const value = currency === 'divine' ? (c.divineValue != null ? c.divineValue.toFixed(4) : '—') : (c.chaosValue != null ? c.chaosValue.toFixed(2) : '—');
+    const weightStr = c.dropWeight != null ? (c.dropWeight * 100).toFixed(2) + '%' : '—';
+    const status = c.profitabilityStatus || 'unknown';
+    const color = getProfitabilityColor(status);
+    const bgColor = getProfitabilityBackgroundColor(status);
+    const imagePath = `/assets/images/catalysts/${c.id}.png`;
+    return `<div class="catalyst-list-row" data-id="${c.id}" style="border-left: 4px solid ${color}; background-color: ${bgColor};">
+      <img class="catalyst-image" src="${imagePath}" alt="${c.name}" onerror="this.style.display='none'">
+      <span class="catalyst-name">${c.name}</span>
+      <span class="catalyst-weight">${weightStr}</span>
+      <span class="catalyst-value">${value} ${currencySymbol}</span>
+    </div>`;
+  });
+  const s = currentCatalystSort;
+  container.innerHTML = `
+    <div class="catalyst-list-header">
+      <div class="catalyst-header-cell image-cell"></div>
+      <div class="catalyst-header-cell name-cell sortable" data-sort-field="name">Name${getListSortIndicator(s, 'name')}</div>
+      <div class="catalyst-header-cell weight-cell sortable" data-sort-field="weight">Drop weight${getListSortIndicator(s, 'weight')}</div>
+      <div class="catalyst-header-cell value-cell sortable" data-sort-field="value">Value (${currencySymbol})${getListSortIndicator(s, 'value')}</div>
+    </div>
+    <div class="catalyst-list">${rows.join('')}</div>
+  `;
+  setupListHoverHighlight(container, '.catalyst-list-row', highlightCellForCatalyst, clearCatalystHighlight);
+  setupListSort(container, '.catalyst-list-header .sortable', currentCatalystSort, (field, direction) => {
+    currentCatalystSort.field = field;
+    currentCatalystSort.direction = direction;
+  }, () => renderCatalystList(container));
+}
+
+function renderOilList(container) {
+  if (!container || currentOils.length === 0) return;
+  const currency = currentCurrency;
+  const currencySymbol = currency === 'divine' ? 'Div' : 'c';
+  const sorted = sortOils(currentOils, currentOilSort, currency);
+  const rows = sorted.map((o) => {
+    const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
+    const weightStr = o.dropWeight != null ? (o.dropWeight * 100).toFixed(2) + '%' : '—';
+    const imagePath = `/assets/images/oils/${o.id}.png`;
+    return `<div class="oil-list-row" data-id="${o.id}">
+      <img class="oil-image" src="${imagePath}" alt="${o.name}" onerror="this.style.display='none'">
+      <span class="oil-name">${o.name}</span>
+      <span class="oil-weight">${weightStr}</span>
+      <span class="oil-value">${value} ${currencySymbol}</span>
+    </div>`;
+  });
+  const s = currentOilSort;
+  container.innerHTML = `
+    <div class="oil-list-header">
+      <div class="oil-header-cell image-cell"></div>
+      <div class="oil-header-cell name-cell sortable" data-sort-field="name">Name${getListSortIndicator(s, 'name')}</div>
+      <div class="oil-header-cell weight-cell sortable" data-sort-field="dropWeight">Drop Weight${getListSortIndicator(s, 'dropWeight')}</div>
+      <div class="oil-header-cell value-cell sortable" data-sort-field="value">Value (${currencySymbol})${getListSortIndicator(s, 'value')}</div>
+    </div>
+    <div class="oil-list">${rows.join('')}</div>
+  `;
+  setupListHoverHighlight(container, '.oil-list-row', highlightCellForOil, clearOilHighlight);
+  setupListSort(container, '.oil-list-header .sortable', currentOilSort, (field, direction) => {
+    currentOilSort.field = field;
+    currentOilSort.direction = direction;
+  }, () => renderOilList(container));
+}
+
+function renderDeliriumOrbList(container) {
+  if (!container || currentDeliriumOrbs.length === 0) return;
+  const currency = currentCurrency;
+  const currencySymbol = currency === 'divine' ? 'Div' : 'c';
+  const sorted = sortDeliriumOrbs(currentDeliriumOrbs, currentDeliriumOrbSort, currency);
+  const rows = sorted.map((o) => {
+    const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
+    const weightStr = o.dropWeight != null ? (o.dropWeight * 100).toFixed(2) + '%' : '—';
+    const imagePath = `/assets/images/deliriumOrbs/${o.id}.png`;
+    const status = o.profitabilityStatus || 'unknown';
+    const color = getProfitabilityColor(status);
+    const bgColor = getProfitabilityBackgroundColor(status);
+    return `<div class="delirium-orb-list-row" data-id="${o.id}" style="border-left: 4px solid ${color}; background-color: ${bgColor};">
+      <img class="delirium-orb-image" src="${imagePath}" alt="${o.name}" onerror="this.style.display='none'">
+      <span class="delirium-orb-name">${o.name}</span>
+      <span class="delirium-orb-weight">${weightStr}</span>
+      <span class="delirium-orb-value">${value} ${currencySymbol}</span>
+    </div>`;
+  });
+  const s = currentDeliriumOrbSort;
+  container.innerHTML = `
+    <div class="delirium-orb-list-header">
+      <div class="delirium-orb-header-cell image-cell"></div>
+      <div class="delirium-orb-header-cell name-cell sortable" data-sort-field="name">Name${getListSortIndicator(s, 'name')}</div>
+      <div class="delirium-orb-header-cell weight-cell sortable" data-sort-field="dropWeight">Drop Weight${getListSortIndicator(s, 'dropWeight')}</div>
+      <div class="delirium-orb-header-cell value-cell sortable" data-sort-field="value">Value (${currencySymbol})${getListSortIndicator(s, 'value')}</div>
+    </div>
+    <div class="delirium-orb-list">${rows.join('')}</div>
+  `;
+  setupListHoverHighlight(container, '.delirium-orb-list-row', highlightCellForDeliriumOrb, clearDeliriumOrbHighlight);
+  setupListSort(container, '.delirium-orb-list-header .sortable', currentDeliriumOrbSort, (field, direction) => {
+    currentDeliriumOrbSort.field = field;
+    currentDeliriumOrbSort.direction = direction;
+  }, () => renderDeliriumOrbList(container));
+}
+
+function renderEmblemList(container) {
+  if (!container || currentEmblems.length === 0) return;
+  const currency = currentCurrency;
+  const currencySymbol = currency === 'divine' ? 'Div' : 'c';
+  const sorted = sortEmblems(currentEmblems, currentEmblemSort, currency);
+  const rows = sorted.map((o) => {
+    const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
+    const weightStr = o.dropWeight != null ? (o.dropWeight * 100).toFixed(2) + '%' : '—';
+    const imagePath = `/assets/images/legionEmblems/${o.id}.png`;
+    return `<div class="emblem-list-row" data-id="${o.id}">
+      <img class="emblem-image" src="${imagePath}" alt="${o.name}" onerror="this.style.display='none'">
+      <span class="emblem-name">${o.name}</span>
+      <span class="emblem-weight">${weightStr}</span>
+      <span class="emblem-value">${value} ${currencySymbol}</span>
+    </div>`;
+  });
+  const s = currentEmblemSort;
+  container.innerHTML = `
+    <div class="emblem-list-header">
+      <div class="emblem-header-cell image-cell"></div>
+      <div class="emblem-header-cell name-cell sortable" data-sort-field="name">Name${getListSortIndicator(s, 'name')}</div>
+      <div class="emblem-header-cell weight-cell sortable" data-sort-field="dropWeight">Drop Weight${getListSortIndicator(s, 'dropWeight')}</div>
+      <div class="emblem-header-cell value-cell sortable" data-sort-field="value">Value (${currencySymbol})${getListSortIndicator(s, 'value')}</div>
+    </div>
+    <div class="emblem-list">${rows.join('')}</div>
+  `;
+  setupListHoverHighlight(container, '.emblem-list-row', highlightCellForEmblem, clearEmblemHighlight);
+  setupListSort(container, '.emblem-list-header .sortable', currentEmblemSort, (field, direction) => {
+    currentEmblemSort.field = field;
+    currentEmblemSort.direction = direction;
+  }, () => renderEmblemList(container));
+}
+
+function renderTattooList(container) {
+  if (!container || currentTattoos.length === 0) return;
+  const currency = currentCurrency;
+  const currencySymbol = currency === 'divine' ? 'Div' : 'c';
+  const sorted = sortTattoos(currentTattoos, currentTattooSort, currency);
+  const rows = sorted.map((t) => {
+    const value = currency === 'divine' ? (t.divineValue != null ? t.divineValue.toFixed(4) : '—') : (t.chaosValue != null ? t.chaosValue.toFixed(2) : '—');
+    const weightStr = t.dropWeight != null ? (t.dropWeight * 100).toFixed(2) + '%' : '—';
+    const imagePath = `/assets/images/tattoos/${t.id}.png`;
+    const status = t.profitabilityStatus || 'unknown';
+    const color = getProfitabilityColor(status);
+    const bgColor = getProfitabilityBackgroundColor(status);
+    return `<div class="tattoo-list-row" data-id="${t.id}" style="border-left: 4px solid ${color}; background-color: ${bgColor};">
+      <img class="tattoo-image" src="${imagePath}" alt="${t.name}" onerror="this.style.display='none'">
+      <span class="tattoo-name">${t.name}</span>
+      <span class="tattoo-weight">${weightStr}</span>
+      <span class="tattoo-value">${value} ${currencySymbol}</span>
+    </div>`;
+  });
+  const s = currentTattooSort;
+  container.innerHTML = `
+    <div class="tattoo-list-header">
+      <div class="tattoo-header-cell image-cell"></div>
+      <div class="tattoo-header-cell name-cell sortable" data-sort-field="name">Name${getListSortIndicator(s, 'name')}</div>
+      <div class="tattoo-header-cell weight-cell sortable" data-sort-field="dropWeight">Drop Weight${getListSortIndicator(s, 'dropWeight')}</div>
+      <div class="tattoo-header-cell value-cell sortable" data-sort-field="value">Value (${currencySymbol})${getListSortIndicator(s, 'value')}</div>
+    </div>
+    <div class="tattoo-list">${rows.join('')}</div>
+  `;
+  setupListSort(container, '.tattoo-list-header .sortable', currentTattooSort, (field, direction) => {
+    currentTattooSort.field = field;
+    currentTattooSort.direction = direction;
+  }, () => renderTattooList(container));
 }
 
 /**
@@ -1340,33 +1715,7 @@ async function renderCatalystUI(catalysts, currency) {
 
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) {
-    const currencySymbol = currency === 'divine' ? 'Div' : 'c';
-    
-    const rows = catalystInstances.map((c) => {
-      const value = currency === 'divine' ? (c.divineValue != null ? c.divineValue.toFixed(4) : '—') : (c.chaosValue != null ? c.chaosValue.toFixed(2) : '—');
-      const weightStr = c.dropWeight != null ? (c.dropWeight * 100).toFixed(2) + '%' : '—';
-      const status = c.profitabilityStatus || 'unknown';
-      const color = getProfitabilityColor(status);
-      const bgColor = getProfitabilityBackgroundColor(status);
-      const imagePath = `/assets/images/catalysts/${c.id}.png`;
-      
-      return `<div class="catalyst-list-row" data-id="${c.id}" 
-               style="border-left: 4px solid ${color}; background-color: ${bgColor};">
-        <img class="catalyst-image" src="${imagePath}" alt="${c.name}" onerror="this.style.display='none'">
-        <span class="catalyst-name">${c.name}</span>
-        <span class="catalyst-weight">${weightStr}</span>
-        <span class="catalyst-value">${value} ${currencySymbol}</span>
-      </div>`;
-    });
-    listViewContainer.innerHTML = `
-      <div class="catalyst-list-header">
-        <span class="catalyst-image-cell"></span>
-        <span class="catalyst-name">Name</span>
-        <span class="catalyst-weight">Drop weight</span>
-        <span class="catalyst-value">Value (${currencySymbol})</span>
-      </div>
-      <div class="catalyst-list">${rows.join('')}</div>
-    `;
+    renderCatalystList(listViewContainer);
   }
 
   const gridViewContainer = document.getElementById('grid-view');
@@ -1418,27 +1767,7 @@ async function renderOilUI(oils, currency) {
 
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) {
-    const currencySymbol = currency === 'divine' ? 'Div' : 'c';
-    const rows = oils.map((o) => {
-      const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
-      const tierStr = o.tier != null && o.tier > 0 ? `T${o.tier}` : '—';
-      const imagePath = `/assets/images/oils/${o.id}.png`;
-      return `<div class="oil-list-row" data-id="${o.id}">
-        <img class="oil-image" src="${imagePath}" alt="${o.name}" onerror="this.style.display='none'">
-        <span class="oil-name">${o.name}</span>
-        <span class="oil-tier">${tierStr}</span>
-        <span class="oil-value">${value} ${currencySymbol}</span>
-      </div>`;
-    });
-    listViewContainer.innerHTML = `
-      <div class="oil-list-header">
-        <span class="oil-image-cell"></span>
-        <span class="oil-name">Name</span>
-        <span class="oil-tier">Tier</span>
-        <span class="oil-value">Value (${currencySymbol})</span>
-      </div>
-      <div class="oil-list">${rows.join('')}</div>
-    `;
+    renderOilList(listViewContainer);
   }
 
   const gridViewContainer = document.getElementById('grid-view');
@@ -1477,27 +1806,18 @@ async function renderOilUI(oils, currency) {
 
 /**
  * Render Delirium Orb UI (list + grid view)
+ * @param {Array} items - Delirium Orb instances
+ * @param {string} currency - Currency preference
+ * @param {number} rerollCost - Reroll cost
+ * @param {Object} primalLifeforce - Primal Lifeforce price object
  */
-async function renderDeliriumOrbUI(items, currency) {
+async function renderDeliriumOrbUI(items, currency, rerollCost = null, primalLifeforce = null) {
   currentDeliriumOrbs = items;
   currentCurrency = currency;
 
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) {
-    const currencySymbol = currency === 'divine' ? 'Div' : 'c';
-    const rows = items.map((o) => {
-      const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
-      const imagePath = `/assets/images/deliriumOrbs/${o.id}.png`;
-      return `<div class="delirium-orb-list-row" data-id="${o.id}"><img class="delirium-orb-image" src="${imagePath}" alt="${o.name}" onerror="this.style.display='none'"><span class="item-name">${o.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
-    });
-    listViewContainer.innerHTML = `
-      <div class="delirium-orb-list-header">
-        <span class="delirium-orb-image-cell"></span>
-        <span class="item-name">Name</span>
-        <span class="item-value">Value (${currencySymbol})</span>
-      </div>
-      <div class="delirium-orb-list">${rows.join('')}</div>
-    `;
+    renderDeliriumOrbList(listViewContainer);
   }
 
   const gridViewContainer = document.getElementById('grid-view');
@@ -1522,7 +1842,22 @@ async function renderDeliriumOrbUI(items, currency) {
   const filterPanelContainer = document.getElementById('filter-panel');
   if (filterPanelContainer) filterPanelContainer.style.display = 'none';
   const thresholdContainer = document.getElementById('threshold-display');
-  if (thresholdContainer) thresholdContainer.innerHTML = '<div class="oil-threshold-note">Delirium Orbs</div>';
+  if (thresholdContainer) {
+    if (rerollCost != null && primalLifeforce != null) {
+      const currencySymbol = currency === 'divine' ? 'Div' : 'c';
+      const costDisplay = currency === 'divine' 
+        ? (rerollCost / (window.divinePrice || 153)).toFixed(4) 
+        : rerollCost.toFixed(2);
+      thresholdContainer.innerHTML = `
+        <div class="oil-threshold-note">
+          <strong>Delirium Orbs</strong><br>
+          <strong>Reroll Cost:</strong> 30 Primal Lifeforce = ${costDisplay} ${currencySymbol}
+        </div>
+      `;
+    } else {
+      thresholdContainer.innerHTML = '<div class="oil-threshold-note">Delirium Orbs</div>';
+    }
+  }
 }
 
 /**
@@ -1534,20 +1869,7 @@ async function renderEmblemUI(items, currency) {
 
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) {
-    const currencySymbol = currency === 'divine' ? 'Div' : 'c';
-    const rows = items.map((o) => {
-      const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
-      const imagePath = `/assets/images/legionEmblems/${o.id}.png`;
-      return `<div class="emblem-list-row" data-id="${o.id}"><img class="emblem-image" src="${imagePath}" alt="${o.name}" onerror="this.style.display='none'"><span class="item-name">${o.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
-    });
-    listViewContainer.innerHTML = `
-      <div class="emblem-list-header">
-        <span class="emblem-image-cell"></span>
-        <span class="item-name">Name</span>
-        <span class="item-value">Value (${currencySymbol})</span>
-      </div>
-      <div class="emblem-list">${rows.join('')}</div>
-    `;
+    renderEmblemList(listViewContainer);
   }
 
   const gridViewContainer = document.getElementById('grid-view');
@@ -1612,32 +1934,7 @@ async function renderTattooUI(items, currency) {
   currentCurrency = currency;
 
   const listViewContainer = document.getElementById('list-view');
-  if (listViewContainer) {
-    const currencySymbol = currency === 'divine' ? 'Div' : 'c';
-    
-    const rows = tattooInstances.map((t) => {
-      const value = currency === 'divine' ? (t.divineValue != null ? t.divineValue.toFixed(4) : '—') : (t.chaosValue != null ? t.chaosValue.toFixed(2) : '—');
-      const status = t.profitabilityStatus || 'unknown';
-      const color = getProfitabilityColor(status);
-      const bgColor = getProfitabilityBackgroundColor(status);
-      const imagePath = `/assets/images/tattoos/${t.id}.png`;
-      
-      return `<div class="tattoo-list-row" data-id="${t.id}" 
-               style="border-left: 4px solid ${color}; background-color: ${bgColor};">
-        <img class="tattoo-image" src="${imagePath}" alt="${t.name}" onerror="this.style.display='none'">
-        <span class="item-name">${t.name}</span>
-        <span class="item-value">${value} ${currencySymbol}</span>
-      </div>`;
-    });
-    listViewContainer.innerHTML = `
-      <div class="tattoo-list-header">
-        <span class="tattoo-image-cell"></span>
-        <span class="item-name">Name</span>
-        <span class="item-value">Value (${currencySymbol})</span>
-      </div>
-      <div class="tattoo-list">${rows.join('')}</div>
-    `;
-  }
+  if (listViewContainer) renderTattooList(listViewContainer);
 
   const gridViewContainer = document.getElementById('grid-view');
   if (gridViewContainer) gridViewContainer.style.display = 'none';
@@ -1793,10 +2090,10 @@ async function handleCategoryChange(category) {
       if (listViewContainer) {
         listViewContainer.innerHTML = '<p class="loading-message">Loading Delirium Orbs...</p>';
       }
-      const items = await loadFullDeliriumOrbData();
+      const { deliriumOrbs, rerollCost, primalLifeforce } = await loadAndProcessDeliriumOrbData();
       const preferences = loadPreferences();
       const currency = preferences.currencyPreference || 'chaos';
-      await renderDeliriumOrbUI(items, currency);
+      await renderDeliriumOrbUI(deliriumOrbs, currency, rerollCost, primalLifeforce);
     } catch (error) {
       console.error('Error handling Delirium Orbs category:', error);
       showErrorToast('Failed to load Delirium Orb data');

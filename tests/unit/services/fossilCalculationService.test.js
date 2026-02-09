@@ -8,13 +8,14 @@ import {
 } from '../../../src/js/services/fossilCalculationService.js';
 
 describe('Fossil Calculation Service', () => {
-  const createTestFossil = (id, chaosValue) => {
+  const createTestFossil = (id, chaosValue, dropWeight = null) => {
     return new Fossil({
       id,
       name: `Test ${id}`,
       chaosValue,
       divineValue: chaosValue ? chaosValue * 0.0065 : null,
       detailsId: id,
+      dropWeight,
     });
   };
 
@@ -26,8 +27,21 @@ describe('Fossil Calculation Service', () => {
         createTestFossil('fossil3', 3.0),
       ];
 
-      const expectedValue = calculateExpectedValueForGroup(fossils);
-      expect(expectedValue).toBe(2.0); // (1.0 + 2.0 + 3.0) / 3
+      const result = calculateExpectedValueForGroup(fossils);
+      expect(result.expectedValue).toBe(2.0); // (1.0 + 2.0 + 3.0) / 3
+      expect(result.method).toBe('equal_weighted');
+    });
+
+    it('should calculate expected value with drop-weight weighting when all have weights', () => {
+      const fossils = [
+        createTestFossil('fossil1', 10.0, 100),  // common, low value
+        createTestFossil('fossil2', 2.0, 50),   // rarer
+        createTestFossil('fossil3', 1.0, 50),   // rarer, low value
+      ];
+      // totalWeight = 200; weighted EV = (100/200)*10 + (50/200)*2 + (50/200)*1 = 5 + 0.5 + 0.25 = 5.75
+      const result = calculateExpectedValueForGroup(fossils);
+      expect(result.expectedValue).toBe(5.75);
+      expect(result.method).toBe('weighted');
     });
 
     it('should exclude Fossils without price data', () => {
@@ -37,13 +51,15 @@ describe('Fossil Calculation Service', () => {
         createTestFossil('fossil3', 3.0),
       ];
 
-      const expectedValue = calculateExpectedValueForGroup(fossils);
-      expect(expectedValue).toBe(2.0); // (1.0 + 3.0) / 2
+      const result = calculateExpectedValueForGroup(fossils);
+      expect(result.expectedValue).toBe(2.0); // (1.0 + 3.0) / 2
+      expect(result.method).toBe('equal_weighted');
     });
 
     it('should return 0 for empty array', () => {
-      const expectedValue = calculateExpectedValueForGroup([]);
-      expect(expectedValue).toBe(0);
+      const result = calculateExpectedValueForGroup([]);
+      expect(result.expectedValue).toBe(0);
+      expect(result.method).toBe('equal_weighted');
     });
 
     it('should return 0 for array with no valid prices', () => {
@@ -52,14 +68,16 @@ describe('Fossil Calculation Service', () => {
         createTestFossil('fossil2', null),
       ];
 
-      const expectedValue = calculateExpectedValueForGroup(fossils);
-      expect(expectedValue).toBe(0);
+      const result = calculateExpectedValueForGroup(fossils);
+      expect(result.expectedValue).toBe(0);
+      expect(result.method).toBe('equal_weighted');
     });
 
     it('should handle single Fossil', () => {
       const fossils = [createTestFossil('fossil1', 5.0)];
-      const expectedValue = calculateExpectedValueForGroup(fossils);
-      expect(expectedValue).toBe(5.0);
+      const result = calculateExpectedValueForGroup(fossils);
+      expect(result.expectedValue).toBe(5.0);
+      expect(result.method).toBe('equal_weighted');
     });
   });
 

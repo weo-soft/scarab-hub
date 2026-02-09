@@ -6,6 +6,7 @@
 import { getProfitabilityColor, getProfitabilityBackgroundColor } from '../utils/colorUtils.js';
 import { renderSelectionPanel } from '../components/essenceSelectionPanel.js';
 import { loadPreferences, savePreferences } from '../services/dataService.js';
+import { highlightCellForEssence, clearEssenceHighlight } from './essenceGridView.js';
 
 let currentEssences = [];
 let currentCurrency = 'chaos';
@@ -67,11 +68,11 @@ export function renderEssenceList(container, essences, currency = 'chaos', panel
       <div class="essence-header-cell name-cell sortable" data-sort-field="name">
         Name${getSortIndicator('name')}
       </div>
+      <div class="essence-header-cell weight-cell sortable" data-sort-field="weight">
+        Drop Weight${getSortIndicator('weight')}
+      </div>
       <div class="essence-header-cell value-cell sortable" data-sort-field="value">
         Value${getSortIndicator('value')}
-      </div>
-      <div class="essence-header-cell status-cell sortable" data-sort-field="status">
-        Status${getSortIndicator('status')}
       </div>
     </div>
     <div class="essence-list">
@@ -84,7 +85,8 @@ export function renderEssenceList(container, essences, currency = 'chaos', panel
   // Attach event listeners
   setupSortListeners(container);
   setupSelectionListeners(container);
-  
+  setupListHoverListenersForGrid(container);
+
   // Render selection panel if container provided
   if (panelContainer) {
     renderSelectionPanel(
@@ -147,13 +149,18 @@ function handleFilterByGroup(groupType) {
  * @returns {string} HTML string
  */
 function renderEssenceItem(essence, currency) {
-  const value = essence.chaosValue !== null 
+  const value = essence.chaosValue !== null
     ? (currency === 'divine' ? essence.divineValue : essence.chaosValue)
     : null;
+  const valueDisplay = value !== null
+    ? `${value.toFixed(2)} ${currency === 'divine' ? 'Div' : 'c'}`
+    : 'N/A';
+  const weightDisplay = essence.dropWeight != null
+    ? (essence.dropWeight * 100).toFixed(2) + '%'
+    : 'N/A';
   const status = essence.profitabilityStatus;
   const color = getProfitabilityColor(status);
   const bgColor = getProfitabilityBackgroundColor(status);
-  const statusLabel = getStatusLabel(status);
   const isSelected = selectedEssenceIds.has(essence.id) || essence.selectedForReroll;
   const selectedClass = isSelected ? 'selected' : '';
   const imagePath = `/assets/images/essences/${essence.id}.png`;
@@ -163,26 +170,10 @@ function renderEssenceItem(essence, currency) {
          style="border-left: 4px solid ${color}; background-color: ${bgColor};">
       <img class="essence-image" src="${imagePath}" alt="${essence.name}" onerror="this.style.display='none'">
       <span class="essence-name">${essence.name}</span>
-      <span class="essence-value">
-        ${value !== null ? `${value.toFixed(2)} ${currency === 'divine' ? 'Div' : 'c'}` : 'N/A'}
-      </span>
-      <span class="essence-status">${statusLabel}</span>
+      <span class="essence-weight">${weightDisplay}</span>
+      <span class="essence-value">${valueDisplay}</span>
     </div>
   `;
-}
-
-/**
- * Get status label
- * @param {string} status
- * @returns {string}
- */
-function getStatusLabel(status) {
-  const labels = {
-    'profitable': 'Reroll',
-    'not_profitable': 'Keep',
-    'unknown': 'Unknown'
-  };
-  return labels[status] || 'Unknown';
 }
 
 /**
@@ -222,10 +213,9 @@ function sortEssences(essences, sort, currency) {
         aValue = a.name.toLowerCase();
         bValue = b.name.toLowerCase();
         break;
-      case 'status':
-        const statusOrder = { 'profitable': 0, 'not_profitable': 1, 'unknown': 2 };
-        aValue = statusOrder[a.profitabilityStatus] ?? 3;
-        bValue = statusOrder[b.profitabilityStatus] ?? 3;
+      case 'weight':
+        aValue = a.dropWeight ?? Infinity;
+        bValue = b.dropWeight ?? Infinity;
         break;
       case 'group':
         const groupOrder = { 'deafening': 0, 'shrieking': 1, 'special': 2 };
@@ -273,6 +263,20 @@ function setupSortListeners(container) {
       // Re-render with new sort
       renderEssenceList(container, currentEssences, currentCurrency);
     });
+  });
+}
+
+/**
+ * Setup hover event listeners for list items to highlight corresponding grid cell
+ * @param {HTMLElement} container
+ */
+function setupListHoverListenersForGrid(container) {
+  const essenceItems = container.querySelectorAll('.essence-item[data-essence-id]');
+  essenceItems.forEach(item => {
+    const essenceId = item.getAttribute('data-essence-id');
+    if (!essenceId) return;
+    item.addEventListener('mouseenter', () => highlightCellForEssence(essenceId));
+    item.addEventListener('mouseleave', () => clearEssenceHighlight());
   });
 }
 

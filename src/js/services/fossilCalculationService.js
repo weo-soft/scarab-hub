@@ -4,25 +4,39 @@
  */
 
 /**
- * Calculate expected value for the Fossil reroll group using equal weighting
+ * Calculate expected value for the Fossil reroll group.
+ * Uses drop-weight (probability) when available so rare high-value fossils don't inflate the threshold.
+ * Falls back to equal weighting when weights are missing or unavailable.
  * @param {Array<Fossil>} fossils - All Fossils in the reroll group
- * @returns {number} Expected value (average of all Fossil prices)
+ * @returns {{ expectedValue: number, method: 'weighted' | 'equal_weighted' }} Expected value and method used
  */
 export function calculateExpectedValueForGroup(fossils) {
   if (!Array.isArray(fossils) || fossils.length === 0) {
-    return 0;
+    return { expectedValue: 0, method: 'equal_weighted' };
   }
 
-  // Filter to only Fossils with valid price data
+  // Fossils with valid price data
   const fossilsWithPrices = fossils.filter(f => f.hasPriceData());
-  
   if (fossilsWithPrices.length === 0) {
-    return 0;
+    return { expectedValue: 0, method: 'equal_weighted' };
   }
 
-  // Equal weighting: simple average
+  // Use weighted expected value when all fossils with prices also have drop weights
+  const fossilsWithWeight = fossilsWithPrices.filter(f => typeof f.hasDropWeight === 'function' && f.hasDropWeight());
+  const totalWeight = fossilsWithWeight.reduce((sum, f) => sum + f.dropWeight, 0);
+
+  if (fossilsWithWeight.length === fossilsWithPrices.length && totalWeight > 0) {
+    const weightedSum = fossilsWithWeight.reduce(
+      (sum, fossil) => sum + (fossil.dropWeight / totalWeight) * fossil.chaosValue,
+      0
+    );
+    return { expectedValue: weightedSum, method: 'weighted' };
+  }
+
+  // Fallback: equal weighting (simple average)
   const sum = fossilsWithPrices.reduce((total, fossil) => total + fossil.chaosValue, 0);
-  return sum / fossilsWithPrices.length;
+  const avg = sum / fossilsWithPrices.length;
+  return { expectedValue: avg, method: 'equal_weighted' };
 }
 
 /**

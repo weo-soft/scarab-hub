@@ -454,6 +454,7 @@ header p {
 .scarab-list-header {
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
   gap: 12px;
   padding: 8px 12px 8px 8px; /* Left padding reduced by 4px to match item border */
   background: #0f0f0f;
@@ -468,6 +469,7 @@ header p {
   position: sticky;
   top: 0;
   z-index: 100;
+  min-width: 0;
 }
 
 .scarab-header-cell {
@@ -499,6 +501,14 @@ header p {
   flex: 1 1 auto;
   min-width: 0;
   padding-right: 10px;
+}
+
+.scarab-header-cell.weight-cell {
+  min-width: 85px;
+  width: 85px;
+  text-align: right;
+  flex-shrink: 0;
+  justify-content: flex-end;
 }
 
 .scarab-header-cell.value-cell {
@@ -536,11 +546,13 @@ header p {
 .scarab-item.compact {
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
   gap: 12px;
   padding: 8px 12px 8px 8px; /* Left padding reduced by 4px to account for border */
   min-height: 40px;
   box-sizing: border-box;
   width: 100%;
+  min-width: 0; /* Allow row to shrink so name can truncate */
 }
 
 .scarab-item.compact:hover {
@@ -578,24 +590,37 @@ header p {
 /* Image cell styles for headers */
 .essence-header-cell.image-cell,
 .fossil-header-cell.image-cell,
-.catalyst-image-cell,
-.oil-image-cell,
+.catalyst-header-cell.image-cell,
+.oil-header-cell.image-cell,
+.delirium-orb-header-cell.image-cell,
+.emblem-header-cell.image-cell,
+.tattoo-header-cell.image-cell,
 .delirium-orb-image-cell,
 .emblem-image-cell,
 .tattoo-image-cell {
   width: 32px;
+  min-width: 32px;
   flex-shrink: 0;
 }
 
 .scarab-name {
   font-weight: 500;
   color: #c8aa6e;
-  flex: 1 1 auto;
+  flex: 1 1 0%;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   padding-right: 10px;
+}
+
+.scarab-weight {
+  font-size: 0.95em;
+  color: #a09070;
+  min-width: 85px;
+  width: 85px;
+  text-align: right;
+  flex-shrink: 0;
 }
 
 .scarab-value {
@@ -651,25 +676,76 @@ header p {
   position: relative;
 }
 
-.catalyst-list-header,
-.catalyst-list-header,
-.catalyst-list-row {
-  display: grid;
-  grid-template-columns: auto auto 1fr auto auto;
-  gap: 12px;
-  align-items: center;
-  padding: 8px 12px;
-}
-
 .catalyst-list-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 12px;
+  padding: 8px 12px 8px 8px;
   background: #0f0f0f;
   border-radius: 4px;
   border: 1px solid rgba(200, 170, 110, 0.15);
+  border-left: 4px solid transparent;
   margin-bottom: 4px;
   font-weight: 500;
   font-size: 0.9em;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  color: #c8aa6e;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  min-width: 0;
+}
+
+.catalyst-header-cell {
+  display: flex;
+  align-items: center;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.catalyst-header-cell.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s;
+  color: #c8aa6e;
+}
+
+.catalyst-header-cell.sortable:hover {
+  color: #d4b896;
+}
+
+.catalyst-header-cell.image-cell {
+  width: 32px;
+  min-width: 32px;
+  flex-shrink: 0;
+}
+
+.catalyst-header-cell.name-cell {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding-right: 10px;
+}
+
+.catalyst-header-cell.weight-cell {
+  min-width: 85px;
+  width: 85px;
+  text-align: right;
+  flex-shrink: 0;
+  justify-content: flex-end;
+}
+
+.catalyst-header-cell.value-cell {
+  min-width: 90px;
+  width: 90px;
+  text-align: right;
+  flex-shrink: 0;
+  justify-content: flex-end;
+  margin-left: auto;
 }
 
 .catalyst-list {
@@ -679,6 +755,15 @@ header p {
 }
 
 .catalyst-list-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 12px;
+  padding: 8px 12px 8px 8px;
+  min-height: 40px;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
   background: rgba(15, 15, 15, 0.6);
   border: 1px solid rgba(200, 170, 110, 0.1);
   border-radius: 4px;
@@ -687,13 +772,30 @@ header p {
 }
 
 .catalyst-list-row .catalyst-name {
+  flex: 1 1 0%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 10px;
   color: #c8aa6e;
 }
 
-.catalyst-list-row .catalyst-weight,
-.catalyst-list-row .catalyst-value {
-  color: #a09070;
+.catalyst-list-row .catalyst-weight {
+  min-width: 85px;
+  width: 85px;
   text-align: right;
+  flex-shrink: 0;
+  color: #a09070;
+}
+
+.catalyst-list-row .catalyst-value {
+  min-width: 90px;
+  width: 90px;
+  text-align: right;
+  flex-shrink: 0;
+  margin-left: auto;
+  color: #a09070;
 }
 
 .catalyst-threshold-note {
@@ -705,24 +807,120 @@ header p {
   color: #c8aa6e;
 }
 
+/* Unified item list view: header and row base (Scarab, Fossil, Essence, Catalyst, Oil, Delirium Orb, Emblem) */
+.scarab-list-header,
+.fossil-list-header,
+.essence-list-header,
+.catalyst-list-header,
 .oil-list-header,
-.oil-list-row {
-  display: grid;
-  grid-template-columns: auto auto 1fr auto auto;
-  gap: 12px;
+.delirium-orb-list-header,
+.emblem-list-header,
+.tattoo-list-header {
+  display: flex;
   align-items: center;
-  padding: 8px 12px;
-}
-
-.oil-list-header {
+  flex-wrap: nowrap;
+  gap: 12px;
+  padding: 8px 12px 8px 8px;
   background: #0f0f0f;
   border-radius: 4px;
   border: 1px solid rgba(200, 170, 110, 0.15);
+  border-left: 4px solid transparent;
   margin-bottom: 4px;
   font-weight: 500;
   font-size: 0.9em;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  color: #c8aa6e;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  min-width: 0;
+}
+
+.scarab-header-cell,
+.fossil-header-cell,
+.essence-header-cell,
+.catalyst-header-cell,
+.oil-header-cell,
+.delirium-orb-header-cell,
+.emblem-header-cell,
+.tattoo-header-cell {
+  display: flex;
+  align-items: center;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.scarab-header-cell.sortable,
+.fossil-header-cell.sortable,
+.essence-header-cell.sortable,
+.catalyst-header-cell.sortable,
+.oil-header-cell.sortable,
+.delirium-orb-header-cell.sortable,
+.emblem-header-cell.sortable,
+.tattoo-header-cell.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s;
+  color: #c8aa6e;
+}
+
+.scarab-header-cell.sortable:hover,
+.fossil-header-cell.sortable:hover,
+.essence-header-cell.sortable:hover,
+.catalyst-header-cell.sortable:hover,
+.oil-header-cell.sortable:hover,
+.delirium-orb-header-cell.sortable:hover,
+.emblem-header-cell.sortable:hover,
+.tattoo-header-cell.sortable:hover {
+  color: #d4b896;
+}
+
+.scarab-header-cell.name-cell,
+.fossil-header-cell.name-cell,
+.essence-header-cell.name-cell,
+.catalyst-header-cell.name-cell,
+.oil-header-cell.name-cell,
+.delirium-orb-header-cell.name-cell,
+.emblem-header-cell.name-cell,
+.tattoo-header-cell.name-cell {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding-right: 10px;
+}
+
+.scarab-header-cell.weight-cell,
+.fossil-header-cell.drop-weight-cell,
+.essence-header-cell.weight-cell,
+.catalyst-header-cell.weight-cell,
+.oil-header-cell.weight-cell,
+.delirium-orb-header-cell.weight-cell,
+.emblem-header-cell.weight-cell,
+.tattoo-header-cell.weight-cell {
+  min-width: 100px;
+  width: 100px;
+  text-align: right;
+  flex-shrink: 0;
+  justify-content: flex-end;
+}
+
+.scarab-header-cell.value-cell,
+.fossil-header-cell.value-cell,
+.essence-header-cell.value-cell,
+.catalyst-header-cell.value-cell,
+.oil-header-cell.value-cell,
+.delirium-orb-header-cell.value-cell,
+.emblem-header-cell.value-cell,
+.tattoo-header-cell.value-cell {
+  min-width: 90px;
+  width: 90px;
+  text-align: right;
+  flex-shrink: 0;
+  justify-content: flex-end;
+  margin-left: auto;
 }
 
 .oil-list {
@@ -732,21 +930,57 @@ header p {
 }
 
 .oil-list-row {
-  background: rgba(15, 15, 15, 0.6);
-  border: 1px solid rgba(200, 170, 110, 0.1);
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 12px;
+  padding: 8px 12px 8px 8px;
+  min-height: 40px;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  background: #0f0f0f;
   border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(200, 170, 110, 0.1);
   font-size: 0.95em;
   cursor: default;
+  transition: all 0.2s;
+}
+
+.oil-list-row:hover {
+  transform: translateX(1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+  border-color: rgba(200, 170, 110, 0.25);
+  background: #151515;
 }
 
 .oil-list-row .oil-name {
+  font-weight: 500;
   color: #c8aa6e;
+  flex: 1 1 0%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 10px;
 }
 
-.oil-list-row .oil-tier,
-.oil-list-row .oil-value {
-  color: #a09070;
+.oil-list-row .oil-weight {
+  min-width: 100px;
+  width: 100px;
   text-align: right;
+  flex-shrink: 0;
+  color: #a09070;
+}
+
+.oil-list-row .oil-value {
+  min-width: 90px;
+  width: 90px;
+  text-align: right;
+  flex-shrink: 0;
+  margin-left: auto;
+  color: #a09070;
 }
 
 .oil-threshold-note {
@@ -754,66 +988,193 @@ header p {
   font-size: 0.9em;
 }
 
-.delirium-orb-list-header,
-.delirium-orb-list-row,
-.emblem-list-header,
-.emblem-list-row,
-.tattoo-list-header,
-.tattoo-list-row {
-  display: grid;
-  grid-template-columns: auto auto 1fr auto;
-  gap: 12px;
-  align-items: center;
-  padding: 8px 12px;
+/* Delirium Orb list: flex layout (same as Catalyst/Oil) */
+.delirium-orb-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.delirium-orb-list-header,
-.emblem-list-header,
-.tattoo-list-header {
+.delirium-orb-list-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 12px;
+  padding: 8px 12px 8px 8px;
+  min-height: 40px;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
   background: #0f0f0f;
   border-radius: 4px;
-  border: 1px solid rgba(200, 170, 110, 0.15);
-  margin-bottom: 4px;
-  font-weight: 500;
-  font-size: 0.9em;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(200, 170, 110, 0.1);
+  font-size: 0.95em;
+  cursor: default;
+  transition: all 0.2s;
 }
 
-.delirium-orb-list,
-.emblem-list,
+.delirium-orb-list-row:hover {
+  transform: translateX(1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+  border-color: rgba(200, 170, 110, 0.25);
+  background: #151515;
+}
+
+.delirium-orb-list-row .delirium-orb-name {
+  font-weight: 500;
+  color: #c8aa6e;
+  flex: 1 1 0%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 10px;
+}
+
+.delirium-orb-list-row .delirium-orb-weight {
+  min-width: 100px;
+  width: 100px;
+  text-align: right;
+  flex-shrink: 0;
+  color: #a09070;
+}
+
+.delirium-orb-list-row .delirium-orb-value {
+  min-width: 90px;
+  width: 90px;
+  text-align: right;
+  flex-shrink: 0;
+  margin-left: auto;
+  color: #a09070;
+}
+
+/* Emblem list: flex layout (image, name, value – no weight column) */
+.emblem-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.emblem-list-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 12px;
+  padding: 8px 12px 8px 8px;
+  min-height: 40px;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  background: #0f0f0f;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(200, 170, 110, 0.1);
+  font-size: 0.95em;
+  cursor: default;
+  transition: all 0.2s;
+}
+
+.emblem-list-row:hover {
+  transform: translateX(1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+  border-color: rgba(200, 170, 110, 0.25);
+  background: #151515;
+}
+
+.emblem-list-row .emblem-name {
+  font-weight: 500;
+  color: #c8aa6e;
+  flex: 1 1 0%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 10px;
+}
+
+.emblem-list-row .emblem-weight {
+  min-width: 100px;
+  width: 100px;
+  text-align: right;
+  flex-shrink: 0;
+  color: #a09070;
+}
+
+.emblem-list-row .emblem-value {
+  min-width: 90px;
+  width: 90px;
+  text-align: right;
+  flex-shrink: 0;
+  margin-left: auto;
+  color: #a09070;
+}
+
+/* Tattoo list: flex layout (same as Delirium Orb / Emblem) */
 .tattoo-list {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.delirium-orb-list-row,
-.emblem-list-row,
 .tattoo-list-row {
-  background: rgba(15, 15, 15, 0.6);
-  border: 1px solid rgba(200, 170, 110, 0.1);
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 12px;
+  padding: 8px 12px 8px 8px;
+  min-height: 40px;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  background: #0f0f0f;
   border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(200, 170, 110, 0.1);
   font-size: 0.95em;
+  cursor: default;
+  transition: all 0.2s;
 }
 
-.delirium-orb-list-row .item-name,
-.emblem-list-row .item-name,
-.tattoo-list-row .item-name {
+.tattoo-list-row:hover {
+  transform: translateX(1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+  border-color: rgba(200, 170, 110, 0.25);
+  background: #151515;
+}
+
+.tattoo-list-row .tattoo-name {
+  font-weight: 500;
   color: #c8aa6e;
+  flex: 1 1 0%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 10px;
 }
 
-.delirium-orb-list-row .item-value,
-.emblem-list-row .item-value,
-.tattoo-list-row .item-value {
-  color: #a09070;
+.tattoo-list-row .tattoo-weight {
+  min-width: 100px;
+  width: 100px;
   text-align: right;
+  flex-shrink: 0;
+  color: #a09070;
+}
+
+.tattoo-list-row .tattoo-value {
+  min-width: 90px;
+  width: 90px;
+  text-align: right;
+  flex-shrink: 0;
+  margin-left: auto;
+  color: #a09070;
 }
 
 .essence-list-header {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   padding: 8px 12px 8px 8px;
   background: #0f0f0f;
   border-radius: 4px;
@@ -848,9 +1209,17 @@ header p {
   padding-right: 10px;
 }
 
+.essence-header-cell.weight-cell {
+  min-width: 72px;
+  width: 72px;
+  text-align: right;
+  flex-shrink: 0;
+  justify-content: flex-end;
+}
+
 .essence-header-cell.value-cell {
-  min-width: 90px;
-  width: 90px;
+  min-width: 72px;
+  width: 72px;
   text-align: right;
   flex-shrink: 0;
   justify-content: flex-end;
@@ -865,14 +1234,6 @@ header p {
   justify-content: center;
 }
 
-.essence-header-cell.status-cell {
-  min-width: 120px;
-  width: 120px;
-  flex-shrink: 0;
-  text-align: center;
-  justify-content: center;
-}
-
 .essence-item {
   background: #0f0f0f;
   border-radius: 4px;
@@ -881,7 +1242,7 @@ header p {
   transition: all 0.2s;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   padding: 8px 12px 8px 8px;
   min-height: 40px;
   box-sizing: border-box;
@@ -912,12 +1273,21 @@ header p {
   padding-right: 10px;
 }
 
+.essence-weight {
+  font-size: 0.95em;
+  color: #a09070;
+  min-width: 72px;
+  width: 72px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
 .essence-value {
   font-size: 1em;
   font-weight: 500;
   color: #c8aa6e;
-  min-width: 90px;
-  width: 90px;
+  min-width: 72px;
+  width: 72px;
   text-align: right;
   flex-shrink: 0;
 }
@@ -927,15 +1297,6 @@ header p {
   color: #a09070;
   min-width: 100px;
   width: 100px;
-  text-align: center;
-  flex-shrink: 0;
-}
-
-.essence-status {
-  font-size: 0.9em;
-  font-weight: 500;
-  min-width: 120px;
-  width: 120px;
   text-align: center;
   flex-shrink: 0;
 }
@@ -1136,12 +1497,12 @@ header p {
   margin-left: auto;
 }
 
-.fossil-header-cell.status-cell {
-  min-width: 120px;
-  width: 120px;
+.fossil-header-cell.drop-weight-cell {
+  min-width: 100px;
+  width: 100px;
   flex-shrink: 0;
-  text-align: center;
-  justify-content: center;
+  text-align: right;
+  justify-content: flex-end;
 }
 
 .fossil-item {
@@ -1193,13 +1554,14 @@ header p {
   flex-shrink: 0;
 }
 
-.fossil-status {
+.fossil-drop-weight {
   font-size: 0.9em;
   font-weight: 500;
-  min-width: 120px;
-  width: 120px;
-  text-align: center;
+  min-width: 100px;
+  width: 100px;
+  text-align: right;
   flex-shrink: 0;
+  color: #a0a0a0;
 }
 
 /* Fossil Threshold Display */
@@ -2220,6 +2582,13 @@ header p {
   height: 24px;
 }
 
+#scarab-list-container .scarab-header-cell.weight-cell,
+#scarab-list-container .scarab-item.compact .scarab-weight {
+  min-width: 60px;
+  width: 60px;
+  font-size: 0.9em;
+}
+
 #scarab-list-container .scarab-header-cell.value-cell,
 #scarab-list-container .scarab-item.compact .scarab-value {
   min-width: 60px;
@@ -2597,8 +2966,8 @@ input:focus {
 
   .scarab-item.compact {
     padding: 6px 10px;
-    flex-wrap: wrap;
-    min-height: auto;
+    flex-wrap: nowrap;
+    min-height: 40px;
   }
 
   .scarab-meta-compact {

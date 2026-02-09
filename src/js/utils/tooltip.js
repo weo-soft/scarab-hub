@@ -330,6 +330,10 @@ function buildEssenceTooltipContent(essence) {
     parts.push(`<div class="tooltip-price-item"><span class="tooltip-price-unavailable">Price data unavailable</span></div>`);
   }
   parts.push('</div>');
+  if (essence.dropWeight != null) {
+    parts.push('<div class="tooltip-separator"></div>');
+    parts.push(`<div class="tooltip-details"><div class="tooltip-detail-item">Drop weight: ${(essence.dropWeight * 100).toFixed(2)}%</div></div>`);
+  }
   if (essence.profitabilityStatus && essence.profitabilityStatus !== 'unknown') {
     parts.push('<div class="tooltip-separator"></div>');
     const statusClass = essence.profitabilityStatus === 'profitable' ? 'profitable' : 'not-profitable';

@@ -11,6 +11,7 @@ const ESSENCE_MLE_WEIGHTS_URL = 'https://poedata.dev/data/essences/calculations/
 const CATALYST_MLE_WEIGHTS_URL = 'https://poedata.dev/data/catalysts/calculations/mle.json';
 const FOSSIL_MLE_WEIGHTS_URL = 'https://poedata.dev/data/fossils/calculations/mle.json';
 const TATTOO_MLE_WEIGHTS_URL = 'https://poedata.dev/data/tattoos/calculations/mle.json';
+const DELIRIUM_ORB_MLE_WEIGHTS_URL = 'https://poedata.dev/data/deliriumOrbs/calculations/mle.json';
 
 /**
  * Fetch scarab drop weights from poedata.dev MLE calculations
@@ -118,6 +119,27 @@ async function fetchTattooWeightsFromMle() {
   const response = await fetch(TATTOO_MLE_WEIGHTS_URL);
   if (!response.ok) {
     throw new Error(`Failed to load Tattoo weights from ${TATTOO_MLE_WEIGHTS_URL}`);
+  }
+  const data = await response.json();
+  const weightMap = new Map();
+  if (data.items && Array.isArray(data.items)) {
+    data.items.forEach((item) => {
+      if (item.id != null && typeof item.weight === 'number') {
+        weightMap.set(item.id, item.weight);
+      }
+    });
+  }
+  return weightMap;
+}
+
+/**
+ * Fetch Delirium Orb drop weights from poedata.dev MLE calculations
+ * @returns {Promise<Map<string, number>>} Map of delirium orb id -> weight (probability)
+ */
+async function fetchDeliriumOrbWeightsFromMle() {
+  const response = await fetch(DELIRIUM_ORB_MLE_WEIGHTS_URL);
+  if (!response.ok) {
+    throw new Error(`Failed to load Delirium Orb weights from ${DELIRIUM_ORB_MLE_WEIGHTS_URL}`);
   }
   const data = await response.json();
   const weightMap = new Map();
@@ -501,34 +523,54 @@ export async function getPrimalLifeforcePrice() {
 }
 
 /**
- * Load and merge Fossil price data
- * Fossils don't have a separate details file like Scarabs - prices contain all needed data
- * @returns {Promise<Array>} Array of Fossil price objects
+ * Load and merge Fossil details (fossils.json), MLE weights (poedata.dev), and prices.
+ * Used for list view and threshold calculation so drop weights are available for weighted expected value.
+ * @returns {Promise<Array>} Merged fossil data with id, name, description, dropWeight, chaosValue, etc.
  */
 export async function loadAndMergeFossilData() {
   try {
-    // Load Fossil prices from remote with fallback to local (using selected league)
-    const prices = await loadItemTypePrices('fossil');
-    
-    // Handle missing price data - mark as null if chaosValue is missing
-    const processedPrices = prices.map(price => ({
-      ...price,
-      chaosValue: price.chaosValue ?? null,
-      divineValue: price.divineValue ?? null
-    }));
-    
-    // Log warnings for Fossils with missing prices
-    const missingPrices = processedPrices.filter(p => p.chaosValue === null);
-    if (missingPrices.length > 0) {
-      console.warn(`${missingPrices.length} Fossils have missing price data`);
+    const detailsResponse = await fetch('/data/items/fossils.json');
+    if (!detailsResponse.ok) {
+      throw new Error('Failed to load Fossil details file');
     }
-    
-    // Fossil prices already contain all needed data (name, detailsId, chaosValue, divineValue)
-    // No merging needed like Scarabs
-    return processedPrices;
+    const details = await detailsResponse.json();
+
+    const weightMap = await fetchFossilWeightsFromMle().catch((err) => {
+      console.warn('Fossil MLE weights unavailable:', err.message);
+      return new Map();
+    });
+
+    const prices = await loadItemTypePrices('fossil').catch(() => []);
+
+    const priceMap = new Map();
+    (prices || []).forEach((price) => {
+      const id = price.detailsId || price.id;
+      if (id) {
+        priceMap.set(id, price);
+      }
+    });
+
+    const merged = details.map((detail) => {
+      const price = priceMap.get(detail.id);
+      const dropWeight = weightMap.has(detail.id) ? weightMap.get(detail.id) : null;
+      return {
+        ...detail,
+        dropWeight,
+        chaosValue: price?.chaosValue ?? null,
+        divineValue: price?.divineValue ?? null
+      };
+    });
+
+    const withPrice = merged.filter((m) => m.chaosValue != null);
+    const missingPrices = merged.length - withPrice.length;
+    if (missingPrices > 0) {
+      console.warn(`${missingPrices} Fossils have missing price data`);
+    }
+
+    console.log(`✓ Loaded ${merged.length} Fossils for threshold (${priceMap.size} with price data, MLE weights for ${weightMap.size} types)`);
+    return merged;
   } catch (error) {
     console.error('Error loading Fossil data:', error);
-    // Return empty array instead of throwing to allow graceful degradation
     return [];
   }
 }
@@ -694,16 +736,22 @@ export async function loadFullOilData() {
 }
 
 /**
- * Load and merge Delirium Orb details (deliriumOrbs.json) and prices.
- * @returns {Promise<Array>} Merged delirium orb data with id, name, helpText, chaosValue, divineValue, etc.
+ * Load and merge Delirium Orb details (deliriumOrbs.json), MLE weights (poedata.dev), and prices.
+ * Used for list view and threshold calculation so drop weights are available for weighted expected value.
+ * @returns {Promise<Array>} Merged delirium orb data with id, name, helpText, dropWeight, chaosValue, etc.
  */
-export async function loadFullDeliriumOrbData() {
+export async function loadAndMergeDeliriumOrbData() {
   try {
     const detailsResponse = await fetch('/data/items/deliriumOrbs.json');
     if (!detailsResponse.ok) {
       throw new Error('Failed to load Delirium Orb details file');
     }
     const details = await detailsResponse.json();
+
+    const weightMap = await fetchDeliriumOrbWeightsFromMle().catch((err) => {
+      console.warn('Delirium Orb MLE weights unavailable:', err.message);
+      return new Map();
+    });
 
     const prices = await loadItemTypePrices('deliriumOrb').catch(() => []);
 
@@ -717,14 +765,69 @@ export async function loadFullDeliriumOrbData() {
 
     const merged = details.map((detail) => {
       const price = priceMap.get(detail.id);
+      const dropWeight = weightMap.has(detail.id) ? weightMap.get(detail.id) : null;
       return {
         ...detail,
+        dropWeight,
         chaosValue: price?.chaosValue ?? null,
         divineValue: price?.divineValue ?? null
       };
     });
 
-    console.log(`✓ Loaded ${merged.length} Delirium Orbs (${priceMap.size} with price data)`);
+    const withPrice = merged.filter((m) => m.chaosValue != null);
+    const missingPrices = merged.length - withPrice.length;
+    if (missingPrices > 0) {
+      console.warn(`${missingPrices} Delirium Orbs have missing price data`);
+    }
+
+    console.log(`✓ Loaded ${merged.length} Delirium Orbs for threshold (${priceMap.size} with price data, MLE weights for ${weightMap.size} types)`);
+    return merged;
+  } catch (error) {
+    console.error('Error loading Delirium Orb data:', error);
+    return [];
+  }
+}
+
+/**
+ * Load and merge Delirium Orb details (deliriumOrbs.json), MLE weights (poedata.dev), and prices.
+ * Use for grid view and any display needing name, helpText, dropWeight.
+ * @returns {Promise<Array>} Merged delirium orb data with id, name, helpText, dropWeight, chaosValue, etc.
+ */
+export async function loadFullDeliriumOrbData() {
+  try {
+    const detailsResponse = await fetch('/data/items/deliriumOrbs.json');
+    if (!detailsResponse.ok) {
+      throw new Error('Failed to load Delirium Orb details file');
+    }
+    const details = await detailsResponse.json();
+
+    const weightMap = await fetchDeliriumOrbWeightsFromMle().catch((err) => {
+      console.warn('Delirium Orb MLE weights unavailable:', err.message);
+      return new Map();
+    });
+
+    const prices = await loadItemTypePrices('deliriumOrb').catch(() => []);
+
+    const priceMap = new Map();
+    (prices || []).forEach((price) => {
+      const id = price.detailsId || price.id;
+      if (id) {
+        priceMap.set(id, price);
+      }
+    });
+
+    const merged = details.map((detail) => {
+      const price = priceMap.get(detail.id);
+      const dropWeight = weightMap.has(detail.id) ? weightMap.get(detail.id) : null;
+      return {
+        ...detail,
+        dropWeight,
+        chaosValue: price?.chaosValue ?? null,
+        divineValue: price?.divineValue ?? null
+      };
+    });
+
+    console.log(`✓ Loaded ${merged.length} Delirium Orbs (${priceMap.size} with price data, MLE weights for ${weightMap.size} types)`);
     return merged;
   } catch (error) {
     console.error('Error loading Delirium Orb data:', error);

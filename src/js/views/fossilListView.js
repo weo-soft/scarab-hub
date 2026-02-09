@@ -6,6 +6,7 @@
 import { getProfitabilityColor, getProfitabilityBackgroundColor } from '../utils/colorUtils.js';
 import { renderSelectionPanel } from '../components/fossilSelectionPanel.js';
 import { loadPreferences, savePreferences } from '../services/dataService.js';
+import { highlightCellForFossil, clearFossilHighlight } from './fossilGridView.js';
 
 let currentFossils = [];
 let currentCurrency = 'chaos';
@@ -66,11 +67,11 @@ export function renderFossilList(container, fossils, currency = 'chaos', panelCo
       <div class="fossil-header-cell name-cell sortable" data-sort-field="name">
         Name${getSortIndicator('name')}
       </div>
+      <div class="fossil-header-cell drop-weight-cell sortable" data-sort-field="dropWeight">
+        Drop Weight${getSortIndicator('dropWeight')}
+      </div>
       <div class="fossil-header-cell value-cell sortable" data-sort-field="value">
         Value${getSortIndicator('value')}
-      </div>
-      <div class="fossil-header-cell status-cell sortable" data-sort-field="status">
-        Status${getSortIndicator('status')}
       </div>
     </div>
     <div class="fossil-list">
@@ -83,7 +84,8 @@ export function renderFossilList(container, fossils, currency = 'chaos', panelCo
   // Attach event listeners
   setupSortListeners(container);
   setupSelectionListeners(container);
-  
+  setupListHoverListenersForGrid(container);
+
   // Render selection panel if container provided
   if (panelContainer) {
     // Get expected value from first Fossil (all have same expected value)
@@ -170,7 +172,9 @@ function renderFossilItem(fossil, currency) {
   const status = fossil.profitabilityStatus;
   const color = getProfitabilityColor(status);
   const bgColor = getProfitabilityBackgroundColor(status);
-  const statusLabel = getStatusLabel(status);
+  const dropWeightDisplay = fossil.dropWeight != null
+    ? (fossil.dropWeight * 100).toFixed(2) + '%'
+    : 'N/A';
   const isSelected = selectedFossilIds.has(fossil.id) || fossil.selectedForReroll;
   const selectedClass = isSelected ? 'selected' : '';
   const imagePath = `/assets/images/fossils/${fossil.id}.png`;
@@ -180,26 +184,12 @@ function renderFossilItem(fossil, currency) {
          style="border-left: 4px solid ${color}; background-color: ${bgColor};">
       <img class="fossil-image" src="${imagePath}" alt="${fossil.name}" onerror="this.style.display='none'">
       <span class="fossil-name">${fossil.name}</span>
+      <span class="fossil-drop-weight">${dropWeightDisplay}</span>
       <span class="fossil-value">
         ${value !== null ? `${value.toFixed(2)} ${currency === 'divine' ? 'Div' : 'c'}` : 'N/A'}
       </span>
-      <span class="fossil-status">${statusLabel}</span>
     </div>
   `;
-}
-
-/**
- * Get status label
- * @param {string} status
- * @returns {string}
- */
-function getStatusLabel(status) {
-  const labels = {
-    'profitable': 'Reroll',
-    'not_profitable': 'Keep',
-    'unknown': 'Unknown'
-  };
-  return labels[status] || 'Unknown';
 }
 
 /**
@@ -224,10 +214,9 @@ function sortFossils(fossils, sort, currency) {
         aValue = a.name.toLowerCase();
         bValue = b.name.toLowerCase();
         break;
-      case 'status':
-        const statusOrder = { 'profitable': 0, 'not_profitable': 1, 'unknown': 2 };
-        aValue = statusOrder[a.profitabilityStatus] ?? 3;
-        bValue = statusOrder[b.profitabilityStatus] ?? 3;
+      case 'dropWeight':
+        aValue = a.dropWeight == null ? Infinity : a.dropWeight;
+        bValue = b.dropWeight == null ? Infinity : b.dropWeight;
         break;
       default:
         return 0;
@@ -270,6 +259,20 @@ function setupSortListeners(container) {
       // Re-render with new sort
       renderFossilList(container, currentFossils, currentCurrency);
     });
+  });
+}
+
+/**
+ * Setup hover event listeners for list items to highlight corresponding grid cell
+ * @param {HTMLElement} container
+ */
+function setupListHoverListenersForGrid(container) {
+  const fossilItems = container.querySelectorAll('.fossil-item[data-fossil-id]');
+  fossilItems.forEach(item => {
+    const fossilId = item.getAttribute('data-fossil-id');
+    if (!fossilId) return;
+    item.addEventListener('mouseenter', () => highlightCellForFossil(fossilId));
+    item.addEventListener('mouseleave', () => clearFossilHighlight());
   });
 }
 
