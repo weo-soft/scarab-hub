@@ -492,6 +492,134 @@ function escapeHtml(text) {
 }
 
 /**
+ * Show tooltip for a unique item
+ * @param {Object} unique - Unique item object
+ * @param {number} x - Mouse X position (screen coordinates)
+ * @param {number} y - Mouse Y position (screen coordinates)
+ */
+export function showUniqueTooltip(unique, x, y) {
+  if (!unique) {
+    hideTooltip();
+    return;
+  }
+  initTooltip();
+  tooltipElement.innerHTML = buildUniqueTooltipContent(unique);
+  positionTooltip(x, y);
+  tooltipElement.style.display = 'block';
+  requestAnimationFrame(() => tooltipElement.classList.add('visible'));
+}
+
+/**
+ * Build tooltip HTML content for unique item
+ * @param {Object} unique - Unique item object
+ * @returns {string} HTML content
+ */
+function buildUniqueTooltipContent(unique) {
+  const parts = [];
+  parts.push(`<div class="tooltip-name">${escapeHtml(unique.name)}</div>`);
+  parts.push(`<div class="tooltip-base-type">${escapeHtml(unique.baseType)}</div>`);
+  
+  if (unique.levelRequired) {
+    parts.push(`<div class="tooltip-level">Level ${unique.levelRequired}</div>`);
+  }
+  
+  parts.push('<div class="tooltip-separator"></div>');
+  
+  if (unique.implicitModifiers && unique.implicitModifiers.length > 0) {
+    parts.push('<div class="tooltip-modifiers">');
+    unique.implicitModifiers.forEach(mod => {
+      parts.push(`<div class="tooltip-modifier implicit">${escapeHtml(mod.text)}</div>`);
+    });
+    parts.push('</div>');
+  }
+  
+  if (unique.explicitModifiers && unique.explicitModifiers.length > 0) {
+    parts.push('<div class="tooltip-modifiers">');
+    unique.explicitModifiers.forEach(mod => {
+      parts.push(`<div class="tooltip-modifier explicit">${escapeHtml(mod.text)}</div>`);
+    });
+    parts.push('</div>');
+  }
+  
+  if (unique.flavourText) {
+    parts.push('<div class="tooltip-separator"></div>');
+    parts.push(`<div class="tooltip-flavour">${escapeHtml(unique.flavourText)}</div>`);
+  }
+  
+  return parts.join('');
+}
+
+/**
+ * Show tooltip for a vial
+ * @param {Object} vial - Vial item object
+ * @param {number} x - Mouse X position (screen coordinates)
+ * @param {number} y - Mouse Y position (screen coordinates)
+ */
+export function showVialTooltip(vial, x, y) {
+  if (!vial) {
+    hideTooltip();
+    return;
+  }
+  initTooltip();
+  tooltipElement.innerHTML = buildVialTooltipContent(vial);
+  positionTooltip(x, y);
+  tooltipElement.style.display = 'block';
+  requestAnimationFrame(() => tooltipElement.classList.add('visible'));
+}
+
+/**
+ * Build tooltip HTML content for vial
+ * @param {Object} vial - Vial item object
+ * @returns {string} HTML content
+ */
+function buildVialTooltipContent(vial) {
+  const parts = [];
+  parts.push(`<div class="tooltip-name">${escapeHtml(vial.name)}</div>`);
+  
+  if (vial.flavourText) {
+    parts.push(`<div class="tooltip-flavour">${escapeHtml(vial.flavourText)}</div>`);
+  }
+  
+  if (vial.stackSize) {
+    parts.push('<div class="tooltip-separator"></div>');
+    parts.push(`<div class="tooltip-details"><div class="tooltip-detail-item">Stack Size: ${vial.stackSize}</div></div>`);
+  }
+  
+  return parts.join('');
+}
+
+/**
+ * Show tooltip for temple room
+ * @param {Object} temple - Temple item object
+ * @param {number} x - Mouse X position (screen coordinates)
+ * @param {number} y - Mouse Y position (screen coordinates)
+ */
+export function showTempleRoomTooltip(temple, x, y) {
+  if (!temple) {
+    hideTooltip();
+    return;
+  }
+  initTooltip();
+  tooltipElement.innerHTML = buildTempleRoomTooltipContent(temple);
+  positionTooltip(x, y);
+  tooltipElement.style.display = 'block';
+  requestAnimationFrame(() => tooltipElement.classList.add('visible'));
+}
+
+/**
+ * Build tooltip HTML content for temple room
+ * @param {Object} temple - Temple item object
+ * @returns {string} HTML content
+ */
+function buildTempleRoomTooltipContent(temple) {
+  const parts = [];
+  parts.push(`<div class="tooltip-name">${escapeHtml(temple.name)}</div>`);
+  parts.push('<div class="tooltip-separator"></div>');
+  parts.push('<div class="tooltip-description">Required for upgrading unique items at the Altar of Sacrifice</div>');
+  return parts.join('');
+}
+
+/**
  * Cleanup tooltip (remove from DOM)
  */
 export function cleanupTooltip() {
