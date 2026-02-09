@@ -58,10 +58,11 @@ function isCacheExpired(cacheEntry) {
   return age > CACHE_EXPIRATION_MS;
 }
 
+
 /**
  * Fetch data from remote URL with fallback to local
  * @param {string} fileName - The JSON file name (e.g., 'scarabPrices_Keepers.json')
- * @param {string} localPath - Local path to fallback file (e.g., '/data/scarabPrices_Keepers.json')
+ * @param {string} localPath - Local path to fallback file (e.g., '/data/prices/scarabPrices.json')
  * @returns {Promise<any>} The JSON data
  */
 export async function fetchDataWithFallback(fileName, localPath) {
@@ -99,14 +100,10 @@ export async function fetchDataWithFallback(fileName, localPath) {
   } catch (error) {
     console.warn(`⚠ Failed to fetch ${fileName} from remote, trying local fallback:`, error);
 
-    // Try local fallback
+    // Try local fallback from /data/prices/ folder
     try {
       const localResponse = await fetch(localPath);
       if (!localResponse.ok) {
-        // If local fallback also fails, throw a more specific error
-        if (localResponse.status === 404) {
-          throw new Error(`Unable to load ${fileName} from any source (file not found)`);
-        }
         throw new Error(`Failed to fetch ${localPath}: ${localResponse.status} ${localResponse.statusText}`);
       }
 
@@ -118,7 +115,7 @@ export async function fetchDataWithFallback(fileName, localPath) {
         return cacheEntry.data;
       }
 
-      console.log(`✓ Loaded ${fileName} from local fallback`);
+      console.log(`✓ Loaded ${fileName} from local fallback (${localPath})`);
       return data;
     } catch (localError) {
       // If we have any cached data (even expired), use it

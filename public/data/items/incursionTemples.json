@@ -1,0 +1,760 @@
+{
+    "lines": [
+        {
+            "name": "Locus of Corruption (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "locus-of-corruption-tier-3-temple"
+        },
+        {
+            "name": "Doryani's Institute (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "doryanis-institute-tier-3-temple"
+        },
+        {
+            "name": "Breach Containment Chamber (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "breach-containment-chamber-tier-2-temple"
+        },
+        {
+            "name": "Apex of Ascension (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "apex-of-ascension-tier-3-temple"
+        },
+        {
+            "name": "Guardhouse (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "guardhouse-tier-1-temple"
+        },
+        {
+            "name": "Sanctum of Immortality (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "sanctum-of-immortality-tier-3-temple"
+        },
+        {
+            "name": "Crucible of Flame (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "crucible-of-flame-tier-3-temple"
+        },
+        {
+            "name": "Apex of Atzoatl",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "apex-of-atzoatl-temple"
+        },
+        {
+            "name": "Throne of Atziri (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "throne-of-atziri-tier-3-temple"
+        },
+        {
+            "name": "Atlas of Worlds (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "atlas-of-worlds-tier-3-temple"
+        },
+        {
+            "name": "Hall of Legends (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "hall-of-legends-tier-3-temple"
+        },
+        {
+            "name": "Shrine of Empowerment (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "shrine-of-empowerment-tier-1-temple"
+        },
+        {
+            "name": "Factory (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "factory-tier-3-temple"
+        },
+        {
+            "name": "Sanctum of Unity (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "sanctum-of-unity-tier-2-temple"
+        },
+        {
+            "name": "Wealth of the Vaal (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "wealth-of-the-vaal-tier-3-temple"
+        },
+        {
+            "name": "Strongbox Chamber (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "strongbox-chamber-tier-1-temple"
+        },
+        {
+            "name": "Storm of Corruption (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "storm-of-corruption-tier-3-temple"
+        },
+        {
+            "name": "Museum of Artefacts (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "museum-of-artefacts-tier-3-temple"
+        },
+        {
+            "name": "Hall of Locks (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "hall-of-locks-tier-2-temple"
+        },
+        {
+            "name": "Temple Nexus (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "temple-nexus-tier-3-temple"
+        },
+        {
+            "name": "Tempest Generator (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "tempest-generator-tier-1-temple"
+        },
+        {
+            "name": "Temple Defense Workshop (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "temple-defense-workshop-tier-2-temple"
+        },
+        {
+            "name": "Sadist's Den (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "sadists-den-tier-3-temple"
+        },
+        {
+            "name": "Shrine of Unmaking (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "shrine-of-unmaking-tier-3-temple"
+        },
+        {
+            "name": "Armourer's Workshop (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "armourers-workshop-tier-1-temple"
+        },
+        {
+            "name": "Torment Cells (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "torment-cells-tier-1-temple"
+        },
+        {
+            "name": "Hybridisation Chamber (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "hybridisation-chamber-tier-3-temple"
+        },
+        {
+            "name": "Hall of War (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "hall-of-war-tier-3-temple"
+        },
+        {
+            "name": "Defense Research Lab (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "defense-research-lab-tier-3-temple"
+        },
+        {
+            "name": "Flame Workshop (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "flame-workshop-tier-1-temple"
+        },
+        {
+            "name": "Court of Sealed Death (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "court-of-sealed-death-tier-3-temple"
+        },
+        {
+            "name": "Toxic Grove (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "toxic-grove-tier-3-temple"
+        },
+        {
+            "name": "Lightning Workshop (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "lightning-workshop-tier-1-temple"
+        },
+        {
+            "name": "Storage Room (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "storage-room-tier-1-temple"
+        },
+        {
+            "name": "Torture Cages (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "torture-cages-tier-2-temple"
+        },
+        {
+            "name": "Sparring Room (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "sparring-room-tier-1-temple"
+        },
+        {
+            "name": "Cloister",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "cloister-temple"
+        },
+        {
+            "name": "Chamber of Iron (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "chamber-of-iron-tier-3-temple"
+        },
+        {
+            "name": "Banquet Hall",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "banquet-hall-temple"
+        },
+        {
+            "name": "Conduit of Lightning (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "conduit-of-lightning-tier-3-temple"
+        },
+        {
+            "name": "Explosives Room (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "explosives-room-tier-1-temple"
+        },
+        {
+            "name": "Royal Meeting Room (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "royal-meeting-room-tier-1-temple"
+        },
+        {
+            "name": "Vault (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "vault-tier-1-temple"
+        },
+        {
+            "name": "Demolition Lab (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "demolition-lab-tier-2-temple"
+        },
+        {
+            "name": "Pits",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "pits-temple"
+        },
+        {
+            "name": "Hall of Lords (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "hall-of-lords-tier-2-temple"
+        },
+        {
+            "name": "Tunnels",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "tunnels-temple"
+        },
+        {
+            "name": "Warehouses (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "warehouses-tier-2-temple"
+        },
+        {
+            "name": "Treasury (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "treasury-tier-2-temple"
+        },
+        {
+            "name": "Hall of Mettle (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "hall-of-mettle-tier-1-temple"
+        },
+        {
+            "name": "Automaton Lab (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "automaton-lab-tier-2-temple"
+        },
+        {
+            "name": "Poison Garden (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "poison-garden-tier-1-temple"
+        },
+        {
+            "name": "Department of Thaumaturgy (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "department-of-thaumaturgy-tier-2-temple"
+        },
+        {
+            "name": "Hurricane Engine (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "hurricane-engine-tier-2-temple"
+        },
+        {
+            "name": "Surveyor's Study (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "surveyors-study-tier-1-temple"
+        },
+        {
+            "name": "Office of Cartography (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "office-of-cartography-tier-2-temple"
+        },
+        {
+            "name": "Hall of Offerings (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "hall-of-offerings-tier-2-temple"
+        },
+        {
+            "name": "Engineering Department (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "engineering-department-tier-2-temple"
+        },
+        {
+            "name": "Catalyst of Corruption (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "catalyst-of-corruption-tier-2-temple"
+        },
+        {
+            "name": "Tombs",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "tombs-temple"
+        },
+        {
+            "name": "Jeweller's Workshop (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "jewellers-workshop-tier-1-temple"
+        },
+        {
+            "name": "Omnitect Forge (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "omnitect-forge-tier-2-temple"
+        },
+        {
+            "name": "Sacrificial Chamber (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "sacrificial-chamber-tier-1-temple"
+        },
+        {
+            "name": "Pools of Restoration (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "pools-of-restoration-tier-1-temple"
+        },
+        {
+            "name": "Workshop (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "workshop-tier-1-temple"
+        },
+        {
+            "name": "Antechamber",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "antechamber-temple"
+        },
+        {
+            "name": "Hall of Champions (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "hall-of-champions-tier-3-temple"
+        },
+        {
+            "name": "Jewellery Forge (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "jewellery-forge-tier-2-temple"
+        },
+        {
+            "name": "Cultivar Chamber (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "cultivar-chamber-tier-2-temple"
+        },
+        {
+            "name": "Passageways",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "passageways-temple"
+        },
+        {
+            "name": "Glittering Halls (Tier 3)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "glittering-halls-tier-3-temple"
+        },
+        {
+            "name": "Sanctum of Vitality (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "sanctum-of-vitality-tier-2-temple"
+        },
+        {
+            "name": "Hatchery (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "hatchery-tier-1-temple"
+        },
+        {
+            "name": "Hall of Heroes (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "hall-of-heroes-tier-2-temple"
+        },
+        {
+            "name": "Armoury (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "armoury-tier-2-temple"
+        },
+        {
+            "name": "Barracks (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "barracks-tier-2-temple"
+        },
+        {
+            "name": "Cellar",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "cellar-temple"
+        },
+        {
+            "name": "Omnitect Reactor Plant (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "omnitect-reactor-plant-tier-2-temple"
+        },
+        {
+            "name": "Gemcutter's Workshop (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "gemcutters-workshop-tier-1-temple"
+        },
+        {
+            "name": "Halls",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "halls-temple"
+        },
+        {
+            "name": "Corruption Chamber (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "corruption-chamber-tier-1-temple"
+        },
+        {
+            "name": "Trap Workshop (Tier 1)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "trap-workshop-tier-1-temple"
+        },
+        {
+            "name": "Arena of Valour (Tier 2)",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "arena-of-valour-tier-2-temple"
+        },
+        {
+            "name": "Chasm",
+            "baseType": "Chronicle of Atzoatl",
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "detailsId": "chasm-temple"
+        }
+    ]
+}

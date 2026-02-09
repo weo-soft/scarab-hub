@@ -1,0 +1,760 @@
+[
+    {
+        "name": "Mask of the Stitched Demon",
+        "levelRequired": 58,
+        "baseType": "Magistrate Crown",
+        "itemClass": 3,
+        "implicitModifiers": [],
+        "explicitModifiers": [
+            {
+                "text": "+(40-50) to Intelligence",
+                "optional": false
+            },
+            {
+                "text": "+(160-180) to maximum Energy Shield",
+                "optional": false
+            },
+            {
+                "text": "Strength provides no bonus to Maximum Life",
+                "optional": false
+            },
+            {
+                "text": "Intelligence provides no inherent bonus to Maximum Mana",
+                "optional": false
+            },
+            {
+                "text": "+1 to Maximum Life per 2 Intelligence",
+                "optional": false
+            },
+            {
+                "text": "Cannot gain Energy Shield",
+                "optional": false
+            },
+            {
+                "text": "Regenerate 1% of Life per second per 500 Maximum Energy Shield",
+                "optional": false
+            },
+            {
+                "text": "Your Energy Shield starts at zero",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "From the flesh of the gods, Xibaqua was born.\nFrom the carnage of Xibaqua, we were born.\nIt is our duty to return to the gods what was once theirs.",
+        "itemType": "Helmet",
+        "detailsId": "mask-of-the-stitched-demon-magistrate-crown"
+    },
+    {
+        "name": "Mask of the Spirit Drinker",
+        "levelRequired": 58,
+        "baseType": "Magistrate Crown",
+        "itemClass": 3,
+        "implicitModifiers": [],
+        "explicitModifiers": [
+            {
+                "text": "(140-220)% increased Armour and Energy Shield",
+                "optional": false
+            },
+            {
+                "text": "+(30-60) to maximum Energy Shield",
+                "optional": false
+            },
+            {
+                "text": "+(80-100) to maximum Life",
+                "optional": false
+            },
+            {
+                "text": "Cannot gain Energy Shield",
+                "optional": false
+            },
+            {
+                "text": "Regenerate (50-150) Life per second if you have at least (500-1500) Maximum Energy Shield",
+                "optional": false
+            },
+            {
+                "text": "Your Energy Shield starts at zero",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "Our flesh is our most sacred gift.\nTaint it not with the occult.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Summoning}",
+        "itemType": "Helmet",
+        "detailsId": "mask-of-the-spirit-drinker-magistrate-crown"
+    },
+    {
+        "name": "Slavedriver's Hand",
+        "levelRequired": 45,
+        "baseType": "Ambush Mitts",
+        "itemClass": 3,
+        "implicitModifiers": [],
+        "explicitModifiers": [
+            {
+                "text": "+(30-40) to Dexterity",
+                "optional": false
+            },
+            {
+                "text": "(200-250)% increased Evasion and Energy Shield",
+                "optional": false
+            },
+            {
+                "text": "(20-30)% reduced Trap Throwing Speed",
+                "optional": false
+            },
+            {
+                "text": "Skills used by Traps have (10-20)% increased Area of Effect",
+                "optional": false
+            },
+            {
+                "text": "Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed",
+                "optional": false
+            },
+            {
+                "text": "10% chance to gain an Endurance, Frenzy or Power Charge when any\nof your Traps are Triggered by an Enemy",
+                "optional": false
+            },
+            {
+                "text": "Skills which throw Traps Cost Life instead of Mana",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "A plan without a deadline stays a plan.",
+        "itemType": "Gloves",
+        "detailsId": "slavedrivers-hand-ambush-mitts"
+    },
+    {
+        "name": "Architect's Hand",
+        "levelRequired": 45,
+        "baseType": "Ambush Mitts",
+        "itemClass": 3,
+        "implicitModifiers": [],
+        "explicitModifiers": [
+            {
+                "text": "+(30-40) to Dexterity",
+                "optional": false
+            },
+            {
+                "text": "(201-250)% increased Evasion and Energy Shield",
+                "optional": false
+            },
+            {
+                "text": "(20-30)% reduced Trap Throwing Speed",
+                "optional": false
+            },
+            {
+                "text": "Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed",
+                "optional": false
+            },
+            {
+                "text": "(4-6)% chance to throw up to 4 additional Traps",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "Great works take time.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Dominance}",
+        "itemType": "Gloves",
+        "detailsId": "architects-hand-ambush-mitts"
+    },
+    {
+        "name": "Fate of the Vaal",
+        "levelRequired": 56,
+        "baseType": "Gemstone Sword",
+        "itemClass": 3,
+        "implicitModifiers": [
+            {
+                "text": "+400 to Accuracy Rating",
+                "optional": false
+            }
+        ],
+        "explicitModifiers": [
+            {
+                "text": "(180-210)% increased Physical Damage",
+                "optional": false
+            },
+            {
+                "text": "(10-15)% increased Attack Speed",
+                "optional": false
+            },
+            {
+                "text": "100% of Physical Damage from Hits with this Weapon is Converted to a random Element",
+                "optional": false
+            },
+            {
+                "text": "Hits with this Weapon always Ignite, Freeze, and Shock",
+                "optional": false
+            },
+            {
+                "text": "Hits with this Weapon deal (30-60)% increased Damage to Ignited Enemies",
+                "optional": false
+            },
+            {
+                "text": "Hits with this Weapon deal (30-59)% increased Damage to Frozen Enemies",
+                "optional": false
+            },
+            {
+                "text": "Hits with this Weapon deal (30-60)% increased Damage to Shocked Enemies",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "Doryani promises immortality, yet we build great structures, \ncarve magnificent works into stone, so a part of us lives onward.\nA sign of faithlessness through action.",
+        "itemType": "One Handed Sword",
+        "detailsId": "fate-of-the-vaal-gemstone-sword"
+    },
+    {
+        "name": "Story of the Vaal",
+        "levelRequired": 56,
+        "baseType": "Gemstone Sword",
+        "itemClass": 3,
+        "implicitModifiers": [
+            {
+                "text": "+400 to Accuracy Rating",
+                "optional": false
+            }
+        ],
+        "explicitModifiers": [
+            {
+                "text": "(180-210)% increased Physical Damage",
+                "optional": false
+            },
+            {
+                "text": "(10-15)% increased Attack Speed",
+                "optional": false
+            },
+            {
+                "text": "50% of Physical Damage from Hits with this Weapon is Converted to a random Element",
+                "optional": false
+            },
+            {
+                "text": "Hits with this Weapon always Ignite, Freeze, and Shock",
+                "optional": false
+            },
+            {
+                "text": "Hits with this Weapon Freeze Enemies as though dealing (151-200)% more Damage",
+                "optional": false
+            },
+            {
+                "text": "Hits with this Weapon Shock Enemies as though dealing (150-200)% more Damage",
+                "optional": false
+            },
+            {
+                "text": "Ignites inflicted with this Weapon deal (50-75)% more Damage",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "Through war we found peace. Through death we found advancement.\nOur ancestors did not know where their actions would take them.\nAre we any better?\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Fate}",
+        "itemType": "One Handed Sword",
+        "detailsId": "story-of-the-vaal-gemstone-sword"
+    },
+    {
+        "name": "Apep's Supremacy",
+        "levelRequired": 62,
+        "baseType": "Vaal Spirit Shield",
+        "itemClass": 3,
+        "implicitModifiers": [
+            {
+                "text": "(5-10)% increased Spell Damage",
+                "optional": false
+            }
+        ],
+        "explicitModifiers": [
+            {
+                "text": "Adds (50-55) to (72-80) Chaos Damage",
+                "optional": false
+            },
+            {
+                "text": "+(130-150) to maximum Energy Shield",
+                "optional": false
+            },
+            {
+                "text": "(30-50)% faster start of Energy Shield Recharge",
+                "optional": false
+            },
+            {
+                "text": "You take Chaos Damage instead of Physical Damage from Bleeding",
+                "optional": false
+            },
+            {
+                "text": "+25% chance to be Poisoned",
+                "optional": false
+            },
+            {
+                "text": "+3% to all maximum Resistances while Poisoned",
+                "optional": false
+            },
+            {
+                "text": "Poisons on you expire 50% slower",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "Give him your body, and your burdens will follow.",
+        "itemType": "Shield",
+        "detailsId": "apeps-supremacy-vaal-spirit-shield"
+    },
+    {
+        "name": "Apep's Slumber",
+        "levelRequired": 62,
+        "baseType": "Vaal Spirit Shield",
+        "itemClass": 3,
+        "implicitModifiers": [
+            {
+                "text": "(5-10)% increased Spell Damage",
+                "optional": false
+            }
+        ],
+        "explicitModifiers": [
+            {
+                "text": "Adds (50-55) to (72-80) Chaos Damage",
+                "optional": false
+            },
+            {
+                "text": "+(80-100) to maximum Energy Shield",
+                "optional": false
+            },
+            {
+                "text": "+25% chance to be Poisoned",
+                "optional": false
+            },
+            {
+                "text": "+3% to all maximum Resistances while Poisoned",
+                "optional": false
+            },
+            {
+                "text": "Regenerate 80 Energy Shield per Second per Poison on you, up to 400 per second",
+                "optional": false
+            },
+            {
+                "text": "Poisons on you expire 50% slower",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "The heart grows slow,\nthe spirit grows strong.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Awakening}",
+        "itemType": "Shield",
+        "detailsId": "apeps-slumber-vaal-spirit-shield"
+    },
+    {
+        "name": "Dance of the Offered",
+        "levelRequired": 55,
+        "baseType": "Carnal Boots",
+        "itemClass": 3,
+        "implicitModifiers": [],
+        "explicitModifiers": [
+            {
+                "text": "+(50-60) to maximum Mana",
+                "optional": false
+            },
+            {
+                "text": "+(25-30)% to Lightning Resistance",
+                "optional": false
+            },
+            {
+                "text": "25% increased Movement Speed",
+                "optional": false
+            },
+            {
+                "text": "You have Onslaught while not on Low Mana",
+                "optional": false
+            },
+            {
+                "text": "The Agnostic",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "Facing their death,\nthe mind of a sacrifice\nretreats into instinct and madness.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of the Ritual}",
+        "itemType": "Boots",
+        "detailsId": "dance-of-the-offered-carnal-boots"
+    },
+    {
+        "name": "Omeyocan",
+        "levelRequired": 55,
+        "baseType": "Carnal Boots",
+        "itemClass": 3,
+        "implicitModifiers": [],
+        "explicitModifiers": [
+            {
+                "text": "(15-20)% increased maximum Mana",
+                "optional": false
+            },
+            {
+                "text": "+(25-30)% to Lightning Resistance",
+                "optional": false
+            },
+            {
+                "text": "30% increased Movement Speed",
+                "optional": false
+            },
+            {
+                "text": "20% increased Evasion Rating per 500 Maximum Mana",
+                "optional": false
+            },
+            {
+                "text": "You have Onslaught while not on Low Mana",
+                "optional": false
+            },
+            {
+                "text": "Lose 7% of Mana per Second",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "Only a fool seeks meaning\nin a life so fleeting.",
+        "itemType": "Boots",
+        "detailsId": "omeyocan-carnal-boots"
+    },
+    {
+        "name": "Coward's Legacy",
+        "levelRequired": 52,
+        "baseType": "Chain Belt",
+        "itemClass": 3,
+        "implicitModifiers": [
+            {
+                "text": "+(9-20) to maximum Energy Shield",
+                "optional": false
+            }
+        ],
+        "explicitModifiers": [
+            {
+                "text": "+(15-24) to all Attributes",
+                "optional": false
+            },
+            {
+                "text": "(5-10)% increased Movement Speed",
+                "optional": false
+            },
+            {
+                "text": "50% increased Effect of Curses on you",
+                "optional": false
+            },
+            {
+                "text": "You count as on Low Life while you are Cursed with Vulnerability",
+                "optional": false
+            },
+            {
+                "text": "You are Cursed with Vulnerability",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "Death is your most important duty.\nFace it, or curse your bloodline for all eternity.",
+        "itemType": "Belt",
+        "detailsId": "cowards-legacy-chain-belt"
+    },
+    {
+        "name": "Coward's Chains",
+        "levelRequired": 22,
+        "baseType": "Chain Belt",
+        "itemClass": 3,
+        "implicitModifiers": [
+            {
+                "text": "+(9-20) to maximum Energy Shield",
+                "optional": false
+            }
+        ],
+        "explicitModifiers": [
+            {
+                "text": "+(15-20) to all Attributes",
+                "optional": false
+            },
+            {
+                "text": "(5-12)% increased Movement Speed",
+                "optional": false
+            },
+            {
+                "text": "Damage of Enemies Hitting you is Unlucky while you are Cursed with Vulnerability",
+                "optional": false
+            },
+            {
+                "text": "You count as on Full Life while you are Cursed with Vulnerability",
+                "optional": false
+            },
+            {
+                "text": "You are Cursed with Vulnerability",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "As a gift or as punishment,\nthe Empire will have your blood.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Consequence}",
+        "itemType": "Belt",
+        "detailsId": "cowards-chains-chain-belt"
+    },
+    {
+        "name": "Zerphi's Heart",
+        "levelRequired": 70,
+        "baseType": "Paua Amulet",
+        "itemClass": 3,
+        "implicitModifiers": [
+            {
+                "text": "(20-30)% increased Mana Regeneration Rate",
+                "optional": false
+            }
+        ],
+        "explicitModifiers": [
+            {
+                "text": "Adds (48-53) to (58-60) Chaos Damage",
+                "optional": false
+            },
+            {
+                "text": "Items and Gems have 50% increased Attribute Requirements",
+                "optional": false
+            },
+            {
+                "text": "Chaos Damage can Ignite, Chill and Shock",
+                "optional": false
+            },
+            {
+                "text": "Gain Soul Eater for 20 seconds when you use a Vaal Skill",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "We are incapable of change without sacrifice, for we are both the iron and the forge.",
+        "itemType": "Amulet",
+        "detailsId": "zerphis-heart-paua-amulet"
+    },
+    {
+        "name": "Sacrificial Heart",
+        "levelRequired": 32,
+        "baseType": "Paua Amulet",
+        "itemClass": 3,
+        "implicitModifiers": [
+            {
+                "text": "(20-30)% increased Mana Regeneration Rate",
+                "optional": false
+            }
+        ],
+        "explicitModifiers": [
+            {
+                "text": "Adds (22-27) to (34-38) Fire Damage",
+                "optional": false
+            },
+            {
+                "text": "Adds (20-23) to (31-35) Cold Damage",
+                "optional": false
+            },
+            {
+                "text": "Adds (1-3) to (47-52) Lightning Damage",
+                "optional": false
+            },
+            {
+                "text": "Gain up to maximum Power Charges when you use a Vaal Skill",
+                "optional": false
+            },
+            {
+                "text": "Gain 10 Life per Enemy Hit if you have used a Vaal Skill Recently",
+                "optional": false
+            },
+            {
+                "text": "10% increased Movement Speed if you have used a Vaal Skill Recently",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "The seed of life, saved and savoured.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Sacrifice}",
+        "itemType": "Amulet",
+        "detailsId": "sacrificial-heart-paua-amulet"
+    },
+    {
+        "name": "Transcendent Spirit",
+        "baseType": "Viridian Jewel",
+        "itemClass": 3,
+        "implicitModifiers": [],
+        "explicitModifiers": [
+            {
+                "text": "-1 Dexterity per 1 Dexterity on Allocated Passives in Radius",
+                "optional": false
+            },
+            {
+                "text": "3% increased Movement Speed per 10 Dexterity on Allocated Passives in Radius",
+                "optional": false
+            },
+            {
+                "text": "+125 to Accuracy Rating per 10 Dexterity on Unallocated Passives in Radius",
+                "optional": false
+            },
+            {
+                "text": "2% reduced Movement Speed per 10 Dexterity on Unallocated Passives in Radius",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "Take comfort knowing that, even in death,\nwe may serve our Queen and fuel her empire.",
+        "itemType": "Jewel",
+        "detailsId": "transcendent-spirit-viridian-jewel"
+    },
+    {
+        "name": "Transcendent Flesh",
+        "baseType": "Crimson Jewel",
+        "itemClass": 3,
+        "implicitModifiers": [],
+        "explicitModifiers": [
+            {
+                "text": "-1 Strength per 1 Strength on Allocated Passives in Radius",
+                "optional": false
+            },
+            {
+                "text": "+7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius",
+                "optional": false
+            },
+            {
+                "text": "3% increased Life Recovery Rate per 10 Strength on Allocated Passives in Radius",
+                "optional": false
+            },
+            {
+                "text": "2% reduced Life Recovery Rate per 10 Strength on Unallocated Passives in Radius",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "We are as much shaped by what we do\nas what is done to us.",
+        "itemType": "Jewel",
+        "detailsId": "transcendent-flesh-crimson-jewel"
+    },
+    {
+        "name": "Transcendent Mind",
+        "baseType": "Cobalt Jewel",
+        "itemClass": 3,
+        "implicitModifiers": [],
+        "explicitModifiers": [
+            {
+                "text": "-1 Intelligence per 1 Intelligence on Allocated Passives in Radius",
+                "optional": false
+            },
+            {
+                "text": "+3% to Damage over Time Multiplier per 10 Intelligence on Unallocated Passives in Radius",
+                "optional": false
+            },
+            {
+                "text": "3% increased Mana Recovery Rate per 10 Intelligence on Allocated Passives in Radius",
+                "optional": false
+            },
+            {
+                "text": "2% reduced Mana Recovery Rate per 10 Intelligence on Unallocated Passives in Radius",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "A keen mind sees what others do not,\nmakes connections where others do not, \nand is dangerous in a way that others are not.",
+        "itemType": "Jewel",
+        "detailsId": "transcendent-mind-cobalt-jewel"
+    },
+    {
+        "name": "Tempered Spirit",
+        "baseType": "Viridian Jewel",
+        "itemClass": 3,
+        "implicitModifiers": [],
+        "explicitModifiers": [
+            {
+                "text": "-1 Dexterity per 1 Dexterity on Allocated Passives in Radius",
+                "optional": false
+            },
+            {
+                "text": "2% increased Movement Speed per 10 Dexterity on Allocated Passives in Radius",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "Though the body rots, the spirit lives on.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Transcendence}",
+        "itemType": "Jewel",
+        "detailsId": "tempered-spirit-viridian-jewel"
+    },
+    {
+        "name": "Tempered Flesh",
+        "baseType": "Crimson Jewel",
+        "itemClass": 3,
+        "implicitModifiers": [],
+        "explicitModifiers": [
+            {
+                "text": "-1 Strength per 1 Strength on Allocated Passives in Radius",
+                "optional": false
+            },
+            {
+                "text": "2% increased Life Recovery Rate per 10 Strength on Allocated Passives in Radius",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "We are born raw and untested, and we are shaped by life.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Transcendence}",
+        "itemType": "Jewel",
+        "detailsId": "tempered-flesh-crimson-jewel"
+    },
+    {
+        "name": "Tempered Mind",
+        "baseType": "Cobalt Jewel",
+        "itemClass": 3,
+        "implicitModifiers": [],
+        "explicitModifiers": [
+            {
+                "text": "-1 Intelligence per 1 Intelligence on Allocated Passives in Radius",
+                "optional": false
+            },
+            {
+                "text": "2% increased Mana Recovery Rate per 10 Intelligence on Allocated Passives in Radius",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "Any thought, no matter how fleeting, changes the thinker.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Transcendence}",
+        "itemType": "Jewel",
+        "detailsId": "tempered-mind-cobalt-jewel"
+    },
+    {
+        "name": "Soul Ripper",
+        "levelRequired": 27,
+        "baseType": "Quartz Flask",
+        "itemClass": 3,
+        "implicitModifiers": [],
+        "explicitModifiers": [
+            {
+                "text": "+(-39-90) to Maximum Charges",
+                "optional": true
+            },
+            {
+                "text": "Loses all Charges when you enter a new area",
+                "optional": false
+            },
+            {
+                "text": "Consumes Maximum Charges to use",
+                "optional": false
+            },
+            {
+                "text": "Gain Vaal Souls equal to Charges Consumed when used",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "\"What care have I for their pain? They're already dead.\"\n- Atalui, Vaal Priestess",
+        "detailsId": "soul-ripper"
+    },
+    {
+        "name": "Soul Catcher",
+        "levelRequired": 27,
+        "baseType": "Quartz Flask",
+        "itemClass": 3,
+        "implicitModifiers": [],
+        "explicitModifiers": [
+            {
+                "text": "Cannot gain Mana during effect",
+                "optional": false
+            },
+            {
+                "text": "(60-80)% increased Critical Strike Chance with Vaal Skills during effect",
+                "optional": false
+            },
+            {
+                "text": "(60-80)% increased Damage with Vaal Skills during effect",
+                "optional": false
+            },
+            {
+                "text": "Vaal Skills used during effect have 10% reduced Soul Gain Prevention Duration",
+                "optional": false
+            }
+        ],
+        "mutatedModifiers": [],
+        "flavourText": "Freedom is for the privileged, even in death.\n\n<default>{This item can be transformed on the Altar of Sacrifice along with Vial of the Ghost}",
+        "detailsId": "soul-catcher"
+    }
+]

@@ -1,7 +1,7 @@
 /**
  * Essence Grid View
  * Displays Essences in a grid layout using the generic grid view and essence adapter.
- * Uses essence-tab background; slot order from public/data/essences.json.
+ * Uses essence-tab background; slot order from public/data/items/essences.json.
  */
 
 import { essenceGridAdapter } from '../adapters/essenceGridAdapter.js';

@@ -121,7 +121,7 @@ export function setSelectedLeague(leagueId) {
 /**
  * Get price file name for selected league
  * @param {string} [itemType='scarab'] - Item type identifier (defaults to 'scarab' for backward compatibility)
- * @returns {string} Price file name (e.g., 'scarabPrices_Keepers.json' or 'catalystPrices_Keepers.json')
+ * @returns {string} Price file name for remote fetch (e.g., 'scarabPrices_Keepers.json' or 'catalystPrices_Keepers.json')
  */
 export function getPriceFileName(itemType = 'scarab') {
   const league = getSelectedLeague();
@@ -139,11 +139,14 @@ export function getPriceFileName(itemType = 'scarab') {
 /**
  * Get local fallback path for price file
  * @param {string} [itemType='scarab'] - Item type identifier (defaults to 'scarab' for backward compatibility)
- * @returns {string} Local path (e.g., '/data/scarabPrices_Keepers.json' or '/data/catalystPrices_Keepers.json')
+ * @returns {string} Local path (e.g., '/data/prices/scarabPrices.json' or '/data/prices/catalystPrices.json')
  */
 export function getPriceFileLocalPath(itemType = 'scarab') {
   const fileName = getPriceFileName(itemType);
-  return `/data/${fileName}`;
+  // Convert league-specific filename to prices folder filename (remove league suffix)
+  // e.g., 'scarabPrices_Keepers.json' -> 'scarabPrices.json'
+  const pricesFolderFileName = fileName.replace(/Prices_[^_]+\.json$/, 'Prices.json');
+  return `/data/prices/${pricesFolderFileName}`;
 }
 
 /**

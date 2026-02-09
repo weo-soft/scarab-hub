@@ -3,7 +3,7 @@
  * Flipping Scarabs - Path of Exile vendor profitability calculator
  */
 
-import { loadAndMergeScarabData, loadPreferences, savePreferences, loadAllItemTypePrices, loadFullEssenceData, getPrimalLifeforcePrice, loadAndMergeFossilData, getWildLifeforcePrice, loadAndMergeCatalystData, loadFullFossilData, loadFullOilData, loadFullDeliriumOrbData, loadFullEmblemData } from './js/services/dataService.js';
+import { loadAndMergeScarabData, loadPreferences, savePreferences, loadAllItemTypePrices, loadFullEssenceData, getPrimalLifeforcePrice, loadAndMergeFossilData, getWildLifeforcePrice, loadAndMergeCatalystData, loadFullFossilData, loadFullOilData, loadFullDeliriumOrbData, loadFullEmblemData, loadFullTattooData } from './js/services/dataService.js';
 import { calculateThreshold, calculateProfitabilityStatus } from './js/services/calculationService.js';
 import { calculateExpectedValueForGroup, calculateThresholdForGroup, calculateProfitabilityStatus as calculateEssenceProfitabilityStatus } from './js/services/essenceCalculationService.js';
 import { calculateExpectedValueForGroup as calculateFossilExpectedValueForGroup, calculateThresholdForGroup as calculateFossilThresholdForGroup, calculateProfitabilityStatus as calculateFossilProfitabilityStatus } from './js/services/fossilCalculationService.js';
@@ -346,6 +346,7 @@ let currentCatalysts = [];
 let currentOils = [];
 let currentDeliriumOrbs = [];
 let currentEmblems = [];
+let currentTattoos = [];
 let currentCurrency = 'chaos';
 let currentView = 'list';
 let currentFilters = null;
@@ -716,6 +717,25 @@ function handleCurrencyChange(currency) {
           <span class="item-value">Value (${currencySymbol})</span>
         </div>
         <div class="emblem-list">${rows.join('')}</div>
+      `;
+    }
+    return;
+  }
+
+  if (currentCategory === 'tattoos' && currentTattoos.length > 0) {
+    const listViewContainer = document.getElementById('list-view');
+    if (listViewContainer) {
+      const currencySymbol = currency === 'divine' ? 'Div' : 'c';
+      const rows = currentTattoos.map((t) => {
+        const value = currency === 'divine' ? (t.divineValue != null ? t.divineValue.toFixed(4) : '—') : (t.chaosValue != null ? t.chaosValue.toFixed(2) : '—');
+        return `<div class="tattoo-list-row" data-id="${t.id}"><span class="item-name">${t.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
+      });
+      listViewContainer.innerHTML = `
+        <div class="tattoo-list-header">
+          <span class="item-name">Name</span>
+          <span class="item-value">Value (${currencySymbol})</span>
+        </div>
+        <div class="tattoo-list">${rows.join('')}</div>
       `;
     }
     return;
@@ -1499,6 +1519,38 @@ async function renderEmblemUI(items, currency) {
 }
 
 /**
+ * Render Tattoo UI (list view)
+ */
+async function renderTattooUI(items, currency) {
+  currentTattoos = items;
+  currentCurrency = currency;
+
+  const listViewContainer = document.getElementById('list-view');
+  if (listViewContainer) {
+    const currencySymbol = currency === 'divine' ? 'Div' : 'c';
+    const rows = items.map((t) => {
+      const value = currency === 'divine' ? (t.divineValue != null ? t.divineValue.toFixed(4) : '—') : (t.chaosValue != null ? t.chaosValue.toFixed(2) : '—');
+      return `<div class="tattoo-list-row" data-id="${t.id}"><span class="item-name">${t.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
+    });
+    listViewContainer.innerHTML = `
+      <div class="tattoo-list-header">
+        <span class="item-name">Name</span>
+        <span class="item-value">Value (${currencySymbol})</span>
+      </div>
+      <div class="tattoo-list">${rows.join('')}</div>
+    `;
+  }
+
+  const gridViewContainer = document.getElementById('grid-view');
+  if (gridViewContainer) gridViewContainer.style.display = 'none';
+
+  const filterPanelContainer = document.getElementById('filter-panel');
+  if (filterPanelContainer) filterPanelContainer.style.display = 'none';
+  const thresholdContainer = document.getElementById('threshold-display');
+  if (thresholdContainer) thresholdContainer.innerHTML = '<div class="oil-threshold-note">Tattoos</div>';
+}
+
+/**
  * Handle category change
  * @param {string} category - 'scarabs', 'essences', 'tattoos', 'catalysts', 'temple', 'fossils', 'oils', 'delirium-orbs', 'emblems'
  */
@@ -1629,6 +1681,20 @@ async function handleCategoryChange(category) {
     } catch (error) {
       console.error('Error handling Emblems category:', error);
       showErrorToast('Failed to load Emblem data');
+    }
+  } else if (category === 'tattoos') {
+    try {
+      const listViewContainer = document.getElementById('list-view');
+      if (listViewContainer) {
+        listViewContainer.innerHTML = '<p class="loading-message">Loading Tattoos...</p>';
+      }
+      const items = await loadFullTattooData();
+      const preferences = loadPreferences();
+      const currency = preferences.currencyPreference || 'chaos';
+      await renderTattooUI(items, currency);
+    } catch (error) {
+      console.error('Error handling Tattoos category:', error);
+      showErrorToast('Failed to load Tattoo data');
     }
   } else {
     // For other categories, show placeholder

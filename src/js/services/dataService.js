@@ -117,7 +117,7 @@ async function fetchFossilWeightsFromMle() {
 export async function loadAndMergeScarabData(pricesOverride = null) {
   try {
     // Load details from local (static data) - scarabs.json has no weights
-    const detailsResponse = await fetch('/data/scarabs.json');
+    const detailsResponse = await fetch('/data/items/scarabs.json');
     if (!detailsResponse.ok) {
       throw new Error('Failed to load Scarab details file');
     }
@@ -382,7 +382,7 @@ export async function refreshItemTypePrices(itemType) {
 export async function loadFullEssenceData() {
   try {
     const [definitionsRes, prices, essenceWeightMap] = await Promise.all([
-      fetch('/data/essences.json'),
+      fetch('/data/items/essences.json'),
       loadItemTypePrices('essence').catch(() => []),
       fetchEssenceWeightsFromMle().catch((err) => {
         console.warn('Essence MLE weights unavailable, using equal weighting:', err.message);
@@ -544,7 +544,7 @@ export async function getWildLifeforcePrice() {
  */
 export async function loadAndMergeCatalystData() {
   try {
-    const detailsResponse = await fetch('/data/catalysts.json');
+    const detailsResponse = await fetch('/data/items/catalysts.json');
     if (!detailsResponse.ok) {
       throw new Error('Failed to load Catalyst details file');
     }
@@ -591,7 +591,7 @@ export async function loadAndMergeCatalystData() {
  */
 export async function loadFullFossilData() {
   try {
-    const detailsResponse = await fetch('/data/fossils.json');
+    const detailsResponse = await fetch('/data/items/fossils.json');
     if (!detailsResponse.ok) {
       throw new Error('Failed to load Fossil details file');
     }
@@ -638,7 +638,7 @@ export async function loadFullFossilData() {
  */
 export async function loadFullOilData() {
   try {
-    const detailsResponse = await fetch('/data/oils.json');
+    const detailsResponse = await fetch('/data/items/oils.json');
     if (!detailsResponse.ok) {
       throw new Error('Failed to load Oil details file');
     }
@@ -677,7 +677,7 @@ export async function loadFullOilData() {
  */
 export async function loadFullDeliriumOrbData() {
   try {
-    const detailsResponse = await fetch('/data/deliriumOrbs.json');
+    const detailsResponse = await fetch('/data/items/deliriumOrbs.json');
     if (!detailsResponse.ok) {
       throw new Error('Failed to load Delirium Orb details file');
     }
@@ -716,7 +716,7 @@ export async function loadFullDeliriumOrbData() {
  */
 export async function loadFullEmblemData() {
   try {
-    const detailsResponse = await fetch('/data/legionEmblems.json');
+    const detailsResponse = await fetch('/data/items/legionEmblems.json');
     if (!detailsResponse.ok) {
       throw new Error('Failed to load Legion Emblem details file');
     }
@@ -745,6 +745,45 @@ export async function loadFullEmblemData() {
     return merged;
   } catch (error) {
     console.error('Error loading Legion Emblem data:', error);
+    throw error;
+  }
+}
+
+/**
+ * Load and merge Tattoo details (tattoos.json) and prices.
+ * @returns {Promise<Array>} Merged tattoo data with id, name, description, chaosValue, divineValue, etc.
+ */
+export async function loadFullTattooData() {
+  try {
+    const detailsResponse = await fetch('/data/items/tattoos.json');
+    if (!detailsResponse.ok) {
+      throw new Error('Failed to load Tattoo details file');
+    }
+    const details = await detailsResponse.json();
+
+    const prices = await loadItemTypePrices('tattoo').catch(() => []);
+
+    const priceMap = new Map();
+    (prices || []).forEach((price) => {
+      const id = price.detailsId || price.id;
+      if (id) {
+        priceMap.set(id, price);
+      }
+    });
+
+    const merged = details.map((detail) => {
+      const price = priceMap.get(detail.id);
+      return {
+        ...detail,
+        chaosValue: price?.chaosValue ?? null,
+        divineValue: price?.divineValue ?? null
+      };
+    });
+
+    console.log(`✓ Loaded ${merged.length} Tattoos (${priceMap.size} with price data)`);
+    return merged;
+  } catch (error) {
+    console.error('Error loading Tattoo data:', error);
     throw error;
   }
 }

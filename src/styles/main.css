@@ -728,7 +728,9 @@ header p {
 .delirium-orb-list-header,
 .delirium-orb-list-row,
 .emblem-list-header,
-.emblem-list-row {
+.emblem-list-row,
+.tattoo-list-header,
+.tattoo-list-row {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 12px;
@@ -737,7 +739,8 @@ header p {
 }
 
 .delirium-orb-list-header,
-.emblem-list-header {
+.emblem-list-header,
+.tattoo-list-header {
   background: #0f0f0f;
   border-radius: 4px;
   border: 1px solid rgba(200, 170, 110, 0.15);
@@ -749,14 +752,16 @@ header p {
 }
 
 .delirium-orb-list,
-.emblem-list {
+.emblem-list,
+.tattoo-list {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
 .delirium-orb-list-row,
-.emblem-list-row {
+.emblem-list-row,
+.tattoo-list-row {
   background: rgba(15, 15, 15, 0.6);
   border: 1px solid rgba(200, 170, 110, 0.1);
   border-radius: 4px;
@@ -764,12 +769,14 @@ header p {
 }
 
 .delirium-orb-list-row .item-name,
-.emblem-list-row .item-name {
+.emblem-list-row .item-name,
+.tattoo-list-row .item-name {
   color: #c8aa6e;
 }
 
 .delirium-orb-list-row .item-value,
-.emblem-list-row .item-value {
+.emblem-list-row .item-value,
+.tattoo-list-row .item-value {
   color: #a09070;
   text-align: right;
 }

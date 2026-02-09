@@ -1,0 +1,92 @@
+{
+    "lines": [
+        {
+            "name": "Vial of Summoning",
+            "baseType": "Vial of Summoning",
+            "stackSize": 10,
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "flavourText": "Call to place the demon gods of the past.",
+            "detailsId": "vial-of-summoning"
+        },
+        {
+            "name": "Vial of Transcendence",
+            "baseType": "Vial of Transcendence",
+            "stackSize": 10,
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "flavourText": "It is not our flesh, our thoughts, or our soul that limits us;\nit is the distinction between them.",
+            "detailsId": "vial-of-transcendence"
+        },
+        {
+            "name": "Vial of Sacrifice",
+            "baseType": "Vial of Sacrifice",
+            "stackSize": 10,
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "flavourText": "Festivities of blood. Bleeding hearts and screaming lungs.",
+            "detailsId": "vial-of-sacrifice"
+        },
+        {
+            "name": "Vial of Awakening",
+            "baseType": "Vial of Awakening",
+            "stackSize": 10,
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "flavourText": "The eyes of Apep flicker open and the Poisoned One stirs.",
+            "detailsId": "vial-of-awakening"
+        },
+        {
+            "name": "Vial of Consequence",
+            "baseType": "Vial of Consequence",
+            "stackSize": 10,
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "flavourText": "Your actions live but a moment;\ntheir repercussions never die.",
+            "detailsId": "vial-of-consequence"
+        },
+        {
+            "name": "Vial of Dominance",
+            "baseType": "Vial of Dominance",
+            "stackSize": 10,
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "flavourText": "Blood, slaves and stone.\nThe timeless edifice of Dominance.",
+            "detailsId": "vial-of-dominance"
+        },
+        {
+            "name": "Vial of the Ritual",
+            "baseType": "Vial of the Ritual",
+            "stackSize": 10,
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "flavourText": "The ritual creates order. \nBoth in the minds of men and gods. \nThe ritual creates order.",
+            "detailsId": "vial-of-the-ritual"
+        },
+        {
+            "name": "Vial of Fate",
+            "baseType": "Vial of Fate",
+            "stackSize": 10,
+            "itemClass": 5,
+            "implicitModifiers": [],
+            "explicitModifiers": [],
+            "mutatedModifiers": [],
+            "flavourText": "Ancient myths of flame, frost and thunder.\nWill we ever know the way forward?",
+            "detailsId": "vial-of-fate"
+        }
+    ]
+}
