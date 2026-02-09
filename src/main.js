@@ -694,10 +694,12 @@ function handleCurrencyChange(currency) {
       const currencySymbol = currency === 'divine' ? 'Div' : 'c';
       const rows = currentDeliriumOrbs.map((o) => {
         const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
-        return `<div class="delirium-orb-list-row" data-id="${o.id}"><span class="item-name">${o.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
+        const imagePath = `/assets/images/deliriumOrbs/${o.id}.png`;
+        return `<div class="delirium-orb-list-row" data-id="${o.id}"><img class="delirium-orb-image" src="${imagePath}" alt="${o.name}" onerror="this.style.display='none'"><span class="item-name">${o.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
       });
       listViewContainer.innerHTML = `
         <div class="delirium-orb-list-header">
+          <span class="delirium-orb-image-cell"></span>
           <span class="item-name">Name</span>
           <span class="item-value">Value (${currencySymbol})</span>
         </div>
@@ -713,10 +715,12 @@ function handleCurrencyChange(currency) {
       const currencySymbol = currency === 'divine' ? 'Div' : 'c';
       const rows = currentEmblems.map((o) => {
         const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
-        return `<div class="emblem-list-row" data-id="${o.id}"><span class="item-name">${o.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
+        const imagePath = `/assets/images/legionEmblems/${o.id}.png`;
+        return `<div class="emblem-list-row" data-id="${o.id}"><img class="emblem-image" src="${imagePath}" alt="${o.name}" onerror="this.style.display='none'"><span class="item-name">${o.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
       });
       listViewContainer.innerHTML = `
         <div class="emblem-list-header">
+          <span class="emblem-image-cell"></span>
           <span class="item-name">Name</span>
           <span class="item-value">Value (${currencySymbol})</span>
         </div>
@@ -732,10 +736,12 @@ function handleCurrencyChange(currency) {
       const currencySymbol = currency === 'divine' ? 'Div' : 'c';
       const rows = currentTattoos.map((t) => {
         const value = currency === 'divine' ? (t.divineValue != null ? t.divineValue.toFixed(4) : '—') : (t.chaosValue != null ? t.chaosValue.toFixed(2) : '—');
-        return `<div class="tattoo-list-row" data-id="${t.id}"><span class="item-name">${t.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
+        const imagePath = `/assets/images/tattoos/${t.id}.png`;
+        return `<div class="tattoo-list-row" data-id="${t.id}"><img class="tattoo-image" src="${imagePath}" alt="${t.name}" onerror="this.style.display='none'"><span class="item-name">${t.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
       });
       listViewContainer.innerHTML = `
         <div class="tattoo-list-header">
+          <span class="tattoo-image-cell"></span>
           <span class="item-name">Name</span>
           <span class="item-value">Value (${currencySymbol})</span>
         </div>
@@ -1342,9 +1348,11 @@ async function renderCatalystUI(catalysts, currency) {
       const status = c.profitabilityStatus || 'unknown';
       const color = getProfitabilityColor(status);
       const bgColor = getProfitabilityBackgroundColor(status);
+      const imagePath = `/assets/images/catalysts/${c.id}.png`;
       
       return `<div class="catalyst-list-row" data-id="${c.id}" 
                style="border-left: 4px solid ${color}; background-color: ${bgColor};">
+        <img class="catalyst-image" src="${imagePath}" alt="${c.name}" onerror="this.style.display='none'">
         <span class="catalyst-name">${c.name}</span>
         <span class="catalyst-weight">${weightStr}</span>
         <span class="catalyst-value">${value} ${currencySymbol}</span>
@@ -1352,6 +1360,7 @@ async function renderCatalystUI(catalysts, currency) {
     });
     listViewContainer.innerHTML = `
       <div class="catalyst-list-header">
+        <span class="catalyst-image-cell"></span>
         <span class="catalyst-name">Name</span>
         <span class="catalyst-weight">Drop weight</span>
         <span class="catalyst-value">Value (${currencySymbol})</span>
@@ -1413,7 +1422,9 @@ async function renderOilUI(oils, currency) {
     const rows = oils.map((o) => {
       const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
       const tierStr = o.tier != null && o.tier > 0 ? `T${o.tier}` : '—';
+      const imagePath = `/assets/images/oils/${o.id}.png`;
       return `<div class="oil-list-row" data-id="${o.id}">
+        <img class="oil-image" src="${imagePath}" alt="${o.name}" onerror="this.style.display='none'">
         <span class="oil-name">${o.name}</span>
         <span class="oil-tier">${tierStr}</span>
         <span class="oil-value">${value} ${currencySymbol}</span>
@@ -1421,6 +1432,7 @@ async function renderOilUI(oils, currency) {
     });
     listViewContainer.innerHTML = `
       <div class="oil-list-header">
+        <span class="oil-image-cell"></span>
         <span class="oil-name">Name</span>
         <span class="oil-tier">Tier</span>
         <span class="oil-value">Value (${currencySymbol})</span>
@@ -1475,10 +1487,12 @@ async function renderDeliriumOrbUI(items, currency) {
     const currencySymbol = currency === 'divine' ? 'Div' : 'c';
     const rows = items.map((o) => {
       const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
-      return `<div class="delirium-orb-list-row" data-id="${o.id}"><span class="item-name">${o.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
+      const imagePath = `/assets/images/deliriumOrbs/${o.id}.png`;
+      return `<div class="delirium-orb-list-row" data-id="${o.id}"><img class="delirium-orb-image" src="${imagePath}" alt="${o.name}" onerror="this.style.display='none'"><span class="item-name">${o.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
     });
     listViewContainer.innerHTML = `
       <div class="delirium-orb-list-header">
+        <span class="delirium-orb-image-cell"></span>
         <span class="item-name">Name</span>
         <span class="item-value">Value (${currencySymbol})</span>
       </div>
@@ -1523,10 +1537,12 @@ async function renderEmblemUI(items, currency) {
     const currencySymbol = currency === 'divine' ? 'Div' : 'c';
     const rows = items.map((o) => {
       const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
-      return `<div class="emblem-list-row" data-id="${o.id}"><span class="item-name">${o.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
+      const imagePath = `/assets/images/legionEmblems/${o.id}.png`;
+      return `<div class="emblem-list-row" data-id="${o.id}"><img class="emblem-image" src="${imagePath}" alt="${o.name}" onerror="this.style.display='none'"><span class="item-name">${o.name}</span><span class="item-value">${value} ${currencySymbol}</span></div>`;
     });
     listViewContainer.innerHTML = `
       <div class="emblem-list-header">
+        <span class="emblem-image-cell"></span>
         <span class="item-name">Name</span>
         <span class="item-value">Value (${currencySymbol})</span>
       </div>
@@ -1604,15 +1620,18 @@ async function renderTattooUI(items, currency) {
       const status = t.profitabilityStatus || 'unknown';
       const color = getProfitabilityColor(status);
       const bgColor = getProfitabilityBackgroundColor(status);
+      const imagePath = `/assets/images/tattoos/${t.id}.png`;
       
       return `<div class="tattoo-list-row" data-id="${t.id}" 
                style="border-left: 4px solid ${color}; background-color: ${bgColor};">
+        <img class="tattoo-image" src="${imagePath}" alt="${t.name}" onerror="this.style.display='none'">
         <span class="item-name">${t.name}</span>
         <span class="item-value">${value} ${currencySymbol}</span>
       </div>`;
     });
     listViewContainer.innerHTML = `
       <div class="tattoo-list-header">
+        <span class="tattoo-image-cell"></span>
         <span class="item-name">Name</span>
         <span class="item-value">Value (${currencySymbol})</span>
       </div>

@@ -652,9 +652,10 @@ header p {
 }
 
 .catalyst-list-header,
+.catalyst-list-header,
 .catalyst-list-row {
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  grid-template-columns: auto auto 1fr auto auto;
   gap: 12px;
   align-items: center;
   padding: 8px 12px;
@@ -707,7 +708,7 @@ header p {
 .oil-list-header,
 .oil-list-row {
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  grid-template-columns: auto auto 1fr auto auto;
   gap: 12px;
   align-items: center;
   padding: 8px 12px;
@@ -760,7 +761,7 @@ header p {
 .tattoo-list-header,
 .tattoo-list-row {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto auto 1fr auto;
   gap: 12px;
   align-items: center;
   padding: 8px 12px;
@@ -3413,5 +3414,151 @@ input:focus {
     min-width: auto;
     max-width: 100%;
   }
+}
+
+/* Temple Upgrade List View Styles */
+.temple-upgrade-list {
+  padding: 20px;
+  width: 100%;
+}
+
+.temple-upgrade-header {
+  margin-bottom: 30px;
+}
+
+.temple-upgrade-header h2 {
+  margin: 0 0 10px 0;
+  font-size: 24px;
+  color: #c8aa6e;
+}
+
+.temple-upgrade-header p {
+  margin: 0;
+  color: #a09070;
+  font-size: 0.95em;
+}
+
+.temple-upgrade-combinations {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.temple-upgrade-combination {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 15px;
+  background: #0f0f0f;
+  border-radius: 8px;
+  border: 1px solid rgba(200, 170, 110, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.upgrade-components-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.upgrade-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  min-width: 100px;
+}
+
+.upgrade-component:hover {
+  transform: scale(1.05);
+}
+
+.component-image {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.component-name {
+  font-size: 12px;
+  text-align: center;
+  max-width: 100px;
+  word-wrap: break-word;
+  color: #c8aa6e;
+  font-weight: 500;
+}
+
+.component-price {
+  font-size: 11px;
+  color: #a09070;
+  text-align: center;
+}
+
+.upgrade-operator {
+  font-size: 24px;
+  font-weight: bold;
+  color: #a09070;
+  flex-shrink: 0;
+}
+
+.upgrade-profitability-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 15px;
+  border-top: 1px solid rgba(200, 170, 110, 0.1);
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.profitability-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-icon {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.status-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #c8aa6e;
+}
+
+.profitability-details {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.profit-detail {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.profit-label {
+  font-size: 13px;
+  color: #a09070;
+}
+
+.profit-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #c8aa6e;
+  font-family: 'Courier New', monospace;
+}
+
+.temple-threshold-note {
+  color: #a09070;
+  font-size: 0.9em;
 }
 
