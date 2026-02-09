@@ -3,7 +3,7 @@
  * Flipping Scarabs - Path of Exile vendor profitability calculator
  */
 
-import { loadAndMergeScarabData, loadPreferences, savePreferences, loadAllItemTypePrices, loadFullEssenceData, getPrimalLifeforcePrice, loadAndMergeFossilData, getWildLifeforcePrice, loadAndMergeCatalystData, loadFullFossilData, loadFullOilData, loadFullDeliriumOrbData, loadFullEmblemData, loadFullTattooData } from './js/services/dataService.js';
+import { loadAndMergeScarabData, loadPreferences, savePreferences, loadAllItemTypePrices, loadFullEssenceData, getPrimalLifeforcePrice, loadAndMergeFossilData, getWildLifeforcePrice, loadAndMergeCatalystData, loadFullFossilData, loadFullOilData, loadFullDeliriumOrbData, loadFullEmblemData, loadFullTattooData, loadTempleUpgradeData } from './js/services/dataService.js';
 import { calculateThreshold, calculateProfitabilityStatus } from './js/services/calculationService.js';
 import { calculateExpectedValueForGroup, calculateThresholdForGroup, calculateProfitabilityStatus as calculateEssenceProfitabilityStatus } from './js/services/essenceCalculationService.js';
 import { calculateExpectedValueForGroup as calculateFossilExpectedValueForGroup, calculateThresholdForGroup as calculateFossilThresholdForGroup, calculateProfitabilityStatus as calculateFossilProfitabilityStatus } from './js/services/fossilCalculationService.js';
@@ -16,6 +16,7 @@ import { groupEssencesByRerollType, createRerollGroup } from './js/utils/essence
 import { groupFossilsByRerollType, createRerollGroup as createFossilRerollGroup } from './js/utils/fossilGroupUtils.js';
 import { renderEssenceList, showLoadingState as showEssenceLoadingState } from './js/views/essenceListView.js';
 import { renderFossilList, showLoadingState as showFossilLoadingState } from './js/views/fossilListView.js';
+import { renderTempleUpgradeList } from './js/views/templeUpgradeListView.js';
 import { renderThresholdDisplay } from './js/components/thresholdDisplay.js';
 import { renderListView, updateListView, showLoadingState, showErrorState } from './js/views/listView.js';
 import { initGridView, updateGridView, setFilteredScarabs, clearFilteredScarabs, teardownGridView } from './js/views/gridView.js';
@@ -1551,6 +1552,34 @@ async function renderTattooUI(items, currency) {
 }
 
 /**
+ * Render Temple Upgrade UI
+ * @param {Array} combinations - Array of upgrade combinations
+ * @param {string} currency - Currency preference ('chaos' | 'divine')
+ */
+async function renderTempleUpgradeUI(combinations, currency) {
+  const listViewContainer = document.getElementById('list-view');
+  if (listViewContainer) {
+    renderTempleUpgradeList(listViewContainer, combinations, currency);
+  }
+  
+  // Hide grid view and filter panel
+  const gridViewContainer = document.getElementById('grid-view');
+  if (gridViewContainer) {
+    gridViewContainer.style.display = 'none';
+  }
+  
+  const filterPanelContainer = document.getElementById('filter-panel');
+  if (filterPanelContainer) {
+    filterPanelContainer.style.display = 'none';
+  }
+  
+  const thresholdContainer = document.getElementById('threshold-display');
+  if (thresholdContainer) {
+    thresholdContainer.innerHTML = '<div class="temple-threshold-note">Temple Upgrades</div>';
+  }
+}
+
+/**
  * Handle category change
  * @param {string} category - 'scarabs', 'essences', 'tattoos', 'catalysts', 'temple', 'fossils', 'oils', 'delirium-orbs', 'emblems'
  */
@@ -1695,6 +1724,20 @@ async function handleCategoryChange(category) {
     } catch (error) {
       console.error('Error handling Tattoos category:', error);
       showErrorToast('Failed to load Tattoo data');
+    }
+  } else if (category === 'temple') {
+    try {
+      const listViewContainer = document.getElementById('list-view');
+      if (listViewContainer) {
+        listViewContainer.innerHTML = '<p class="loading-message">Loading Temple upgrades...</p>';
+      }
+      const { combinations } = await loadTempleUpgradeData();
+      const preferences = loadPreferences();
+      const currency = preferences.currencyPreference || 'chaos';
+      await renderTempleUpgradeUI(combinations, currency);
+    } catch (error) {
+      console.error('Error handling Temple category:', error);
+      showErrorToast('Failed to load Temple upgrade data');
     }
   } else {
     // For other categories, show placeholder

@@ -788,3 +788,216 @@ export async function loadFullTattooData() {
   }
 }
 
+/**
+ * Load and process temple upgrade combination data
+ * @returns {Promise<{combinations: Array, uniques: Array, vials: Array, temple: Object}>}
+ */
+export async function loadTempleUpgradeData() {
+  try {
+    // Load JSON files
+    const [uniquesResponse, vialsResponse, uniquePricesResponse, vialPricesResponse] = await Promise.all([
+      fetch('/data/items/uniques.json'),
+      fetch('/data/items/vials.json'),
+      fetch('/data/prices/templeUniquePrices.json').catch(() => ({ ok: false })),
+      fetch('/data/prices/vialPrices.json').catch(() => ({ ok: false }))
+    ]);
+    
+    if (!uniquesResponse.ok) {
+      throw new Error('Failed to load uniques.json');
+    }
+    if (!vialsResponse.ok) {
+      throw new Error('Failed to load vials.json');
+    }
+    
+    const uniques = await uniquesResponse.json();
+    const vialsData = await vialsResponse.json();
+    const vials = vialsData.lines || [];
+    
+    // Load and merge prices
+    const uniquePrices = uniquePricesResponse.ok ? await uniquePricesResponse.json() : [];
+    const vialPrices = vialPricesResponse.ok ? await vialPricesResponse.json() : [];
+    
+    // Create price maps
+    const uniquePriceMap = new Map();
+    uniquePrices.forEach(price => {
+      const id = price.detailsId || price.id;
+      if (id) {
+        uniquePriceMap.set(id, price);
+      }
+    });
+    
+    const vialPriceMap = new Map();
+    vialPrices.forEach(price => {
+      const id = price.detailsId || price.id;
+      if (id) {
+        vialPriceMap.set(id, price);
+      }
+    });
+    
+    // Merge prices with uniques
+    const uniquesWithPrices = uniques.map(unique => {
+      const price = uniquePriceMap.get(unique.detailsId);
+      return {
+        ...unique,
+        chaosValue: price?.chaosValue ?? null,
+        divineValue: price?.divineValue ?? null
+      };
+    });
+    
+    // Merge prices with vials
+    const vialsWithPrices = vials.map(vial => {
+      const price = vialPriceMap.get(vial.detailsId);
+      return {
+        ...vial,
+        chaosValue: price?.chaosValue ?? null,
+        divineValue: price?.divineValue ?? null
+      };
+    });
+    
+    // Extract upgrade combinations
+    const combinations = extractUpgradeCombinations(uniquesWithPrices, vialsWithPrices);
+    
+    // Calculate profitability for each combination
+    combinations.forEach(combo => {
+      calculateUpgradeProfitability(combo);
+    });
+    
+    // Create temple item
+    const temple = {
+      name: 'Chronicle of Atzoatl',
+      imagePath: '/assets/images/Chronicle_of_Atzoatl.png'
+    };
+    
+    console.log(`✓ Loaded ${combinations.length} temple upgrade combinations`);
+    return { combinations, uniques: uniquesWithPrices, vials: vialsWithPrices, temple };
+  } catch (error) {
+    console.error('Error loading Temple upgrade data:', error);
+    throw error;
+  }
+}
+
+/**
+ * Calculate profitability for an upgrade combination
+ * @param {Object} combo - Upgrade combination object
+ */
+function calculateUpgradeProfitability(combo) {
+  const baseUniquePrice = combo.baseUnique.chaosValue ?? null;
+  const vialPrice = combo.vial.chaosValue ?? null;
+  const upgradedUniquePrice = combo.upgradedUnique.chaosValue ?? null;
+  
+  // Check if all prices are available
+  if (baseUniquePrice === null || vialPrice === null || upgradedUniquePrice === null) {
+    combo.profitabilityStatus = 'unknown';
+    combo.profitChaos = null;
+    combo.profitDivine = null;
+    combo.totalCostChaos = null;
+    combo.totalCostDivine = null;
+    return;
+  }
+  
+  // Calculate total cost (base unique + vial)
+  const totalCostChaos = baseUniquePrice + vialPrice;
+  const totalCostDivine = (combo.baseUnique.divineValue ?? 0) + (combo.vial.divineValue ?? 0);
+  
+  // Calculate profit (upgraded unique price - total cost)
+  const profitChaos = upgradedUniquePrice - totalCostChaos;
+  const profitDivine = (combo.upgradedUnique.divineValue ?? 0) - totalCostDivine;
+  
+  combo.totalCostChaos = totalCostChaos;
+  combo.totalCostDivine = totalCostDivine;
+  combo.profitChaos = profitChaos;
+  combo.profitDivine = profitDivine;
+  
+  // Determine profitability status
+  if (profitChaos > 0) {
+    combo.profitabilityStatus = 'profitable';
+  } else if (profitChaos < 0) {
+    combo.profitabilityStatus = 'not_profitable';
+  } else {
+    combo.profitabilityStatus = 'unknown';
+  }
+}
+
+/**
+ * Extract upgrade combinations from unique items
+ * @param {Array} uniques - Array of unique items
+ * @param {Array} vials - Array of vial items
+ * @returns {Array} Array of upgrade combination objects
+ */
+function extractUpgradeCombinations(uniques, vials) {
+  const combinations = [];
+  const vialMap = new Map(vials.map(v => [v.name, v]));
+  
+  // Find base uniques (have "Altar of Sacrifice" in flavourText)
+  const baseUniques = uniques.filter(u => 
+    u.flavourText && u.flavourText.includes('Altar of Sacrifice')
+  );
+  
+  for (const baseUnique of baseUniques) {
+    // Extract vial name from flavourText
+    const vialMatch = baseUnique.flavourText.match(/Vial of ([^}]+)/);
+    if (!vialMatch) {
+      console.warn(`Could not extract vial name from: ${baseUnique.name}`);
+      continue;
+    }
+    
+    const vialName = `Vial of ${vialMatch[1].trim()}`;
+    const vial = vialMap.get(vialName);
+    if (!vial) {
+      console.warn(`Vial not found: ${vialName} (for ${baseUnique.name})`);
+      continue;
+    }
+    
+    // Find upgraded unique (same baseType, related name)
+    const upgradedUnique = findUpgradedUnique(baseUnique, uniques);
+    if (!upgradedUnique) {
+      console.warn(`Upgraded unique not found for: ${baseUnique.name}`);
+      continue;
+    }
+    
+    combinations.push({
+      id: `${baseUnique.detailsId}-${vial.detailsId}`,
+      baseUnique,
+      vial,
+      upgradedUnique
+    });
+  }
+  
+  return combinations;
+}
+
+/**
+ * Find upgraded unique for a base unique
+ * @param {Object} baseUnique - Base unique item
+ * @param {Array} allUniques - All unique items
+ * @returns {Object|null} Upgraded unique item or null if not found
+ */
+function findUpgradedUnique(baseUnique, allUniques) {
+  // Known mappings
+  const mappings = {
+    "Apep's Slumber": "Apep's Supremacy",
+    "Coward's Chains": "Coward's Legacy",
+    "Architect's Hand": "Slavedriver's Hand",
+    "Story of the Vaal": "Fate of the Vaal",
+    "Mask of the Spirit Drinker": "Mask of the Stitched Demon",
+    "Dance of the Offered": "Omeyocan",
+    "Tempered Flesh": "Transcendent Flesh",
+    "Tempered Spirit": "Transcendent Spirit",
+    "Tempered Mind": "Transcendent Mind",
+    "Sacrificial Heart": "Zerphi's Heart",
+    "Soul Catcher": "Soul Ripper"
+  };
+  
+  const upgradedName = mappings[baseUnique.name];
+  if (upgradedName) {
+    return allUniques.find(u => u.name === upgradedName) || null;
+  }
+  
+  // Fallback: same baseType, no "Altar of Sacrifice" in flavourText
+  return allUniques.find(u => 
+    u.baseType === baseUnique.baseType &&
+    (!u.flavourText || !u.flavourText.includes('Altar of Sacrifice')) &&
+    u.name !== baseUnique.name
+  ) || null;
+}
+
