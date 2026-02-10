@@ -1,6 +1,6 @@
 [
     {
-        "helpText": "Can be combined with other Oils at Cassia to Enchant Rings or Amulets, or to modify Blighted Maps.",
+        "helpText": "Can be combined with other Oils at Cassia to enchant Rings or Amulets, or to modify Blighted Maps.\nShift click to unstack.",
         "stackSize": 10,
         "tier": 1,
         "dropLevel": 1,
@@ -8,7 +8,7 @@
         "name": "Clear Oil"
     },
     {
-        "helpText": "Can be combined with other Oils at Cassia to Enchant Rings or Amulets, or to modify Blighted Maps.",
+        "helpText": "Can be combined with other Oils at Cassia to enchant Rings or Amulets, or to modify Blighted Maps.\nShift click to unstack.",
         "stackSize": 10,
         "tier": 2,
         "dropLevel": 10,
@@ -16,7 +16,7 @@
         "name": "Sepia Oil"
     },
     {
-        "helpText": "Can be combined with other Oils at Cassia to Enchant Rings or Amulets, or to modify Blighted Maps.",
+        "helpText": "Can be combined with other Oils at Cassia to enchant Rings or Amulets, or to modify Blighted Maps.\nShift click to unstack.",
         "stackSize": 10,
         "tier": 3,
         "dropLevel": 19,
@@ -24,7 +24,7 @@
         "name": "Amber Oil"
     },
     {
-        "helpText": "Can be combined with other Oils at Cassia to Enchant Rings or Amulets, or to modify Blighted Maps.",
+        "helpText": "Can be combined with other Oils at Cassia to enchant Rings or Amulets, or to modify Blighted Maps.\nShift click to unstack.",
         "stackSize": 10,
         "tier": 4,
         "dropLevel": 27,
@@ -32,7 +32,7 @@
         "name": "Verdant Oil"
     },
     {
-        "helpText": "Can be combined with other Oils at Cassia to Enchant Rings or Amulets, or to modify Blighted Maps.",
+        "helpText": "Can be combined with other Oils at Cassia to enchant Rings or Amulets, or to modify Blighted Maps.\nShift click to unstack.",
         "stackSize": 10,
         "tier": 5,
         "dropLevel": 36,
@@ -40,7 +40,7 @@
         "name": "Teal Oil"
     },
     {
-        "helpText": "Can be combined with other Oils at Cassia to Enchant Rings or Amulets, or to modify Blighted Maps.",
+        "helpText": "Can be combined with other Oils at Cassia to enchant Rings or Amulets, or to modify Blighted Maps.\nShift click to unstack.",
         "stackSize": 10,
         "tier": 6,
         "dropLevel": 44,
@@ -48,7 +48,7 @@
         "name": "Azure Oil"
     },
     {
-        "helpText": "Can be combined with other Oils at Cassia to Enchant Rings or Amulets, or to modify Blighted Maps.",
+        "helpText": "Can be combined with other Oils at Cassia to enchant Rings or Amulets, or to modify Blighted Maps.\nShift click to unstack.",
         "stackSize": 10,
         "tier": 7,
         "dropLevel": 48,
@@ -56,7 +56,7 @@
         "name": "Indigo Oil"
     },
     {
-        "helpText": "Can be combined with other Oils at Cassia to Enchant Rings or Amulets, or to modify Blighted Maps.",
+        "helpText": "Can be combined with other Oils at Cassia to enchant Rings or Amulets, or to modify Blighted Maps.\nShift click to unstack.",
         "stackSize": 10,
         "tier": 8,
         "dropLevel": 52,
@@ -64,7 +64,7 @@
         "name": "Violet Oil"
     },
     {
-        "helpText": "Can be combined with other Oils at Cassia to Enchant Rings or Amulets, or to modify Blighted Maps.",
+        "helpText": "Can be combined with other Oils at Cassia to enchant Rings or Amulets, or to modify Blighted Maps.\nShift click to unstack.",
         "stackSize": 10,
         "tier": 9,
         "dropLevel": 60,
@@ -72,7 +72,7 @@
         "name": "Crimson Oil"
     },
     {
-        "helpText": "Can be combined with other Oils at Cassia to Enchant Rings or Amulets, or to modify Blighted Maps.",
+        "helpText": "Can be combined with other Oils at Cassia to enchant Rings or Amulets, or to modify Blighted Maps.\nShift click to unstack.",
         "stackSize": 10,
         "tier": 10,
         "dropLevel": 68,
@@ -80,7 +80,7 @@
         "name": "Black Oil"
     },
     {
-        "helpText": "Can be combined with other Oils at Cassia to Enchant Rings or Amulets, or to modify Blighted Maps.",
+        "helpText": "Can be combined with other Oils at Cassia to enchant Rings or Amulets, or to modify Blighted Maps.\nShift click to unstack.",
         "stackSize": 10,
         "tier": 11,
         "dropLevel": 73,
@@ -88,7 +88,7 @@
         "name": "Opalescent Oil"
     },
     {
-        "helpText": "Can be combined with other Oils at Cassia to Enchant Rings or Amulets, or to modify Blighted Maps.",
+        "helpText": "Can be combined with other Oils at Cassia to enchant Rings or Amulets, or to modify Blighted Maps.\nShift click to unstack.",
         "stackSize": 10,
         "tier": 12,
         "dropLevel": 78,
@@ -96,7 +96,7 @@
         "name": "Silver Oil"
     },
     {
-        "helpText": "Can be combined with other Oils at Cassia to Enchant Rings or Amulets, or to modify Blighted Maps.",
+        "helpText": "Can be combined with other Oils at Cassia to enchant Rings or Amulets, or to modify Blighted Maps.\nShift click to unstack.",
         "stackSize": 10,
         "tier": 13,
         "dropLevel": 80,
@@ -104,7 +104,7 @@
         "name": "Golden Oil"
     },
     {
-        "helpText": "Can be combined with other Oils at Cassia to enchant Amulets.",
+        "helpText": "Can be combined with other Oils at Cassia to enchant Rings or Amulets, or to modify Blighted Maps.\nShift click to unstack.",
         "stackSize": 10,
         "tier": 0,
         "dropLevel": 80,
@@ -112,7 +112,7 @@
         "name": "Prismatic Oil"
     },
     {
-        "helpText": "Can be combined with other Oils at Cassia to enchant mirrored Rings, Amulets or Blighted Maps.",
+        "helpText": "Can be combined with other Oils at Cassia to enchant Rings or Amulets, or to modify Blighted Maps.\nShift click to unstack.",
         "stackSize": 10,
         "tier": 0,
         "dropLevel": 1,
@@ -120,7 +120,7 @@
         "name": "Reflective Oil"
     },
     {
-        "helpText": "Can be combined with other Oils at Cassia to enchant corrupted Rings, Amulets or Blighted Maps.",
+        "helpText": "Can be combined with other Oils at Cassia to enchant Rings or Amulets, or to modify Blighted Maps.\nShift click to unstack.",
         "stackSize": 10,
         "tier": 0,
         "dropLevel": 1,

@@ -3,7 +3,7 @@
     {
       "id": "abyssal-delirium-orb",
       "name": "Abyssal Delirium Orb",
-      "sus": "by"
+      "sus": "Ab"
     },
     {
       "id": "obscured-delirium-orb",
@@ -18,17 +18,17 @@
     {
       "id": "blacksmiths-delirium-orb",
       "name": "Blacksmith's Delirium Orb",
-      "sus": "ck"
+      "sus": "ks"
     },
     {
       "id": "blighted-delirium-orb",
       "name": "Blighted Delirium Orb",
-      "sus": "ig"
+      "sus": "hte"
     },
     {
       "id": "cartographers-delirium-orb",
       "name": "Cartographer's Delirium Orb",
-      "sus": "rt"
+      "sus": "Ca"
     },
     {
       "id": "diviners-delirium-orb",
@@ -38,7 +38,7 @@
     {
       "id": "fine-delirium-orb",
       "name": "Fine Delirium Orb",
-      "sus": "rr"
+      "sus": "Fin"
     },
     {
       "id": "primal-delirium-orb",
@@ -68,7 +68,7 @@
     {
       "id": "singular-delirium-orb",
       "name": "Singular Delirium Orb",
-      "sus": "q"
+      "sus": "gu"
     },
     {
       "id": "skittering-delirium-orb",
@@ -78,12 +78,12 @@
     {
       "id": "thaumaturges-delirium-orb",
       "name": "Thaumaturge's Delirium Orb",
-      "sus": "au"
+      "sus": "ha"
     },
     {
       "id": "timeless-delirium-orb",
       "name": "Timeless Delirium Orb",
-      "sus": "eg"
+      "sus": "Ti"
     },
     {
       "id": "whispering-delirium-orb",
@@ -116,19 +116,11 @@
       ]
     },
     {
-      "token": "ab",
-      "memberIds": [
-        "abyssal-delirium-orb",
-        "skittering-delirium-orb"
-      ]
-    },
-    {
       "token": "ss",
       "memberIds": [
         "abyssal-delirium-orb",
         "fossilised-delirium-orb",
-        "timeless-delirium-orb",
-        "whispering-delirium-orb"
+        "timeless-delirium-orb"
       ]
     },
     {
@@ -139,83 +131,10 @@
       ]
     },
     {
-      "token": "e a",
-      "memberIds": [
-        "abyssal-delirium-orb",
-        "armoursmiths-delirium-orb"
-      ]
-    },
-    {
-      "token": "tems",
-      "memberIds": [
-        "abyssal-delirium-orb",
-        "cartographers-delirium-orb",
-        "fine-delirium-orb",
-        "foreboding-delirium-orb",
-        "singular-delirium-orb"
-      ]
-    },
-    {
-      "token": "ms",
-      "memberIds": [
-        "abyssal-delirium-orb",
-        "cartographers-delirium-orb",
-        "fine-delirium-orb",
-        "foreboding-delirium-orb",
-        "singular-delirium-orb",
-        "thaumaturges-delirium-orb"
-      ]
-    },
-    {
-      "token": "s r",
-      "memberIds": [
-        "abyssal-delirium-orb",
-        "blacksmiths-delirium-orb",
-        "cartographers-delirium-orb",
-        "diviners-delirium-orb",
-        "fine-delirium-orb",
-        "foreboding-delirium-orb",
-        "fossilised-delirium-orb",
-        "fragmented-delirium-orb",
-        "jewellers-delirium-orb",
-        "singular-delirium-orb",
-        "skittering-delirium-orb",
-        "thaumaturges-delirium-orb",
-        "whispering-delirium-orb"
-      ]
-    },
-    {
-      "token": "bs",
-      "memberIds": [
-        "obscured-delirium-orb",
-        "skittering-delirium-orb"
-      ]
-    },
-    {
-      "token": "c",
-      "memberIds": [
-        "obscured-delirium-orb",
-        "blacksmiths-delirium-orb",
-        "cartographers-delirium-orb",
-        "diviners-delirium-orb",
-        "fine-delirium-orb",
-        "skittering-delirium-orb",
-        "whispering-delirium-orb"
-      ]
-    },
-    {
-      "token": "cu",
-      "memberIds": [
-        "obscured-delirium-orb",
-        "fine-delirium-orb"
-      ]
-    },
-    {
       "token": "ur",
       "memberIds": [
         "obscured-delirium-orb",
         "armoursmiths-delirium-orb",
-        "fine-delirium-orb",
         "thaumaturges-delirium-orb"
       ]
     },
@@ -229,29 +148,7 @@
       ]
     },
     {
-      "token": " b",
-      "memberIds": [
-        "obscured-delirium-orb",
-        "blighted-delirium-orb"
-      ]
-    },
-    {
-      "token": "ea",
-      "memberIds": [
-        "obscured-delirium-orb",
-        "blacksmiths-delirium-orb"
-      ]
-    },
-    {
       "token": "sm",
-      "memberIds": [
-        "armoursmiths-delirium-orb",
-        "blacksmiths-delirium-orb",
-        "primal-delirium-orb"
-      ]
-    },
-    {
-      "token": "mi",
       "memberIds": [
         "armoursmiths-delirium-orb",
         "blacksmiths-delirium-orb"
@@ -281,36 +178,6 @@
       ]
     },
     {
-      "token": "bl",
-      "memberIds": [
-        "blacksmiths-delirium-orb",
-        "blighted-delirium-orb"
-      ]
-    },
-    {
-      "token": "k",
-      "memberIds": [
-        "blacksmiths-delirium-orb",
-        "jewellers-delirium-orb",
-        "skittering-delirium-orb"
-      ]
-    },
-    {
-      "token": "we",
-      "memberIds": [
-        "blacksmiths-delirium-orb",
-        "jewellers-delirium-orb"
-      ]
-    },
-    {
-      "token": "on",
-      "memberIds": [
-        "blacksmiths-delirium-orb",
-        "diviners-delirium-orb",
-        "timeless-delirium-orb"
-      ]
-    },
-    {
       "token": "ted",
       "memberIds": [
         "blighted-delirium-orb",
@@ -318,19 +185,10 @@
       ]
     },
     {
-      "token": "ca",
-      "memberIds": [
-        "cartographers-delirium-orb",
-        "diviners-delirium-orb",
-        "skittering-delirium-orb"
-      ]
-    },
-    {
       "token": "ra",
       "memberIds": [
         "cartographers-delirium-orb",
-        "fragmented-delirium-orb",
-        "skittering-delirium-orb"
+        "fragmented-delirium-orb"
       ]
     },
     {
@@ -349,61 +207,10 @@
       ]
     },
     {
-      "token": "at",
-      "memberIds": [
-        "diviners-delirium-orb",
-        "thaumaturges-delirium-orb"
-      ]
-    },
-    {
-      "token": "ti",
-      "memberIds": [
-        "diviners-delirium-orb",
-        "timeless-delirium-orb"
-      ]
-    },
-    {
-      "token": "en",
-      "memberIds": [
-        "fine-delirium-orb",
-        "fragmented-delirium-orb",
-        "whispering-delirium-orb"
-      ]
-    },
-    {
-      "token": "nc",
-      "memberIds": [
-        "fine-delirium-orb",
-        "whispering-delirium-orb"
-      ]
-    },
-    {
       "token": "im",
       "memberIds": [
         "primal-delirium-orb",
         "timeless-delirium-orb"
-      ]
-    },
-    {
-      "token": "e t",
-      "memberIds": [
-        "primal-delirium-orb",
-        "jewellers-delirium-orb"
-      ]
-    },
-    {
-      "token": "lis",
-      "memberIds": [
-        "primal-delirium-orb",
-        "fossilised-delirium-orb"
-      ]
-    },
-    {
-      "token": "is",
-      "memberIds": [
-        "primal-delirium-orb",
-        "fossilised-delirium-orb",
-        "whispering-delirium-orb"
       ]
     },
     {
@@ -422,13 +229,6 @@
       ]
     },
     {
-      "token": "ha",
-      "memberIds": [
-        "foreboding-delirium-orb",
-        "thaumaturges-delirium-orb"
-      ]
-    },
-    {
       "token": "si",
       "memberIds": [
         "fossilised-delirium-orb",
@@ -436,17 +236,10 @@
       ]
     },
     {
-      "token": "se",
+      "token": "is",
       "memberIds": [
         "fossilised-delirium-orb",
         "whispering-delirium-orb"
-      ]
-    },
-    {
-      "token": " f",
-      "memberIds": [
-        "fossilised-delirium-orb",
-        "fragmented-delirium-orb"
       ]
     },
     {
@@ -457,13 +250,6 @@
       ]
     },
     {
-      "token": "ts",
-      "memberIds": [
-        "fragmented-delirium-orb",
-        "jewellers-delirium-orb"
-      ]
-    },
-    {
       "token": "le",
       "memberIds": [
         "jewellers-delirium-orb",
@@ -471,24 +257,9 @@
       ]
     },
     {
-      "token": "rin",
-      "memberIds": [
-        "jewellers-delirium-orb",
-        "skittering-delirium-orb",
-        "whispering-delirium-orb"
-      ]
-    },
-    {
       "token": "eri",
       "memberIds": [
         "skittering-delirium-orb",
-        "whispering-delirium-orb"
-      ]
-    },
-    {
-      "token": "ess",
-      "memberIds": [
-        "timeless-delirium-orb",
         "whispering-delirium-orb"
       ]
     }

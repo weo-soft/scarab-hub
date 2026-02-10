@@ -93,7 +93,7 @@
     {
       "id": "runegraft-of-the-witchmark",
       "name": "Runegraft of the Witchmark",
-      "sus": "8"
+      "sus": "hm"
     },
     {
       "id": "runegraft-of-time",
@@ -273,55 +273,6 @@
         "runegraft-of-the-witchmark",
         "runegraft-of-time",
         "runegraft-of-treachery"
-      ]
-    },
-    {
-      "token": "1",
-      "memberIds": [
-        "runegraft-of-bellows",
-        "runegraft-of-gemcraft",
-        "runegraft-of-refraction",
-        "runegraft-of-the-fortress",
-        "runegraft-of-the-jeweller",
-        "runegraft-of-the-sinistral",
-        "runegraft-of-the-soulwick",
-        "runegraft-of-treachery"
-      ]
-    },
-    {
-      "token": "10",
-      "memberIds": [
-        "runegraft-of-bellows",
-        "runegraft-of-the-fortress",
-        "runegraft-of-the-jeweller",
-        "runegraft-of-the-sinistral"
-      ]
-    },
-    {
-      "token": "0",
-      "memberIds": [
-        "runegraft-of-bellows",
-        "runegraft-of-blasphemy",
-        "runegraft-of-loyalty",
-        "runegraft-of-restitching",
-        "runegraft-of-the-bound",
-        "runegraft-of-the-combatant",
-        "runegraft-of-the-fortress",
-        "runegraft-of-the-jeweller",
-        "runegraft-of-the-river",
-        "runegraft-of-the-sinistral",
-        "runegraft-of-the-warp",
-        "runegraft-of-time"
-      ]
-    },
-    {
-      "token": "0% i",
-      "memberIds": [
-        "runegraft-of-bellows",
-        "runegraft-of-the-bound",
-        "runegraft-of-the-combatant",
-        "runegraft-of-the-fortress",
-        "runegraft-of-the-jeweller"
       ]
     },
     {
@@ -1135,13 +1086,6 @@
       ]
     },
     {
-      "token": "3",
-      "memberIds": [
-        "runegraft-of-blasphemy",
-        "runegraft-of-the-warp"
-      ]
-    },
-    {
       "token": "% c",
       "memberIds": [
         "runegraft-of-blasphemy",
@@ -1572,13 +1516,6 @@
       ]
     },
     {
-      "token": "+1",
-      "memberIds": [
-        "runegraft-of-gemcraft",
-        "runegraft-of-refraction"
-      ]
-    },
-    {
       "token": " l",
       "memberIds": [
         "runegraft-of-gemcraft",
@@ -1768,14 +1705,6 @@
       "memberIds": [
         "runegraft-of-loyalty",
         "runegraft-of-stability"
-      ]
-    },
-    {
-      "token": "4",
-      "memberIds": [
-        "runegraft-of-loyalty",
-        "runegraft-of-restitching",
-        "runegraft-of-the-fortress"
       ]
     },
     {
@@ -2056,7 +1985,7 @@
       ]
     },
     {
-      "token": "5%",
+      "token": "aff",
       "memberIds": [
         "runegraft-of-quaffing",
         "runegraft-of-treachery"
@@ -2341,31 +2270,6 @@
       ]
     },
     {
-      "token": "\n2",
-      "memberIds": [
-        "runegraft-of-quaffing",
-        "runegraft-of-the-bound"
-      ]
-    },
-    {
-      "token": "2",
-      "memberIds": [
-        "runegraft-of-quaffing",
-        "runegraft-of-the-bound",
-        "runegraft-of-the-river",
-        "runegraft-of-the-witchmark",
-        "runegraft-of-time"
-      ]
-    },
-    {
-      "token": "5",
-      "memberIds": [
-        "runegraft-of-quaffing",
-        "runegraft-of-the-combatant",
-        "runegraft-of-treachery"
-      ]
-    },
-    {
       "token": "uc",
       "memberIds": [
         "runegraft-of-quaffing",
@@ -2467,13 +2371,6 @@
       "memberIds": [
         "runegraft-of-refraction",
         "runegraft-of-the-witchmark"
-      ]
-    },
-    {
-      "token": " 1",
-      "memberIds": [
-        "runegraft-of-refraction",
-        "runegraft-of-the-soulwick"
       ]
     },
     {
@@ -2835,14 +2732,6 @@
       ]
     },
     {
-      "token": "20",
-      "memberIds": [
-        "runegraft-of-the-bound",
-        "runegraft-of-the-river",
-        "runegraft-of-time"
-      ]
-    },
-    {
       "token": "us",
       "memberIds": [
         "runegraft-of-the-bound",
@@ -2942,14 +2831,6 @@
       "memberIds": [
         "runegraft-of-the-fortress",
         "runegraft-of-the-novamark"
-      ]
-    },
-    {
-      "token": "10%",
-      "memberIds": [
-        "runegraft-of-the-fortress",
-        "runegraft-of-the-jeweller",
-        "runegraft-of-the-sinistral"
       ]
     },
     {
@@ -3059,13 +2940,6 @@
       "memberIds": [
         "runegraft-of-the-novamark",
         "runegraft-of-the-sinistral"
-      ]
-    },
-    {
-      "token": "20% c",
-      "memberIds": [
-        "runegraft-of-the-river",
-        "runegraft-of-time"
       ]
     },
     {

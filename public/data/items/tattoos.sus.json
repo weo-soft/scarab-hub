@@ -8,7 +8,7 @@
     {
       "id": "journey-tattoo-of-the-mind",
       "name": "Journey Tattoo of the Mind",
-      "sus": "30"
+      "sus": "e M"
     },
     {
       "id": "journey-tattoo-of-the-soul",
@@ -23,7 +23,7 @@
     {
       "id": "tattoo-of-the-arohongui-scout",
       "name": "Tattoo of the Arohongui Scout",
-      "sus": "\n1"
+      "sus": "oz"
     },
     {
       "id": "tattoo-of-the-arohongui-shaman",
@@ -63,7 +63,7 @@
     {
       "id": "tattoo-of-the-hinekora-warrior",
       "name": "Tattoo of the Hinekora Warrior",
-      "sus": "3% i"
+      "sus": "ra Warr"
     },
     {
       "id": "tattoo-of-the-kitava-blood-drinker",
@@ -223,7 +223,7 @@
     {
       "id": "tattoo-of-the-tukohama-shaman",
       "name": "Tattoo of the Tukohama Shaman",
-      "sus": " 0"
+      "sus": "f L"
     },
     {
       "id": "tattoo-of-the-tukohama-warcaller",
@@ -662,49 +662,6 @@
         "tattoo-of-the-ramako-shaman",
         "tattoo-of-the-valako-shieldbearer",
         "tattoo-of-the-valako-stormrider"
-      ]
-    },
-    {
-      "token": "+2",
-      "memberIds": [
-        "journey-tattoo-of-the-body",
-        "tattoo-of-the-ramako-shaman"
-      ]
-    },
-    {
-      "token": "2",
-      "memberIds": [
-        "journey-tattoo-of-the-body",
-        "tattoo-of-the-ramako-fleetfoot",
-        "tattoo-of-the-ramako-shaman"
-      ]
-    },
-    {
-      "token": "5",
-      "memberIds": [
-        "journey-tattoo-of-the-body",
-        "tattoo-of-the-arohongui-shaman",
-        "tattoo-of-the-arohongui-warmonger",
-        "tattoo-of-the-arohongui-warrior",
-        "tattoo-of-the-hinekora-warmonger",
-        "tattoo-of-the-kitava-blood-drinker",
-        "tattoo-of-the-kitava-shaman",
-        "tattoo-of-the-kitava-warrior",
-        "tattoo-of-the-ngamahu-warmonger",
-        "tattoo-of-the-ngamahu-warrior",
-        "tattoo-of-the-ngamahu-woodcarver",
-        "tattoo-of-the-ramako-archer",
-        "tattoo-of-the-ramako-sniper",
-        "tattoo-of-the-rongokurai-turtle",
-        "tattoo-of-the-tasalio-bladedancer",
-        "tattoo-of-the-tasalio-shaman",
-        "tattoo-of-the-tasalio-warrior",
-        "tattoo-of-the-tawhoa-shaman",
-        "tattoo-of-the-tawhoa-warrior",
-        "tattoo-of-the-tukohama-warmonger",
-        "tattoo-of-the-tukohama-warrior",
-        "tattoo-of-the-valako-shaman",
-        "tattoo-of-the-valako-warrior"
       ]
     },
     {
@@ -1466,48 +1423,6 @@
       ]
     },
     {
-      "token": "+3",
-      "memberIds": [
-        "journey-tattoo-of-the-mind",
-        "tattoo-of-the-hinekora-storyteller"
-      ]
-    },
-    {
-      "token": "3",
-      "memberIds": [
-        "journey-tattoo-of-the-mind",
-        "tattoo-of-the-hinekora-storyteller",
-        "tattoo-of-the-hinekora-warrior",
-        "tattoo-of-the-tukohama-shaman"
-      ]
-    },
-    {
-      "token": "0",
-      "memberIds": [
-        "journey-tattoo-of-the-mind",
-        "journey-tattoo-of-the-soul",
-        "tattoo-of-the-arohongui-scout",
-        "tattoo-of-the-kitava-blood-drinker",
-        "tattoo-of-the-kitava-heart-eater",
-        "tattoo-of-the-kitava-rebel",
-        "tattoo-of-the-ngamahu-shaman",
-        "tattoo-of-the-rongokurai-brute",
-        "tattoo-of-the-rongokurai-goliath",
-        "tattoo-of-the-tasalio-tideshifter",
-        "tattoo-of-the-tawhoa-scout",
-        "tattoo-of-the-tukohama-brawler",
-        "tattoo-of-the-tukohama-shaman",
-        "tattoo-of-the-valako-scout"
-      ]
-    },
-    {
-      "token": "0 t",
-      "memberIds": [
-        "journey-tattoo-of-the-mind",
-        "journey-tattoo-of-the-soul"
-      ]
-    },
-    {
       "token": "ana",
       "memberIds": [
         "journey-tattoo-of-the-mind",
@@ -1666,15 +1581,6 @@
         "journey-tattoo-of-the-soul",
         "tattoo-of-the-tawhoa-scout",
         "tattoo-of-the-tawhoa-shaman"
-      ]
-    },
-    {
-      "token": "4",
-      "memberIds": [
-        "journey-tattoo-of-the-soul",
-        "tattoo-of-the-kitava-heart-eater",
-        "tattoo-of-the-tasalio-scout",
-        "tattoo-of-the-tawhoa-herbalist"
       ]
     },
     {
@@ -2219,26 +2125,6 @@
       ]
     },
     {
-      "token": "+6",
-      "memberIds": [
-        "tattoo-of-the-arohongui-moonwarden",
-        "tattoo-of-the-ngamahu-firewalker",
-        "tattoo-of-the-valako-stormrider"
-      ]
-    },
-    {
-      "token": "6",
-      "memberIds": [
-        "tattoo-of-the-arohongui-moonwarden",
-        "tattoo-of-the-hinekora-deathwarden",
-        "tattoo-of-the-ngamahu-firewalker",
-        "tattoo-of-the-ramako-scout",
-        "tattoo-of-the-rongokurai-guard",
-        "tattoo-of-the-rongokurai-warrior",
-        "tattoo-of-the-valako-stormrider"
-      ]
-    },
-    {
       "token": "%",
       "memberIds": [
         "tattoo-of-the-arohongui-moonwarden",
@@ -2707,64 +2593,6 @@
       ]
     },
     {
-      "token": "1",
-      "memberIds": [
-        "tattoo-of-the-arohongui-scout",
-        "tattoo-of-the-kitava-heart-eater",
-        "tattoo-of-the-kitava-rebel",
-        "tattoo-of-the-ngamahu-shaman",
-        "tattoo-of-the-rongokurai-brute",
-        "tattoo-of-the-rongokurai-goliath",
-        "tattoo-of-the-tasalio-tideshifter",
-        "tattoo-of-the-tawhoa-scout",
-        "tattoo-of-the-tukohama-brawler",
-        "tattoo-of-the-valako-scout",
-        "tattoo-of-the-valako-shieldbearer"
-      ]
-    },
-    {
-      "token": "10",
-      "memberIds": [
-        "tattoo-of-the-arohongui-scout",
-        "tattoo-of-the-kitava-heart-eater",
-        "tattoo-of-the-kitava-rebel",
-        "tattoo-of-the-ngamahu-shaman",
-        "tattoo-of-the-rongokurai-brute",
-        "tattoo-of-the-rongokurai-goliath",
-        "tattoo-of-the-tasalio-tideshifter",
-        "tattoo-of-the-tawhoa-scout",
-        "tattoo-of-the-tukohama-brawler",
-        "tattoo-of-the-valako-scout"
-      ]
-    },
-    {
-      "token": "0% c",
-      "memberIds": [
-        "tattoo-of-the-arohongui-scout",
-        "tattoo-of-the-kitava-rebel",
-        "tattoo-of-the-tasalio-tideshifter",
-        "tattoo-of-the-tawhoa-scout",
-        "tattoo-of-the-tukohama-brawler"
-      ]
-    },
-    {
-      "token": "vo",
-      "memberIds": [
-        "tattoo-of-the-arohongui-scout",
-        "tattoo-of-the-kitava-rebel",
-        "tattoo-of-the-tasalio-tideshifter",
-        "tattoo-of-the-tawhoa-scout"
-      ]
-    },
-    {
-      "token": "ei",
-      "memberIds": [
-        "tattoo-of-the-arohongui-scout",
-        "tattoo-of-the-tasalio-tideshifter",
-        "tattoo-of-the-tawhoa-scout"
-      ]
-    },
-    {
       "token": "% c",
       "memberIds": [
         "tattoo-of-the-arohongui-scout",
@@ -2784,6 +2612,23 @@
         "tattoo-of-the-tukohama-warrior",
         "tattoo-of-the-valako-shaman",
         "tattoo-of-the-valako-shieldbearer"
+      ]
+    },
+    {
+      "token": "vo",
+      "memberIds": [
+        "tattoo-of-the-arohongui-scout",
+        "tattoo-of-the-kitava-rebel",
+        "tattoo-of-the-tasalio-tideshifter",
+        "tattoo-of-the-tawhoa-scout"
+      ]
+    },
+    {
+      "token": "ei",
+      "memberIds": [
+        "tattoo-of-the-arohongui-scout",
+        "tattoo-of-the-tasalio-tideshifter",
+        "tattoo-of-the-tawhoa-scout"
       ]
     },
     {
@@ -3148,49 +2993,6 @@
         "tattoo-of-the-tukohama-warrior",
         "tattoo-of-the-valako-shaman",
         "tattoo-of-the-valako-shieldbearer",
-        "tattoo-of-the-valako-warrior"
-      ]
-    },
-    {
-      "token": "5%",
-      "memberIds": [
-        "tattoo-of-the-arohongui-shaman",
-        "tattoo-of-the-arohongui-warmonger",
-        "tattoo-of-the-arohongui-warrior",
-        "tattoo-of-the-hinekora-warmonger",
-        "tattoo-of-the-kitava-blood-drinker",
-        "tattoo-of-the-kitava-shaman",
-        "tattoo-of-the-kitava-warrior",
-        "tattoo-of-the-ngamahu-warmonger",
-        "tattoo-of-the-ngamahu-warrior",
-        "tattoo-of-the-ngamahu-woodcarver",
-        "tattoo-of-the-ramako-archer",
-        "tattoo-of-the-ramako-sniper",
-        "tattoo-of-the-rongokurai-turtle",
-        "tattoo-of-the-tasalio-bladedancer",
-        "tattoo-of-the-tasalio-shaman",
-        "tattoo-of-the-tasalio-warrior",
-        "tattoo-of-the-tawhoa-shaman",
-        "tattoo-of-the-tawhoa-warrior",
-        "tattoo-of-the-tukohama-warmonger",
-        "tattoo-of-the-tukohama-warrior",
-        "tattoo-of-the-valako-shaman",
-        "tattoo-of-the-valako-warrior"
-      ]
-    },
-    {
-      "token": "5% i",
-      "memberIds": [
-        "tattoo-of-the-arohongui-shaman",
-        "tattoo-of-the-arohongui-warrior",
-        "tattoo-of-the-hinekora-warmonger",
-        "tattoo-of-the-kitava-warrior",
-        "tattoo-of-the-ngamahu-warrior",
-        "tattoo-of-the-ngamahu-woodcarver",
-        "tattoo-of-the-ramako-archer",
-        "tattoo-of-the-ramako-sniper",
-        "tattoo-of-the-tawhoa-warrior",
-        "tattoo-of-the-tukohama-warmonger",
         "tattoo-of-the-valako-warrior"
       ]
     },
@@ -3714,20 +3516,6 @@
       ]
     },
     {
-      "token": "5% c",
-      "memberIds": [
-        "tattoo-of-the-arohongui-warmonger",
-        "tattoo-of-the-kitava-shaman",
-        "tattoo-of-the-ngamahu-warmonger",
-        "tattoo-of-the-tasalio-bladedancer",
-        "tattoo-of-the-tasalio-shaman",
-        "tattoo-of-the-tasalio-warrior",
-        "tattoo-of-the-tawhoa-shaman",
-        "tattoo-of-the-tukohama-warrior",
-        "tattoo-of-the-valako-shaman"
-      ]
-    },
-    {
       "token": "e to f",
       "memberIds": [
         "tattoo-of-the-arohongui-warmonger",
@@ -4127,14 +3915,6 @@
       ]
     },
     {
-      "token": "8",
-      "memberIds": [
-        "tattoo-of-the-hinekora-shaman",
-        "tattoo-of-the-tawhoa-naturalist",
-        "tattoo-of-the-tukohama-warcaller"
-      ]
-    },
-    {
       "token": "d m",
       "memberIds": [
         "tattoo-of-the-hinekora-shaman",
@@ -4332,14 +4112,6 @@
       ]
     },
     {
-      "token": "3%",
-      "memberIds": [
-        "tattoo-of-the-hinekora-storyteller",
-        "tattoo-of-the-hinekora-warrior",
-        "tattoo-of-the-tukohama-shaman"
-      ]
-    },
-    {
       "token": "ao",
       "memberIds": [
         "tattoo-of-the-hinekora-storyteller",
@@ -4401,29 +4173,12 @@
       ]
     },
     {
-      "token": "s have 5",
-      "memberIds": [
-        "tattoo-of-the-hinekora-warmonger",
-        "tattoo-of-the-kitava-shaman",
-        "tattoo-of-the-tasalio-bladedancer"
-      ]
-    },
-    {
       "token": " ha",
       "memberIds": [
         "tattoo-of-the-hinekora-warmonger",
         "tattoo-of-the-kitava-heart-eater",
         "tattoo-of-the-kitava-shaman",
         "tattoo-of-the-rongokurai-guard",
-        "tattoo-of-the-tasalio-bladedancer",
-        "tattoo-of-the-tukohama-warrior"
-      ]
-    },
-    {
-      "token": "ve 5",
-      "memberIds": [
-        "tattoo-of-the-hinekora-warmonger",
-        "tattoo-of-the-kitava-shaman",
         "tattoo-of-the-tasalio-bladedancer",
         "tattoo-of-the-tukohama-warrior"
       ]
@@ -4440,16 +4195,6 @@
         "tattoo-of-the-tasalio-bladedancer",
         "tattoo-of-the-tawhoa-naturalist",
         "tattoo-of-the-tukohama-warcaller",
-        "tattoo-of-the-tukohama-warrior"
-      ]
-    },
-    {
-      "token": " 5",
-      "memberIds": [
-        "tattoo-of-the-hinekora-warmonger",
-        "tattoo-of-the-kitava-shaman",
-        "tattoo-of-the-rongokurai-turtle",
-        "tattoo-of-the-tasalio-bladedancer",
         "tattoo-of-the-tukohama-warrior"
       ]
     },
@@ -4730,14 +4475,6 @@
       ]
     },
     {
-      "token": "4%",
-      "memberIds": [
-        "tattoo-of-the-kitava-heart-eater",
-        "tattoo-of-the-tasalio-scout",
-        "tattoo-of-the-tawhoa-herbalist"
-      ]
-    },
-    {
       "token": "e to c",
       "memberIds": [
         "tattoo-of-the-kitava-heart-eater",
@@ -4841,14 +4578,6 @@
         "tattoo-of-the-tasalio-scout",
         "tattoo-of-the-tasalio-warrior",
         "tattoo-of-the-tawhoa-naturalist"
-      ]
-    },
-    {
-      "token": " 5% c",
-      "memberIds": [
-        "tattoo-of-the-kitava-shaman",
-        "tattoo-of-the-tasalio-bladedancer",
-        "tattoo-of-the-tukohama-warrior"
       ]
     },
     {
@@ -4964,13 +4693,6 @@
       "memberIds": [
         "tattoo-of-the-ngamahu-firewalker",
         "tattoo-of-the-tawhoa-naturalist"
-      ]
-    },
-    {
-      "token": "0% r",
-      "memberIds": [
-        "tattoo-of-the-ngamahu-shaman",
-        "tattoo-of-the-valako-scout"
       ]
     },
     {
@@ -5168,13 +4890,6 @@
       ]
     },
     {
-      "token": "2%",
-      "memberIds": [
-        "tattoo-of-the-ramako-fleetfoot",
-        "tattoo-of-the-ramako-shaman"
-      ]
-    },
-    {
       "token": "sp",
       "memberIds": [
         "tattoo-of-the-ramako-fleetfoot",
@@ -5237,14 +4952,6 @@
         "tattoo-of-the-ramako-scout",
         "tattoo-of-the-tasalio-scout",
         "tattoo-of-the-valako-scout"
-      ]
-    },
-    {
-      "token": "6% i",
-      "memberIds": [
-        "tattoo-of-the-ramako-scout",
-        "tattoo-of-the-rongokurai-guard",
-        "tattoo-of-the-rongokurai-warrior"
       ]
     },
     {
@@ -5322,7 +5029,7 @@
       ]
     },
     {
-      "token": "0% i",
+      "token": "ed s",
       "memberIds": [
         "tattoo-of-the-rongokurai-brute",
         "tattoo-of-the-rongokurai-goliath"
@@ -5528,13 +5235,6 @@
       "memberIds": [
         "tattoo-of-the-tasalio-scout",
         "tattoo-of-the-tasalio-shaman"
-      ]
-    },
-    {
-      "token": "4% i",
-      "memberIds": [
-        "tattoo-of-the-tasalio-scout",
-        "tattoo-of-the-tawhoa-herbalist"
       ]
     },
     {

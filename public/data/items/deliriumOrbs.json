@@ -2,91 +2,91 @@
     {
         "id": "abyssal-delirium-orb",
         "name": "Abyssal Delirium Orb",
-        "helpText": "Modifies a Map item adding layers of Delirium with the Abyss Items reward type"
+        "helpText": "Modifies a Map item adding layers of Delirium with the Blight reward type\nShift click to unstack."
     },
     {
         "id": "obscured-delirium-orb",
         "name": "Obscured Delirium Orb",
-        "helpText": "Modifies a Map item adding layers of Delirium with the Breach reward type"
+        "helpText": "Modifies a Map item adding layers of Delirium with the Blight reward type\nShift click to unstack."
     },
     {
         "id": "armoursmiths-delirium-orb",
         "name": "Armoursmith's Delirium Orb",
-        "helpText": "Modifies a Map item adding layers of Delirium with the Armour reward type"
+        "helpText": "Modifies a Map item adding layers of Delirium with the Blight reward type\nShift click to unstack."
     },
     {
         "id": "blacksmiths-delirium-orb",
         "name": "Blacksmith's Delirium Orb",
-        "helpText": "Modifies a Map item adding layers of Delirium with the Weapons reward type"
+        "helpText": "Modifies a Map item adding layers of Delirium with the Blight reward type\nShift click to unstack."
     },
     {
         "id": "blighted-delirium-orb",
         "name": "Blighted Delirium Orb",
-        "helpText": "Modifies a Map item adding layers of Delirium with the Blight reward type"
+        "helpText": "Modifies a Map item adding layers of Delirium with the Blight reward type\nShift click to unstack."
     },
     {
         "id": "cartographers-delirium-orb",
         "name": "Cartographer's Delirium Orb",
-        "helpText": "Modifies a Map item adding layers of Delirium with the Map Items reward type"
+        "helpText": "Modifies a Map item adding layers of Delirium with the Blight reward type\nShift click to unstack."
     },
     {
         "id": "diviners-delirium-orb",
         "name": "Diviner's Delirium Orb",
-        "helpText": "Modifies a Map item adding layers of Delirium with the Divination Cards reward type"
+        "helpText": "Modifies a Map item adding layers of Delirium with the Blight reward type\nShift click to unstack."
     },
     {
         "id": "fine-delirium-orb",
         "name": "Fine Delirium Orb",
-        "helpText": "Modifies a Map item adding layers of Delirium with the Currency Items reward type"
+        "helpText": "Modifies a Map item adding layers of Delirium with the Blight reward type\nShift click to unstack."
     },
     {
         "id": "primal-delirium-orb",
         "name": "Primal Delirium Orb",
-        "helpText": "Modifies a Map item adding layers of Delirium with the Talisman reward type"
+        "helpText": "Modifies a Map item adding layers of Delirium with the Blight reward type\nShift click to unstack."
     },
     {
         "id": "foreboding-delirium-orb",
         "name": "Foreboding Delirium Orb",
-        "helpText": "Modifies a Map item adding layers of Delirium with the Harbinger Items reward type"
+        "helpText": "Modifies a Map item adding layers of Delirium with the Blight reward type\nShift click to unstack."
     },
     {
         "id": "fossilised-delirium-orb",
         "name": "Fossilised Delirium Orb",
-        "helpText": "Modifies a Map item adding layers of Delirium with the Fossils reward type"
+        "helpText": "Modifies a Map item adding layers of Delirium with the Blight reward type\nShift click to unstack."
     },
     {
         "id": "fragmented-delirium-orb",
         "name": "Fragmented Delirium Orb",
-        "helpText": "Modifies a Map item adding layers of Delirium with the Fragments reward type"
+        "helpText": "Modifies a Map item adding layers of Delirium with the Blight reward type\nShift click to unstack."
     },
     {
         "id": "jewellers-delirium-orb",
         "name": "Jeweller's Delirium Orb",
-        "helpText": "Modifies a Map item adding layers of Delirium with the Trinkets reward type"
+        "helpText": "Modifies a Map item adding layers of Delirium with the Blight reward type\nShift click to unstack."
     },
     {
         "id": "singular-delirium-orb",
         "name": "Singular Delirium Orb",
-        "helpText": "Modifies a Map item adding layers of Delirium with the Unique Items reward type"
+        "helpText": "Modifies a Map item adding layers of Delirium with the Blight reward type\nShift click to unstack."
     },
     {
         "id": "skittering-delirium-orb",
         "name": "Skittering Delirium Orb",
-        "helpText": "Modifies a Map item adding layers of Delirium with the Scarabs reward type"
+        "helpText": "Modifies a Map item adding layers of Delirium with the Blight reward type\nShift click to unstack."
     },
     {
         "id": "thaumaturges-delirium-orb",
         "name": "Thaumaturge's Delirium Orb",
-        "helpText": "Modifies a Map item adding layers of Delirium with the Gems reward type"
+        "helpText": "Modifies a Map item adding layers of Delirium with the Blight reward type\nShift click to unstack."
     },
     {
         "id": "timeless-delirium-orb",
         "name": "Timeless Delirium Orb",
-        "helpText": "Modifies a Map item adding layers of Delirium with the Legion reward type"
+        "helpText": "Modifies a Map item adding layers of Delirium with the Blight reward type\nShift click to unstack."
     },
     {
         "id": "whispering-delirium-orb",
         "name": "Whispering Delirium Orb",
-        "helpText": "Modifies a Map item adding layers of Delirium with the Essences reward type"
+        "helpText": "Modifies a Map item adding layers of Delirium with the Blight reward type\nShift click to unstack."
     }
 ]

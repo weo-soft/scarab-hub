@@ -515,6 +515,9 @@ async function renderCurrentView() {
         susData.susById,
         susData.groups
       );
+      categoryNames.profitableIds = currentScarabs
+        .filter(s => s.profitabilityStatus === 'profitable')
+        .map(s => s.id);
       renderRegexSearchDisplay(regexSearchContainer, categoryNames);
     }
     if (!selectionSubscriptionActive) {

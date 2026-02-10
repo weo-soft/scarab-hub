@@ -77,6 +77,8 @@ export function renderRegexSearchDisplay(container, categoryNames) {
     : '';
 
   const allIds = categoryNames.namesById ? Array.from(categoryNames.namesById.keys()) : [];
+  const profitableIds = Array.isArray(categoryNames.profitableIds) ? categoryNames.profitableIds : [];
+  const showSelectProfitable = profitableIds.length > 0;
 
   container.innerHTML = `
     <div class="regex-search-display">
@@ -85,6 +87,7 @@ export function renderRegexSearchDisplay(container, categoryNames) {
       ${lengthWarning}
       <div class="regex-search-actions">
         <button type="button" class="regex-search-select-all-btn" ${allIds.length === 0 ? 'disabled' : ''}>Select all</button>
+        ${showSelectProfitable ? `<button type="button" class="regex-search-select-profitable-btn">Select profitable</button>` : ''}
         <button type="button" class="regex-search-unselect-all-btn">Unselect all</button>
         <button type="button" class="regex-search-copy-btn" ${copyDisabled ? 'disabled' : ''}>Copy regex</button>
       </div>
@@ -99,6 +102,11 @@ export function renderRegexSearchDisplay(container, categoryNames) {
   const selectAllBtn = container.querySelector('.regex-search-select-all-btn');
   if (selectAllBtn && allIds.length > 0) {
     selectAllBtn.addEventListener('click', () => selectAll(allIds));
+  }
+
+  const selectProfitableBtn = container.querySelector('.regex-search-select-profitable-btn');
+  if (selectProfitableBtn && profitableIds.length > 0) {
+    selectProfitableBtn.addEventListener('click', () => selectAll(profitableIds));
   }
 
   const unselectAllBtn = container.querySelector('.regex-search-unselect-all-btn');

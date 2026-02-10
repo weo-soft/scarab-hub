@@ -1,5 +1,6 @@
 [
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Abyss Scarab",
     "id": "abyss-scarab",
     "dropEnabledd": true,
@@ -9,6 +10,7 @@
     "flavourText": "They search forever for more souls to drag to the dark."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Abyss Scarab of Edifice",
     "id": "abyss-scarab-of-edifice",
     "dropEnabledd": true,
@@ -18,6 +20,7 @@
     "flavourText": "Their empires ghastly and gaunt glitter with gold."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Abyss Scarab of Multitudes",
     "id": "abyss-scarab-of-multitudes",
     "dropEnabledd": true,
@@ -27,6 +30,7 @@
     "flavourText": "They ceaselessly sprout from the murderous earth."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Abyss Scarab of Profound Depth",
     "id": "abyss-scarab-of-profound-depth",
     "dropEnabledd": true,
@@ -36,6 +40,7 @@
     "flavourText": "The deeper we dig, the more we find, be it fortune or foe."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ambush Scarab",
     "id": "ambush-scarab",
     "dropEnabledd": true,
@@ -45,6 +50,7 @@
     "flavourText": "Is it still an ambush if you're expecting it?"
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ambush Scarab of Containment",
     "id": "ambush-scarab-of-containment",
     "dropEnabledd": true,
@@ -54,6 +60,7 @@
     "flavourText": "The silence belies lurking doom."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ambush Scarab of Discernment",
     "id": "ambush-scarab-of-discernment",
     "dropEnabledd": true,
@@ -63,6 +70,7 @@
     "flavourText": "A keen eye sorts the worthy from the chaff."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ambush Scarab of Hidden Compartments",
     "id": "ambush-scarab-of-hidden-compartments",
     "dropEnabledd": true,
@@ -72,6 +80,7 @@
     "flavourText": "Beneath the obvious lies the real treasure..."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ambush Scarab of Potency",
     "id": "ambush-scarab-of-potency",
     "dropEnabledd": true,
@@ -81,6 +90,7 @@
     "flavourText": "The locksmith dreams of building a better box."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Anarchy Scarab",
     "id": "anarchy-scarab",
     "dropEnabledd": true,
@@ -90,6 +100,7 @@
     "flavourText": "On Wraeclast, it's kill or be killed."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Anarchy Scarab of Gigantification",
     "id": "anarchy-scarab-of-gigantification",
     "dropEnabledd": true,
@@ -99,6 +110,7 @@
     "flavourText": "The consumption of sulphite can cause strange growth."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Anarchy Scarab of Partnership",
     "id": "anarchy-scarab-of-partnership",
     "dropEnabledd": true,
@@ -108,6 +120,7 @@
     "flavourText": "Among exiles, alliances shift and change constantly."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Bestiary Scarab",
     "id": "bestiary-scarab",
     "dropEnabledd": true,
@@ -117,6 +130,7 @@
     "flavourText": "The Beastmaster answers the call."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Bestiary Scarab of Duplicating",
     "id": "bestiary-scarab-of-duplicating",
     "dropEnabledd": true,
@@ -126,6 +140,7 @@
     "flavourText": "\"What's better than one captured beast, exile?\""
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Bestiary Scarab of the Herd",
     "id": "bestiary-scarab-of-the-herd",
     "dropEnabledd": true,
@@ -135,6 +150,7 @@
     "flavourText": "The First Ones ran rampant and free in the forests of old."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Betrayal Scarab",
     "id": "betrayal-scarab",
     "dropEnabledd": true,
@@ -144,6 +160,7 @@
     "flavourText": "The Syndicate must pay for what they have done."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Betrayal Scarab of Reinforcements",
     "id": "betrayal-scarab-of-reinforcements",
     "dropEnabledd": true,
@@ -153,6 +170,7 @@
     "flavourText": "Move and countermove."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Betrayal Scarab of the Allflame",
     "id": "betrayal-scarab-of-the-allflame",
     "dropEnabledd": true,
@@ -162,6 +180,7 @@
     "flavourText": "Those that can never die fear only pain."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Beyond Scarab",
     "id": "beyond-scarab",
     "dropEnabledd": true,
@@ -171,6 +190,7 @@
     "flavourText": "The silent wall and the raging storm oppose the endless swarm."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Beyond Scarab of Haemophilia",
     "id": "beyond-scarab-of-haemophilia",
     "dropEnabledd": true,
@@ -180,6 +200,7 @@
     "flavourText": "Reality itself begins to bleed."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Beyond Scarab of Resurgence",
     "id": "beyond-scarab-of-resurgence",
     "dropEnabledd": true,
@@ -189,6 +210,7 @@
     "flavourText": "They hunger."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Beyond Scarab of the Invasion",
     "id": "beyond-scarab-of-the-invasion",
     "dropEnabledd": true,
@@ -198,6 +220,7 @@
     "flavourText": "The fated hour is almost nigh."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Blight Scarab",
     "id": "blight-scarab",
     "dropEnabledd": true,
@@ -207,6 +230,7 @@
     "flavourText": "The tendrils creep and grow..."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Blight Scarab of Blooming",
     "id": "blight-scarab-of-blooming",
     "dropEnabledd": true,
@@ -216,6 +240,7 @@
     "flavourText": "Once a century, the Blight spills forth..."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Blight Scarab of Invigoration",
     "id": "blight-scarab-of-invigoration",
     "dropEnabledd": true,
@@ -225,6 +250,7 @@
     "flavourText": "Reversing the polarity of the compression modulator seems to have intriguing effects..."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Blight Scarab of the Blightheart",
     "id": "blight-scarab-of-the-blightheart",
     "dropEnabledd": true,
@@ -234,6 +260,7 @@
     "flavourText": "The core grows larger with each cycle, doomed to spill forth..."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Breach Scarab",
     "id": "breach-scarab",
     "dropEnabledd": true,
@@ -243,6 +270,7 @@
     "flavourText": "They are never far."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Breach Scarab of Lordship",
     "id": "breach-scarab-of-lordship",
     "dropEnabledd": true,
@@ -252,6 +280,7 @@
     "flavourText": "Their kingdoms always seek expansion."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Breach Scarab of Resonant Cascade",
     "id": "breach-scarab-of-resonant-cascade",
     "dropEnabledd": true,
@@ -261,6 +290,7 @@
     "flavourText": "Reality weakens with each new wound."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Breach Scarab of Snares",
     "id": "breach-scarab-of-snares",
     "dropEnabledd": true,
@@ -270,6 +300,7 @@
     "flavourText": "Care where you step."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Breach Scarab of Splintering",
     "id": "breach-scarab-of-splintering",
     "dropEnabledd": true,
@@ -279,6 +310,7 @@
     "flavourText": "Bit by bit."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Cartography Scarab of Corruption",
     "id": "cartography-scarab-of-corruption",
     "dropEnabledd": true,
@@ -288,6 +320,7 @@
     "flavourText": "Corruption bleeds between realities."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Cartography Scarab of Escalation",
     "id": "cartography-scarab-of-escalation",
     "dropEnabledd": true,
@@ -297,6 +330,7 @@
     "flavourText": "Opportunity thrives where dreams are most perilous."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Cartography Scarab of Risk",
     "id": "cartography-scarab-of-risk",
     "dropEnabledd": true,
@@ -306,6 +340,7 @@
     "flavourText": "What we see in the mirror can only be our own reflection."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Cartography Scarab of the Multitude",
     "id": "cartography-scarab-of-the-multitude",
     "dropEnabledd": true,
@@ -315,6 +350,7 @@
     "flavourText": "There is no end, no horizon."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Delirium Scarab",
     "id": "delirium-scarab",
     "dropEnabledd": true,
@@ -324,6 +360,7 @@
     "flavourText": "A perfectly innocuous Scarab that does nothing at all."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Delirium Scarab of Delusions",
     "id": "delirium-scarab-of-delusions",
     "dropEnabledd": true,
@@ -333,6 +370,7 @@
     "flavourText": "What are you talking about?The Atlas was always like this."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Delirium Scarab of Mania",
     "id": "delirium-scarab-of-mania",
     "dropEnabledd": true,
@@ -342,6 +380,7 @@
     "flavourText": "They're so loud! Why are they so loud?!All you can do is scream!"
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Delirium Scarab of Neuroses",
     "id": "delirium-scarab-of-neuroses",
     "dropEnabledd": true,
@@ -351,6 +390,7 @@
     "flavourText": "Toothy grins shine in the dark."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Delirium Scarab of Paranoia",
     "id": "delirium-scarab-of-paranoia",
     "dropEnabledd": true,
@@ -360,6 +400,7 @@
     "flavourText": "If it seems too good to be true..."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Divination Scarab of Pilfering",
     "id": "divination-scarab-of-pilfering",
     "dropEnabledd": true,
@@ -369,6 +410,7 @@
     "flavourText": "If you do not seize your fate, someone else will."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Divination Scarab of Plenty",
     "id": "divination-scarab-of-plenty",
     "dropEnabledd": true,
@@ -378,6 +420,7 @@
     "flavourText": "We create a thousand futures with every action."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Divination Scarab of The Cloister",
     "id": "divination-scarab-of-the-cloister",
     "dropEnabledd": true,
@@ -387,6 +430,7 @@
     "flavourText": "No disease can be contained forever."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Domination Scarab",
     "id": "domination-scarab",
     "dropEnabledd": true,
@@ -396,6 +440,7 @@
     "flavourText": "A simple exchange. Blood for power."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Domination Scarab of Apparitions",
     "id": "domination-scarab-of-apparitions",
     "dropEnabledd": true,
@@ -405,6 +450,7 @@
     "flavourText": "Some paths to power lead only to madness."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Domination Scarab of Evolution",
     "id": "domination-scarab-of-evolution",
     "dropEnabledd": true,
@@ -414,6 +460,7 @@
     "flavourText": "The Atlas and Wraeclast share one terrifying secret."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Domination Scarab of Terrors",
     "id": "domination-scarab-of-terrors",
     "dropEnabledd": true,
@@ -423,6 +470,7 @@
     "flavourText": "Whatever the prize, fight for it."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Essence Scarab",
     "id": "essence-scarab",
     "dropEnabledd": true,
@@ -432,6 +480,7 @@
     "flavourText": "It is perfectly safe, the creatures trapped inside couldn't possibly still be living."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Essence Scarab of Adaptation",
     "id": "essence-scarab-of-adaptation",
     "dropEnabledd": true,
@@ -441,6 +490,7 @@
     "flavourText": "The crystalline lattice expands in directions alien to the mortal mind."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Essence Scarab of Ascent",
     "id": "essence-scarab-of-ascent",
     "dropEnabledd": true,
@@ -450,6 +500,7 @@
     "flavourText": "A more perfect facet cannot be achieved."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Essence Scarab of Calcification",
     "id": "essence-scarab-of-calcification",
     "dropEnabledd": true,
@@ -459,6 +510,7 @@
     "flavourText": "The crystals... can spread?"
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Essence Scarab of Stability",
     "id": "essence-scarab-of-stability",
     "dropEnabledd": true,
@@ -468,6 +520,7 @@
     "flavourText": "With the right tools and a precise hand, the manipulation of the crystalscan be made predictable."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Expedition Scarab",
     "id": "expedition-scarab",
     "dropEnabledd": true,
@@ -477,6 +530,7 @@
     "flavourText": "They come from across the sea in search of ancient truth."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Expedition Scarab of Archaeology",
     "id": "expedition-scarab-of-archaeology",
     "dropEnabledd": true,
@@ -486,6 +540,7 @@
     "flavourText": "Curiosity leads to wisdom. Wisdom leads to power."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Expedition Scarab of Runefinding",
     "id": "expedition-scarab-of-runefinding",
     "dropEnabledd": true,
@@ -495,6 +550,7 @@
     "flavourText": "That which came from the stars longs to return."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Expedition Scarab of Verisium Powder",
     "id": "expedition-scarab-of-verisium-powder",
     "dropEnabledd": true,
@@ -504,6 +560,7 @@
     "flavourText": "A properly refined pinch makes all the difference."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Harbinger Scarab",
     "id": "harbinger-scarab",
     "dropEnabledd": true,
@@ -513,6 +570,7 @@
     "flavourText": "Their troops came in numbers uncountable and from lands unknown."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Harbinger Scarab of Obelisks",
     "id": "harbinger-scarab-of-obelisks",
     "dropEnabledd": true,
@@ -522,6 +580,7 @@
     "flavourText": "They seek to establish an unknown pattern."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Harbinger Scarab of Regency",
     "id": "harbinger-scarab-of-regency",
     "dropEnabledd": true,
@@ -531,6 +590,7 @@
     "flavourText": "The truly noble wage war from the front."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Harbinger Scarab of Warhoards",
     "id": "harbinger-scarab-of-warhoards",
     "dropEnabledd": true,
@@ -540,6 +600,7 @@
     "flavourText": "For those who can leverage it, war can be as much a machine of profit as it is death."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Harvest Scarab",
     "id": "harvest-scarab",
     "dropEnabledd": true,
@@ -549,6 +610,7 @@
     "flavourText": "Hidden routes lead to vales of shadow and light..."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Harvest Scarab of Cornucopia",
     "id": "harvest-scarab-of-cornucopia",
     "dropEnabledd": true,
@@ -558,6 +620,7 @@
     "flavourText": "The taller the tree, the better the fruit."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Harvest Scarab of Doubling",
     "id": "harvest-scarab-of-doubling",
     "dropEnabledd": true,
@@ -567,6 +630,7 @@
     "flavourText": "A good season brings bounty."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Horned Scarab of Awakening",
     "id": "horned-scarab-of-awakening",
     "dropEnabledd": true,
@@ -576,6 +640,7 @@
     "flavourText": "The Atlas can be anything you want... and everything you want."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Horned Scarab of Bloodlines",
     "id": "horned-scarab-of-bloodlines",
     "dropEnabledd": true,
@@ -585,6 +650,7 @@
     "flavourText": "Only the hardiest survive. Only survivors perpetuate."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Horned Scarab of Glittering",
     "id": "horned-scarab-of-glittering",
     "dropEnabledd": true,
@@ -594,6 +660,7 @@
     "flavourText": "Wealth flows to those that shine brightest."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Horned Scarab of Nemeses",
     "id": "horned-scarab-of-nemeses",
     "dropEnabledd": true,
@@ -603,6 +670,7 @@
     "flavourText": "Glory draws ever tighter its own doom."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Horned Scarab of Pandemonium",
     "id": "horned-scarab-of-pandemonium",
     "dropEnabledd": true,
@@ -612,6 +680,7 @@
     "flavourText": "Punctured dreams bleed into the mind."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Horned Scarab of Preservation",
     "id": "horned-scarab-of-preservation",
     "dropEnabledd": true,
@@ -621,6 +690,7 @@
     "flavourText": "We must not forget those who came before."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Horned Scarab of Tradition",
     "id": "horned-scarab-of-tradition",
     "dropEnabledd": true,
@@ -630,6 +700,7 @@
     "flavourText": "To the strongest, prosperity be thine."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Incursion Scarab",
     "id": "incursion-scarab",
     "dropEnabledd": true,
@@ -639,6 +710,7 @@
     "flavourText": "Uncover the secrets of the Vaal one incursion at a time."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Incursion Scarab of Champions",
     "id": "incursion-scarab-of-champions",
     "dropEnabledd": true,
@@ -648,6 +720,7 @@
     "flavourText": "Only the best served in Atzoatl."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Incursion Scarab of Invasion",
     "id": "incursion-scarab-of-invasion",
     "dropEnabledd": true,
@@ -657,6 +730,7 @@
     "flavourText": "A gate, once opened, may swing in either direction."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Incursion Scarab of Timelines",
     "id": "incursion-scarab-of-timelines",
     "dropEnabledd": true,
@@ -666,6 +740,7 @@
     "flavourText": "They say if you go far enough, you will meet yourself..."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Influencing Scarab of Conversion",
     "id": "influencing-scarab-of-conversion",
     "dropEnabledd": true,
@@ -675,6 +750,7 @@
     "flavourText": "Memories resound in the Atlas, echoing forever."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Influencing Scarab of Hordes",
     "id": "influencing-scarab-of-hordes",
     "dropEnabledd": true,
@@ -684,6 +760,7 @@
     "flavourText": "Ideas cannot be contained."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Influencing Scarab of the Elder",
     "id": "influencing-scarab-of-the-elder",
     "dropEnabledd": true,
@@ -693,6 +770,7 @@
     "flavourText": "Beyond the light lies only the void."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Influencing Scarab of the Shaper",
     "id": "influencing-scarab-of-the-shaper",
     "dropEnabledd": true,
@@ -702,6 +780,7 @@
     "flavourText": "A sea of stars awaits those who dare imagine."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Kalguuran Scarab",
     "id": "kalguuran-scarab",
     "dropEnabledd": true,
@@ -711,6 +790,7 @@
     "flavourText": "Rich veins run deeper still."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Kalguuran Scarab of Guarded Riches",
     "id": "kalguuran-scarab-of-guarded-riches",
     "dropEnabledd": true,
@@ -720,6 +800,7 @@
     "flavourText": "Digging's the easy part."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Kalguuran Scarab of Refinement",
     "id": "kalguuran-scarab-of-refinement",
     "dropEnabledd": true,
@@ -729,6 +810,7 @@
     "flavourText": "Ore's true worth lies not in stone, but in what it becomes."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Legion Scarab",
     "id": "legion-scarab",
     "dropEnabledd": true,
@@ -738,6 +820,7 @@
     "flavourText": "What good is peace to a warrior?"
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Legion Scarab of Command",
     "id": "legion-scarab-of-command",
     "dropEnabledd": true,
@@ -747,6 +830,7 @@
     "flavourText": "Cut off the head and the snake will perish."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Legion Scarab of Eternal Conflict",
     "id": "legion-scarab-of-eternal-conflict",
     "dropEnabledd": true,
@@ -756,6 +840,7 @@
     "flavourText": "An eternity of blood. Glorious."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Legion Scarab of Officers",
     "id": "legion-scarab-of-officers",
     "dropEnabledd": true,
@@ -765,6 +850,7 @@
     "flavourText": "Even a battlefield has middle management."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ritual Scarab of Abundance",
     "id": "ritual-scarab-of-abundance",
     "dropEnabledd": true,
@@ -774,6 +860,7 @@
     "flavourText": "He draws ever closer..."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ritual Scarab of Selectiveness",
     "id": "ritual-scarab-of-selectiveness",
     "dropEnabledd": true,
@@ -783,6 +870,7 @@
     "flavourText": "Pick and choose which sacred tenets you prefer..."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ritual Scarab of Wisps",
     "id": "ritual-scarab-of-wisps",
     "dropEnabledd": true,
@@ -792,6 +880,7 @@
     "flavourText": "Trust in the Draíocht, and you shall never be alone."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Scarab of Adversaries",
     "id": "scarab-of-adversaries",
     "dropEnabledd": true,
@@ -801,6 +890,7 @@
     "flavourText": "They stand against you with equal enmity."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Scarab of Bisection",
     "id": "scarab-of-bisection",
     "dropEnabledd": true,
@@ -810,6 +900,7 @@
     "flavourText": "When something is cut in half, which half is the original?"
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Scarab of Divinity",
     "id": "scarab-of-divinity",
     "dropEnabledd": true,
@@ -819,6 +910,7 @@
     "flavourText": "Faith transforms."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Scarab of Hunted Traitors",
     "id": "scarab-of-hunted-traitors",
     "dropEnabledd": true,
@@ -828,6 +920,7 @@
     "flavourText": "Nothing is as unforgiveable."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Scarab of Monstrous Lineage",
     "id": "scarab-of-monstrous-lineage",
     "dropEnabledd": true,
@@ -837,6 +930,7 @@
     "flavourText": "The bloodlines evolve faster than they can be culled."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Scarab of Radiant Storms",
     "id": "scarab-of-radiant-storms",
     "dropEnabledd": true,
@@ -846,6 +940,7 @@
     "flavourText": "The great cacophony of life roars to a crescendo."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Scarab of Stability",
     "id": "scarab-of-stability",
     "dropEnabledd": true,
@@ -855,6 +950,7 @@
     "flavourText": "Astonishing! A means to sustain the connection..."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Scarab of Wisps",
     "id": "scarab-of-wisps",
     "dropEnabledd": true,
@@ -864,6 +960,7 @@
     "flavourText": "The Draíocht connects everything that lives."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Sulphite Scarab",
     "id": "sulphite-scarab",
     "dropEnabledd": true,
@@ -873,6 +970,7 @@
     "flavourText": "Delve into darkness in search of the truth..."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Sulphite Scarab of Fumes",
     "id": "sulphite-scarab-of-fumes",
     "dropEnabledd": true,
@@ -882,6 +980,7 @@
     "flavourText": "When the land itself is sick, even the very ground rots and spills forth."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Titanic Scarab",
     "id": "titanic-scarab",
     "dropEnabledd": true,
@@ -891,6 +990,7 @@
     "flavourText": "What power lies in a name?"
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Titanic Scarab of Legend",
     "id": "titanic-scarab-of-legend",
     "dropEnabledd": true,
@@ -900,6 +1000,7 @@
     "flavourText": "Power accumulates."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Titanic Scarab of Treasures",
     "id": "titanic-scarab-of-treasures",
     "dropEnabledd": true,
@@ -909,6 +1010,7 @@
     "flavourText": "Greed is a trap of the mind."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Torment Scarab",
     "id": "torment-scarab",
     "dropEnabledd": true,
@@ -918,6 +1020,7 @@
     "flavourText": "Their crimes in life haunt you in death."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Torment Scarab of Peculiarity",
     "id": "torment-scarab-of-peculiarity",
     "dropEnabledd": true,
@@ -927,6 +1030,7 @@
     "flavourText": "Now there's a blood-curdling wail I haven't heard before!"
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Torment Scarab of Possession",
     "id": "torment-scarab-of-possession",
     "dropEnabledd": true,
@@ -936,6 +1040,7 @@
     "flavourText": "The strong are never truly alone."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ultimatum Scarab",
     "id": "ultimatum-scarab",
     "dropEnabledd": true,
@@ -945,6 +1050,7 @@
     "flavourText": "A challenge may be requested at any time."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ultimatum Scarab of Bribing",
     "id": "ultimatum-scarab-of-bribing",
     "dropEnabledd": true,
@@ -954,6 +1060,7 @@
     "flavourText": "A trial is only as incorruptible as its judge."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ultimatum Scarab of Catalysing",
     "id": "ultimatum-scarab-of-catalysing",
     "dropEnabledd": true,
@@ -963,6 +1070,7 @@
     "flavourText": "Most regret finding out how the powder is made."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ultimatum Scarab of Dueling",
     "id": "ultimatum-scarab-of-dueling",
     "dropEnabledd": true,
@@ -972,6 +1080,7 @@
     "flavourText": "Victory is meaningless, failure will be mocked."
   },
   {
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ultimatum Scarab of Inscription",
     "id": "ultimatum-scarab-of-inscription",
     "dropEnabledd": true,

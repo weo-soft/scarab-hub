@@ -611,6 +611,7 @@ header p {
 }
 .regex-search-display .regex-search-copy-btn,
 .regex-search-display .regex-search-select-all-btn,
+.regex-search-display .regex-search-select-profitable-btn,
 .regex-search-display .regex-search-unselect-all-btn {
   padding: 4px 10px;
   cursor: pointer;
@@ -621,11 +622,13 @@ header p {
 }
 .regex-search-display .regex-search-copy-btn:hover:not(:disabled),
 .regex-search-display .regex-search-select-all-btn:hover:not(:disabled),
+.regex-search-display .regex-search-select-profitable-btn:hover:not(:disabled),
 .regex-search-display .regex-search-unselect-all-btn:hover:not(:disabled) {
   background: rgba(200, 170, 110, 0.3);
 }
 .regex-search-display .regex-search-copy-btn:disabled,
 .regex-search-display .regex-search-select-all-btn:disabled,
+.regex-search-display .regex-search-select-profitable-btn:disabled,
 .regex-search-display .regex-search-unselect-all-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
