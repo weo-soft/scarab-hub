@@ -3,27 +3,27 @@
     {
       "id": "timeless-eternal-emblem",
       "name": "Timeless Eternal Emblem",
-      "sus": "n"
+      "sus": "rn"
     },
     {
       "id": "timeless-karui-emblem",
       "name": "Timeless Karui Emblem",
-      "sus": "u"
+      "sus": " K"
     },
     {
       "id": "timeless-vaal-emblem",
       "name": "Timeless Vaal Emblem",
-      "sus": "V"
+      "sus": " V"
     },
     {
       "id": "timeless-templar-emblem",
       "name": "Timeless Templar Emblem",
-      "sus": "p"
+      "sus": "mp"
     },
     {
       "id": "timeless-maraketh-emblem",
       "name": "Timeless Maraketh Emblem",
-      "sus": "h"
+      "sus": "ra"
     }
   ],
   "groups": [
@@ -49,15 +49,6 @@
       "memberIds": [
         "timeless-eternal-emblem",
         "timeless-templar-emblem"
-      ]
-    },
-    {
-      "token": "r",
-      "memberIds": [
-        "timeless-eternal-emblem",
-        "timeless-karui-emblem",
-        "timeless-templar-emblem",
-        "timeless-maraketh-emblem"
       ]
     },
     {

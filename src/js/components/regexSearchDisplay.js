@@ -2,11 +2,22 @@
  * Regex search display: show generated regex and Copy button for in-game search.
  */
 
-import { generateRegex } from '../services/regexSearchService.js';
+import { generateRegex, optimizeRegex, MAX_LENGTH } from '../services/regexSearchService.js';
 import { getSelectedIds, selectAll, clear } from '../services/selectionState.js';
+
+// When regex goes over limit we auto-run optimization; keep result until selection changes.
+let lastOptimizedValue = null;
+let lastOptimizedForIdsKey = null;
+// So we only attempt once per selection state; retry when user selects/deselects (new idKey).
+let lastOptimizeAttemptedForIdsKey = null;
+
+function selectionKey(selectedIds) {
+  return Array.from(selectedIds).sort().join('\0');
+}
 
 /**
  * Render regex display into container. Call when selection or category changes.
+ * When regex exceeds the limit, optimization runs automatically; if none found, it runs again after selection change.
  * @param {HTMLElement} container
  * @param {{ categoryId: string, namesById: Map<string, string>, names: string[] }} categoryNames
  */
@@ -18,6 +29,15 @@ export function renderRegexSearchDisplay(container, categoryNames) {
   }
 
   const selectedIds = getSelectedIds();
+  const idKey = selectionKey(selectedIds);
+
+  // Selection changed: clear optimized value and allow optimization to run again for new selection
+  if (lastOptimizedForIdsKey !== idKey) {
+    lastOptimizedValue = null;
+    lastOptimizedForIdsKey = null;
+    lastOptimizeAttemptedForIdsKey = null;
+  }
+
   let result = null;
   try {
     result = generateRegex(selectedIds, categoryNames);
@@ -25,22 +45,35 @@ export function renderRegexSearchDisplay(container, categoryNames) {
     console.warn('Regex generation failed:', err);
   }
 
+  // Auto-run optimizer when over limit and we haven't tried for this selection yet
+  if (result?.value && result.length > MAX_LENGTH && lastOptimizeAttemptedForIdsKey !== idKey) {
+    lastOptimizeAttemptedForIdsKey = idKey;
+    const optimized = optimizeRegex(selectedIds, categoryNames, result.value);
+    if (optimized) {
+      lastOptimizedValue = optimized.value;
+      lastOptimizedForIdsKey = idKey;
+    }
+  }
+
   let message = 'Select at least one item';
   let regexValue = '';
-  let truncated = false;
+  let regexLength = 0;
+  let exceedsMaxLength = false;
   let copyDisabled = true;
 
   if (result) {
-    regexValue = result.value;
-    truncated = !!result.truncated;
-    copyDisabled = !result.value;
-    message = result.value
-      ? `Regex (${result.length}/250 chars)${truncated ? ' — truncated' : ''}`
+    const useOptimized = lastOptimizedValue != null && lastOptimizedForIdsKey === idKey && lastOptimizedValue.length < result.length;
+    regexValue = useOptimized ? lastOptimizedValue : result.value;
+    regexLength = regexValue.length;
+    exceedsMaxLength = regexLength > MAX_LENGTH;
+    copyDisabled = !regexValue;
+    message = regexValue
+      ? `Regex (${regexLength}/${MAX_LENGTH} chars)${exceedsMaxLength ? ' — over limit' : ''}`
       : 'Select at least one item';
   }
 
-  const truncatedNote = truncated
-    ? '<p class="regex-search-truncated-note">Not all selected items could fit in 250 characters. Regex matches a subset or uses shortened patterns.</p>'
+  const lengthWarning = exceedsMaxLength
+    ? `<p class="regex-search-exceeds-max-note">Regex exceeds ${MAX_LENGTH} characters. In-game search may not accept it.</p>`
     : '';
 
   const allIds = categoryNames.namesById ? Array.from(categoryNames.namesById.keys()) : [];
@@ -49,7 +82,7 @@ export function renderRegexSearchDisplay(container, categoryNames) {
     <div class="regex-search-display">
       <div class="regex-search-label">${message}</div>
       <div class="regex-search-value" title="${escapeAttr(regexValue)}">${escapeHtml(regexValue) || '—'}</div>
-      ${truncatedNote}
+      ${lengthWarning}
       <div class="regex-search-actions">
         <button type="button" class="regex-search-select-all-btn" ${allIds.length === 0 ? 'disabled' : ''}>Select all</button>
         <button type="button" class="regex-search-unselect-all-btn">Unselect all</button>

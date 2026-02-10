@@ -3,22 +3,22 @@
     {
       "id": "abrasive-catalyst",
       "name": "Abrasive Catalyst",
-      "sus": "v"
+      "sus": "br"
     },
     {
       "id": "accelerating-catalyst",
       "name": "Accelerating Catalyst",
-      "sus": "Ac"
+      "sus": "cc"
     },
     {
       "id": "fertile-catalyst",
       "name": "Fertile Catalyst",
-      "sus": "F"
+      "sus": "rt"
     },
     {
       "id": "imbued-catalyst",
       "name": "Imbued Catalyst",
-      "sus": "Im"
+      "sus": "mb"
     },
     {
       "id": "intrinsic-catalyst",
@@ -28,7 +28,7 @@
     {
       "id": "noxious-catalyst",
       "name": "Noxious Catalyst",
-      "sus": "o"
+      "sus": "ox"
     },
     {
       "id": "prismatic-catalyst",
@@ -43,7 +43,7 @@
     {
       "id": "tempering-catalyst",
       "name": "Tempering Catalyst",
-      "sus": "em"
+      "sus": "mp"
     },
     {
       "id": "turbulent-catalyst",
@@ -53,7 +53,7 @@
     {
       "id": "unstable-catalyst",
       "name": "Unstable Catalyst",
-      "sus": "Un"
+      "sus": "bl"
     }
   ],
   "groups": [
@@ -81,42 +81,15 @@
       ]
     },
     {
-      "token": "b",
-      "memberIds": [
-        "abrasive-catalyst",
-        "imbued-catalyst",
-        "turbulent-catalyst",
-        "unstable-catalyst"
-      ]
-    },
-    {
-      "token": "r",
-      "memberIds": [
-        "abrasive-catalyst",
-        "accelerating-catalyst",
-        "fertile-catalyst",
-        "intrinsic-catalyst",
-        "prismatic-catalyst",
-        "tempering-catalyst",
-        "turbulent-catalyst"
-      ]
-    },
-    {
       "token": "ra",
       "memberIds": [
         "abrasive-catalyst",
-        "accelerating-catalyst"
+        "accelerating-catalyst",
+        "tainted-catalyst"
       ]
     },
     {
-      "token": "si",
-      "memberIds": [
-        "abrasive-catalyst",
-        "intrinsic-catalyst"
-      ]
-    },
-    {
-      "token": "i",
+      "token": "v",
       "memberIds": [
         "abrasive-catalyst",
         "accelerating-catalyst",
@@ -125,21 +98,18 @@
         "intrinsic-catalyst",
         "noxious-catalyst",
         "prismatic-catalyst",
-        "tainted-catalyst",
-        "tempering-catalyst"
-      ]
-    },
-    {
-      "token": "e",
-      "memberIds": [
-        "abrasive-catalyst",
-        "accelerating-catalyst",
-        "fertile-catalyst",
-        "imbued-catalyst",
-        "tainted-catalyst",
         "tempering-catalyst",
         "turbulent-catalyst",
         "unstable-catalyst"
+      ]
+    },
+    {
+      "token": "si",
+      "memberIds": [
+        "abrasive-catalyst",
+        "intrinsic-catalyst",
+        "noxious-catalyst",
+        "prismatic-catalyst"
       ]
     },
     {
@@ -151,20 +121,25 @@
       ]
     },
     {
-      "token": "le",
+      "token": "tt",
       "memberIds": [
-        "accelerating-catalyst",
-        "fertile-catalyst",
-        "turbulent-catalyst",
-        "unstable-catalyst"
+        "abrasive-catalyst",
+        "intrinsic-catalyst"
       ]
     },
     {
-      "token": "er",
+      "token": "s a",
+      "memberIds": [
+        "abrasive-catalyst",
+        "intrinsic-catalyst",
+        "tainted-catalyst"
+      ]
+    },
+    {
+      "token": "ele",
       "memberIds": [
         "accelerating-catalyst",
-        "fertile-catalyst",
-        "tempering-catalyst"
+        "turbulent-catalyst"
       ]
     },
     {
@@ -179,35 +154,30 @@
       "memberIds": [
         "accelerating-catalyst",
         "fertile-catalyst",
-        "prismatic-catalyst"
-      ]
-    },
-    {
-      "token": "in",
-      "memberIds": [
-        "accelerating-catalyst",
-        "intrinsic-catalyst",
-        "tainted-catalyst",
-        "tempering-catalyst"
-      ]
-    },
-    {
-      "token": "g",
-      "memberIds": [
-        "accelerating-catalyst",
-        "tempering-catalyst"
-      ]
-    },
-    {
-      "token": "n",
-      "memberIds": [
-        "accelerating-catalyst",
-        "intrinsic-catalyst",
-        "noxious-catalyst",
-        "tainted-catalyst",
-        "tempering-catalyst",
-        "turbulent-catalyst",
+        "prismatic-catalyst",
         "unstable-catalyst"
+      ]
+    },
+    {
+      "token": "g c",
+      "memberIds": [
+        "accelerating-catalyst",
+        "tempering-catalyst"
+      ]
+    },
+    {
+      "token": "ed",
+      "memberIds": [
+        "accelerating-catalyst",
+        "imbued-catalyst",
+        "tainted-catalyst"
+      ]
+    },
+    {
+      "token": "d m",
+      "memberIds": [
+        "accelerating-catalyst",
+        "fertile-catalyst"
       ]
     },
     {
@@ -218,34 +188,63 @@
       ]
     },
     {
-      "token": "m",
+      "token": "e a",
       "memberIds": [
-        "imbued-catalyst",
-        "prismatic-catalyst",
-        "tempering-catalyst"
+        "fertile-catalyst",
+        "tainted-catalyst"
+      ]
+    },
+    {
+      "token": "nd",
+      "memberIds": [
+        "fertile-catalyst",
+        "noxious-catalyst",
+        "tainted-catalyst"
       ]
     },
     {
       "token": "bu",
       "memberIds": [
         "imbued-catalyst",
+        "intrinsic-catalyst",
         "turbulent-catalyst"
       ]
     },
     {
-      "token": "u",
+      "token": "ed c",
+      "memberIds": [
+        "imbued-catalyst",
+        "tainted-catalyst"
+      ]
+    },
+    {
+      "token": "d c",
       "memberIds": [
         "imbued-catalyst",
         "noxious-catalyst",
-        "turbulent-catalyst",
+        "tainted-catalyst"
+      ]
+    },
+    {
+      "token": "es c",
+      "memberIds": [
+        "imbued-catalyst",
         "unstable-catalyst"
       ]
     },
     {
-      "token": "d",
+      "token": "s c",
       "memberIds": [
         "imbued-catalyst",
-        "tainted-catalyst"
+        "noxious-catalyst",
+        "unstable-catalyst"
+      ]
+    },
+    {
+      "token": "s ca",
+      "memberIds": [
+        "imbued-catalyst",
+        "noxious-catalyst"
       ]
     },
     {
@@ -264,21 +263,6 @@
       ]
     },
     {
-      "token": "ri",
-      "memberIds": [
-        "intrinsic-catalyst",
-        "prismatic-catalyst",
-        "tempering-catalyst"
-      ]
-    },
-    {
-      "token": "rin",
-      "memberIds": [
-        "intrinsic-catalyst",
-        "tempering-catalyst"
-      ]
-    },
-    {
       "token": "ns",
       "memberIds": [
         "intrinsic-catalyst",
@@ -286,23 +270,76 @@
       ]
     },
     {
-      "token": "ic",
+      "token": "sic",
+      "memberIds": [
+        "intrinsic-catalyst",
+        "noxious-catalyst"
+      ]
+    },
+    {
+      "token": "c c",
       "memberIds": [
         "intrinsic-catalyst",
         "prismatic-catalyst"
       ]
     },
     {
-      "token": "p",
+      "token": "e mo",
       "memberIds": [
+        "intrinsic-catalyst",
+        "noxious-catalyst",
         "prismatic-catalyst",
+        "tempering-catalyst",
+        "turbulent-catalyst"
+      ]
+    },
+    {
+      "token": "ou",
+      "memberIds": [
+        "noxious-catalyst",
+        "tainted-catalyst"
+      ]
+    },
+    {
+      "token": "ica",
+      "memberIds": [
+        "noxious-catalyst",
+        "unstable-catalyst"
+      ]
+    },
+    {
+      "token": "s d",
+      "memberIds": [
+        "noxious-catalyst",
         "tempering-catalyst"
       ]
     },
     {
-      "token": "te",
+      "token": " d",
       "memberIds": [
-        "tainted-catalyst",
+        "noxious-catalyst",
+        "tempering-catalyst",
+        "turbulent-catalyst"
+      ]
+    },
+    {
+      "token": "da",
+      "memberIds": [
+        "noxious-catalyst",
+        "turbulent-catalyst"
+      ]
+    },
+    {
+      "token": "tic",
+      "memberIds": [
+        "prismatic-catalyst",
+        "unstable-catalyst"
+      ]
+    },
+    {
+      "token": "ce m",
+      "memberIds": [
+        "prismatic-catalyst",
         "tempering-catalyst"
       ]
     }

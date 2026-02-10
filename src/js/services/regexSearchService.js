@@ -1,5 +1,6 @@
 /**
- * Regex search service: build a regex that exactly matches selected item names, ≤250 chars.
+ * Regex search service: build a regex that exactly matches selected item names.
+ * When length exceeds MAX_LENGTH (250), the full regex is still returned; UI shows a warning.
  */
 
 const MAX_LENGTH = 250;
@@ -158,94 +159,160 @@ function buildOptimizedPatterns(selectedIds, categoryNames) {
  * Build alternation regex from selected items. Uses SUS tokens when available (from .sus.json).
  * When categoryNames.groups is present (e.g. scarabs.sus.json), uses group tokens when a matching
  * group of items is selected (greedy by group size). Otherwise uses name-based grouping when all
- * scarabs of one type are selected. If over MAX_LENGTH, uses fallback (shortened unique substrings).
+ * scarabs of one type are selected. Regex is never shortened; if over MAX_LENGTH the UI should show a warning.
  * @param {Set<string>} selectedIds
  * @param {{ categoryId: string, namesById: Map<string, string>, names: string[], susById?: Map<string, string>, groups?: Array<{ token: string, memberIds: string[] }> }} categoryNames
- * @returns {{ value: string, length: number, truncated?: boolean, selectedCount: number, categoryId: string } | null}
+ * @returns {{ value: string, length: number, exceedsMaxLength?: boolean, selectedCount: number, categoryId: string } | null}
  */
 export function generateRegex(selectedIds, categoryNames) {
   if (!selectedIds || selectedIds.size === 0) return null;
   if (!categoryNames?.namesById) return null;
 
   const categoryId = categoryNames.categoryId || '';
-  const allNames = categoryNames.names || [];
-
   const selectedPatterns = buildOptimizedPatterns(selectedIds, categoryNames);
   if (selectedPatterns.length === 0) return null;
 
-  let value = buildAlternation(selectedPatterns);
-  let truncated = false;
-
-  if (value.length > MAX_LENGTH) {
-    const fallback = buildShortenedUniqueAlternationFromNames(selectedIds, categoryNames);
-    value = fallback.value;
-    truncated = fallback.truncated;
-  }
-
-  if (value.length > MAX_LENGTH) {
-    value = value.slice(0, MAX_LENGTH);
-    truncated = true;
-  }
+  const value = buildAlternation(selectedPatterns);
 
   return {
     value,
     length: value.length,
-    truncated: truncated || undefined,
+    exceedsMaxLength: value.length > MAX_LENGTH || undefined,
     selectedCount: selectedIds.size,
     categoryId
   };
 }
 
 /**
- * Simple alternation: (a|b|c) with escaped names.
- * @param {string[]} names
+ * Escape content for use inside a double-quoted string (escape \ and ").
+ * @param {string} s
+ * @returns {string}
+ */
+function escapeForQuotedString(s) {
+  return s.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+}
+
+/**
+ * Build quoted alternation: "a|b|c" (no parentheses; whole pattern in quotes).
+ * @param {string[]} names - tokens, each escaped for regex
  * @returns {string}
  */
 function buildAlternation(names) {
   if (names.length === 0) return '';
-  if (names.length === 1) return escapeRegex(names[0]);
-  const escaped = names.map(escapeRegex);
-  return '(' + escaped.join('|') + ')';
+  const inner = names.map(escapeRegex).join('|');
+  return '"' + escapeForQuotedString(inner) + '"';
 }
 
 /**
- * Fallback when SUS + alternation still exceeds MAX_LENGTH: use shortest unique substring per selected name.
+ * Optimize regex by finding a set of tokens that cover all selected names with overlapping SUS
+ * (one token can match multiple items). Uses greedy set-cover: candidates are group tokens and
+ * prefix substrings that don't match any non-selected name; pick best coverage per character until all covered.
  * @param {Set<string>} selectedIds
- * @param {{ namesById: Map<string, string>, names: string[], susById?: Map<string, string> }} categoryNames
- * @returns {{ value: string, truncated: boolean }}
+ * @param {{ namesById: Map<string, string>, names: string[], groups?: Array<{ token: string, memberIds: string[] }> }} categoryNames
+ * @param {string} currentRegexValue - current alternation string to beat
+ * @returns {{ value: string, length: number } | null} shorter regex, or null if none found
  */
-function buildShortenedUniqueAlternationFromNames(selectedIds, categoryNames) {
+export function optimizeRegex(selectedIds, categoryNames, currentRegexValue) {
+  if (!selectedIds?.size || !categoryNames?.namesById || !currentRegexValue) return null;
+
+  const namesById = categoryNames.namesById;
   const allNames = categoryNames.names || [];
-  const allSet = new Set(allNames);
   const selectedNames = [];
+  const selectedSet = new Set();
   for (const id of selectedIds) {
-    const name = categoryNames.namesById.get(id);
-    if (name) selectedNames.push(name);
-  }
-
-  const substrings = selectedNames.map(name => {
-    const sub = shortestUniqueSubstring(name, allSet);
-    return escapeRegex(sub);
-  });
-
-  let value = '(' + substrings.join('|') + ')';
-  let truncated = false;
-
-  if (value.length > MAX_LENGTH) {
-    const maxPart = Math.max(2, Math.floor(MAX_LENGTH / selectedNames.length) - 4);
-    const shortened = selectedNames.map(n => {
-      let s = shortestUniqueSubstring(n, allSet);
-      if (s.length > maxPart) s = s.slice(0, maxPart);
-      return escapeRegex(s);
-    });
-    value = '(' + shortened.join('|') + ')';
-    if (value.length > MAX_LENGTH) {
-      value = value.slice(0, MAX_LENGTH);
+    const name = namesById.get(id);
+    if (name) {
+      selectedNames.push(name);
+      selectedSet.add(name);
     }
-    truncated = true;
+  }
+  if (selectedNames.length === 0) return null;
+
+  const otherNames = allNames.filter(n => !selectedSet.has(n));
+  const otherSet = new Set(otherNames);
+
+  /** Token is valid if it doesn't appear in any non-selected name. */
+  function tokenSafe(token) {
+    if (!token) return false;
+    return !otherSet.size || ![...otherSet].some(n => n.includes(token));
   }
 
-  return { value, truncated };
+  /** Which selected names contain this token? */
+  function coveredNames(token) {
+    return selectedNames.filter(n => n.includes(token));
+  }
+
+  const candidates = [];
+
+  // Group tokens: from JSON groups or name-based groups
+  const groups = categoryNames.groups || [];
+  const groupToIds = buildGroupToIds(namesById);
+
+  for (const group of groups) {
+    const token = group?.token;
+    const memberIds = group?.memberIds || [];
+    if (!token || !tokenSafe(token)) continue;
+    const namesInGroup = memberIds.map(id => namesById.get(id)).filter(Boolean);
+    if (namesInGroup.length > 0 && namesInGroup.every(n => selectedSet.has(n))) {
+      candidates.push({ token, names: namesInGroup });
+    }
+  }
+
+  for (const [groupKey, idsInGroup] of groupToIds) {
+    const namesInGroup = idsInGroup.map(id => namesById.get(id)).filter(Boolean);
+    if (namesInGroup.length === 0 || !namesInGroup.every(n => selectedSet.has(n))) continue;
+    const allOther = allNames.filter(n => !namesInGroup.includes(n));
+    const token = getShortestCommonUniqueToken(namesInGroup, allOther, groupKey);
+    if (token && tokenSafe(token)) {
+      const already = candidates.some(c => c.token === token);
+      if (!already) candidates.push({ token, names: namesInGroup });
+    }
+  }
+
+  // Per-name prefix substrings that don't match any non-selected (overlapping SUS)
+  const maxPrefixLen = 50;
+  for (const name of selectedNames) {
+    for (let len = 1; len <= Math.min(maxPrefixLen, name.length); len++) {
+      const token = name.slice(0, len);
+      if (!tokenSafe(token)) continue;
+      const covered = coveredNames(token);
+      if (covered.length > 0) {
+        const existing = candidates.find(c => c.token === token);
+        if (!existing) candidates.push({ token, names: covered });
+      }
+    }
+  }
+
+  // Greedy set cover: pick candidate that maximizes (new names covered) / (cost)
+  const covered = new Set();
+  const chosen = [];
+
+  while (covered.size < selectedNames.length) {
+    let best = null;
+    let bestScore = -1;
+
+    for (const c of candidates) {
+      const newNames = c.names.filter(n => !covered.has(n));
+      if (newNames.length === 0) continue;
+      const cost = escapeRegex(c.token).length + (chosen.length > 0 ? 1 : 0);
+      const score = newNames.length / Math.max(1, cost);
+      if (score > bestScore) {
+        bestScore = score;
+        best = { ...c, newNames };
+      }
+    }
+
+    if (!best) break;
+    chosen.push(best.token);
+    for (const n of best.names) covered.add(n);
+  }
+
+  if (chosen.length === 0) return null;
+
+  const value = buildAlternation(chosen);
+  if (value.length >= currentRegexValue.length) return null;
+
+  return { value, length: value.length };
 }
 
 /**

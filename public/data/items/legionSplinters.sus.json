@@ -3,7 +3,7 @@
     {
       "id": "timeless-eternal-empire-splinter",
       "name": "Timeless Eternal Empire Splinter",
-      "sus": " E"
+      "sus": "rn"
     },
     {
       "id": "timeless-karui-splinter",
@@ -18,7 +18,7 @@
     {
       "id": "timeless-templar-splinter",
       "name": "Timeless Templar Splinter",
-      "sus": " T"
+      "sus": "la"
     },
     {
       "id": "timeless-maraketh-splinter",
@@ -52,7 +52,7 @@
       ]
     },
     {
-      "token": "em",
+      "token": "mp",
       "memberIds": [
         "timeless-eternal-empire-splinter",
         "timeless-templar-splinter"

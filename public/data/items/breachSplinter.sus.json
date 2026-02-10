@@ -3,7 +3,7 @@
     {
       "id": "splinter-of-chayula",
       "name": "Splinter of Chayula",
-      "sus": "C"
+      "sus": "y"
     },
     {
       "id": "splinter-of-esh",
@@ -13,7 +13,7 @@
     {
       "id": "splinter-of-tul",
       "name": "Splinter of Tul",
-      "sus": " T"
+      "sus": "Tu"
     },
     {
       "id": "splinter-of-uul-netol",
@@ -38,17 +38,23 @@
       ]
     },
     {
-      "token": "h",
+      "token": "u",
       "memberIds": [
         "splinter-of-chayula",
+        "splinter-of-tul",
+        "splinter-of-uul-netol"
+      ]
+    },
+    {
+      "token": "h'",
+      "memberIds": [
         "splinter-of-esh",
         "splinter-of-xoph"
       ]
     },
     {
-      "token": "u",
+      "token": "l'",
       "memberIds": [
-        "splinter-of-chayula",
         "splinter-of-tul",
         "splinter-of-uul-netol"
       ]

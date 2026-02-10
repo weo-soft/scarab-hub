@@ -85,3 +85,4 @@ dist-ssr
 .specify/
 specs/
 .cursor/
+scripts/
