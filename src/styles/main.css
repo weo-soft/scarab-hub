@@ -2139,6 +2139,8 @@ header p {
   flex-direction: column;
   height: 100%;
   overflow: hidden;
+  /* Ensure list-wrapper is visible and takes remaining space in side-by-side layout */
+  min-width: 300px; /* Minimum width to ensure visibility */
 }
 
 
@@ -2436,13 +2438,51 @@ header p {
   justify-content: center;
   flex: 0 0 auto;
   position: relative;
+  min-width: 0; /* Allow shrinking */
+  /* Don't expand beyond content size in side-by-side layout */
+  max-width: fit-content;
 }
 
 .grid-container {
   flex-shrink: 0;
   display: flex;
   align-items: flex-start;
+  justify-content: center;
   position: relative;
+  min-width: 0; /* Allow shrinking */
+  /* Don't set width: 100% for side-by-side layout - let it use its natural size */
+}
+
+/* When screen width can't fit both gridview (~800px) and listview side by side, stack vertically */
+@media (max-width: 1200px) {
+  .merged-views-container {
+    flex-direction: column;
+  }
+  
+  #grid-view {
+    width: 100%;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 100%; /* Remove fit-content constraint when stacked */
+  }
+  
+  .grid-container {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    min-width: 0;
+  }
+  
+  /* Make gridview canvas use full available width when stacked */
+  .grid-container canvas {
+    max-width: 100%;
+    /* Width is controlled by JavaScript, but ensure it respects max-width */
+  }
+  
+  .list-wrapper {
+    width: 100%;
+    min-width: 0; /* Remove min-width constraint when stacked */
+  }
 }
 
 .grid-settings-btn {

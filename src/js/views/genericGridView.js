@@ -112,49 +112,118 @@ function setupCanvas(canvas, config) {
   // Scale for mobile devices and small desktop screens (up to 1200px)
   const viewportWidth = window.innerWidth;
   const viewportHeight = window.innerHeight;
-  const shouldScale = viewportWidth < width || viewportWidth <= 1200;
   
-  let scaledWidth, scaledHeight;
+  // Force a layout recalculation to get accurate container dimensions
+  if (document.body) {
+    document.body.offsetHeight; // Trigger reflow
+  }
   
-  if (shouldScale) {
-    // Get the actual container element
-    const container = canvas.closest('.grid-container') || 
-                     canvas.closest('#grid-view') || 
-                     canvas.closest('.view-container') ||
-                     canvas.parentElement;
+  // Check if we're in a stacked layout (listviews below gridview)
+  // This happens when viewport width <= 1200px
+  const isStackedLayout = viewportWidth <= 1200;
+  
+  // Get the actual container element
+  const container = canvas.closest('.grid-container') || 
+                   canvas.closest('#grid-view') || 
+                   canvas.closest('.view-container') ||
+                   canvas.parentElement;
+  
+  // Calculate available width from container
+  let availableWidth;
+  if (container) {
+    const containerRect = container.getBoundingClientRect();
+    availableWidth = containerRect.width;
     
-    // Calculate available width
-    let availableWidth;
-    if (container) {
-      const containerRect = container.getBoundingClientRect();
-      availableWidth = containerRect.width;
-      
-      // If container width is 0 or very small, fall back to viewport
-      if (availableWidth < 100) {
-        availableWidth = viewportWidth;
-      }
-    } else {
+    // If container width is 0 or very small, fall back to viewport width
+    if (availableWidth < 100) {
       availableWidth = viewportWidth;
     }
+    // In stacked layout, if container width seems too small, use viewport as fallback
+    else if (isStackedLayout && availableWidth < viewportWidth * 0.5) {
+      // Container might not have expanded yet, use viewport
+      availableWidth = viewportWidth;
+    }
+  } else {
+    availableWidth = viewportWidth;
+  }
+  
+  // Account for padding and margins
+  const appPadding = 20 * 2; // Left + right padding from #app
+  const containerMargin = isStackedLayout ? 0 : 20; // Less margin when stacked
+  const totalHorizontalPadding = appPadding + containerMargin;
+  
+  // Calculate available width, ensuring minimum usable size
+  // When stacked, use full available width; when side-by-side, account for listview space
+  const calculatedAvailableWidth = Math.max(availableWidth - totalHorizontalPadding, 280);
+  
+  // Calculate available height
+  const reservedHeight = isStackedLayout ? 250 : 200; // More reserved when stacked (listviews below)
+  const availableHeight = Math.max(viewportHeight - reservedHeight, 300);
+  
+  // Determine scaling behavior:
+  // - When in stacked layout: always scale to use available width (can scale up)
+  // - When in side-by-side layout and viewport >= default grid width: use original size
+  // - When viewport < default grid width: scale down to fit
+  let scaledWidth, scaledHeight;
+  
+  if (isStackedLayout) {
+    // In stacked layout, scale to use full available width (allow scaling up)
+    // Recalculate available width to ensure we get the full container width
+    let finalAvailableWidth = calculatedAvailableWidth;
     
-    // Account for padding and margins
-    // #app has 20px padding on each side, plus some margin for the grid container
-    const appPadding = 20 * 2; // Left + right padding from #app
-    const containerMargin = 20; // Additional margin for grid container
-    const totalHorizontalPadding = appPadding + containerMargin;
+    // Try to get the actual container width after layout
+    if (container) {
+      const containerRect = container.getBoundingClientRect();
+      // In stacked layout, container should be full width
+      if (containerRect.width > 100) {
+        // Use the container width, accounting for padding
+        finalAvailableWidth = containerRect.width - totalHorizontalPadding;
+        finalAvailableWidth = Math.max(finalAvailableWidth, 280);
+      } else {
+        // Fallback: use viewport width minus padding
+        finalAvailableWidth = viewportWidth - totalHorizontalPadding;
+        finalAvailableWidth = Math.max(finalAvailableWidth, 280);
+      }
+    } else {
+      // No container found, use viewport
+      finalAvailableWidth = viewportWidth - totalHorizontalPadding;
+      finalAvailableWidth = Math.max(finalAvailableWidth, 280);
+    }
     
-    // Calculate available width, ensuring minimum usable size
-    availableWidth = Math.max(availableWidth - totalHorizontalPadding, 280);
-    
-    // Calculate available height (use up to 70% of viewport height for better visibility)
-    // Account for header, navigation, and other UI elements
-    const reservedHeight = 200; // Space for header, nav, filters, etc.
-    const availableHeight = Math.max(viewportHeight - reservedHeight, 300);
-    
-    // Calculate scale based on both width and height constraints
-    const scaleX = availableWidth / width;
+    const scaleX = finalAvailableWidth / width;
     const scaleY = availableHeight / height;
-    const scale = Math.min(scaleX, scaleY, 1); // Don't scale up beyond original size
+    // In stacked layout, prioritize width to use full horizontal space
+    const scale = Math.min(scaleX, scaleY);
+    
+    scaledWidth = width * scale;
+    scaledHeight = height * scale;
+    
+    // Ensure we're using a good portion of the available width
+    // If height constraint is limiting us, prioritize width (but keep reasonable aspect ratio)
+    if (scaledWidth < finalAvailableWidth * 0.9) {
+      // Try to use more width if height allows
+      const widthBasedScale = finalAvailableWidth / width;
+      const heightBasedScale = availableHeight / height;
+      
+      // Use the larger scale that fits both constraints
+      const optimalScale = Math.min(widthBasedScale, heightBasedScale);
+      scaledWidth = width * optimalScale;
+      scaledHeight = height * optimalScale;
+    }
+    
+    // Ensure minimum size for usability
+    const minSize = 200;
+    if (scaledWidth < minSize || scaledHeight < minSize) {
+      const minScale = Math.max(minSize / width, minSize / height);
+      const finalScale = Math.max(scale, minScale);
+      scaledWidth = width * finalScale;
+      scaledHeight = height * finalScale;
+    }
+  } else if (viewportWidth < width) {
+    // Screen is smaller than default grid width, scale down to fit
+    const scaleX = calculatedAvailableWidth / width;
+    const scaleY = availableHeight / height;
+    const scale = Math.min(scaleX, scaleY, 1); // Don't scale up
     
     scaledWidth = width * scale;
     scaledHeight = height * scale;
@@ -168,21 +237,36 @@ function setupCanvas(canvas, config) {
       scaledHeight = height * finalScale;
     }
   } else {
-    // On larger screens, use original dimensions
+    // On larger screens with side-by-side layout, use original dimensions
     scaledWidth = width;
     scaledHeight = height;
   }
 
+  // Set canvas dimensions
   canvas.style.width = `${scaledWidth}px`;
   canvas.style.height = `${scaledHeight}px`;
+  // Ensure canvas respects container bounds
+  canvas.style.maxWidth = '100%';
 
   const dpr = window.devicePixelRatio || 1;
   canvas.width = scaledWidth * dpr;
   canvas.height = scaledHeight * dpr;
-  ctx.scale(dpr, dpr);
+  
+  // Calculate the scale factor from original to scaled dimensions
+  const scaleFactorX = scaledWidth / width;
+  const scaleFactorY = scaledHeight / height;
+  
+  // Scale the context by both DPR and the size scale factor
+  // This allows us to draw at original coordinates and have them map to scaled canvas
+  ctx.scale(dpr * scaleFactorX, dpr * scaleFactorY);
+  
   canvas._scaleFactor = dpr;
+  canvas._scaleFactorX = scaleFactorX;
+  canvas._scaleFactorY = scaleFactorY;
   canvas._originalWidth = width;
   canvas._originalHeight = height;
+  canvas._scaledWidth = scaledWidth;
+  canvas._scaledHeight = scaledHeight;
 }
 
 /**
@@ -298,9 +382,34 @@ function renderGrid(canvas, adapter) {
   if (!adapter) return;
 
   const ctx = canvas.getContext('2d');
+  // Get original dimensions for drawing coordinates
   const { width, height } = getDisplayDimensions(adapter);
-  clearCanvas(ctx, width, height);
-
+  
+  // Clear the entire canvas buffer (use actual canvas dimensions, not scaled)
+  // We need to clear before applying transforms
+  ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  // Restore the scale transform that was set in setupCanvas
+  // If scale factors aren't set, calculate them from canvas dimensions
+  const dpr = canvas._scaleFactor || window.devicePixelRatio || 1;
+  let scaleFactorX = canvas._scaleFactorX;
+  let scaleFactorY = canvas._scaleFactorY;
+  
+  // If scale factors aren't stored, calculate them from current canvas size
+  if (scaleFactorX === undefined || scaleFactorY === undefined) {
+    const scaledWidth = canvas.style.width ? parseFloat(canvas.style.width) : width;
+    const scaledHeight = canvas.style.height ? parseFloat(canvas.style.height) : height;
+    scaleFactorX = scaledWidth / width;
+    scaleFactorY = scaledHeight / height;
+    // Store for next time
+    canvas._scaleFactorX = scaleFactorX;
+    canvas._scaleFactorY = scaleFactorY;
+  }
+  
+  ctx.scale(dpr * scaleFactorX, dpr * scaleFactorY);
+  
+  // Draw base image at original dimensions (will be scaled by context transform)
   if (baseImage) {
     ctx.drawImage(baseImage, 0, 0, width, height);
   } else {
