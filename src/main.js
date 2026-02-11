@@ -56,6 +56,7 @@ import {
   renderNavigation,
   updateNavigation 
 } from './js/components/navigation.js';
+import { initRouter, navigateTo, parseRoute } from './js/services/router.js';
 import { handleMissingPriceData, handleMissingDropWeight, sanitizeScarabData } from './js/utils/errorHandler.js';
 import { hideTooltip } from './js/utils/tooltip.js';
 import { initDataStatusOverlay, setOnRefreshCallback } from './js/components/dataStatusOverlay.js';
@@ -64,6 +65,7 @@ import { showErrorToast, showWarningToast } from './js/utils/toast.js';
 import { setCategory as setSelectionCategory, subscribe as subscribeSelection } from './js/services/selectionState.js';
 import { buildCategoryItemNames, loadSusById } from './js/utils/categoryItemNames.js';
 import { renderRegexSearchDisplay } from './js/components/regexSearchDisplay.js';
+import { renderWelcomePage } from './js/components/welcomePage.js';
 
 // Import debug tools (only in development)
 if (import.meta.env.DEV) {
@@ -210,15 +212,169 @@ async function reloadScarabDataWithPrices(updatedPrices) {
  * Initialize application
  */
 async function init() {
-  // Show loading state
+  // Parse initial route FIRST to determine what loading state to show
+  // Don't set currentCategory/currentPage here - let the router set them so categoryChanged is true
+  const initialRoute = parseRoute();
+  
+  // Initialize league service first (required for all data loading)
+  try {
+    await initLeagueService();
+  } catch (error) {
+    console.error('Failed to initialize league service:', error);
+    showErrorToast('Failed to initialize league service. Please refresh the page.');
+    return;
+  }
+  
+  // Load user preferences
+  const preferences = loadPreferences();
+  currentConfidencePercentile = preferences.confidencePercentile || 0.9;
+  currentTradeMode = preferences.tradeMode || 'returnable';
+  
+  // Set up price update callback to reload data when prices change
+  priceUpdateService.setOnPriceUpdate(async (itemType, updatedPrices) => {
+    if (itemType === 'scarab') {
+      // Existing Scarab update logic
+      await reloadScarabDataWithPrices(updatedPrices);
+    } else {
+      // Update additional item type prices
+      if (window.priceData) {
+        window.priceData.additional.set(itemType, updatedPrices);
+        console.log(`✓ Updated ${itemType} prices (${updatedPrices.length} items)`);
+      }
+    }
+  });
+
+  // Set up data status overlay refresh callback
+  setOnRefreshCallback(async (updatedPrices) => {
+    await reloadScarabDataWithPrices(updatedPrices);
+  });
+
+  // Set up league selector callback
+  setOnLeagueChange(async () => {
+    // Reload additional item type prices for new league
+    if (window.priceData) {
+      const additionalItemTypes = ['catalyst', 'deliriumOrb', 'emblem', 'essence', 'fossil', 'lifeforce', 'oil', 'tattoo', 'templeUnique', 'vial'];
+      const updatedAdditionalPrices = await loadAllItemTypePrices(additionalItemTypes);
+      window.priceData.additional = updatedAdditionalPrices;
+      console.log('✓ Additional item type prices refreshed for new league');
+    }
+    
+    // Reload data based on current category
+    if (currentCategory === 'essences') {
+      // Reload Essence data for new league
+      try {
+        const { essences, thresholds, rerollCost, allEssences } = await loadAndProcessEssenceData();
+        const preferences = loadPreferences();
+        const currency = preferences.currencyPreference || 'chaos';
+        await renderEssenceUI(essences, thresholds, rerollCost, currency, allEssences);
+      } catch (error) {
+        console.error('Error reloading Essence data after league change:', error);
+        showErrorToast('Failed to reload Essence data for new league');
+      }
+    } else if (currentCategory === 'fossils') {
+      // Reload Fossil data for new league
+      try {
+        const { fossils, threshold, rerollCost, wildLifeforce } = await loadAndProcessFossilData();
+        const preferences = loadPreferences();
+        const currency = preferences.currencyPreference || 'chaos';
+        await renderFossilUI(fossils, threshold, rerollCost, currency, wildLifeforce);
+      } catch (error) {
+        console.error('Error reloading Fossil data after league change:', error);
+        showErrorToast('Failed to reload Fossil data for new league');
+      }
+    } else if (currentCategory === 'delirium-orbs') {
+      // Reload Delirium Orb data for new league
+      try {
+        const { deliriumOrbs, rerollCost, primalLifeforce } = await loadAndProcessDeliriumOrbData();
+        const preferences = loadPreferences();
+        const currency = preferences.currencyPreference || 'chaos';
+        await renderDeliriumOrbUI(deliriumOrbs, currency, rerollCost, primalLifeforce);
+      } catch (error) {
+        console.error('Error reloading Delirium Orb data after league change:', error);
+        showErrorToast('Failed to reload Delirium Orb data for new league');
+      }
+    } else if (currentCategory === 'scarabs') {
+      // Reload Scarab data for new league
+      await reloadScarabDataWithPrices(null);
+    }
+    // For other categories, data will be loaded when category is selected
+  });
+
+  // Initialize data status overlay
+  initDataStatusOverlay();
+
+  // Start automatic price updates
+  priceUpdateService.startAutomaticUpdates();
+  
+  // Handle root route (welcome page) - skip category data loading
+  if (initialRoute.category === null || initialRoute.page === null) {
+    // Render navigation first
+    const navigationContainer = document.getElementById('navigation');
+    if (navigationContainer) {
+      renderNavigation(
+        navigationContainer, 
+        null, // null category means home is active
+        'flipping',
+        (leagueSelectorContainer) => {
+          renderLeagueSelector(leagueSelectorContainer);
+        }
+      );
+    }
+    
+    // Initialize router which will render welcome page
+    try {
+      initRouter(async (category, page) => {
+        try {
+          await handleRouteChange(category, page);
+        } catch (error) {
+          console.error('Error in handleRouteChange:', error);
+          showErrorToast('Error loading page. Please refresh.');
+        }
+      });
+    } catch (error) {
+      console.error('Error initializing router:', error);
+      showErrorToast('Error initializing router. Please refresh the page.');
+    }
+    
+    console.log('Application initialized successfully (welcome page)');
+    return; // Exit early for root route - category data will load when navigating
+  }
+  
+  // Show appropriate loading state based on route
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) {
-    showLoadingState(listViewContainer);
+    if (initialRoute.category === 'scarabs') {
+      showLoadingState(listViewContainer);
+    } else if (initialRoute.category === 'essences') {
+      showEssenceLoadingState(listViewContainer);
+    } else if (initialRoute.category === 'fossils') {
+      showFossilLoadingState(listViewContainer);
+    } else if (initialRoute.category === 'catalysts') {
+      listViewContainer.innerHTML = '<p class="loading-message">Loading Catalysts...</p>';
+    } else if (initialRoute.category === 'oils') {
+      listViewContainer.innerHTML = '<p class="loading-message">Loading Oils...</p>';
+    } else if (initialRoute.category === 'delirium-orbs') {
+      listViewContainer.innerHTML = '<p class="loading-message">Loading Delirium Orbs...</p>';
+    } else if (initialRoute.category === 'emblems') {
+      listViewContainer.innerHTML = '<p class="loading-message">Loading Emblems...</p>';
+    } else if (initialRoute.category === 'tattoos') {
+      listViewContainer.innerHTML = '<p class="loading-message">Loading Tattoos...</p>';
+    } else if (initialRoute.category === 'temple') {
+      listViewContainer.innerHTML = '<p class="loading-message">Loading Temple upgrades...</p>';
+    }
+  }
+  
+  // Set header visibility based on initial route (but don't set currentCategory/currentPage yet)
+  const headerContent = document.querySelector('.header-content');
+  if (headerContent) {
+    if (initialRoute.category === 'scarabs') {
+      headerContent.style.display = '';
+    } else {
+      headerContent.style.display = 'none';
+    }
   }
 
   try {
-    console.log('Loading Scarab data...');
-    
     // Initialize league service first
     await initLeagueService();
     
@@ -229,6 +385,10 @@ async function init() {
     currentTradeMode = preferences.tradeMode || 'returnable';
 
     // Load and merge Scarab data (will use selected league)
+    // Load this even if not on scarabs page, as it might be needed later
+    if (initialRoute.category === 'scarabs') {
+      console.log('Loading Scarab data...');
+    }
     const rawData = await loadAndMergeScarabData();
     
     // Load additional item type prices in parallel
@@ -277,15 +437,13 @@ async function init() {
     
     console.log(`Profitability breakdown: ${profitableCount} profitable, ${notProfitableCount} not profitable, ${unknownCount} unknown`);
 
-    // Render navigation
+    // Render navigation (use initialRoute for initial render, router will update it)
     const navigationContainer = document.getElementById('navigation');
     if (navigationContainer) {
       renderNavigation(
         navigationContainer, 
-        currentCategory, 
-        currentPage, 
-        handleCategoryChange, 
-        handlePageChange,
+        initialRoute.category, 
+        initialRoute.page,
         (leagueSelectorContainer) => {
           // Render league selector in navigation bar
           renderLeagueSelector(leagueSelectorContainer);
@@ -296,87 +454,13 @@ async function init() {
     // Setup header page buttons
     setupHeaderPageButtons();
 
-    // Render UI
-    renderUI(scarabs, threshold, currency);
-
     // Initialize simulation panel (data only, will render when page is shown)
     initSimulationPanel(scarabs, threshold);
-
-    // Set up price update callback to reload data when prices change
-    priceUpdateService.setOnPriceUpdate(async (itemType, updatedPrices) => {
-      if (itemType === 'scarab') {
-        // Existing Scarab update logic
-        await reloadScarabDataWithPrices(updatedPrices);
-      } else {
-        // Update additional item type prices
-        if (window.priceData) {
-          window.priceData.additional.set(itemType, updatedPrices);
-          console.log(`✓ Updated ${itemType} prices (${updatedPrices.length} items)`);
-        }
-      }
-    });
-
-    // Set up data status overlay refresh callback
-    setOnRefreshCallback(async (updatedPrices) => {
-      await reloadScarabDataWithPrices(updatedPrices);
-    });
-
-    // Set up league selector callback
-    setOnLeagueChange(async () => {
-      // Reload additional item type prices for new league
-      if (window.priceData) {
-        const additionalItemTypes = ['catalyst', 'deliriumOrb', 'emblem', 'essence', 'fossil', 'lifeforce', 'oil', 'tattoo', 'templeUnique', 'vial'];
-        const updatedAdditionalPrices = await loadAllItemTypePrices(additionalItemTypes);
-        window.priceData.additional = updatedAdditionalPrices;
-        console.log('✓ Additional item type prices refreshed for new league');
-      }
-      
-      // Reload data based on current category
-      if (currentCategory === 'essences') {
-        // Reload Essence data for new league
-        try {
-          const { essences, thresholds, rerollCost, allEssences } = await loadAndProcessEssenceData();
-          const preferences = loadPreferences();
-          const currency = preferences.currencyPreference || 'chaos';
-          await renderEssenceUI(essences, thresholds, rerollCost, currency, allEssences);
-        } catch (error) {
-          console.error('Error reloading Essence data after league change:', error);
-          showErrorToast('Failed to reload Essence data for new league');
-        }
-      } else if (currentCategory === 'fossils') {
-        // Reload Fossil data for new league
-        try {
-          const { fossils, threshold, rerollCost, wildLifeforce } = await loadAndProcessFossilData();
-          const preferences = loadPreferences();
-          const currency = preferences.currencyPreference || 'chaos';
-          await renderFossilUI(fossils, threshold, rerollCost, currency, wildLifeforce);
-        } catch (error) {
-          console.error('Error reloading Fossil data after league change:', error);
-          showErrorToast('Failed to reload Fossil data for new league');
-        }
-      } else if (currentCategory === 'delirium-orbs') {
-        // Reload Delirium Orb data for new league
-        try {
-          const { deliriumOrbs, rerollCost, primalLifeforce } = await loadAndProcessDeliriumOrbData();
-          const preferences = loadPreferences();
-          const currency = preferences.currencyPreference || 'chaos';
-          await renderDeliriumOrbUI(deliriumOrbs, currency, rerollCost, primalLifeforce);
-        } catch (error) {
-          console.error('Error reloading Delirium Orb data after league change:', error);
-          showErrorToast('Failed to reload Delirium Orb data for new league');
-        }
-      } else if (currentCategory === 'scarabs') {
-        // Reload Scarab data for new league
-        await reloadScarabDataWithPrices(null);
-      }
-      // For other categories, data will be loaded when category is selected
-    });
-
-    // Initialize data status overlay
-    initDataStatusOverlay();
-
-    // Start automatic price updates
-    priceUpdateService.startAutomaticUpdates();
+    
+    // Only render scarabs UI if route is scarabs, otherwise router will handle it
+    if (initialRoute.category === 'scarabs') {
+      renderUI(scarabs, threshold, currency);
+    }
 
     console.log('Application initialized successfully');
   } catch (error) {
@@ -401,6 +485,23 @@ async function init() {
     } else {
       showError('Failed to load Scarab data. Please refresh the page.');
     }
+  }
+  
+  // Initialize router after all setup is complete
+  // This will handle the initial route and set up hashchange listeners
+  try {
+    initRouter(async (category, page) => {
+      try {
+        await handleRouteChange(category, page);
+      } catch (error) {
+        console.error('Error in handleRouteChange:', error);
+        // Show error toast but don't block initialization
+        showErrorToast('Error loading category data. Please refresh the page.');
+      }
+    });
+  } catch (error) {
+    console.error('Error initializing router:', error);
+    showErrorToast('Error initializing router. Please refresh the page.');
   }
 }
 
@@ -429,6 +530,7 @@ let currentCategory = 'scarabs'; // 'scarabs', 'essences', 'tattoos', 'catalysts
 let currentConfidencePercentile = 0.9; // Default 90% confidence
 let currentTradeMode = 'returnable'; // Default trade mode: 'returnable', 'lowest_value', or 'optimal_combination'
 let selectionSubscriptionActive = false;
+let selectionUnsubscribeFn = null; // Store unsubscribe function for selection subscription
 /** Cache SUS data by category: { susById, groups } for regex builder */
 const susCacheByCategory = new Map();
 
@@ -444,6 +546,12 @@ function renderUI(scarabs, threshold, currency) {
   currentThreshold = threshold;
   currentCurrency = currency;
 
+  // Clear list view container first to remove any previous category's content
+  const listViewContainer = document.getElementById('list-view');
+  if (listViewContainer) {
+    listViewContainer.innerHTML = '';
+  }
+
   // Show grid view and filter panel for Scarabs
   const gridViewContainer = document.getElementById('grid-view');
   if (gridViewContainer) {
@@ -453,6 +561,15 @@ function renderUI(scarabs, threshold, currency) {
   const filterPanelContainer = document.getElementById('filter-panel');
   if (filterPanelContainer) {
     filterPanelContainer.style.display = '';
+  }
+  
+  // Clear canvas before re-initializing to remove any previous category's grid
+  const canvas = document.getElementById('scarab-grid-canvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
   }
 
   // Load view preference
@@ -475,7 +592,34 @@ function renderUI(scarabs, threshold, currency) {
   // View switcher is no longer rendered (currency dropdown removed)
 
   // Render appropriate view
-  renderCurrentView();
+  try {
+    renderCurrentView().catch(error => {
+      console.error('Error rendering current view:', error);
+      // Clear loading state even if there's an error
+      const listViewContainer = document.getElementById('list-view');
+      if (listViewContainer) {
+        showErrorState(listViewContainer, 'Error rendering view. Please refresh the page.');
+      }
+    });
+  } catch (error) {
+    console.error('Error calling renderCurrentView:', error);
+    // Clear loading state even if there's an error
+    const listViewContainer = document.getElementById('list-view');
+    if (listViewContainer) {
+      showErrorState(listViewContainer, 'Error rendering view. Please refresh the page.');
+    }
+  }
+}
+
+/**
+ * Clear and hide the regex search display (used when switching away from scarabs)
+ */
+function clearRegexDisplay() {
+  const regexSearchContainer = document.getElementById('regex-search-display');
+  if (regexSearchContainer) {
+    regexSearchContainer.style.display = 'none';
+    regexSearchContainer.innerHTML = '';
+  }
 }
 
 /**
@@ -501,7 +645,8 @@ async function renderCurrentView() {
   // Regex search: for scarabs, set selection category and show regex display (use SUS tokens when available)
   const regexSearchContainer = document.getElementById('regex-search-display');
   if (currentCategory === 'scarabs' && currentScarabs.length > 0) {
-    setSelectionCategory('scarabs');
+    // Preserve existing selections when switching back to scarabs (don't clear)
+    setSelectionCategory('scarabs', false);
     if (regexSearchContainer) {
       regexSearchContainer.style.display = 'block';
       let susData = susCacheByCategory.get('scarabs');
@@ -521,11 +666,23 @@ async function renderCurrentView() {
       renderRegexSearchDisplay(regexSearchContainer, categoryNames);
     }
     if (!selectionSubscriptionActive) {
-      subscribeSelection(() => renderCurrentView());
+      selectionUnsubscribeFn = subscribeSelection(() => {
+        // Only render scarab view if we're still on the scarabs category
+        if (currentCategory === 'scarabs') {
+          renderCurrentView();
+        }
+      });
       selectionSubscriptionActive = true;
     }
-  } else if (regexSearchContainer) {
-    regexSearchContainer.style.display = 'none';
+  } else {
+    // Unsubscribe from selection changes when not on scarabs category
+    if (selectionUnsubscribeFn) {
+      selectionUnsubscribeFn();
+      selectionUnsubscribeFn = null;
+      selectionSubscriptionActive = false;
+    }
+    // Clear regex display when not on scarabs category
+    clearRegexDisplay();
   }
 
   // Always show both views
@@ -540,6 +697,8 @@ async function renderCurrentView() {
   
   if (canvas) {
     try {
+      // Tear down all grid views (including scarab grid) before re-initializing
+      teardownGridView(canvas);
       teardownEssenceGridView(canvas);
       teardownCatalystGridView(canvas);
       teardownFossilGridView(canvas);
@@ -912,6 +1071,9 @@ async function renderEssenceUI(essences, thresholds, rerollCost, currency, allEs
   currentEssenceThresholds = thresholds;
   currentCurrency = currency;
   
+  // Clear regex display (only for scarabs)
+  clearRegexDisplay();
+  
   // Load selection state from LocalStorage (if available)
   const { loadSelectionState } = await import('./js/views/essenceListView.js');
   loadSelectionState(essences);
@@ -1246,6 +1408,9 @@ async function renderFossilUI(fossils, threshold, rerollCost, currency, wildLife
   currentFossils = fossils;
   currentFossilThreshold = threshold;
   currentCurrency = currency;
+  
+  // Clear regex display (only for scarabs)
+  clearRegexDisplay();
   
   // Load selection state from LocalStorage (if available)
   const { loadSelectionState } = await import('./js/views/fossilListView.js');
@@ -1749,6 +1914,9 @@ async function renderCatalystUI(catalysts, currency) {
   currentCatalysts = catalystInstances;
   currentCurrency = currency;
 
+  // Clear regex display (only for scarabs)
+  clearRegexDisplay();
+
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) {
     renderCatalystList(listViewContainer);
@@ -1801,6 +1969,9 @@ async function renderOilUI(oils, currency) {
   currentOils = oils;
   currentCurrency = currency;
 
+  // Clear regex display (only for scarabs)
+  clearRegexDisplay();
+
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) {
     renderOilList(listViewContainer);
@@ -1850,6 +2021,9 @@ async function renderOilUI(oils, currency) {
 async function renderDeliriumOrbUI(items, currency, rerollCost = null, primalLifeforce = null) {
   currentDeliriumOrbs = items;
   currentCurrency = currency;
+
+  // Clear regex display (only for scarabs)
+  clearRegexDisplay();
 
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) {
@@ -1902,6 +2076,9 @@ async function renderDeliriumOrbUI(items, currency, rerollCost = null, primalLif
 async function renderEmblemUI(items, currency) {
   currentEmblems = items;
   currentCurrency = currency;
+
+  // Clear regex display (only for scarabs)
+  clearRegexDisplay();
 
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) {
@@ -1969,6 +2146,9 @@ async function renderTattooUI(items, currency) {
   currentTattoos = tattooInstances;
   currentCurrency = currency;
 
+  // Clear regex display (only for scarabs)
+  clearRegexDisplay();
+
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) renderTattooList(listViewContainer);
 
@@ -1994,6 +2174,9 @@ async function renderTattooUI(items, currency) {
  * @param {string} currency - Currency preference ('chaos' | 'divine')
  */
 async function renderTempleUpgradeUI(combinations, currency) {
+  // Clear regex display (only for scarabs)
+  clearRegexDisplay();
+  
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) {
     renderTempleUpgradeList(listViewContainer, combinations, currency);
@@ -2017,12 +2200,104 @@ async function renderTempleUpgradeUI(combinations, currency) {
 }
 
 /**
- * Handle category change
- * @param {string} category - 'scarabs', 'essences', 'tattoos', 'catalysts', 'temple', 'fossils', 'oils', 'delirium-orbs', 'emblems'
+ * Handle route change (category and/or page)
+ * @param {string|null} category - 'scarabs', 'essences', 'tattoos', 'catalysts', 'temple', 'fossils', 'oils', 'delirium-orbs', 'emblems', or null for root
+ * @param {string|null} page - 'flipping' or 'simulation', or null for root
  */
-async function handleCategoryChange(category) {
+async function handleRouteChange(category, page) {
+  // Handle root route (welcome page)
+  if (category === null || page === null) {
+    // Set currentCategory to null to mark we're on root
+    currentCategory = null;
+    currentPage = null;
+    
+    // Show welcome page
+    const welcomePage = document.getElementById('welcome-page');
+    const flippingPage = document.getElementById('flipping-page');
+    const simulationPage = document.getElementById('simulation-page');
+    
+    if (welcomePage) {
+      welcomePage.classList.add('active');
+      renderWelcomePage(welcomePage);
+    }
+    if (flippingPage) flippingPage.classList.remove('active');
+    if (simulationPage) simulationPage.classList.remove('active');
+    
+    // Hide header content on welcome page
+    const headerContent = document.querySelector('.header-content');
+    if (headerContent) {
+      headerContent.style.display = 'none';
+    }
+    
+    // Update navigation (home icon should be active)
+    const navigationContainer = document.getElementById('navigation');
+    if (navigationContainer) {
+      updateNavigation(
+        navigationContainer, 
+        null, // null category means home is active
+        'flipping',
+        (leagueSelectorContainer) => {
+          renderLeagueSelector(leagueSelectorContainer);
+        }
+      );
+    }
+    
+    return;
+  }
+  
+  // Check if we're coming from root before updating state
+  const comingFromRoot = currentCategory === null;
+  
+  // Update current state
+  // If coming from root (currentCategory is null), always treat as category change
+  const categoryChanged = comingFromRoot || currentCategory !== category;
+  const pageChanged = comingFromRoot || currentPage === null || currentPage !== page;
+  
+  // Unsubscribe from selection changes if switching away from scarabs
+  if (categoryChanged && currentCategory === 'scarabs' && selectionUnsubscribeFn) {
+    selectionUnsubscribeFn();
+    selectionUnsubscribeFn = null;
+    selectionSubscriptionActive = false;
+  }
+  
   currentCategory = category;
-  setSelectionCategory(category, true);
+  currentPage = page;
+  
+  // Hide welcome page if it's visible
+  const welcomePage = document.getElementById('welcome-page');
+  if (welcomePage) {
+    welcomePage.classList.remove('active');
+  }
+  
+  // Ensure flipping page is shown (in case we're coming from root)
+  const flippingPage = document.getElementById('flipping-page');
+  const simulationPage = document.getElementById('simulation-page');
+  if (flippingPage && simulationPage) {
+    if (page === 'flipping') {
+      flippingPage.classList.add('active');
+      simulationPage.classList.remove('active');
+    } else if (page === 'simulation') {
+      flippingPage.classList.remove('active');
+      simulationPage.classList.add('active');
+    }
+  }
+  
+  // Show/hide header content (title and page buttons) based on category
+  // Only show for scarabs category
+  const headerContent = document.querySelector('.header-content');
+  if (headerContent) {
+    if (category === 'scarabs') {
+      headerContent.style.display = '';
+    } else {
+      headerContent.style.display = 'none';
+    }
+  }
+  
+  // Update selection category if category changed
+  // Preserve existing selections when switching back to a category (don't clear)
+  if (categoryChanged) {
+    setSelectionCategory(category, false);
+  }
 
   // Update navigation
   const navigationContainer = document.getElementById('navigation');
@@ -2030,9 +2305,7 @@ async function handleCategoryChange(category) {
     updateNavigation(
       navigationContainer, 
       category, 
-      currentPage,
-      handleCategoryChange,
-      handlePageChange,
+      page,
       (leagueSelectorContainer) => {
         // Re-render league selector when navigation updates
         renderLeagueSelector(leagueSelectorContainer);
@@ -2040,6 +2313,23 @@ async function handleCategoryChange(category) {
     );
   }
   
+  // Handle page change if needed
+  if (pageChanged) {
+    handlePageChangeLogic(page);
+  }
+  
+  // Handle category change if needed
+  // Always load data when coming from root
+  if (categoryChanged || comingFromRoot) {
+    await handleCategoryChangeLogic(category);
+  }
+}
+
+/**
+ * Handle category change logic (separated for reuse)
+ * @param {string} category - 'scarabs', 'essences', 'tattoos', 'catalysts', 'temple', 'fossils', 'oils', 'delirium-orbs', 'emblems'
+ */
+async function handleCategoryChangeLogic(category) {
   // Handle category-specific logic
   if (category === 'essences') {
     try {
@@ -2087,8 +2377,78 @@ async function handleCategoryChange(category) {
       showErrorToast('Failed to load Fossil data');
     }
   } else if (category === 'scarabs') {
-    // Reload Scarab UI if we have Scarab data
-    if (currentScarabs.length > 0 && currentThreshold) {
+    // Load Scarab data if not already loaded
+    if (currentScarabs.length === 0 || !currentThreshold) {
+      try {
+        // Show loading state
+        const listViewContainer = document.getElementById('list-view');
+        if (listViewContainer) {
+          showLoadingState(listViewContainer);
+        }
+        
+        console.log('Loading Scarab data...');
+        const rawData = await loadAndMergeScarabData();
+        
+        // Load additional item type prices in parallel if not already loaded
+        if (!window.priceData || !window.priceData.additional) {
+          const additionalItemTypes = ['catalyst', 'deliriumOrb', 'emblem', 'essence', 'fossil', 'lifeforce', 'oil', 'tattoo', 'templeUnique', 'vial'];
+          const additionalPrices = await loadAllItemTypePrices(additionalItemTypes);
+          window.priceData = {
+            scarabs: rawData,
+            additional: additionalPrices
+          };
+        } else {
+          window.priceData.scarabs = rawData;
+        }
+        
+        // Sanitize and create Scarab instances
+        const scarabs = rawData
+          .map(data => sanitizeScarabData(data))
+          .map(data => new Scarab(data))
+          .filter(scarab => {
+            if (!scarab.validate()) {
+              console.warn(`Invalid Scarab data: ${scarab.id}`);
+              return false;
+            }
+            return true;
+          });
+
+        console.log(`Loaded ${scarabs.length} Scarabs`);
+
+        // Handle missing data
+        scarabs.forEach(scarab => {
+          handleMissingPriceData(scarab);
+          handleMissingDropWeight(scarab);
+        });
+
+        // Calculate threshold
+        const preferences = loadPreferences();
+        const threshold = calculateThreshold(scarabs, currentConfidencePercentile, 10000, currentTradeMode);
+        console.log(`Threshold calculated: ${threshold.value.toFixed(2)} chaos`);
+
+        // Calculate profitability status for all Scarabs
+        calculateProfitabilityStatus(scarabs, threshold);
+
+        // Update global state
+        currentScarabs = scarabs;
+        currentThreshold = threshold;
+        
+        // Initialize simulation panel
+        initSimulationPanel(scarabs, threshold);
+        
+        // Render UI
+        const currency = preferences.currencyPreference || 'chaos';
+        renderUI(scarabs, threshold, currency);
+      } catch (error) {
+        console.error('Error loading Scarab data:', error);
+        showErrorToast('Failed to load Scarab data');
+        const listViewContainer = document.getElementById('list-view');
+        if (listViewContainer) {
+          showErrorState(listViewContainer, 'Failed to load Scarab data. Please refresh the page.');
+        }
+      }
+    } else {
+      // Reload Scarab UI if we already have Scarab data
       const preferences = loadPreferences();
       const currency = preferences.currencyPreference || 'chaos';
       renderUI(currentScarabs, currentThreshold, currency);
@@ -2197,7 +2557,9 @@ function setupHeaderPageButtons() {
       e.preventDefault();
       const page = btn.dataset.page;
       if (page) {
-        handlePageChange(page);
+        // Update URL when page button is clicked
+        navigateTo(currentCategory, page);
+        // handleRouteChange will be called by the router
       }
     });
   });
@@ -2229,24 +2591,16 @@ function updateHeaderPageButtons(activePage) {
  * @param {string} page - 'flipping' or 'simulation'
  */
 function handlePageChange(page) {
-  currentPage = page;
-  
-  // Update navigation
-  const navigationContainer = document.getElementById('navigation');
-  if (navigationContainer) {
-    updateNavigation(
-      navigationContainer, 
-      currentCategory, 
-      page,
-      handleCategoryChange,
-      handlePageChange,
-      (leagueSelectorContainer) => {
-        // Re-render league selector when navigation updates
-        renderLeagueSelector(leagueSelectorContainer);
-      }
-    );
-  }
+  // Update URL when page changes
+  navigateTo(currentCategory, page);
+  // handleRouteChange will be called by the router
+}
 
+/**
+ * Handle page change logic (separated for reuse)
+ * @param {string} page - 'flipping' or 'simulation'
+ */
+function handlePageChangeLogic(page) {
   // Update header page buttons
   updateHeaderPageButtons(page);
   
