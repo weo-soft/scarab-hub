@@ -75,6 +75,13 @@ export function renderNavigation(container, currentCategory = 'scarabs', current
 
   container.innerHTML = `
     <nav class="main-navigation">
+      <button class="nav-menu-toggle" id="nav-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
       <div class="nav-bar">
         ${homeLink}
         ${navLinks}
@@ -93,14 +100,27 @@ export function renderNavigation(container, currentCategory = 'scarabs', current
   // Setup event listeners (only for action buttons now, links handle navigation naturally)
   setupEventListeners(container);
   
+  // Setup hamburger menu toggle
+  setupMenuToggle(container);
+  
   // Setup home link click handler
   const homeLinkElement = container.querySelector('.nav-link-home');
   if (homeLinkElement) {
     homeLinkElement.addEventListener('click', (e) => {
       e.preventDefault();
       window.location.hash = '#';
+      // Close mobile menu when navigating
+      closeMobileMenu(container);
     });
   }
+  
+  // Close mobile menu when clicking on nav links
+  const navLinkElements = container.querySelectorAll('.nav-link');
+  navLinkElements.forEach(link => {
+    link.addEventListener('click', () => {
+      closeMobileMenu(container);
+    });
+  });
 
   // Notify that league selector container is ready
   if (onLeagueSelectorReady) {
@@ -109,6 +129,116 @@ export function renderNavigation(container, currentCategory = 'scarabs', current
       onLeagueSelectorReady(leagueSelectorContainer);
     }
   }
+}
+
+// Store handler references to avoid duplicates
+let menuClickHandler = null;
+let menuResizeHandler = null;
+let resizeTimeout = null;
+
+/**
+ * Setup hamburger menu toggle functionality
+ * @param {HTMLElement} container
+ */
+function setupMenuToggle(container) {
+  const toggleBtn = container.querySelector('#nav-menu-toggle');
+  const navBar = container.querySelector('.nav-bar');
+  const navActions = container.querySelector('.nav-actions');
+  
+  if (!toggleBtn || !navBar) return;
+  
+  // Setup toggle button click handler
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+    
+    if (isExpanded) {
+      closeMobileMenu(container);
+    } else {
+      openMobileMenu(container);
+    }
+  });
+  
+  // Close menu when clicking outside (only add once globally)
+  if (!menuClickHandler) {
+    menuClickHandler = (e) => {
+      const nav = document.querySelector('.main-navigation');
+      if (nav) {
+        const navBar = nav.querySelector('.nav-bar.mobile-open');
+        if (navBar && !nav.contains(e.target)) {
+          const navContainer = nav.parentElement;
+          closeMobileMenu(navContainer);
+        }
+      }
+    };
+    document.addEventListener('click', menuClickHandler);
+  }
+  
+  // Close menu on window resize if switching to desktop (only add once globally)
+  if (!menuResizeHandler) {
+    menuResizeHandler = () => {
+      if (resizeTimeout) clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const navBar = document.querySelector('.nav-bar.mobile-open');
+        if (navBar && window.innerWidth > 1024) {
+          const nav = navBar.closest('.main-navigation');
+          if (nav) {
+            closeMobileMenu(nav.parentElement);
+          }
+        }
+      }, 250);
+    };
+    window.addEventListener('resize', menuResizeHandler);
+  }
+}
+
+/**
+ * Open mobile navigation menu
+ * @param {HTMLElement} container
+ */
+function openMobileMenu(container) {
+  const toggleBtn = container.querySelector('#nav-menu-toggle');
+  const navBar = container.querySelector('.nav-bar');
+  const navActions = container.querySelector('.nav-actions');
+  const mainNav = container.querySelector('.main-navigation');
+  
+  if (toggleBtn) {
+    toggleBtn.setAttribute('aria-expanded', 'true');
+    toggleBtn.classList.add('active');
+  }
+  if (navBar && mainNav) {
+    // Calculate top position based on actual navigation bar height
+    const navRect = mainNav.getBoundingClientRect();
+    navBar.style.top = `${navRect.height}px`;
+    navBar.classList.add('mobile-open');
+  }
+  if (navActions) {
+    navActions.classList.add('mobile-open');
+  }
+  document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+/**
+ * Close mobile navigation menu
+ * @param {HTMLElement} container
+ */
+function closeMobileMenu(container) {
+  const toggleBtn = container.querySelector('#nav-menu-toggle');
+  const navBar = container.querySelector('.nav-bar');
+  const navActions = container.querySelector('.nav-actions');
+  
+  if (toggleBtn) {
+    toggleBtn.setAttribute('aria-expanded', 'false');
+    toggleBtn.classList.remove('active');
+  }
+  if (navBar) {
+    navBar.classList.remove('mobile-open');
+    navBar.style.top = '0'; // Reset top position
+  }
+  if (navActions) {
+    navActions.classList.remove('mobile-open');
+  }
+  document.body.style.overflow = ''; // Restore scrolling
 }
 
 /**
@@ -127,6 +257,8 @@ function setupEventListeners(container) {
         import('./dataStatusOverlay.js').then(module => {
           module.openDataStatusOverlay();
         });
+        // Close mobile menu when opening overlay
+        closeMobileMenu(container);
       }
     });
   });

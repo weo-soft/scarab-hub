@@ -33,6 +33,7 @@ let showCellBackgrounds = true;
 let tooltipHandlers = null;
 let tooltipCanvas = null;
 let selectionUnsubscribe = null;
+let resizeHandler = null;
 
 /**
  * Initialize the generic grid view with an adapter
@@ -90,6 +91,7 @@ export async function initGenericGridView(canvas, items, adapter, imagePath = nu
     renderGrid(canvas, adapter);
     setupTooltipHandlers(canvas, adapter);
     setupSelectionHandlers(canvas, adapter);
+    setupResizeHandler(canvas, adapter, config);
     selectionUnsubscribe = subscribeSelection(() => {
       if (currentCanvas === canvas && currentAdapter) renderGrid(canvas, currentAdapter);
     });
@@ -106,14 +108,106 @@ function setupCanvas(canvas, config) {
   const width = baseImage ? baseImage.width : dims.width;
   const height = baseImage ? baseImage.height : dims.height;
 
-  canvas.style.width = `${width}px`;
-  canvas.style.height = `${height}px`;
+  // Determine if we need to scale based on screen width
+  // Scale for mobile devices and small desktop screens (up to 1200px)
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  const shouldScale = viewportWidth < width || viewportWidth <= 1200;
+  
+  let scaledWidth, scaledHeight;
+  
+  if (shouldScale) {
+    // Get the actual container element
+    const container = canvas.closest('.grid-container') || 
+                     canvas.closest('#grid-view') || 
+                     canvas.closest('.view-container') ||
+                     canvas.parentElement;
+    
+    // Calculate available width
+    let availableWidth;
+    if (container) {
+      const containerRect = container.getBoundingClientRect();
+      availableWidth = containerRect.width;
+      
+      // If container width is 0 or very small, fall back to viewport
+      if (availableWidth < 100) {
+        availableWidth = viewportWidth;
+      }
+    } else {
+      availableWidth = viewportWidth;
+    }
+    
+    // Account for padding and margins
+    // #app has 20px padding on each side, plus some margin for the grid container
+    const appPadding = 20 * 2; // Left + right padding from #app
+    const containerMargin = 20; // Additional margin for grid container
+    const totalHorizontalPadding = appPadding + containerMargin;
+    
+    // Calculate available width, ensuring minimum usable size
+    availableWidth = Math.max(availableWidth - totalHorizontalPadding, 280);
+    
+    // Calculate available height (use up to 70% of viewport height for better visibility)
+    // Account for header, navigation, and other UI elements
+    const reservedHeight = 200; // Space for header, nav, filters, etc.
+    const availableHeight = Math.max(viewportHeight - reservedHeight, 300);
+    
+    // Calculate scale based on both width and height constraints
+    const scaleX = availableWidth / width;
+    const scaleY = availableHeight / height;
+    const scale = Math.min(scaleX, scaleY, 1); // Don't scale up beyond original size
+    
+    scaledWidth = width * scale;
+    scaledHeight = height * scale;
+    
+    // Ensure minimum size for usability
+    const minSize = 200;
+    if (scaledWidth < minSize || scaledHeight < minSize) {
+      const minScale = Math.max(minSize / width, minSize / height);
+      const finalScale = Math.max(scale, minScale);
+      scaledWidth = width * finalScale;
+      scaledHeight = height * finalScale;
+    }
+  } else {
+    // On larger screens, use original dimensions
+    scaledWidth = width;
+    scaledHeight = height;
+  }
+
+  canvas.style.width = `${scaledWidth}px`;
+  canvas.style.height = `${scaledHeight}px`;
 
   const dpr = window.devicePixelRatio || 1;
-  canvas.width = width * dpr;
-  canvas.height = height * dpr;
+  canvas.width = scaledWidth * dpr;
+  canvas.height = scaledHeight * dpr;
   ctx.scale(dpr, dpr);
   canvas._scaleFactor = dpr;
+  canvas._originalWidth = width;
+  canvas._originalHeight = height;
+}
+
+/**
+ * Setup window resize handler for canvas recalculation on orientation change
+ */
+function setupResizeHandler(canvas, adapter, config) {
+  // Remove existing resize handler if any
+  if (resizeHandler) {
+    window.removeEventListener('resize', resizeHandler);
+    resizeHandler = null;
+  }
+
+  // Debounce resize events
+  let resizeTimeout;
+  resizeHandler = () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      if (currentCanvas === canvas && currentAdapter === adapter) {
+        setupCanvas(canvas, config);
+        renderGrid(canvas, adapter);
+      }
+    }, 250); // 250ms debounce
+  };
+
+  window.addEventListener('resize', resizeHandler);
 }
 
 async function preloadImages(adapter) {
@@ -256,9 +350,26 @@ export function teardownGenericGridView(canvas) {
   canvas.removeEventListener('mousemove', tooltipHandlers.mousemove);
   canvas.removeEventListener('mouseleave', tooltipHandlers.mouseleave);
   canvas.removeEventListener('mouseenter', tooltipHandlers.mouseenter);
+  if (tooltipHandlers.touchmove) {
+    canvas.removeEventListener('touchmove', tooltipHandlers.touchmove);
+  }
+  if (tooltipHandlers.touchend) {
+    canvas.removeEventListener('touchend', tooltipHandlers.touchend);
+  }
+  if (tooltipHandlers.touchstart) {
+    canvas.removeEventListener('touchstart', tooltipHandlers.touchstart);
+  }
   if (typeof canvas._selectionClick === 'function') {
     canvas.removeEventListener('click', canvas._selectionClick);
     canvas._selectionClick = null;
+  }
+  if (typeof canvas._selectionTouchEnd === 'function') {
+    canvas.removeEventListener('touchend', canvas._selectionTouchEnd);
+    canvas._selectionTouchEnd = null;
+  }
+  if (resizeHandler) {
+    window.removeEventListener('resize', resizeHandler);
+    resizeHandler = null;
   }
   if (selectionUnsubscribe) {
     selectionUnsubscribe();
@@ -269,18 +380,47 @@ export function teardownGenericGridView(canvas) {
   hideTooltip();
 }
 
+/**
+ * Normalize touch or mouse event to get coordinates
+ * @param {Event} e - TouchEvent or MouseEvent
+ * @param {DOMRect} rect - Canvas bounding rect
+ * @param {Object} dims - Image dimensions
+ * @returns {{x: number, y: number}}
+ */
+function getNormalizedCoords(e, rect, dims) {
+  const w = baseImage ? baseImage.width : dims.width;
+  const h = baseImage ? baseImage.height : dims.height;
+  
+  // Handle touch events
+  let clientX, clientY;
+  if (e.touches && e.touches.length > 0) {
+    clientX = e.touches[0].clientX;
+    clientY = e.touches[0].clientY;
+  } else if (e.changedTouches && e.changedTouches.length > 0) {
+    // Handle touchend events
+    clientX = e.changedTouches[0].clientX;
+    clientY = e.changedTouches[0].clientY;
+  } else {
+    // Mouse event
+    clientX = e.clientX;
+    clientY = e.clientY;
+  }
+  
+  return {
+    x: ((clientX - rect.left) / rect.width) * w,
+    y: ((clientY - rect.top) / rect.height) * h
+  };
+}
+
 function setupSelectionHandlers(canvas, adapter) {
   if (!canvas || !adapter) return;
+  const rect = canvas.getBoundingClientRect();
+  const dims = adapter.getGridConfig()?.imageDimensions || { width: 825, height: 787 };
+  
   function getCoords(e) {
-    const rect = canvas.getBoundingClientRect();
-    const dims = adapter.getGridConfig()?.imageDimensions || { width: 825, height: 787 };
-    const w = baseImage ? baseImage.width : dims.width;
-    const h = baseImage ? baseImage.height : dims.height;
-    return {
-      x: ((e.clientX - rect.left) / rect.width) * w,
-      y: ((e.clientY - rect.top) / rect.height) * h
-    };
+    return getNormalizedCoords(e, canvas.getBoundingClientRect(), dims);
   }
+  
   const onClick = (e) => {
     const { x, y } = getCoords(e);
     const item = getItemAtPositionInternal(x, y);
@@ -289,8 +429,18 @@ function setupSelectionHandlers(canvas, adapter) {
       selectionToggle(id);
     }
   };
+  
+  // Handle click (mouse) and touchend (touch)
   canvas._selectionClick = onClick;
   canvas.addEventListener('click', onClick);
+  
+  // Add touch event support
+  const onTouchEnd = (e) => {
+    e.preventDefault(); // Prevent default touch behaviors
+    onClick(e);
+  };
+  canvas._selectionTouchEnd = onTouchEnd;
+  canvas.addEventListener('touchend', onTouchEnd);
 }
 
 function setupTooltipHandlers(canvas, adapter) {
@@ -300,27 +450,50 @@ function setupTooltipHandlers(canvas, adapter) {
 
   let currentItem = null;
   let tooltipTimeout = null;
+  const rect = canvas.getBoundingClientRect();
+  const { width, height } = getDisplayDimensions(adapter);
 
   function getCoords(e) {
-    const rect = canvas.getBoundingClientRect();
-    const { width, height } = getDisplayDimensions(adapter);
+    const currentRect = canvas.getBoundingClientRect();
+    // Handle touch events
+    let clientX, clientY;
+    if (e.touches && e.touches.length > 0) {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    } else if (e.changedTouches && e.changedTouches.length > 0) {
+      clientX = e.changedTouches[0].clientX;
+      clientY = e.changedTouches[0].clientY;
+    } else {
+      clientX = e.clientX;
+      clientY = e.clientY;
+    }
     return {
-      x: ((e.clientX - rect.left) / rect.width) * width,
-      y: ((e.clientY - rect.top) / rect.height) * height
+      x: ((clientX - currentRect.left) / currentRect.width) * width,
+      y: ((clientY - currentRect.top) / currentRect.height) * height
     };
+  }
+
+  function getClientCoords(e) {
+    if (e.touches && e.touches.length > 0) {
+      return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    } else if (e.changedTouches && e.changedTouches.length > 0) {
+      return { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+    }
+    return { x: e.clientX, y: e.clientY };
   }
 
   function onMousemove(e) {
     const { x, y } = getCoords(e);
     const item = getItemAtPositionInternal(x, y);
-    if (currentItem) updateTooltipPosition(e.clientX, e.clientY);
+    const { x: clientX, y: clientY } = getClientCoords(e);
+    if (currentItem) updateTooltipPosition(clientX, clientY);
     if (item && item !== currentItem) {
       if (tooltipTimeout) {
         clearTimeout(tooltipTimeout);
         tooltipTimeout = null;
       }
       currentItem = item;
-      adapter.showItemTooltip(item, e.clientX, e.clientY);
+      adapter.showItemTooltip(item, clientX, clientY);
     } else if (!item && currentItem) {
       if (tooltipTimeout) clearTimeout(tooltipTimeout);
       tooltipTimeout = setTimeout(() => {
@@ -329,6 +502,11 @@ function setupTooltipHandlers(canvas, adapter) {
         tooltipTimeout = null;
       }, 100);
     }
+  }
+
+  function onTouchmove(e) {
+    e.preventDefault(); // Prevent scrolling during touch move
+    onMousemove(e);
   }
 
   function onMouseleave() {
@@ -340,19 +518,53 @@ function setupTooltipHandlers(canvas, adapter) {
     currentItem = null;
   }
 
+  function onTouchend() {
+    // Hide tooltip when touch ends
+    if (tooltipTimeout) {
+      clearTimeout(tooltipTimeout);
+      tooltipTimeout = null;
+    }
+    setTimeout(() => {
+      hideTooltip();
+      currentItem = null;
+    }, 200); // Small delay to allow for tap
+  }
+
   function onMouseenter(e) {
     const { x, y } = getCoords(e);
     const item = getItemAtPositionInternal(x, y);
+    const { x: clientX, y: clientY } = getClientCoords(e);
     if (item) {
       currentItem = item;
-      adapter.showItemTooltip(item, e.clientX, e.clientY);
+      adapter.showItemTooltip(item, clientX, clientY);
     }
   }
 
-  tooltipHandlers = { mousemove: onMousemove, mouseleave: onMouseleave, mouseenter: onMouseenter };
+  function onTouchstart(e) {
+    e.preventDefault(); // Prevent default touch behaviors
+    const { x, y } = getCoords(e);
+    const item = getItemAtPositionInternal(x, y);
+    const { x: clientX, y: clientY } = getClientCoords(e);
+    if (item) {
+      currentItem = item;
+      adapter.showItemTooltip(item, clientX, clientY);
+    }
+  }
+
+  tooltipHandlers = { 
+    mousemove: onMousemove, 
+    mouseleave: onMouseleave, 
+    mouseenter: onMouseenter,
+    touchmove: onTouchmove,
+    touchend: onTouchend,
+    touchstart: onTouchstart
+  };
   canvas.addEventListener('mousemove', onMousemove);
   canvas.addEventListener('mouseleave', onMouseleave);
   canvas.addEventListener('mouseenter', onMouseenter);
+  canvas.addEventListener('touchmove', onTouchmove);
+  canvas.addEventListener('touchend', onTouchend);
+  canvas.addEventListener('touchstart', onTouchstart);
 }
 
 function getItemAtPositionInternal(x, y) {
