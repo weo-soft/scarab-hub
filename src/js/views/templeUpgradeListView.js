@@ -106,55 +106,54 @@ function renderCombination(combo, temple, currency) {
     <div class="temple-upgrade-combination" 
          data-combination-id="${combo.id}"
          style="border-left: 4px solid ${borderColor}; background-color: ${bgColor};">
-      <div class="upgrade-components-row">
-        <div class="upgrade-component base-unique" 
-             data-unique-id="${combo.baseUnique.detailsId}"
-             data-component-type="unique">
-          <img src="${baseUniqueImage}" 
-               alt="${combo.baseUnique.name}" 
-               onerror="this.style.display='none'"
-               class="component-image" />
-          <span class="component-name">${escapeHtml(combo.baseUnique.name)}</span>
-          ${combo.baseUnique.chaosValue !== null ? `<span class="component-price">${formatPrice(combo.baseUnique, currency)} ${currencySymbol}</span>` : ''}
+      <div class="upgrade-combination-content">
+        <div class="upgrade-components-row">
+          <div class="upgrade-component base-unique" 
+               data-unique-id="${combo.baseUnique.detailsId}"
+               data-component-type="unique">
+            <img src="${baseUniqueImage}" 
+                 alt="${combo.baseUnique.name}" 
+                 onerror="this.style.display='none'"
+                 class="component-image" />
+            <span class="component-name">${escapeHtml(combo.baseUnique.name)}</span>
+            ${combo.baseUnique.chaosValue !== null ? `<span class="component-price">${formatPrice(combo.baseUnique, currency)} ${currencySymbol}</span>` : ''}
+          </div>
+          <span class="upgrade-operator">+</span>
+          <div class="upgrade-component vial" 
+               data-vial-id="${combo.vial.detailsId}"
+               data-component-type="vial">
+            <img src="${vialImage}" 
+                 alt="${combo.vial.name}" 
+                 onerror="this.style.display='none'"
+                 class="component-image" />
+            <span class="component-name">${escapeHtml(combo.vial.name)}</span>
+            ${combo.vial.chaosValue !== null ? `<span class="component-price">${formatPrice(combo.vial, currency)} ${currencySymbol}</span>` : ''}
+          </div>
+          <span class="upgrade-operator">+</span>
+          <div class="upgrade-component temple" 
+               data-component-type="temple">
+            <img src="${temple.imagePath}" 
+                 alt="${temple.name}" 
+                 onerror="this.style.display='none'"
+                 class="component-image" />
+            <span class="component-name">${escapeHtml(temple.name)}</span>
+          </div>
+          <span class="upgrade-operator">=</span>
+          <div class="upgrade-component upgraded-unique" 
+               data-unique-id="${combo.upgradedUnique.detailsId}"
+               data-component-type="unique">
+            <img src="${upgradedUniqueImage}" 
+                 alt="${combo.upgradedUnique.name}" 
+                 onerror="this.style.display='none'"
+                 class="component-image" />
+            <span class="component-name">${escapeHtml(combo.upgradedUnique.name)}</span>
+            ${combo.upgradedUnique.chaosValue !== null ? `<span class="component-price">${formatPrice(combo.upgradedUnique, currency)} ${currencySymbol}</span>` : ''}
+          </div>
+          <div class="profitability-status-inline">
+            <span class="status-icon">${statusIcon}</span>
+          </div>
         </div>
-        <span class="upgrade-operator">+</span>
-        <div class="upgrade-component vial" 
-             data-vial-id="${combo.vial.detailsId}"
-             data-component-type="vial">
-          <img src="${vialImage}" 
-               alt="${combo.vial.name}" 
-               onerror="this.style.display='none'"
-               class="component-image" />
-          <span class="component-name">${escapeHtml(combo.vial.name)}</span>
-          ${combo.vial.chaosValue !== null ? `<span class="component-price">${formatPrice(combo.vial, currency)} ${currencySymbol}</span>` : ''}
-        </div>
-        <span class="upgrade-operator">+</span>
-        <div class="upgrade-component temple" 
-             data-component-type="temple">
-          <img src="${temple.imagePath}" 
-               alt="${temple.name}" 
-               onerror="this.style.display='none'"
-               class="component-image" />
-          <span class="component-name">${escapeHtml(temple.name)}</span>
-        </div>
-        <span class="upgrade-operator">=</span>
-        <div class="upgrade-component upgraded-unique" 
-             data-unique-id="${combo.upgradedUnique.detailsId}"
-             data-component-type="unique">
-          <img src="${upgradedUniqueImage}" 
-               alt="${combo.upgradedUnique.name}" 
-               onerror="this.style.display='none'"
-               class="component-image" />
-          <span class="component-name">${escapeHtml(combo.upgradedUnique.name)}</span>
-          ${combo.upgradedUnique.chaosValue !== null ? `<span class="component-price">${formatPrice(combo.upgradedUnique, currency)} ${currencySymbol}</span>` : ''}
-        </div>
-      </div>
-      <div class="upgrade-profitability-info">
-        <div class="profitability-status">
-          <span class="status-icon">${statusIcon}</span>
-          <span class="status-label">${statusLabel}</span>
-        </div>
-        <div class="profitability-details">
+        <div class="profitability-details-column">
           <div class="profit-detail">
             <span class="profit-label">Cost:</span>
             <span class="profit-value">${costDisplay}</span>

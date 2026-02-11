@@ -1204,7 +1204,131 @@ header p {
   color: #a09070;
 }
 
-/* Tattoo list: flex layout (same as Delirium Orb / Emblem) */
+/* Tattoo grid layout: grouped by type (Strength, Dexterity, Intelligence) */
+.tattoo-type-section {
+  margin-bottom: 40px;
+}
+
+.tattoo-type-section:last-child {
+  margin-bottom: 0;
+}
+
+.tattoo-type-heading {
+  color: #ffffff;
+  font-size: 1.2em;
+  font-weight: 500;
+  text-align: center;
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.tattoo-type-separator {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  margin: 0 0 20px 0;
+}
+
+.tattoo-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.tattoo-grid-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  background: #0f0f0f;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(200, 170, 110, 0.1);
+  cursor: default;
+  transition: all 0.2s;
+  min-height: 140px;
+  box-sizing: border-box;
+}
+
+.tattoo-grid-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+  border-color: rgba(200, 170, 110, 0.25);
+  background: #151515;
+}
+
+.tattoo-grid-card.item-selected {
+  border-color: rgba(200, 170, 110, 0.5);
+  box-shadow: 0 0 8px rgba(200, 170, 110, 0.3);
+}
+
+.tattoo-card-image {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+.tattoo-card-name {
+  font-weight: 500;
+  color: #c8aa6e;
+  text-align: center;
+  font-size: 0.9em;
+  margin-bottom: 6px;
+  line-height: 1.3;
+  word-wrap: break-word;
+  width: 100%;
+}
+
+.tattoo-card-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.tattoo-card-weight {
+  color: #a09070;
+  font-size: 0.85em;
+  flex: 1;
+}
+
+.tattoo-card-value {
+  color: #a09070;
+  font-size: 0.85em;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+/* Responsive: reduce columns on smaller screens */
+@media (max-width: 1400px) {
+  .tattoo-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 1100px) {
+  .tattoo-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .tattoo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .tattoo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Legacy tattoo list styles (kept for backward compatibility if needed) */
 .tattoo-list {
   display: flex;
   flex-direction: column;
@@ -3881,58 +4005,68 @@ input:focus {
 
 /* Temple Upgrade List View Styles */
 .temple-upgrade-list {
-  padding: 20px;
+  padding: 12px;
   width: 100%;
 }
 
 .temple-upgrade-header {
-  margin-bottom: 30px;
+  margin-bottom: 16px;
 }
 
 .temple-upgrade-header h2 {
-  margin: 0 0 10px 0;
-  font-size: 24px;
+  margin: 0 0 8px 0;
+  font-size: 22px;
   color: #c8aa6e;
 }
 
 .temple-upgrade-header p {
   margin: 0;
   color: #a09070;
-  font-size: 0.95em;
+  font-size: 0.9em;
 }
 
 .temple-upgrade-combinations {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }
 
 .temple-upgrade-combination {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  padding: 15px;
+  gap: 8px;
+  padding: 10px;
   background: #0f0f0f;
-  border-radius: 8px;
+  border-radius: 6px;
   border: 1px solid rgba(200, 170, 110, 0.1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.upgrade-combination-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .upgrade-components-row {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 8px;
   flex-wrap: wrap;
+  flex: 1;
+  min-width: 0;
 }
 
 .upgrade-component {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   cursor: pointer;
   transition: transform 0.2s;
-  min-width: 100px;
+  flex-shrink: 0;
+  min-width: 70px;
 }
 
 .upgrade-component:hover {
@@ -3940,81 +4074,73 @@ input:focus {
 }
 
 .component-image {
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
-  border-radius: 4px;
+  border-radius: 3px;
   background: rgba(0, 0, 0, 0.2);
 }
 
 .component-name {
-  font-size: 12px;
+  font-size: 11px;
   text-align: center;
-  max-width: 100px;
+  max-width: 70px;
   word-wrap: break-word;
   color: #c8aa6e;
   font-weight: 500;
+  line-height: 1.3;
 }
 
 .component-price {
-  font-size: 11px;
+  font-size: 10px;
   color: #a09070;
   text-align: center;
 }
 
 .upgrade-operator {
-  font-size: 24px;
+  font-size: 16px;
   font-weight: bold;
   color: #a09070;
   flex-shrink: 0;
 }
 
-.upgrade-profitability-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 15px;
-  border-top: 1px solid rgba(200, 170, 110, 0.1);
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.profitability-status {
+.profitability-status-inline {
   display: flex;
   align-items: center;
-  gap: 8px;
+  flex-shrink: 0;
 }
 
-.status-icon {
-  font-size: 18px;
+.profitability-status-inline .status-icon {
+  font-size: 16px;
   font-weight: bold;
-}
-
-.status-label {
-  font-size: 14px;
-  font-weight: 500;
   color: #c8aa6e;
 }
 
-.profitability-details {
+.profitability-details-column {
   display: flex;
-  gap: 20px;
-  align-items: center;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+  flex-shrink: 0;
+  padding-left: 8px;
+  border-left: 1px solid rgba(200, 170, 110, 0.15);
 }
 
 .profit-detail {
   display: flex;
-  gap: 8px;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  white-space: nowrap;
 }
 
 .profit-label {
-  font-size: 13px;
+  font-size: 11px;
   color: #a09070;
 }
 
 .profit-value {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: #c8aa6e;
   font-family: 'Courier New', monospace;
@@ -4023,6 +4149,18 @@ input:focus {
 .temple-threshold-note {
   color: #a09070;
   font-size: 0.9em;
+}
+
+/* Responsive grid for Temple upgrades */
+@media (max-width: 768px) {
+  .temple-upgrade-combinations {
+    grid-template-columns: 1fr;
+  }
+  
+  .upgrade-components-row {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
 }
 
 /* Welcome Page Styles */

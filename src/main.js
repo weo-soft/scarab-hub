@@ -1975,44 +1975,84 @@ function renderEmblemList(container) {
   });
 }
 
+/**
+ * Determine tattoo type from replaces field
+ * @param {Tattoo} tattoo - Tattoo instance
+ * @returns {string} 'Strength', 'Dexterity', 'Intelligence', or null
+ */
+function getTattooType(tattoo) {
+  if (!tattoo.replaces) return null;
+  const replaces = tattoo.replaces.toLowerCase();
+  if (replaces.includes('strength')) return 'Strength';
+  if (replaces.includes('dexterity')) return 'Dexterity';
+  if (replaces.includes('intelligence')) return 'Intelligence';
+  return null;
+}
+
 function renderTattooList(container) {
   if (!container || currentTattoos.length === 0) return;
   const currency = currentCurrency;
   const currencySymbol = currency === 'divine' ? 'Div' : 'c';
   const sorted = sortTattoos(currentTattoos, currentTattooSort, currency);
-  const rows = sorted.map((t) => {
-    const value = currency === 'divine' ? (t.divineValue != null ? t.divineValue.toFixed(4) : '—') : (t.chaosValue != null ? t.chaosValue.toFixed(2) : '—');
+  
+  // Group tattoos by type
+  const grouped = {
+    'Strength': [],
+    'Dexterity': [],
+    'Intelligence': []
+  };
+  
+  sorted.forEach(tattoo => {
+    const type = getTattooType(tattoo);
+    if (type && grouped[type]) {
+      grouped[type].push(tattoo);
+    }
+  });
+  
+  // Render tattoo card
+  const renderTattooCard = (t) => {
     const weightStr = t.dropWeight != null ? (t.dropWeight * 100).toFixed(2) + '%' : '—';
+    const value = currency === 'divine' ? (t.divineValue != null ? t.divineValue.toFixed(4) : '—') : (t.chaosValue != null ? t.chaosValue.toFixed(2) : '—');
     const imagePath = `/assets/images/tattoos/${t.id}.png`;
     const status = t.profitabilityStatus || 'unknown';
     const color = getProfitabilityColor(status);
     const bgColor = getProfitabilityBackgroundColor(status);
     const isSelected = selectionHas(t.id);
     const selectedClass = isSelected ? 'item-selected' : '';
-    return `<div class="tattoo-list-row ${selectedClass}" data-id="${t.id}" style="border-left: 4px solid ${color}; background-color: ${bgColor};">
-      <img class="tattoo-image" src="${imagePath}" alt="${t.name}" onerror="this.style.display='none'">
-      <span class="tattoo-name">${t.name}</span>
-      <span class="tattoo-weight">${weightStr}</span>
-      <span class="tattoo-value">${value} ${currencySymbol}</span>
+    return `<div class="tattoo-grid-card ${selectedClass}" data-id="${t.id}" style="border-left: 4px solid ${color}; background-color: ${bgColor};">
+      <img class="tattoo-card-image" src="${imagePath}" alt="${t.name}" onerror="this.style.display='none'">
+      <div class="tattoo-card-name">${t.name}</div>
+      <div class="tattoo-card-stats">
+        <span class="tattoo-card-weight">Weight: ${weightStr}</span>
+        <span class="tattoo-card-value">${value} ${currencySymbol}</span>
+      </div>
     </div>`;
-  });
-  const s = currentTattooSort;
-  container.innerHTML = `
-    <div class="tattoo-list-header">
-      <div class="tattoo-header-cell image-cell"></div>
-      <div class="tattoo-header-cell name-cell sortable" data-sort-field="name">Name${getListSortIndicator(s, 'name')}</div>
-      <div class="tattoo-header-cell weight-cell sortable" data-sort-field="dropWeight">Drop Weight${getListSortIndicator(s, 'dropWeight')}</div>
-      <div class="tattoo-header-cell value-cell sortable" data-sort-field="value">Value (${currencySymbol})${getListSortIndicator(s, 'value')}</div>
-    </div>
-    <div class="tattoo-list">${rows.join('')}</div>
-  `;
-  setupListSort(container, '.tattoo-list-header .sortable', currentTattooSort, (field, direction) => {
-    currentTattooSort.field = field;
-    currentTattooSort.direction = direction;
-  }, () => renderTattooList(container));
+  };
+  
+  // Render section for a type
+  const renderSection = (type, tattoos) => {
+    if (tattoos.length === 0) return '';
+    const cards = tattoos.map(renderTattooCard).join('');
+    return `
+      <div class="tattoo-type-section">
+        <h2 class="tattoo-type-heading">${type.toUpperCase()} TATTOOS</h2>
+        <hr class="tattoo-type-separator">
+        <div class="tattoo-grid">${cards}</div>
+      </div>
+    `;
+  };
+  
+  // Build HTML with all sections
+  const sections = [
+    renderSection('Strength', grouped.Strength),
+    renderSection('Dexterity', grouped.Dexterity),
+    renderSection('Intelligence', grouped.Intelligence)
+  ].filter(s => s).join('');
+  
+  container.innerHTML = sections;
   
   // Setup selection listeners
-  const tattooItems = container.querySelectorAll('.tattoo-list-row[data-id]');
+  const tattooItems = container.querySelectorAll('.tattoo-grid-card[data-id]');
   tattooItems.forEach(item => {
     const tattooId = item.getAttribute('data-id');
     if (!tattooId) return;
