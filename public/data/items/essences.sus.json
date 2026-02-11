@@ -53,7 +53,7 @@
     {
       "id": "whispering-essence-of-contempt",
       "name": "Whispering Essence of Contempt",
-      "sus": "pering Essence of C"
+      "sus": " 2 P"
     },
     {
       "id": "muttering-essence-of-contempt",
@@ -178,7 +178,7 @@
     {
       "id": "whispering-essence-of-greed",
       "name": "Whispering Essence of Greed",
-      "sus": "pering Essence of G"
+      "sus": "te (1-"
     },
     {
       "id": "muttering-essence-of-greed",
@@ -203,7 +203,7 @@
     {
       "id": "shrieking-essence-of-greed",
       "name": "Shrieking Essence of Greed",
-      "sus": "king Essence of G"
+      "sus": "r: (1-1."
     },
     {
       "id": "deafening-essence-of-greed",
@@ -413,12 +413,12 @@
     {
       "id": "muttering-essence-of-torment",
       "name": "Muttering Essence of Torment",
-      "sus": "ring Essence of T"
+      "sus": " 5 L"
     },
     {
       "id": "weeping-essence-of-torment",
       "name": "Weeping Essence of Torment",
-      "sus": "ping Essence of T"
+      "sus": "s: Adds 1 to ("
     },
     {
       "id": "wailing-essence-of-torment",
@@ -523,7 +523,7 @@
   ],
   "groups": [
     {
-      "token": "m",
+      "token": "",
       "memberIds": [
         "muttering-essence-of-anger",
         "weeping-essence-of-anger",
@@ -1272,6 +1272,26 @@
         "weeping-essence-of-wrath",
         "wailing-essence-of-wrath",
         "wailing-essence-of-zeal"
+      ]
+    },
+    {
+      "token": "w\nb",
+      "memberIds": [
+        "muttering-essence-of-anger",
+        "weeping-essence-of-anger",
+        "wailing-essence-of-anger",
+        "whispering-essence-of-hatred",
+        "muttering-essence-of-hatred",
+        "weeping-essence-of-hatred",
+        "wailing-essence-of-hatred"
+      ]
+    },
+    {
+      "token": "w\nbow: adds (-) to (-) f",
+      "memberIds": [
+        "muttering-essence-of-anger",
+        "weeping-essence-of-anger",
+        "wailing-essence-of-anger"
       ]
     },
     {
@@ -2975,6 +2995,54 @@
       ]
     },
     {
+      "token": "  a",
+      "memberIds": [
+        "muttering-essence-of-anger",
+        "weeping-essence-of-anger",
+        "wailing-essence-of-anger",
+        "wailing-essence-of-anguish",
+        "whispering-essence-of-contempt",
+        "muttering-essence-of-contempt",
+        "weeping-essence-of-contempt",
+        "wailing-essence-of-contempt",
+        "weeping-essence-of-doubt",
+        "wailing-essence-of-doubt",
+        "muttering-essence-of-fear",
+        "weeping-essence-of-fear",
+        "wailing-essence-of-fear",
+        "whispering-essence-of-greed",
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "wailing-essence-of-greed",
+        "whispering-essence-of-hatred",
+        "muttering-essence-of-hatred",
+        "weeping-essence-of-hatred",
+        "wailing-essence-of-hatred",
+        "essence-of-horror",
+        "essence-of-hysteria",
+        "essence-of-insanity",
+        "wailing-essence-of-loathing",
+        "weeping-essence-of-rage",
+        "wailing-essence-of-rage",
+        "muttering-essence-of-sorrow",
+        "weeping-essence-of-sorrow",
+        "wailing-essence-of-sorrow",
+        "wailing-essence-of-spite",
+        "weeping-essence-of-suffering",
+        "wailing-essence-of-suffering",
+        "muttering-essence-of-torment",
+        "weeping-essence-of-torment",
+        "wailing-essence-of-torment",
+        "whispering-essence-of-woe",
+        "muttering-essence-of-woe",
+        "weeping-essence-of-woe",
+        "wailing-essence-of-woe",
+        "weeping-essence-of-wrath",
+        "wailing-essence-of-wrath",
+        "wailing-essence-of-zeal"
+      ]
+    },
+    {
       "token": " and",
       "memberIds": [
         "muttering-essence-of-anger",
@@ -3069,18 +3137,6 @@
         "screaming-essence-of-zeal",
         "shrieking-essence-of-zeal",
         "deafening-essence-of-zeal"
-      ]
-    },
-    {
-      "token": "w\nb",
-      "memberIds": [
-        "muttering-essence-of-anger",
-        "weeping-essence-of-anger",
-        "wailing-essence-of-anger",
-        "whispering-essence-of-hatred",
-        "muttering-essence-of-hatred",
-        "weeping-essence-of-hatred",
-        "wailing-essence-of-hatred"
       ]
     },
     {
@@ -6381,6 +6437,32 @@
       ]
     },
     {
+      "token": "ce\nq",
+      "memberIds": [
+        "muttering-essence-of-anger",
+        "weeping-essence-of-anger",
+        "wailing-essence-of-anger",
+        "screaming-essence-of-anger",
+        "shrieking-essence-of-anger",
+        "deafening-essence-of-anger",
+        "screaming-essence-of-envy",
+        "shrieking-essence-of-envy",
+        "deafening-essence-of-envy",
+        "whispering-essence-of-hatred",
+        "muttering-essence-of-hatred",
+        "weeping-essence-of-hatred",
+        "wailing-essence-of-hatred",
+        "screaming-essence-of-hatred",
+        "shrieking-essence-of-hatred",
+        "deafening-essence-of-hatred",
+        "weeping-essence-of-wrath",
+        "wailing-essence-of-wrath",
+        "screaming-essence-of-wrath",
+        "shrieking-essence-of-wrath",
+        "deafening-essence-of-wrath"
+      ]
+    },
+    {
       "token": "ge\na",
       "memberIds": [
         "muttering-essence-of-anger",
@@ -6736,6 +6818,35 @@
       ]
     },
     {
+      "token": "r: +(-)%",
+      "memberIds": [
+        "muttering-essence-of-anger",
+        "weeping-essence-of-anger",
+        "wailing-essence-of-anger",
+        "screaming-essence-of-anger",
+        "shrieking-essence-of-anger",
+        "deafening-essence-of-anger",
+        "screaming-essence-of-envy",
+        "shrieking-essence-of-envy",
+        "deafening-essence-of-envy",
+        "whispering-essence-of-hatred",
+        "muttering-essence-of-hatred",
+        "weeping-essence-of-hatred",
+        "wailing-essence-of-hatred",
+        "screaming-essence-of-hatred",
+        "shrieking-essence-of-hatred",
+        "deafening-essence-of-hatred",
+        "screaming-essence-of-scorn",
+        "shrieking-essence-of-scorn",
+        "deafening-essence-of-scorn",
+        "weeping-essence-of-wrath",
+        "wailing-essence-of-wrath",
+        "screaming-essence-of-wrath",
+        "shrieking-essence-of-wrath",
+        "deafening-essence-of-wrath"
+      ]
+    },
+    {
       "token": "+(",
       "memberIds": [
         "muttering-essence-of-anger",
@@ -6798,6 +6909,36 @@
         "screaming-essence-of-woe",
         "shrieking-essence-of-woe",
         "deafening-essence-of-woe",
+        "weeping-essence-of-wrath",
+        "wailing-essence-of-wrath",
+        "screaming-essence-of-wrath",
+        "shrieking-essence-of-wrath",
+        "deafening-essence-of-wrath"
+      ]
+    },
+    {
+      "token": "% t",
+      "memberIds": [
+        "muttering-essence-of-anger",
+        "weeping-essence-of-anger",
+        "wailing-essence-of-anger",
+        "screaming-essence-of-anger",
+        "shrieking-essence-of-anger",
+        "deafening-essence-of-anger",
+        "essence-of-delirium",
+        "screaming-essence-of-envy",
+        "shrieking-essence-of-envy",
+        "deafening-essence-of-envy",
+        "whispering-essence-of-hatred",
+        "muttering-essence-of-hatred",
+        "weeping-essence-of-hatred",
+        "wailing-essence-of-hatred",
+        "screaming-essence-of-hatred",
+        "shrieking-essence-of-hatred",
+        "deafening-essence-of-hatred",
+        "screaming-essence-of-scorn",
+        "shrieking-essence-of-scorn",
+        "deafening-essence-of-scorn",
         "weeping-essence-of-wrath",
         "wailing-essence-of-wrath",
         "screaming-essence-of-wrath",
@@ -7049,36 +7190,6 @@
       ]
     },
     {
-      "token": "% t",
-      "memberIds": [
-        "muttering-essence-of-anger",
-        "weeping-essence-of-anger",
-        "wailing-essence-of-anger",
-        "screaming-essence-of-anger",
-        "shrieking-essence-of-anger",
-        "deafening-essence-of-anger",
-        "essence-of-delirium",
-        "screaming-essence-of-envy",
-        "shrieking-essence-of-envy",
-        "deafening-essence-of-envy",
-        "whispering-essence-of-hatred",
-        "muttering-essence-of-hatred",
-        "weeping-essence-of-hatred",
-        "wailing-essence-of-hatred",
-        "screaming-essence-of-hatred",
-        "shrieking-essence-of-hatred",
-        "deafening-essence-of-hatred",
-        "screaming-essence-of-scorn",
-        "shrieking-essence-of-scorn",
-        "deafening-essence-of-scorn",
-        "weeping-essence-of-wrath",
-        "wailing-essence-of-wrath",
-        "screaming-essence-of-wrath",
-        "shrieking-essence-of-wrath",
-        "deafening-essence-of-wrath"
-      ]
-    },
-    {
       "token": "%",
       "memberIds": [
         "muttering-essence-of-anger",
@@ -7255,32 +7366,6 @@
         "screaming-essence-of-spite",
         "shrieking-essence-of-spite",
         "deafening-essence-of-spite",
-        "weeping-essence-of-wrath",
-        "wailing-essence-of-wrath",
-        "screaming-essence-of-wrath",
-        "shrieking-essence-of-wrath",
-        "deafening-essence-of-wrath"
-      ]
-    },
-    {
-      "token": "ce\nq",
-      "memberIds": [
-        "muttering-essence-of-anger",
-        "weeping-essence-of-anger",
-        "wailing-essence-of-anger",
-        "screaming-essence-of-anger",
-        "shrieking-essence-of-anger",
-        "deafening-essence-of-anger",
-        "screaming-essence-of-envy",
-        "shrieking-essence-of-envy",
-        "deafening-essence-of-envy",
-        "whispering-essence-of-hatred",
-        "muttering-essence-of-hatred",
-        "weeping-essence-of-hatred",
-        "wailing-essence-of-hatred",
-        "screaming-essence-of-hatred",
-        "shrieking-essence-of-hatred",
-        "deafening-essence-of-hatred",
         "weeping-essence-of-wrath",
         "wailing-essence-of-wrath",
         "screaming-essence-of-wrath",
@@ -7519,6 +7604,32 @@
         "screaming-essence-of-doubt",
         "shrieking-essence-of-doubt",
         "deafening-essence-of-doubt",
+        "whispering-essence-of-hatred",
+        "muttering-essence-of-hatred",
+        "weeping-essence-of-hatred",
+        "wailing-essence-of-hatred",
+        "screaming-essence-of-hatred",
+        "shrieking-essence-of-hatred",
+        "deafening-essence-of-hatred",
+        "screaming-essence-of-scorn",
+        "shrieking-essence-of-scorn",
+        "deafening-essence-of-scorn",
+        "weeping-essence-of-wrath",
+        "wailing-essence-of-wrath",
+        "screaming-essence-of-wrath",
+        "shrieking-essence-of-wrath",
+        "deafening-essence-of-wrath"
+      ]
+    },
+    {
+      "token": "er: +(-)%",
+      "memberIds": [
+        "muttering-essence-of-anger",
+        "weeping-essence-of-anger",
+        "wailing-essence-of-anger",
+        "screaming-essence-of-anger",
+        "shrieking-essence-of-anger",
+        "deafening-essence-of-anger",
         "whispering-essence-of-hatred",
         "muttering-essence-of-hatred",
         "weeping-essence-of-hatred",
@@ -8613,6 +8724,89 @@
       ]
     },
     {
+      "token": ": (-)% i",
+      "memberIds": [
+        "muttering-essence-of-anger",
+        "weeping-essence-of-anger",
+        "wailing-essence-of-anger",
+        "screaming-essence-of-anger",
+        "shrieking-essence-of-anger",
+        "deafening-essence-of-anger",
+        "weeping-essence-of-doubt",
+        "wailing-essence-of-doubt",
+        "screaming-essence-of-doubt",
+        "shrieking-essence-of-doubt",
+        "deafening-essence-of-doubt",
+        "screaming-essence-of-dread",
+        "shrieking-essence-of-dread",
+        "deafening-essence-of-dread",
+        "screaming-essence-of-envy",
+        "shrieking-essence-of-envy",
+        "deafening-essence-of-envy",
+        "whispering-essence-of-greed",
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "wailing-essence-of-greed",
+        "screaming-essence-of-greed",
+        "shrieking-essence-of-greed",
+        "deafening-essence-of-greed",
+        "whispering-essence-of-hatred",
+        "muttering-essence-of-hatred",
+        "weeping-essence-of-hatred",
+        "wailing-essence-of-hatred",
+        "screaming-essence-of-hatred",
+        "shrieking-essence-of-hatred",
+        "deafening-essence-of-hatred",
+        "wailing-essence-of-loathing",
+        "screaming-essence-of-loathing",
+        "shrieking-essence-of-loathing",
+        "deafening-essence-of-loathing",
+        "screaming-essence-of-misery",
+        "shrieking-essence-of-misery",
+        "deafening-essence-of-misery",
+        "screaming-essence-of-scorn",
+        "shrieking-essence-of-scorn",
+        "deafening-essence-of-scorn",
+        "whispering-essence-of-woe",
+        "muttering-essence-of-woe",
+        "weeping-essence-of-woe",
+        "wailing-essence-of-woe",
+        "screaming-essence-of-woe",
+        "shrieking-essence-of-woe",
+        "deafening-essence-of-woe",
+        "weeping-essence-of-wrath",
+        "wailing-essence-of-wrath",
+        "screaming-essence-of-wrath",
+        "shrieking-essence-of-wrath",
+        "deafening-essence-of-wrath",
+        "wailing-essence-of-zeal",
+        "screaming-essence-of-zeal",
+        "shrieking-essence-of-zeal",
+        "deafening-essence-of-zeal"
+      ]
+    },
+    {
+      "token": "sed f",
+      "memberIds": [
+        "muttering-essence-of-anger",
+        "weeping-essence-of-anger",
+        "wailing-essence-of-anger",
+        "screaming-essence-of-anger",
+        "shrieking-essence-of-anger",
+        "deafening-essence-of-anger",
+        "whispering-essence-of-greed",
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "wailing-essence-of-greed",
+        "screaming-essence-of-greed",
+        "shrieking-essence-of-greed",
+        "deafening-essence-of-greed",
+        "screaming-essence-of-misery",
+        "shrieking-essence-of-misery",
+        "deafening-essence-of-misery"
+      ]
+    },
+    {
       "token": ")% i",
       "memberIds": [
         "muttering-essence-of-anger",
@@ -8678,27 +8872,6 @@
         "screaming-essence-of-zeal",
         "shrieking-essence-of-zeal",
         "deafening-essence-of-zeal"
-      ]
-    },
-    {
-      "token": "sed f",
-      "memberIds": [
-        "muttering-essence-of-anger",
-        "weeping-essence-of-anger",
-        "wailing-essence-of-anger",
-        "screaming-essence-of-anger",
-        "shrieking-essence-of-anger",
-        "deafening-essence-of-anger",
-        "whispering-essence-of-greed",
-        "muttering-essence-of-greed",
-        "weeping-essence-of-greed",
-        "wailing-essence-of-greed",
-        "screaming-essence-of-greed",
-        "shrieking-essence-of-greed",
-        "deafening-essence-of-greed",
-        "screaming-essence-of-misery",
-        "shrieking-essence-of-misery",
-        "deafening-essence-of-misery"
       ]
     },
     {
@@ -9541,6 +9714,14 @@
         "screaming-essence-of-hatred",
         "shrieking-essence-of-hatred",
         "deafening-essence-of-hatred"
+      ]
+    },
+    {
+      "token": "y\nbow: adds (-) to (-) f",
+      "memberIds": [
+        "screaming-essence-of-anger",
+        "shrieking-essence-of-anger",
+        "deafening-essence-of-anger"
       ]
     },
     {
@@ -11993,6 +12174,29 @@
       ]
     },
     {
+      "token": "bei",
+      "memberIds": [
+        "wailing-essence-of-anguish",
+        "screaming-essence-of-anguish",
+        "shrieking-essence-of-anguish",
+        "deafening-essence-of-anguish",
+        "screaming-essence-of-scorn",
+        "shrieking-essence-of-scorn",
+        "deafening-essence-of-scorn",
+        "weeping-essence-of-suffering",
+        "wailing-essence-of-suffering",
+        "screaming-essence-of-suffering",
+        "shrieking-essence-of-suffering",
+        "deafening-essence-of-suffering",
+        "muttering-essence-of-torment",
+        "weeping-essence-of-torment",
+        "wailing-essence-of-torment",
+        "screaming-essence-of-torment",
+        "shrieking-essence-of-torment",
+        "deafening-essence-of-torment"
+      ]
+    },
+    {
       "token": "r: (",
       "memberIds": [
         "wailing-essence-of-anguish",
@@ -12044,14 +12248,16 @@
       ]
     },
     {
-      "token": ")% c",
+      "token": "r: (-",
       "memberIds": [
         "wailing-essence-of-anguish",
         "screaming-essence-of-anguish",
         "shrieking-essence-of-anguish",
         "deafening-essence-of-anguish",
-        "essence-of-delirium",
-        "essence-of-horror",
+        "screaming-essence-of-dread",
+        "shrieking-essence-of-dread",
+        "deafening-essence-of-dread",
+        "shrieking-essence-of-greed",
         "wailing-essence-of-loathing",
         "screaming-essence-of-loathing",
         "shrieking-essence-of-loathing",
@@ -12059,12 +12265,6 @@
         "screaming-essence-of-scorn",
         "shrieking-essence-of-scorn",
         "deafening-essence-of-scorn",
-        "muttering-essence-of-sorrow",
-        "weeping-essence-of-sorrow",
-        "wailing-essence-of-sorrow",
-        "screaming-essence-of-sorrow",
-        "shrieking-essence-of-sorrow",
-        "deafening-essence-of-sorrow",
         "weeping-essence-of-suffering",
         "wailing-essence-of-suffering",
         "screaming-essence-of-suffering",
@@ -12075,7 +12275,59 @@
         "wailing-essence-of-torment",
         "screaming-essence-of-torment",
         "shrieking-essence-of-torment",
-        "deafening-essence-of-torment"
+        "deafening-essence-of-torment",
+        "whispering-essence-of-woe",
+        "muttering-essence-of-woe",
+        "weeping-essence-of-woe",
+        "wailing-essence-of-woe",
+        "screaming-essence-of-woe",
+        "shrieking-essence-of-woe",
+        "deafening-essence-of-woe",
+        "wailing-essence-of-zeal",
+        "screaming-essence-of-zeal",
+        "shrieking-essence-of-zeal",
+        "deafening-essence-of-zeal"
+      ]
+    },
+    {
+      "token": "r: (-)",
+      "memberIds": [
+        "wailing-essence-of-anguish",
+        "screaming-essence-of-anguish",
+        "shrieking-essence-of-anguish",
+        "deafening-essence-of-anguish",
+        "screaming-essence-of-dread",
+        "shrieking-essence-of-dread",
+        "deafening-essence-of-dread",
+        "wailing-essence-of-loathing",
+        "screaming-essence-of-loathing",
+        "shrieking-essence-of-loathing",
+        "deafening-essence-of-loathing",
+        "screaming-essence-of-scorn",
+        "shrieking-essence-of-scorn",
+        "deafening-essence-of-scorn",
+        "weeping-essence-of-suffering",
+        "wailing-essence-of-suffering",
+        "screaming-essence-of-suffering",
+        "shrieking-essence-of-suffering",
+        "deafening-essence-of-suffering",
+        "muttering-essence-of-torment",
+        "weeping-essence-of-torment",
+        "wailing-essence-of-torment",
+        "screaming-essence-of-torment",
+        "shrieking-essence-of-torment",
+        "deafening-essence-of-torment",
+        "whispering-essence-of-woe",
+        "muttering-essence-of-woe",
+        "weeping-essence-of-woe",
+        "wailing-essence-of-woe",
+        "screaming-essence-of-woe",
+        "shrieking-essence-of-woe",
+        "deafening-essence-of-woe",
+        "wailing-essence-of-zeal",
+        "screaming-essence-of-zeal",
+        "shrieking-essence-of-zeal",
+        "deafening-essence-of-zeal"
       ]
     },
     {
@@ -12121,6 +12373,41 @@
         "screaming-essence-of-scorn",
         "shrieking-essence-of-scorn",
         "deafening-essence-of-scorn",
+        "weeping-essence-of-suffering",
+        "wailing-essence-of-suffering",
+        "screaming-essence-of-suffering",
+        "shrieking-essence-of-suffering",
+        "deafening-essence-of-suffering",
+        "muttering-essence-of-torment",
+        "weeping-essence-of-torment",
+        "wailing-essence-of-torment",
+        "screaming-essence-of-torment",
+        "shrieking-essence-of-torment",
+        "deafening-essence-of-torment"
+      ]
+    },
+    {
+      "token": ")% c",
+      "memberIds": [
+        "wailing-essence-of-anguish",
+        "screaming-essence-of-anguish",
+        "shrieking-essence-of-anguish",
+        "deafening-essence-of-anguish",
+        "essence-of-delirium",
+        "essence-of-horror",
+        "wailing-essence-of-loathing",
+        "screaming-essence-of-loathing",
+        "shrieking-essence-of-loathing",
+        "deafening-essence-of-loathing",
+        "screaming-essence-of-scorn",
+        "shrieking-essence-of-scorn",
+        "deafening-essence-of-scorn",
+        "muttering-essence-of-sorrow",
+        "weeping-essence-of-sorrow",
+        "wailing-essence-of-sorrow",
+        "screaming-essence-of-sorrow",
+        "shrieking-essence-of-sorrow",
+        "deafening-essence-of-sorrow",
         "weeping-essence-of-suffering",
         "wailing-essence-of-suffering",
         "screaming-essence-of-suffering",
@@ -12820,29 +13107,6 @@
       ]
     },
     {
-      "token": "bei",
-      "memberIds": [
-        "wailing-essence-of-anguish",
-        "screaming-essence-of-anguish",
-        "shrieking-essence-of-anguish",
-        "deafening-essence-of-anguish",
-        "screaming-essence-of-scorn",
-        "shrieking-essence-of-scorn",
-        "deafening-essence-of-scorn",
-        "weeping-essence-of-suffering",
-        "wailing-essence-of-suffering",
-        "screaming-essence-of-suffering",
-        "shrieking-essence-of-suffering",
-        "deafening-essence-of-suffering",
-        "muttering-essence-of-torment",
-        "weeping-essence-of-torment",
-        "wailing-essence-of-torment",
-        "screaming-essence-of-torment",
-        "shrieking-essence-of-torment",
-        "deafening-essence-of-torment"
-      ]
-    },
-    {
       "token": "nit",
       "memberIds": [
         "wailing-essence-of-anguish",
@@ -13052,6 +13316,28 @@
       ]
     },
     {
+      "token": "t: (-)% c",
+      "memberIds": [
+        "wailing-essence-of-anguish",
+        "screaming-essence-of-anguish",
+        "shrieking-essence-of-anguish",
+        "deafening-essence-of-anguish",
+        "essence-of-delirium",
+        "essence-of-horror",
+        "weeping-essence-of-suffering",
+        "wailing-essence-of-suffering",
+        "screaming-essence-of-suffering",
+        "shrieking-essence-of-suffering",
+        "deafening-essence-of-suffering",
+        "muttering-essence-of-torment",
+        "weeping-essence-of-torment",
+        "wailing-essence-of-torment",
+        "screaming-essence-of-torment",
+        "shrieking-essence-of-torment",
+        "deafening-essence-of-torment"
+      ]
+    },
+    {
       "token": "ed\no",
       "memberIds": [
         "wailing-essence-of-anguish",
@@ -13202,6 +13488,14 @@
         "screaming-essence-of-wrath",
         "shrieking-essence-of-wrath",
         "deafening-essence-of-wrath"
+      ]
+    },
+    {
+      "token": "y\none handed weapon: adds (-) to (-) f",
+      "memberIds": [
+        "screaming-essence-of-anguish",
+        "shrieking-essence-of-anguish",
+        "deafening-essence-of-anguish"
       ]
     },
     {
@@ -13362,6 +13656,43 @@
         "screaming-essence-of-dread",
         "shrieking-essence-of-dread",
         "deafening-essence-of-dread"
+      ]
+    },
+    {
+      "token": "n: adds  t",
+      "memberIds": [
+        "whispering-essence-of-contempt",
+        "weeping-essence-of-wrath"
+      ]
+    },
+    {
+      "token": "s  t",
+      "memberIds": [
+        "whispering-essence-of-contempt",
+        "essence-of-hysteria",
+        "muttering-essence-of-torment",
+        "weeping-essence-of-torment",
+        "weeping-essence-of-wrath"
+      ]
+    },
+    {
+      "token": "  to (",
+      "memberIds": [
+        "whispering-essence-of-contempt",
+        "muttering-essence-of-torment",
+        "weeping-essence-of-torment",
+        "weeping-essence-of-wrath"
+      ]
+    },
+    {
+      "token": "  t",
+      "memberIds": [
+        "whispering-essence-of-contempt",
+        "essence-of-horror",
+        "essence-of-hysteria",
+        "muttering-essence-of-torment",
+        "weeping-essence-of-torment",
+        "weeping-essence-of-wrath"
       ]
     },
     {
@@ -13677,6 +14008,14 @@
       ]
     },
     {
+      "token": "s: adds  t",
+      "memberIds": [
+        "whispering-essence-of-contempt",
+        "muttering-essence-of-torment",
+        "weeping-essence-of-torment"
+      ]
+    },
+    {
       "token": "l damage t",
       "memberIds": [
         "whispering-essence-of-contempt",
@@ -13901,6 +14240,13 @@
       ]
     },
     {
+      "token": "r: adds  t",
+      "memberIds": [
+        "whispering-essence-of-contempt",
+        "muttering-essence-of-torment"
+      ]
+    },
+    {
       "token": "rs\no",
       "memberIds": [
         "whispering-essence-of-contempt",
@@ -13909,7 +14255,22 @@
       ]
     },
     {
-      "token": "e\ngloves: adds (",
+      "token": "w\none handed weapon: adds (-) to (-) p",
+      "memberIds": [
+        "muttering-essence-of-contempt",
+        "weeping-essence-of-contempt",
+        "wailing-essence-of-contempt"
+      ]
+    },
+    {
+      "token": "y: adds (-) to (-) p",
+      "memberIds": [
+        "muttering-essence-of-contempt",
+        "weeping-essence-of-contempt"
+      ]
+    },
+    {
+      "token": ") to (-) p",
       "memberIds": [
         "muttering-essence-of-contempt",
         "weeping-essence-of-contempt",
@@ -13931,13 +14292,6 @@
         "screaming-essence-of-envy",
         "shrieking-essence-of-envy",
         "deafening-essence-of-envy"
-      ]
-    },
-    {
-      "token": "s\nother jewellery: adds (",
-      "memberIds": [
-        "muttering-essence-of-contempt",
-        "weeping-essence-of-contempt"
       ]
     },
     {
@@ -14167,6 +14521,14 @@
         "screaming-essence-of-zeal",
         "shrieking-essence-of-zeal",
         "deafening-essence-of-zeal"
+      ]
+    },
+    {
+      "token": "y\none handed weapon: adds (-) to (-) p",
+      "memberIds": [
+        "screaming-essence-of-contempt",
+        "shrieking-essence-of-contempt",
+        "deafening-essence-of-contempt"
       ]
     },
     {
@@ -14433,7 +14795,7 @@
       ]
     },
     {
-      "token": ": c",
+      "token": "l %",
       "memberIds": [
         "essence-of-delirium",
         "essence-of-horror",
@@ -14656,6 +15018,34 @@
         "screaming-essence-of-spite",
         "shrieking-essence-of-spite",
         "deafening-essence-of-spite"
+      ]
+    },
+    {
+      "token": " %",
+      "memberIds": [
+        "essence-of-delirium",
+        "essence-of-horror",
+        "essence-of-hysteria",
+        "essence-of-insanity",
+        "weeping-essence-of-rage",
+        "wailing-essence-of-rage",
+        "screaming-essence-of-rage",
+        "shrieking-essence-of-rage",
+        "deafening-essence-of-rage",
+        "muttering-essence-of-sorrow",
+        "weeping-essence-of-sorrow",
+        "wailing-essence-of-sorrow",
+        "screaming-essence-of-sorrow",
+        "shrieking-essence-of-sorrow",
+        "deafening-essence-of-sorrow",
+        "wailing-essence-of-spite",
+        "screaming-essence-of-spite",
+        "shrieking-essence-of-spite",
+        "deafening-essence-of-spite",
+        "wailing-essence-of-zeal",
+        "screaming-essence-of-zeal",
+        "shrieking-essence-of-zeal",
+        "deafening-essence-of-zeal"
       ]
     },
     {
@@ -14890,6 +15280,19 @@
         "deafening-essence-of-dread",
         "essence-of-insanity",
         "wailing-essence-of-woe",
+        "wailing-essence-of-zeal",
+        "screaming-essence-of-zeal",
+        "shrieking-essence-of-zeal",
+        "deafening-essence-of-zeal"
+      ]
+    },
+    {
+      "token": ": %",
+      "memberIds": [
+        "essence-of-delirium",
+        "essence-of-horror",
+        "essence-of-hysteria",
+        "essence-of-insanity",
         "wailing-essence-of-zeal",
         "screaming-essence-of-zeal",
         "shrieking-essence-of-zeal",
@@ -15182,12 +15585,22 @@
       ]
     },
     {
-      "token": "el o",
+      "token": " + t",
       "memberIds": [
         "essence-of-delirium",
         "screaming-essence-of-dread",
         "shrieking-essence-of-dread",
         "deafening-essence-of-dread"
+      ]
+    },
+    {
+      "token": "+ t",
+      "memberIds": [
+        "essence-of-delirium",
+        "screaming-essence-of-dread",
+        "shrieking-essence-of-dread",
+        "deafening-essence-of-dread",
+        "essence-of-insanity"
       ]
     },
     {
@@ -15461,6 +15874,18 @@
         "screaming-essence-of-greed",
         "shrieking-essence-of-greed",
         "deafening-essence-of-greed"
+      ]
+    },
+    {
+      "token": " % i",
+      "memberIds": [
+        "essence-of-delirium",
+        "essence-of-hysteria",
+        "essence-of-insanity",
+        "wailing-essence-of-zeal",
+        "screaming-essence-of-zeal",
+        "shrieking-essence-of-zeal",
+        "deafening-essence-of-zeal"
       ]
     },
     {
@@ -15857,6 +16282,51 @@
       ]
     },
     {
+      "token": "+(-) t",
+      "memberIds": [
+        "weeping-essence-of-doubt",
+        "wailing-essence-of-doubt",
+        "screaming-essence-of-doubt",
+        "shrieking-essence-of-doubt",
+        "deafening-essence-of-doubt",
+        "screaming-essence-of-dread",
+        "shrieking-essence-of-dread",
+        "deafening-essence-of-dread",
+        "whispering-essence-of-greed",
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "wailing-essence-of-greed",
+        "screaming-essence-of-greed",
+        "shrieking-essence-of-greed",
+        "deafening-essence-of-greed",
+        "screaming-essence-of-misery",
+        "shrieking-essence-of-misery",
+        "deafening-essence-of-misery",
+        "weeping-essence-of-rage",
+        "wailing-essence-of-rage",
+        "screaming-essence-of-rage",
+        "shrieking-essence-of-rage",
+        "deafening-essence-of-rage",
+        "muttering-essence-of-sorrow",
+        "weeping-essence-of-sorrow",
+        "wailing-essence-of-sorrow",
+        "screaming-essence-of-sorrow",
+        "shrieking-essence-of-sorrow",
+        "deafening-essence-of-sorrow",
+        "wailing-essence-of-spite",
+        "screaming-essence-of-spite",
+        "shrieking-essence-of-spite",
+        "deafening-essence-of-spite",
+        "whispering-essence-of-woe",
+        "muttering-essence-of-woe",
+        "weeping-essence-of-woe",
+        "wailing-essence-of-woe",
+        "screaming-essence-of-woe",
+        "shrieking-essence-of-woe",
+        "deafening-essence-of-woe"
+      ]
+    },
+    {
       "token": "cy",
       "memberIds": [
         "weeping-essence-of-doubt",
@@ -15995,6 +16465,45 @@
       ]
     },
     {
+      "token": "\narmour: +(-) t",
+      "memberIds": [
+        "weeping-essence-of-doubt",
+        "whispering-essence-of-woe",
+        "muttering-essence-of-woe",
+        "weeping-essence-of-woe"
+      ]
+    },
+    {
+      "token": "r: +(-) t",
+      "memberIds": [
+        "weeping-essence-of-doubt",
+        "wailing-essence-of-doubt",
+        "screaming-essence-of-doubt",
+        "shrieking-essence-of-doubt",
+        "deafening-essence-of-doubt",
+        "screaming-essence-of-dread",
+        "shrieking-essence-of-dread",
+        "deafening-essence-of-dread",
+        "whispering-essence-of-greed",
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "wailing-essence-of-greed",
+        "screaming-essence-of-greed",
+        "shrieking-essence-of-greed",
+        "deafening-essence-of-greed",
+        "screaming-essence-of-misery",
+        "shrieking-essence-of-misery",
+        "deafening-essence-of-misery",
+        "whispering-essence-of-woe",
+        "muttering-essence-of-woe",
+        "weeping-essence-of-woe",
+        "wailing-essence-of-woe",
+        "screaming-essence-of-woe",
+        "shrieking-essence-of-woe",
+        "deafening-essence-of-woe"
+      ]
+    },
+    {
       "token": "io",
       "memberIds": [
         "weeping-essence-of-doubt",
@@ -16031,6 +16540,72 @@
         "screaming-essence-of-misery",
         "shrieking-essence-of-misery",
         "deafening-essence-of-misery"
+      ]
+    },
+    {
+      "token": "et: (-)% i",
+      "memberIds": [
+        "weeping-essence-of-doubt",
+        "wailing-essence-of-doubt",
+        "screaming-essence-of-doubt",
+        "shrieking-essence-of-doubt",
+        "deafening-essence-of-doubt",
+        "screaming-essence-of-dread",
+        "shrieking-essence-of-dread",
+        "deafening-essence-of-dread",
+        "wailing-essence-of-loathing",
+        "screaming-essence-of-loathing",
+        "shrieking-essence-of-loathing",
+        "deafening-essence-of-loathing",
+        "whispering-essence-of-woe",
+        "muttering-essence-of-woe",
+        "weeping-essence-of-woe",
+        "wailing-essence-of-woe",
+        "screaming-essence-of-woe",
+        "shrieking-essence-of-woe",
+        "deafening-essence-of-woe",
+        "wailing-essence-of-zeal",
+        "screaming-essence-of-zeal",
+        "shrieking-essence-of-zeal",
+        "deafening-essence-of-zeal"
+      ]
+    },
+    {
+      "token": "t: (-)% i",
+      "memberIds": [
+        "weeping-essence-of-doubt",
+        "wailing-essence-of-doubt",
+        "screaming-essence-of-doubt",
+        "shrieking-essence-of-doubt",
+        "deafening-essence-of-doubt",
+        "screaming-essence-of-dread",
+        "shrieking-essence-of-dread",
+        "deafening-essence-of-dread",
+        "whispering-essence-of-greed",
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "wailing-essence-of-greed",
+        "screaming-essence-of-greed",
+        "shrieking-essence-of-greed",
+        "deafening-essence-of-greed",
+        "wailing-essence-of-loathing",
+        "screaming-essence-of-loathing",
+        "shrieking-essence-of-loathing",
+        "deafening-essence-of-loathing",
+        "screaming-essence-of-misery",
+        "shrieking-essence-of-misery",
+        "deafening-essence-of-misery",
+        "whispering-essence-of-woe",
+        "muttering-essence-of-woe",
+        "weeping-essence-of-woe",
+        "wailing-essence-of-woe",
+        "screaming-essence-of-woe",
+        "shrieking-essence-of-woe",
+        "deafening-essence-of-woe",
+        "wailing-essence-of-zeal",
+        "screaming-essence-of-zeal",
+        "shrieking-essence-of-zeal",
+        "deafening-essence-of-zeal"
       ]
     },
     {
@@ -16206,6 +16781,31 @@
       ]
     },
     {
+      "token": "t: +(-) t",
+      "memberIds": [
+        "screaming-essence-of-doubt",
+        "shrieking-essence-of-doubt",
+        "deafening-essence-of-doubt",
+        "screaming-essence-of-dread",
+        "shrieking-essence-of-dread",
+        "deafening-essence-of-dread",
+        "whispering-essence-of-greed",
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "wailing-essence-of-greed",
+        "screaming-essence-of-greed",
+        "shrieking-essence-of-greed",
+        "deafening-essence-of-greed",
+        "whispering-essence-of-woe",
+        "muttering-essence-of-woe",
+        "weeping-essence-of-woe",
+        "wailing-essence-of-woe",
+        "screaming-essence-of-woe",
+        "shrieking-essence-of-woe",
+        "deafening-essence-of-woe"
+      ]
+    },
+    {
       "token": "king essence of d",
       "memberIds": [
         "shrieking-essence-of-doubt",
@@ -16327,12 +16927,89 @@
       ]
     },
     {
+      "token": "n: (-",
+      "memberIds": [
+        "screaming-essence-of-dread",
+        "shrieking-essence-of-dread",
+        "deafening-essence-of-dread",
+        "whispering-essence-of-greed",
+        "wailing-essence-of-loathing",
+        "screaming-essence-of-loathing",
+        "shrieking-essence-of-loathing",
+        "deafening-essence-of-loathing",
+        "screaming-essence-of-misery",
+        "shrieking-essence-of-misery",
+        "deafening-essence-of-misery",
+        "screaming-essence-of-scorn",
+        "shrieking-essence-of-scorn",
+        "deafening-essence-of-scorn",
+        "whispering-essence-of-woe",
+        "muttering-essence-of-woe",
+        "weeping-essence-of-woe",
+        "wailing-essence-of-woe",
+        "screaming-essence-of-woe",
+        "shrieking-essence-of-woe",
+        "deafening-essence-of-woe",
+        "wailing-essence-of-zeal",
+        "screaming-essence-of-zeal",
+        "shrieking-essence-of-zeal",
+        "deafening-essence-of-zeal"
+      ]
+    },
+    {
+      "token": "n: (-)",
+      "memberIds": [
+        "screaming-essence-of-dread",
+        "shrieking-essence-of-dread",
+        "deafening-essence-of-dread",
+        "wailing-essence-of-loathing",
+        "screaming-essence-of-loathing",
+        "shrieking-essence-of-loathing",
+        "deafening-essence-of-loathing",
+        "screaming-essence-of-misery",
+        "shrieking-essence-of-misery",
+        "deafening-essence-of-misery",
+        "screaming-essence-of-scorn",
+        "shrieking-essence-of-scorn",
+        "deafening-essence-of-scorn",
+        "whispering-essence-of-woe",
+        "muttering-essence-of-woe",
+        "weeping-essence-of-woe",
+        "wailing-essence-of-woe",
+        "screaming-essence-of-woe",
+        "shrieking-essence-of-woe",
+        "deafening-essence-of-woe",
+        "wailing-essence-of-zeal",
+        "screaming-essence-of-zeal",
+        "shrieking-essence-of-zeal",
+        "deafening-essence-of-zeal"
+      ]
+    },
+    {
       "token": "e e",
       "memberIds": [
         "screaming-essence-of-dread",
         "shrieking-essence-of-dread",
         "deafening-essence-of-dread",
         "essence-of-horror"
+      ]
+    },
+    {
+      "token": "d: (-)% i",
+      "memberIds": [
+        "screaming-essence-of-dread",
+        "shrieking-essence-of-dread",
+        "deafening-essence-of-dread",
+        "wailing-essence-of-loathing",
+        "screaming-essence-of-loathing",
+        "shrieking-essence-of-loathing",
+        "deafening-essence-of-loathing",
+        "screaming-essence-of-misery",
+        "shrieking-essence-of-misery",
+        "deafening-essence-of-misery",
+        "screaming-essence-of-scorn",
+        "shrieking-essence-of-scorn",
+        "deafening-essence-of-scorn"
       ]
     },
     {
@@ -16469,6 +17146,79 @@
       ]
     },
     {
+      "token": "er: (-",
+      "memberIds": [
+        "screaming-essence-of-dread",
+        "shrieking-essence-of-dread",
+        "deafening-essence-of-dread",
+        "shrieking-essence-of-greed",
+        "wailing-essence-of-loathing",
+        "screaming-essence-of-loathing",
+        "shrieking-essence-of-loathing",
+        "deafening-essence-of-loathing",
+        "whispering-essence-of-woe",
+        "muttering-essence-of-woe",
+        "weeping-essence-of-woe",
+        "wailing-essence-of-woe",
+        "screaming-essence-of-woe",
+        "shrieking-essence-of-woe",
+        "deafening-essence-of-woe",
+        "wailing-essence-of-zeal",
+        "screaming-essence-of-zeal",
+        "shrieking-essence-of-zeal",
+        "deafening-essence-of-zeal"
+      ]
+    },
+    {
+      "token": "er: (-)",
+      "memberIds": [
+        "screaming-essence-of-dread",
+        "shrieking-essence-of-dread",
+        "deafening-essence-of-dread",
+        "wailing-essence-of-loathing",
+        "screaming-essence-of-loathing",
+        "shrieking-essence-of-loathing",
+        "deafening-essence-of-loathing",
+        "whispering-essence-of-woe",
+        "muttering-essence-of-woe",
+        "weeping-essence-of-woe",
+        "wailing-essence-of-woe",
+        "screaming-essence-of-woe",
+        "shrieking-essence-of-woe",
+        "deafening-essence-of-woe",
+        "wailing-essence-of-zeal",
+        "screaming-essence-of-zeal",
+        "shrieking-essence-of-zeal",
+        "deafening-essence-of-zeal"
+      ]
+    },
+    {
+      "token": "r: (-)% i",
+      "memberIds": [
+        "screaming-essence-of-dread",
+        "shrieking-essence-of-dread",
+        "deafening-essence-of-dread",
+        "wailing-essence-of-loathing",
+        "screaming-essence-of-loathing",
+        "shrieking-essence-of-loathing",
+        "deafening-essence-of-loathing",
+        "screaming-essence-of-scorn",
+        "shrieking-essence-of-scorn",
+        "deafening-essence-of-scorn",
+        "whispering-essence-of-woe",
+        "muttering-essence-of-woe",
+        "weeping-essence-of-woe",
+        "wailing-essence-of-woe",
+        "screaming-essence-of-woe",
+        "shrieking-essence-of-woe",
+        "deafening-essence-of-woe",
+        "wailing-essence-of-zeal",
+        "screaming-essence-of-zeal",
+        "shrieking-essence-of-zeal",
+        "deafening-essence-of-zeal"
+      ]
+    },
+    {
       "token": "sed a",
       "memberIds": [
         "screaming-essence-of-dread",
@@ -16530,6 +17280,30 @@
         "screaming-essence-of-woe",
         "shrieking-essence-of-woe",
         "deafening-essence-of-woe"
+      ]
+    },
+    {
+      "token": "y\none handed weapon: adds (-) to (-) c",
+      "memberIds": [
+        "screaming-essence-of-envy",
+        "shrieking-essence-of-envy",
+        "deafening-essence-of-envy",
+        "screaming-essence-of-suffering",
+        "shrieking-essence-of-suffering",
+        "deafening-essence-of-suffering"
+      ]
+    },
+    {
+      "token": "r: adds (-) to (-) c",
+      "memberIds": [
+        "screaming-essence-of-envy",
+        "shrieking-essence-of-envy",
+        "deafening-essence-of-envy",
+        "weeping-essence-of-suffering",
+        "wailing-essence-of-suffering",
+        "screaming-essence-of-suffering",
+        "shrieking-essence-of-suffering",
+        "deafening-essence-of-suffering"
       ]
     },
     {
@@ -16823,6 +17597,18 @@
         "screaming-essence-of-greed",
         "shrieking-essence-of-greed",
         "deafening-essence-of-greed"
+      ]
+    },
+    {
+      "token": "e (-",
+      "memberIds": [
+        "muttering-essence-of-fear",
+        "weeping-essence-of-fear",
+        "wailing-essence-of-fear",
+        "screaming-essence-of-fear",
+        "shrieking-essence-of-fear",
+        "deafening-essence-of-fear",
+        "whispering-essence-of-greed"
       ]
     },
     {
@@ -17146,6 +17932,13 @@
       ]
     },
     {
+      "token": "w\nweapon: (-",
+      "memberIds": [
+        "whispering-essence-of-greed",
+        "wailing-essence-of-loathing"
+      ]
+    },
+    {
       "token": "\nweapon: (",
       "memberIds": [
         "whispering-essence-of-greed",
@@ -17165,7 +17958,60 @@
       ]
     },
     {
-      "token": "k d",
+      "token": "\nweapon: (-",
+      "memberIds": [
+        "whispering-essence-of-greed",
+        "wailing-essence-of-loathing",
+        "screaming-essence-of-loathing",
+        "shrieking-essence-of-loathing",
+        "deafening-essence-of-loathing",
+        "screaming-essence-of-scorn",
+        "shrieking-essence-of-scorn",
+        "deafening-essence-of-scorn"
+      ]
+    },
+    {
+      "token": "(-.",
+      "memberIds": [
+        "whispering-essence-of-greed",
+        "shrieking-essence-of-greed"
+      ]
+    },
+    {
+      "token": "-.",
+      "memberIds": [
+        "whispering-essence-of-greed",
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "wailing-essence-of-greed",
+        "screaming-essence-of-greed",
+        "shrieking-essence-of-greed",
+        "deafening-essence-of-greed",
+        "screaming-essence-of-misery",
+        "shrieking-essence-of-misery"
+      ]
+    },
+    {
+      "token": "e\nquiver: (.",
+      "memberIds": [
+        "whispering-essence-of-greed",
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "wailing-essence-of-greed",
+        "screaming-essence-of-greed",
+        "deafening-essence-of-greed"
+      ]
+    },
+    {
+      "token": "t: +(-) to maximum life\no",
+      "memberIds": [
+        "whispering-essence-of-greed",
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed"
+      ]
+    },
+    {
+      "token": "(.",
       "memberIds": [
         "whispering-essence-of-greed",
         "muttering-essence-of-greed",
@@ -17319,6 +18165,119 @@
       ]
     },
     {
+      "token": "et: +(-) to m",
+      "memberIds": [
+        "whispering-essence-of-greed",
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "wailing-essence-of-greed",
+        "screaming-essence-of-greed",
+        "shrieking-essence-of-greed",
+        "deafening-essence-of-greed",
+        "screaming-essence-of-woe",
+        "shrieking-essence-of-woe",
+        "deafening-essence-of-woe"
+      ]
+    },
+    {
+      "token": "t: +(-) to m",
+      "memberIds": [
+        "whispering-essence-of-greed",
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "wailing-essence-of-greed",
+        "screaming-essence-of-greed",
+        "shrieking-essence-of-greed",
+        "deafening-essence-of-greed",
+        "whispering-essence-of-woe",
+        "muttering-essence-of-woe",
+        "weeping-essence-of-woe",
+        "wailing-essence-of-woe",
+        "screaming-essence-of-woe",
+        "shrieking-essence-of-woe",
+        "deafening-essence-of-woe"
+      ]
+    },
+    {
+      "token": "e\nquiver: (.-.",
+      "memberIds": [
+        "whispering-essence-of-greed",
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "screaming-essence-of-greed",
+        "deafening-essence-of-greed"
+      ]
+    },
+    {
+      "token": " armour: +(-) to m",
+      "memberIds": [
+        "whispering-essence-of-greed",
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "wailing-essence-of-greed",
+        "screaming-essence-of-greed",
+        "shrieking-essence-of-greed",
+        "deafening-essence-of-greed",
+        "screaming-essence-of-misery",
+        "shrieking-essence-of-misery",
+        "deafening-essence-of-misery",
+        "wailing-essence-of-woe",
+        "screaming-essence-of-woe",
+        "shrieking-essence-of-woe",
+        "deafening-essence-of-woe"
+      ]
+    },
+    {
+      "token": "r: (.",
+      "memberIds": [
+        "whispering-essence-of-greed",
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "wailing-essence-of-greed",
+        "screaming-essence-of-greed",
+        "deafening-essence-of-greed",
+        "screaming-essence-of-misery",
+        "shrieking-essence-of-misery",
+        "deafening-essence-of-misery"
+      ]
+    },
+    {
+      "token": "r: (.-.",
+      "memberIds": [
+        "whispering-essence-of-greed",
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "screaming-essence-of-greed",
+        "deafening-essence-of-greed",
+        "screaming-essence-of-misery",
+        "shrieking-essence-of-misery"
+      ]
+    },
+    {
+      "token": ".-.",
+      "memberIds": [
+        "whispering-essence-of-greed",
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "wailing-essence-of-greed",
+        "screaming-essence-of-greed",
+        "deafening-essence-of-greed",
+        "screaming-essence-of-misery",
+        "shrieking-essence-of-misery"
+      ]
+    },
+    {
+      "token": ".)% of physical attack damage leeched as life\nb",
+      "memberIds": [
+        "whispering-essence-of-greed",
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "screaming-essence-of-greed",
+        "shrieking-essence-of-greed",
+        "deafening-essence-of-greed"
+      ]
+    },
+    {
       "token": "e\nbelt: (",
       "memberIds": [
         "whispering-essence-of-greed",
@@ -17332,6 +18291,29 @@
         "screaming-essence-of-loathing",
         "shrieking-essence-of-loathing",
         "deafening-essence-of-loathing"
+      ]
+    },
+    {
+      "token": "lt: (-)% i",
+      "memberIds": [
+        "whispering-essence-of-greed",
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "wailing-essence-of-greed",
+        "screaming-essence-of-greed",
+        "shrieking-essence-of-greed",
+        "deafening-essence-of-greed",
+        "wailing-essence-of-loathing",
+        "screaming-essence-of-loathing",
+        "shrieking-essence-of-loathing",
+        "deafening-essence-of-loathing",
+        "screaming-essence-of-misery",
+        "shrieking-essence-of-misery",
+        "deafening-essence-of-misery",
+        "wailing-essence-of-zeal",
+        "screaming-essence-of-zeal",
+        "shrieking-essence-of-zeal",
+        "deafening-essence-of-zeal"
       ]
     },
     {
@@ -17492,6 +18474,23 @@
       ]
     },
     {
+      "token": "(-) l",
+      "memberIds": [
+        "whispering-essence-of-greed",
+        "muttering-essence-of-torment",
+        "weeping-essence-of-torment",
+        "wailing-essence-of-torment",
+        "screaming-essence-of-torment",
+        "shrieking-essence-of-torment",
+        "deafening-essence-of-torment",
+        "weeping-essence-of-wrath",
+        "wailing-essence-of-wrath",
+        "screaming-essence-of-wrath",
+        "shrieking-essence-of-wrath",
+        "deafening-essence-of-wrath"
+      ]
+    },
+    {
       "token": ") l",
       "memberIds": [
         "whispering-essence-of-greed",
@@ -17512,6 +18511,81 @@
         "screaming-essence-of-wrath",
         "shrieking-essence-of-wrath",
         "deafening-essence-of-wrath"
+      ]
+    },
+    {
+      "token": "w\nweapon: (.",
+      "memberIds": [
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "wailing-essence-of-greed"
+      ]
+    },
+    {
+      "token": ".-.)% of physical attack damage leeched as life\ngloves: +(-) to maximum life\nboots: +(-) to maximum life\nhelmet: +(-) to maximum life\no",
+      "memberIds": [
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed"
+      ]
+    },
+    {
+      "token": "e (.",
+      "memberIds": [
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "wailing-essence-of-greed",
+        "screaming-essence-of-greed",
+        "shrieking-essence-of-greed",
+        "deafening-essence-of-greed"
+      ]
+    },
+    {
+      "token": "n: (.-.",
+      "memberIds": [
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "wailing-essence-of-greed",
+        "screaming-essence-of-greed",
+        "deafening-essence-of-greed"
+      ]
+    },
+    {
+      "token": ".-.)% of physical attack damage leeched as life\nbelt: (-)% increased flask life recovery rate\nother jewellery: regenerate (.",
+      "memberIds": [
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "screaming-essence-of-greed",
+        "deafening-essence-of-greed"
+      ]
+    },
+    {
+      "token": ".)% of physical attack damage leeched as life\nbelt: (-)% increased flask life recovery rate\nother jewellery: regenerate (.",
+      "memberIds": [
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "screaming-essence-of-greed",
+        "shrieking-essence-of-greed",
+        "deafening-essence-of-greed"
+      ]
+    },
+    {
+      "token": ".-)",
+      "memberIds": [
+        "muttering-essence-of-greed",
+        "weeping-essence-of-greed",
+        "wailing-essence-of-greed",
+        "screaming-essence-of-greed",
+        "shrieking-essence-of-greed",
+        "deafening-essence-of-greed",
+        "deafening-essence-of-misery"
+      ]
+    },
+    {
+      "token": "d: +(-) to maximum life\nother armour: +(-) to maximum life\nquiver: (.",
+      "memberIds": [
+        "wailing-essence-of-greed",
+        "screaming-essence-of-greed",
+        "deafening-essence-of-greed"
       ]
     },
     {
@@ -17546,6 +18620,41 @@
       ]
     },
     {
+      "token": "d: +(-) to m",
+      "memberIds": [
+        "wailing-essence-of-greed",
+        "screaming-essence-of-greed",
+        "shrieking-essence-of-greed",
+        "deafening-essence-of-greed",
+        "wailing-essence-of-woe",
+        "screaming-essence-of-woe",
+        "shrieking-essence-of-woe",
+        "deafening-essence-of-woe"
+      ]
+    },
+    {
+      "token": "r: (.-)",
+      "memberIds": [
+        "wailing-essence-of-greed",
+        "deafening-essence-of-misery"
+      ]
+    },
+    {
+      "token": ".-)%",
+      "memberIds": [
+        "wailing-essence-of-greed",
+        "shrieking-essence-of-greed",
+        "deafening-essence-of-misery"
+      ]
+    },
+    {
+      "token": "-)% of physical attack damage leeched as l",
+      "memberIds": [
+        "wailing-essence-of-greed",
+        "shrieking-essence-of-greed"
+      ]
+    },
+    {
       "token": "y\nweapon: (",
       "memberIds": [
         "screaming-essence-of-greed",
@@ -17557,6 +18666,21 @@
         "screaming-essence-of-scorn",
         "shrieking-essence-of-scorn",
         "deafening-essence-of-scorn"
+      ]
+    },
+    {
+      "token": "y\nweapon: (.",
+      "memberIds": [
+        "screaming-essence-of-greed",
+        "shrieking-essence-of-greed",
+        "deafening-essence-of-greed"
+      ]
+    },
+    {
+      "token": "y\nweapon: (.-.",
+      "memberIds": [
+        "screaming-essence-of-greed",
+        "deafening-essence-of-greed"
       ]
     },
     {
@@ -17607,6 +18731,15 @@
         "screaming-essence-of-rage",
         "shrieking-essence-of-rage",
         "deafening-essence-of-rage"
+      ]
+    },
+    {
+      "token": "w\nbow: adds (-) to (-) c",
+      "memberIds": [
+        "whispering-essence-of-hatred",
+        "muttering-essence-of-hatred",
+        "weeping-essence-of-hatred",
+        "wailing-essence-of-hatred"
       ]
     },
     {
@@ -17747,6 +18880,14 @@
       ]
     },
     {
+      "token": "y\nbow: adds (-) to (-) c",
+      "memberIds": [
+        "screaming-essence-of-hatred",
+        "shrieking-essence-of-hatred",
+        "deafening-essence-of-hatred"
+      ]
+    },
+    {
       "token": "ho",
       "memberIds": [
         "essence-of-horror",
@@ -17779,6 +18920,19 @@
       "memberIds": [
         "essence-of-horror",
         "essence-of-insanity"
+      ]
+    },
+    {
+      "token": " % c",
+      "memberIds": [
+        "essence-of-horror",
+        "essence-of-insanity",
+        "muttering-essence-of-sorrow",
+        "weeping-essence-of-sorrow",
+        "wailing-essence-of-sorrow",
+        "screaming-essence-of-sorrow",
+        "shrieking-essence-of-sorrow",
+        "deafening-essence-of-sorrow"
       ]
     },
     {
@@ -18394,19 +19548,6 @@
       ]
     },
     {
-      "token": "s: (",
-      "memberIds": [
-        "wailing-essence-of-loathing",
-        "screaming-essence-of-loathing",
-        "shrieking-essence-of-loathing",
-        "deafening-essence-of-loathing",
-        "wailing-essence-of-zeal",
-        "screaming-essence-of-zeal",
-        "shrieking-essence-of-zeal",
-        "deafening-essence-of-zeal"
-      ]
-    },
-    {
       "token": "ob",
       "memberIds": [
         "wailing-essence-of-loathing",
@@ -18428,6 +19569,69 @@
         "screaming-essence-of-misery",
         "shrieking-essence-of-misery",
         "deafening-essence-of-misery"
+      ]
+    },
+    {
+      "token": "s: (",
+      "memberIds": [
+        "wailing-essence-of-loathing",
+        "screaming-essence-of-loathing",
+        "shrieking-essence-of-loathing",
+        "deafening-essence-of-loathing",
+        "wailing-essence-of-zeal",
+        "screaming-essence-of-zeal",
+        "shrieking-essence-of-zeal",
+        "deafening-essence-of-zeal"
+      ]
+    },
+    {
+      "token": "ld: (-)% i",
+      "memberIds": [
+        "wailing-essence-of-loathing",
+        "screaming-essence-of-loathing",
+        "shrieking-essence-of-loathing",
+        "deafening-essence-of-loathing",
+        "screaming-essence-of-misery",
+        "shrieking-essence-of-misery",
+        "deafening-essence-of-misery",
+        "screaming-essence-of-scorn",
+        "shrieking-essence-of-scorn",
+        "deafening-essence-of-scorn"
+      ]
+    },
+    {
+      "token": "tu",
+      "memberIds": [
+        "wailing-essence-of-loathing",
+        "screaming-essence-of-loathing",
+        "shrieking-essence-of-loathing",
+        "deafening-essence-of-loathing",
+        "screaming-essence-of-scorn",
+        "shrieking-essence-of-scorn",
+        "deafening-essence-of-scorn",
+        "wailing-essence-of-zeal",
+        "screaming-essence-of-zeal",
+        "shrieking-essence-of-zeal",
+        "deafening-essence-of-zeal"
+      ]
+    },
+    {
+      "token": ": (-)% increased m",
+      "memberIds": [
+        "wailing-essence-of-loathing",
+        "screaming-essence-of-loathing",
+        "shrieking-essence-of-loathing",
+        "deafening-essence-of-loathing",
+        "screaming-essence-of-misery",
+        "shrieking-essence-of-misery",
+        "deafening-essence-of-misery",
+        "whispering-essence-of-woe",
+        "muttering-essence-of-woe",
+        "weeping-essence-of-woe",
+        "wailing-essence-of-woe",
+        "screaming-essence-of-woe",
+        "shrieking-essence-of-woe",
+        "deafening-essence-of-woe"
       ]
     },
     {
@@ -18470,19 +19674,22 @@
       ]
     },
     {
-      "token": "tu",
+      "token": "y\nweapon: (-",
       "memberIds": [
-        "wailing-essence-of-loathing",
         "screaming-essence-of-loathing",
         "shrieking-essence-of-loathing",
         "deafening-essence-of-loathing",
         "screaming-essence-of-scorn",
         "shrieking-essence-of-scorn",
-        "deafening-essence-of-scorn",
-        "wailing-essence-of-zeal",
-        "screaming-essence-of-zeal",
-        "shrieking-essence-of-zeal",
-        "deafening-essence-of-zeal"
+        "deafening-essence-of-scorn"
+      ]
+    },
+    {
+      "token": "y\nweapon: (-)% increased c",
+      "memberIds": [
+        "screaming-essence-of-loathing",
+        "shrieking-essence-of-loathing",
+        "deafening-essence-of-loathing"
       ]
     },
     {
@@ -18491,6 +19698,13 @@
         "screaming-essence-of-misery",
         "shrieking-essence-of-misery",
         "deafening-essence-of-misery"
+      ]
+    },
+    {
+      "token": "a\nquiver: (.-.",
+      "memberIds": [
+        "screaming-essence-of-misery",
+        "shrieking-essence-of-misery"
       ]
     },
     {
@@ -18568,6 +19782,13 @@
       ]
     },
     {
+      "token": "w\none handed weapon: damage penetrates % f",
+      "memberIds": [
+        "weeping-essence-of-rage",
+        "wailing-essence-of-rage"
+      ]
+    },
+    {
       "token": "r i",
       "memberIds": [
         "weeping-essence-of-rage",
@@ -18599,6 +19820,14 @@
         "screaming-essence-of-spite",
         "shrieking-essence-of-spite",
         "deafening-essence-of-spite"
+      ]
+    },
+    {
+      "token": "y\none handed weapon: damage penetrates % f",
+      "memberIds": [
+        "screaming-essence-of-rage",
+        "shrieking-essence-of-rage",
+        "deafening-essence-of-rage"
       ]
     },
     {
@@ -18787,6 +20016,14 @@
       ]
     },
     {
+      "token": "w\none handed weapon: damage penetrates % c",
+      "memberIds": [
+        "muttering-essence-of-sorrow",
+        "weeping-essence-of-sorrow",
+        "wailing-essence-of-sorrow"
+      ]
+    },
+    {
       "token": "ping essence of s",
       "memberIds": [
         "weeping-essence-of-sorrow",
@@ -18799,6 +20036,14 @@
         "wailing-essence-of-sorrow",
         "wailing-essence-of-spite",
         "wailing-essence-of-suffering"
+      ]
+    },
+    {
+      "token": "y\none handed weapon: damage penetrates % c",
+      "memberIds": [
+        "screaming-essence-of-sorrow",
+        "shrieking-essence-of-sorrow",
+        "deafening-essence-of-sorrow"
       ]
     },
     {
@@ -18825,6 +20070,14 @@
       ]
     },
     {
+      "token": "y\none handed weapon: damage penetrates % l",
+      "memberIds": [
+        "screaming-essence-of-spite",
+        "shrieking-essence-of-spite",
+        "deafening-essence-of-spite"
+      ]
+    },
+    {
       "token": "su",
       "memberIds": [
         "weeping-essence-of-suffering",
@@ -18832,6 +20085,13 @@
         "screaming-essence-of-suffering",
         "shrieking-essence-of-suffering",
         "deafening-essence-of-suffering"
+      ]
+    },
+    {
+      "token": "w\none handed weapon: adds (-) to (-) c",
+      "memberIds": [
+        "weeping-essence-of-suffering",
+        "wailing-essence-of-suffering"
       ]
     },
     {
@@ -18849,6 +20109,14 @@
       ]
     },
     {
+      "token": "y\none handed weapon: adds (-) to (-) co",
+      "memberIds": [
+        "screaming-essence-of-suffering",
+        "shrieking-essence-of-suffering",
+        "deafening-essence-of-suffering"
+      ]
+    },
+    {
       "token": "f t",
       "memberIds": [
         "muttering-essence-of-torment",
@@ -18857,6 +20125,45 @@
         "screaming-essence-of-torment",
         "shrieking-essence-of-torment",
         "deafening-essence-of-torment"
+      ]
+    },
+    {
+      "token": "w\none handed weapon: adds (-) to (-) l",
+      "memberIds": [
+        "muttering-essence-of-torment",
+        "weeping-essence-of-torment",
+        "wailing-essence-of-torment",
+        "wailing-essence-of-wrath"
+      ]
+    },
+    {
+      "token": "w\none handed weapon: adds (-) to (-) lightning damage t",
+      "memberIds": [
+        "muttering-essence-of-torment",
+        "weeping-essence-of-torment",
+        "wailing-essence-of-torment"
+      ]
+    },
+    {
+      "token": "s\ngloves: adds  t",
+      "memberIds": [
+        "muttering-essence-of-torment",
+        "weeping-essence-of-torment"
+      ]
+    },
+    {
+      "token": "d weapon: adds (-) to (-) l",
+      "memberIds": [
+        "muttering-essence-of-torment",
+        "weeping-essence-of-torment",
+        "wailing-essence-of-torment",
+        "screaming-essence-of-torment",
+        "shrieking-essence-of-torment",
+        "deafening-essence-of-torment",
+        "wailing-essence-of-wrath",
+        "screaming-essence-of-wrath",
+        "shrieking-essence-of-wrath",
+        "deafening-essence-of-wrath"
       ]
     },
     {
@@ -18876,6 +20183,14 @@
       ]
     },
     {
+      "token": "  to (-) l",
+      "memberIds": [
+        "muttering-essence-of-torment",
+        "weeping-essence-of-torment",
+        "weeping-essence-of-wrath"
+      ]
+    },
+    {
       "token": "ked\nquiver: adds (",
       "memberIds": [
         "weeping-essence-of-torment",
@@ -18886,9 +20201,28 @@
       ]
     },
     {
-      "token": "g damage to spells\ngloves: adds (",
+      "token": "s: adds (-) to (-) l",
       "memberIds": [
         "wailing-essence-of-torment",
+        "screaming-essence-of-torment",
+        "shrieking-essence-of-torment",
+        "deafening-essence-of-torment"
+      ]
+    },
+    {
+      "token": "y\none handed weapon: adds (-) to (-) l",
+      "memberIds": [
+        "screaming-essence-of-torment",
+        "shrieking-essence-of-torment",
+        "deafening-essence-of-torment",
+        "screaming-essence-of-wrath",
+        "shrieking-essence-of-wrath",
+        "deafening-essence-of-wrath"
+      ]
+    },
+    {
+      "token": "y\none handed weapon: adds (-) to (-) lightning damage t",
+      "memberIds": [
         "screaming-essence-of-torment",
         "shrieking-essence-of-torment",
         "deafening-essence-of-torment"
@@ -19051,9 +20385,17 @@
       ]
     },
     {
-      "token": "g damage\nother weapon: adds (",
+      "token": ") to (-) lightning damage\nb",
       "memberIds": [
         "wailing-essence-of-wrath",
+        "screaming-essence-of-wrath",
+        "shrieking-essence-of-wrath",
+        "deafening-essence-of-wrath"
+      ]
+    },
+    {
+      "token": "y\none handed weapon: adds (-) to (-) lightning damage\nb",
+      "memberIds": [
         "screaming-essence-of-wrath",
         "shrieking-essence-of-wrath",
         "deafening-essence-of-wrath"

@@ -4,24 +4,22 @@
  */
 
 import { getProfitabilityColor, getProfitabilityBackgroundColor } from '../utils/colorUtils.js';
-import { renderSelectionPanel } from '../components/essenceSelectionPanel.js';
 import { loadPreferences, savePreferences } from '../services/dataService.js';
 import { highlightCellForEssence, clearEssenceHighlight } from './essenceGridView.js';
+import { toggle as selectionToggle, has as selectionHas, subscribe as subscribeSelection, getCategoryId } from '../services/selectionState.js';
 
 let currentEssences = [];
 let currentCurrency = 'chaos';
 let currentSort = { field: 'value', direction: 'asc' };
-let selectedEssenceIds = new Set();
-let selectionPanelContainer = null;
+let selectionUnsubscribeFn = null;
 
 /**
  * Render list view with all Essences
  * @param {HTMLElement} container - Container element
  * @param {Array<Essence>} essences - Array of Essence objects
  * @param {string} currency - 'chaos' or 'divine'
- * @param {HTMLElement} panelContainer - Optional container for selection panel
  */
-export function renderEssenceList(container, essences, currency = 'chaos', panelContainer = null) {
+export function renderEssenceList(container, essences, currency = 'chaos') {
   if (!container) {
     console.error('Essence list view: missing container');
     return;
@@ -52,7 +50,6 @@ export function renderEssenceList(container, essences, currency = 'chaos', panel
   // Store current state (store filtered Essences)
   currentEssences = [...filteredEssences];
   currentCurrency = currency;
-  selectionPanelContainer = panelContainer;
 
   // Sort essences
   const sortedEssences = sortEssences(currentEssences, currentSort, currency);
@@ -86,50 +83,40 @@ export function renderEssenceList(container, essences, currency = 'chaos', panel
   setupSortListeners(container);
   setupSelectionListeners(container);
   setupListHoverListenersForGrid(container);
-
-  // Render selection panel if container provided
-  if (panelContainer) {
-    renderSelectionPanel(
-      panelContainer,
-      essences,
-      selectedEssenceIds,
-      handleSelectAll,
-      handleDeselectAll,
-      handleFilterByGroup
-    );
+  
+  // Subscribe to selection changes to update visual state
+  if (selectionUnsubscribeFn) {
+    selectionUnsubscribeFn();
   }
+  selectionUnsubscribeFn = subscribeSelection(() => {
+    // Only re-render if we're still on the essences category
+    if (getCategoryId() !== 'essences') return;
+    
+    // Re-render to update selection highlighting
+    const container = document.getElementById('list-view');
+    if (container && currentEssences.length > 0) {
+      renderEssenceList(container, currentEssences, currentCurrency);
+    }
+  });
 }
 
 /**
  * Handle select all
  */
 function handleSelectAll() {
-  currentEssences.forEach(essence => {
-    selectedEssenceIds.add(essence.id);
-    essence.setSelected(true);
+  import('../services/selectionState.js').then(({ selectAll }) => {
+    const allIds = currentEssences.map(e => e.id);
+    selectAll(allIds);
   });
-  saveSelectionState();
-  // Re-render to update visual state
-  const container = document.getElementById('list-view');
-  if (container) {
-    renderEssenceList(container, currentEssences, currentCurrency, selectionPanelContainer);
-  }
 }
 
 /**
  * Handle deselect all
  */
 function handleDeselectAll() {
-  selectedEssenceIds.clear();
-  currentEssences.forEach(essence => {
-    essence.setSelected(false);
+  import('../services/selectionState.js').then(({ clear }) => {
+    clear();
   });
-  saveSelectionState();
-  // Re-render to update visual state
-  const container = document.getElementById('list-view');
-  if (container) {
-    renderEssenceList(container, currentEssences, currentCurrency, selectionPanelContainer);
-  }
 }
 
 /**
@@ -161,8 +148,8 @@ function renderEssenceItem(essence, currency) {
   const status = essence.profitabilityStatus;
   const color = getProfitabilityColor(status);
   const bgColor = getProfitabilityBackgroundColor(status);
-  const isSelected = selectedEssenceIds.has(essence.id) || essence.selectedForReroll;
-  const selectedClass = isSelected ? 'selected' : '';
+  const isSelected = selectionHas(essence.id);
+  const selectedClass = isSelected ? 'item-selected' : '';
   const imagePath = `/assets/images/essences/${essence.id}.png`;
 
   return `
@@ -285,102 +272,35 @@ function setupListHoverListenersForGrid(container) {
  * @param {HTMLElement} container
  */
 function setupSelectionListeners(container) {
-  const essenceItems = container.querySelectorAll('.essence-item');
+  const essenceItems = container.querySelectorAll('.essence-item[data-essence-id]');
   
   essenceItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const essenceId = item.dataset.essenceId;
-      const wasSelected = selectedEssenceIds.has(essenceId);
-      toggleSelection(essenceId);
-      
-      // Update visual state
-      if (selectedEssenceIds.has(essenceId)) {
-        item.classList.add('selected');
-      } else {
-        item.classList.remove('selected');
-      }
+    const essenceId = item.getAttribute('data-essence-id');
+    if (!essenceId) return;
+    
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectionToggle(essenceId);
     });
   });
 }
 
 /**
- * Toggle selection for an Essence
- * @param {string} essenceId
- */
-function toggleSelection(essenceId) {
-  if (selectedEssenceIds.has(essenceId)) {
-    selectedEssenceIds.delete(essenceId);
-  } else {
-    selectedEssenceIds.add(essenceId);
-  }
-  
-  // Update Essence model
-  const essence = currentEssences.find(e => e.id === essenceId);
-  if (essence) {
-    essence.toggleSelection();
-  }
-  
-  // Save to LocalStorage
-  saveSelectionState();
-}
-
-/**
- * Load selection state from LocalStorage
+ * Load selection state from LocalStorage (legacy function, kept for compatibility)
  * @param {Array<Essence>} essences
  */
 export function loadSelectionState(essences) {
-  try {
-    const preferences = loadPreferences();
-    const savedIds = preferences.selectedEssenceIds || [];
-    
-    selectedEssenceIds.clear();
-    savedIds.forEach(id => selectedEssenceIds.add(id));
-    
-    // Apply selection state to Essence models
-    essences.forEach(essence => {
-      if (selectedEssenceIds.has(essence.id)) {
-        essence.setSelected(true);
-      } else {
-        essence.setSelected(false);
-      }
-    });
-  } catch (error) {
-    console.error('Error loading selection state:', error);
-    selectedEssenceIds.clear();
-  }
+  // Selection state is now managed by selectionState.js service
+  // This function is kept for compatibility but doesn't need to do anything
 }
 
 /**
- * Save selection state to LocalStorage
+ * Clean up selection subscription (call when switching away from essences category)
  */
-export function saveSelectionState() {
-  try {
-    const preferences = loadPreferences();
-    preferences.selectedEssenceIds = Array.from(selectedEssenceIds);
-    savePreferences(preferences);
-  } catch (error) {
-    console.error('Error saving selection state:', error);
-  }
-}
-
-/**
- * Get selected Essence IDs
- * @returns {Set<string>}
- */
-export function getSelectedEssenceIds() {
-  return new Set(selectedEssenceIds);
-}
-
-/**
- * Set selected Essence IDs
- * @param {Set<string>|Array<string>} ids
- */
-export function setSelectedEssenceIds(ids) {
-  selectedEssenceIds.clear();
-  if (ids instanceof Set) {
-    ids.forEach(id => selectedEssenceIds.add(id));
-  } else if (Array.isArray(ids)) {
-    ids.forEach(id => selectedEssenceIds.add(id));
+export function cleanupSelectionSubscription() {
+  if (selectionUnsubscribeFn) {
+    selectionUnsubscribeFn();
+    selectionUnsubscribeFn = null;
   }
 }
 

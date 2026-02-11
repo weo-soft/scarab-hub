@@ -4,24 +4,22 @@
  */
 
 import { getProfitabilityColor, getProfitabilityBackgroundColor } from '../utils/colorUtils.js';
-import { renderSelectionPanel } from '../components/fossilSelectionPanel.js';
 import { loadPreferences, savePreferences } from '../services/dataService.js';
 import { highlightCellForFossil, clearFossilHighlight } from './fossilGridView.js';
+import { toggle as selectionToggle, has as selectionHas, subscribe as subscribeSelection, getCategoryId } from '../services/selectionState.js';
 
 let currentFossils = [];
 let currentCurrency = 'chaos';
 let currentSort = { field: 'value', direction: 'asc' };
-let selectedFossilIds = new Set();
-let selectionPanelContainer = null;
+let selectionUnsubscribeFn = null;
 
 /**
  * Render list view with all Fossils
  * @param {HTMLElement} container - Container element
  * @param {Array<Fossil>} fossils - Array of Fossil objects
  * @param {string} currency - 'chaos' or 'divine'
- * @param {HTMLElement} panelContainer - Optional container for selection panel
  */
-export function renderFossilList(container, fossils, currency = 'chaos', panelContainer = null) {
+export function renderFossilList(container, fossils, currency = 'chaos') {
   if (!container) {
     console.error('Fossil list view: missing container');
     return;
@@ -51,7 +49,6 @@ export function renderFossilList(container, fossils, currency = 'chaos', panelCo
   // Store current state (store filtered Fossils)
   currentFossils = [...filteredFossils];
   currentCurrency = currency;
-  selectionPanelContainer = panelContainer;
 
   // Sort fossils
   const sortedFossils = sortFossils(currentFossils, currentSort, currency);
@@ -85,78 +82,40 @@ export function renderFossilList(container, fossils, currency = 'chaos', panelCo
   setupSortListeners(container);
   setupSelectionListeners(container);
   setupListHoverListenersForGrid(container);
-
-  // Render selection panel if container provided
-  if (panelContainer) {
-    // Get expected value from first Fossil (all have same expected value)
-    const expectedValue = fossils.length > 0 ? fossils[0].expectedValue : null;
-    renderSelectionPanel(
-      panelContainer,
-      fossils,
-      selectedFossilIds,
-      handleSelectAll,
-      handleDeselectAll,
-      expectedValue
-    );
+  
+  // Subscribe to selection changes to update visual state
+  if (selectionUnsubscribeFn) {
+    selectionUnsubscribeFn();
   }
+  selectionUnsubscribeFn = subscribeSelection(() => {
+    // Only re-render if we're still on the fossils category
+    if (getCategoryId() !== 'fossils') return;
+    
+    // Re-render to update selection highlighting
+    const container = document.getElementById('list-view');
+    if (container && currentFossils.length > 0) {
+      renderFossilList(container, currentFossils, currentCurrency);
+    }
+  });
 }
 
 /**
  * Handle select all
  */
 function handleSelectAll() {
-  currentFossils.forEach(fossil => {
-    selectedFossilIds.add(fossil.id);
-    fossil.setSelected(true);
+  import('../services/selectionState.js').then(({ selectAll }) => {
+    const allIds = currentFossils.map(f => f.id);
+    selectAll(allIds);
   });
-  saveSelectionState();
-  // Re-render to update visual state
-  const container = document.getElementById('list-view');
-  if (container) {
-    renderFossilList(container, currentFossils, currentCurrency, selectionPanelContainer);
-  }
-  
-  // Update selection panel with new expected outcome
-  if (selectionPanelContainer && currentFossils.length > 0) {
-    const expectedValue = currentFossils[0].expectedValue;
-    renderSelectionPanel(
-      selectionPanelContainer,
-      currentFossils,
-      selectedFossilIds,
-      handleSelectAll,
-      handleDeselectAll,
-      expectedValue
-    );
-  }
 }
 
 /**
  * Handle deselect all
  */
 function handleDeselectAll() {
-  selectedFossilIds.clear();
-  currentFossils.forEach(fossil => {
-    fossil.setSelected(false);
+  import('../services/selectionState.js').then(({ clear }) => {
+    clear();
   });
-  saveSelectionState();
-  // Re-render to update visual state
-  const container = document.getElementById('list-view');
-  if (container) {
-    renderFossilList(container, currentFossils, currentCurrency, selectionPanelContainer);
-  }
-  
-  // Update selection panel with new expected outcome
-  if (selectionPanelContainer && currentFossils.length > 0) {
-    const expectedValue = currentFossils[0].expectedValue;
-    renderSelectionPanel(
-      selectionPanelContainer,
-      currentFossils,
-      selectedFossilIds,
-      handleSelectAll,
-      handleDeselectAll,
-      expectedValue
-    );
-  }
 }
 
 /**
@@ -175,8 +134,8 @@ function renderFossilItem(fossil, currency) {
   const dropWeightDisplay = fossil.dropWeight != null
     ? (fossil.dropWeight * 100).toFixed(2) + '%'
     : 'N/A';
-  const isSelected = selectedFossilIds.has(fossil.id) || fossil.selectedForReroll;
-  const selectedClass = isSelected ? 'selected' : '';
+  const isSelected = selectionHas(fossil.id);
+  const selectedClass = isSelected ? 'item-selected' : '';
   const imagePath = `/assets/images/fossils/${fossil.id}.png`;
 
   return `
@@ -281,115 +240,35 @@ function setupListHoverListenersForGrid(container) {
  * @param {HTMLElement} container
  */
 function setupSelectionListeners(container) {
-  const fossilItems = container.querySelectorAll('.fossil-item');
+  const fossilItems = container.querySelectorAll('.fossil-item[data-fossil-id]');
   
   fossilItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const fossilId = item.dataset.fossilId;
-      const wasSelected = selectedFossilIds.has(fossilId);
-      toggleSelection(fossilId);
-      
-      // Update visual state
-      if (selectedFossilIds.has(fossilId)) {
-        item.classList.add('selected');
-      } else {
-        item.classList.remove('selected');
-      }
+    const fossilId = item.getAttribute('data-fossil-id');
+    if (!fossilId) return;
+    
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectionToggle(fossilId);
     });
   });
 }
 
 /**
- * Toggle selection for a Fossil
- * @param {string} fossilId
- */
-function toggleSelection(fossilId) {
-  if (selectedFossilIds.has(fossilId)) {
-    selectedFossilIds.delete(fossilId);
-  } else {
-    selectedFossilIds.add(fossilId);
-  }
-  
-  // Update Fossil model
-  const fossil = currentFossils.find(f => f.id === fossilId);
-  if (fossil) {
-    fossil.toggleSelection();
-  }
-  
-  // Save to LocalStorage
-  saveSelectionState();
-  
-  // Update selection panel with new expected outcome
-  if (selectionPanelContainer && currentFossils.length > 0) {
-    const expectedValue = currentFossils[0].expectedValue;
-    renderSelectionPanel(
-      selectionPanelContainer,
-      currentFossils,
-      selectedFossilIds,
-      handleSelectAll,
-      handleDeselectAll,
-      expectedValue
-    );
-  }
-}
-
-/**
- * Load selection state from LocalStorage
+ * Load selection state from LocalStorage (legacy function, kept for compatibility)
  * @param {Array<Fossil>} fossils
  */
 export function loadSelectionState(fossils) {
-  try {
-    const preferences = loadPreferences();
-    const savedIds = preferences.selectedFossilIds || [];
-    
-    selectedFossilIds.clear();
-    savedIds.forEach(id => selectedFossilIds.add(id));
-    
-    // Apply selection state to Fossil models
-    fossils.forEach(fossil => {
-      if (selectedFossilIds.has(fossil.id)) {
-        fossil.setSelected(true);
-      } else {
-        fossil.setSelected(false);
-      }
-    });
-  } catch (error) {
-    console.error('Error loading selection state:', error);
-    selectedFossilIds.clear();
-  }
+  // Selection state is now managed by selectionState.js service
+  // This function is kept for compatibility but doesn't need to do anything
 }
 
 /**
- * Save selection state to LocalStorage
+ * Clean up selection subscription (call when switching away from fossils category)
  */
-export function saveSelectionState() {
-  try {
-    const preferences = loadPreferences();
-    preferences.selectedFossilIds = Array.from(selectedFossilIds);
-    savePreferences(preferences);
-  } catch (error) {
-    console.error('Error saving selection state:', error);
-  }
-}
-
-/**
- * Get selected Fossil IDs
- * @returns {Set<string>}
- */
-export function getSelectedFossilIds() {
-  return new Set(selectedFossilIds);
-}
-
-/**
- * Set selected Fossil IDs
- * @param {Set<string>|Array<string>} ids
- */
-export function setSelectedFossilIds(ids) {
-  selectedFossilIds.clear();
-  if (ids instanceof Set) {
-    ids.forEach(id => selectedFossilIds.add(id));
-  } else if (Array.isArray(ids)) {
-    ids.forEach(id => selectedFossilIds.add(id));
+export function cleanupSelectionSubscription() {
+  if (selectionUnsubscribeFn) {
+    selectionUnsubscribeFn();
+    selectionUnsubscribeFn = null;
   }
 }
 

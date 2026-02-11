@@ -62,7 +62,7 @@ import { hideTooltip } from './js/utils/tooltip.js';
 import { initDataStatusOverlay, setOnRefreshCallback } from './js/components/dataStatusOverlay.js';
 import { renderLeagueSelector, setOnLeagueChange } from './js/components/leagueSelector.js';
 import { showErrorToast, showWarningToast } from './js/utils/toast.js';
-import { setCategory as setSelectionCategory, subscribe as subscribeSelection } from './js/services/selectionState.js';
+import { setCategory as setSelectionCategory, subscribe as subscribeSelection, toggle as selectionToggle, has as selectionHas } from './js/services/selectionState.js';
 import { buildCategoryItemNames, loadSusById } from './js/utils/categoryItemNames.js';
 import { renderRegexSearchDisplay } from './js/components/regexSearchDisplay.js';
 import { renderWelcomePage } from './js/components/welcomePage.js';
@@ -612,13 +612,137 @@ function renderUI(scarabs, threshold, currency) {
 }
 
 /**
- * Clear and hide the regex search display (used when switching away from scarabs)
+ * Clear and hide the regex search display (used when switching away from a category)
  */
 function clearRegexDisplay() {
   const regexSearchContainer = document.getElementById('regex-search-display');
   if (regexSearchContainer) {
     regexSearchContainer.style.display = 'none';
     regexSearchContainer.innerHTML = '';
+  }
+}
+
+/**
+ * Map category name to sus.json file name
+ * @param {string} category - Category name (e.g. 'scarabs', 'delirium-orbs')
+ * @returns {string|null} - SUS file name (e.g. 'scarabs', 'deliriumOrbs') or null if no sus.json file exists
+ */
+function getSusFileName(category) {
+  const categoryToSusFile = {
+    'scarabs': 'scarabs',
+    'essences': 'essences',
+    'fossils': 'fossils',
+    'catalysts': 'catalysts',
+    'oils': 'oils',
+    'delirium-orbs': 'deliriumOrbs',
+    'emblems': 'legionEmblems',
+    'tattoos': 'tattoos'
+  };
+  return categoryToSusFile[category] || null;
+}
+
+/**
+ * Get current items array for a category
+ * @param {string} category - Category name
+ * @returns {Array} - Array of items for the category
+ */
+function getCurrentItemsForCategory(category) {
+  const categoryToItems = {
+    'scarabs': currentScarabs,
+    'essences': currentEssences,
+    'fossils': currentFossils,
+    'catalysts': currentCatalysts,
+    'oils': currentOils,
+    'delirium-orbs': currentDeliriumOrbs,
+    'emblems': currentEmblems,
+    'tattoos': currentTattoos
+  };
+  return categoryToItems[category] || [];
+}
+
+/**
+ * Get profitable item IDs for a category (items with profitabilityStatus === 'profitable')
+ * @param {string} category - Category name
+ * @param {Array} items - Array of items for the category
+ * @returns {Array<string>} - Array of profitable item IDs
+ */
+function getProfitableIdsForCategory(category, items) {
+  if (!Array.isArray(items)) return [];
+  return items
+    .filter(item => item.profitabilityStatus === 'profitable')
+    .map(item => item.id || item.detailsId)
+    .filter(Boolean);
+}
+
+/**
+ * Setup regex component for a category (shared function for all categories)
+ * @param {string} category - Category name
+ * @param {Array} items - Array of items for the category
+ */
+async function setupRegexComponentForCategory(category, items) {
+  const regexSearchContainer = document.getElementById('regex-search-display');
+  const susFileName = getSusFileName(category);
+  
+  if (susFileName && items && items.length > 0) {
+    // Preserve existing selections when switching back to a category (don't clear)
+    setSelectionCategory(category, false);
+    if (regexSearchContainer) {
+      regexSearchContainer.style.display = 'block';
+      let susData = susCacheByCategory.get(susFileName);
+      if (susData === undefined) {
+        susData = await loadSusById(susFileName);
+        susCacheByCategory.set(susFileName, susData);
+      }
+      const categoryNames = buildCategoryItemNames(
+        category,
+        items,
+        susData.susById,
+        susData.groups
+      );
+      // Add profitable IDs if items have profitabilityStatus
+      const profitableIds = getProfitableIdsForCategory(category, items);
+      if (profitableIds.length > 0) {
+        categoryNames.profitableIds = profitableIds;
+      }
+      renderRegexSearchDisplay(regexSearchContainer, categoryNames);
+    }
+    if (!selectionSubscriptionActive) {
+      selectionUnsubscribeFn = subscribeSelection(() => {
+        // Only render view if we're still on a category with regex support
+        const currentSusFileName = getSusFileName(currentCategory);
+        const currentItems = getCurrentItemsForCategory(currentCategory);
+        if (currentSusFileName && currentItems.length > 0) {
+          // Re-setup regex component when selection changes
+          setupRegexComponentForCategory(currentCategory, currentItems);
+          
+          // Also update list view to reflect selection changes
+          const listViewContainer = document.getElementById('list-view');
+          if (listViewContainer) {
+            if (currentCategory === 'scarabs') {
+              renderCurrentView();
+            } else if (currentCategory === 'essences' && currentEssences.length > 0) {
+              renderEssenceList(listViewContainer, currentEssences, currentCurrency);
+            } else if (currentCategory === 'fossils' && currentFossils.length > 0) {
+              renderFossilList(listViewContainer, currentFossils, currentCurrency);
+            } else if (currentCategory === 'catalysts' && currentCatalysts.length > 0) {
+              renderCatalystList(listViewContainer);
+            } else if (currentCategory === 'oils' && currentOils.length > 0) {
+              renderOilList(listViewContainer);
+            } else if (currentCategory === 'delirium-orbs' && currentDeliriumOrbs.length > 0) {
+              renderDeliriumOrbList(listViewContainer);
+            } else if (currentCategory === 'emblems' && currentEmblems.length > 0) {
+              renderEmblemList(listViewContainer);
+            } else if (currentCategory === 'tattoos' && currentTattoos.length > 0) {
+              renderTattooList(listViewContainer);
+            }
+          }
+        }
+      });
+      selectionSubscriptionActive = true;
+    }
+  } else {
+    // Clear regex display when not on a category with regex support
+    clearRegexDisplay();
   }
 }
 
@@ -642,48 +766,9 @@ async function renderCurrentView() {
     clearFilteredScarabs();
   }
 
-  // Regex search: for scarabs, set selection category and show regex display (use SUS tokens when available)
-  const regexSearchContainer = document.getElementById('regex-search-display');
-  if (currentCategory === 'scarabs' && currentScarabs.length > 0) {
-    // Preserve existing selections when switching back to scarabs (don't clear)
-    setSelectionCategory('scarabs', false);
-    if (regexSearchContainer) {
-      regexSearchContainer.style.display = 'block';
-      let susData = susCacheByCategory.get('scarabs');
-      if (susData === undefined) {
-        susData = await loadSusById('scarabs');
-        susCacheByCategory.set('scarabs', susData);
-      }
-      const categoryNames = buildCategoryItemNames(
-        'scarabs',
-        currentScarabs,
-        susData.susById,
-        susData.groups
-      );
-      categoryNames.profitableIds = currentScarabs
-        .filter(s => s.profitabilityStatus === 'profitable')
-        .map(s => s.id);
-      renderRegexSearchDisplay(regexSearchContainer, categoryNames);
-    }
-    if (!selectionSubscriptionActive) {
-      selectionUnsubscribeFn = subscribeSelection(() => {
-        // Only render scarab view if we're still on the scarabs category
-        if (currentCategory === 'scarabs') {
-          renderCurrentView();
-        }
-      });
-      selectionSubscriptionActive = true;
-    }
-  } else {
-    // Unsubscribe from selection changes when not on scarabs category
-    if (selectionUnsubscribeFn) {
-      selectionUnsubscribeFn();
-      selectionUnsubscribeFn = null;
-      selectionSubscriptionActive = false;
-    }
-    // Clear regex display when not on scarabs category
-    clearRegexDisplay();
-  }
+  // Regex search: for all categories with sus.json files, set selection category and show regex display (use SUS tokens when available)
+  const currentItems = getCurrentItemsForCategory(currentCategory);
+  await setupRegexComponentForCategory(currentCategory, currentItems);
 
   // Always show both views
   if (listViewContainer) {
@@ -834,16 +919,6 @@ async function handleCurrencyChange(currency) {
   
   // Handle Essence category
   if (currentCategory === 'essences') {
-    // Hide/show selection panels
-    const essenceSelectionPanel = document.getElementById('essence-selection-panel');
-    const fossilSelectionPanel = document.getElementById('fossil-selection-panel');
-    if (essenceSelectionPanel) {
-      essenceSelectionPanel.style.display = '';
-    }
-    if (fossilSelectionPanel) {
-      fossilSelectionPanel.style.display = 'none';
-    }
-    
     // Update Essence threshold display
     const thresholdContainer = document.getElementById('threshold-display');
     if (thresholdContainer && currentEssenceThresholds.size > 0) {
@@ -856,24 +931,13 @@ async function handleCurrencyChange(currency) {
     // Update Essence list view
     const listViewContainer = document.getElementById('list-view');
     if (listViewContainer && currentEssences.length > 0) {
-      const selectionPanelContainer = document.getElementById('essence-selection-panel');
-      renderEssenceList(listViewContainer, currentEssences, currency, selectionPanelContainer);
+      renderEssenceList(listViewContainer, currentEssences, currency);
     }
     return;
   }
   
   // Handle Fossil category
   if (currentCategory === 'fossils') {
-    // Hide/show selection panels
-    const essenceSelectionPanel = document.getElementById('essence-selection-panel');
-    const fossilSelectionPanel = document.getElementById('fossil-selection-panel');
-    if (essenceSelectionPanel) {
-      essenceSelectionPanel.style.display = 'none';
-    }
-    if (fossilSelectionPanel) {
-      fossilSelectionPanel.style.display = '';
-    }
-    
     // Update Fossil threshold display
     const thresholdContainer = document.getElementById('threshold-display');
     if (thresholdContainer && currentFossilThreshold) {
@@ -888,8 +952,7 @@ async function handleCurrencyChange(currency) {
     // Update Fossil list view
     const listViewContainer = document.getElementById('list-view');
     if (listViewContainer && currentFossils.length > 0) {
-      const selectionPanelContainer = document.getElementById('fossil-selection-panel');
-      renderFossilList(listViewContainer, currentFossils, currency, selectionPanelContainer);
+      renderFossilList(listViewContainer, currentFossils, currency);
     }
     return;
   }
@@ -1071,8 +1134,8 @@ async function renderEssenceUI(essences, thresholds, rerollCost, currency, allEs
   currentEssenceThresholds = thresholds;
   currentCurrency = currency;
   
-  // Clear regex display (only for scarabs)
-  clearRegexDisplay();
+  // Setup regex component for essences
+  await setupRegexComponentForCategory('essences', essences);
   
   // Load selection state from LocalStorage (if available)
   const { loadSelectionState } = await import('./js/views/essenceListView.js');
@@ -1080,9 +1143,8 @@ async function renderEssenceUI(essences, thresholds, rerollCost, currency, allEs
   
   // Render Essence list view
   const listViewContainer = document.getElementById('list-view');
-  const selectionPanelContainer = document.getElementById('essence-selection-panel');
   if (listViewContainer) {
-    renderEssenceList(listViewContainer, essences, currency, selectionPanelContainer);
+    renderEssenceList(listViewContainer, essences, currency);
   }
   
   // Show grid view for Essences (use all essences so every slot shows the correct essence in the right position)
@@ -1409,27 +1471,17 @@ async function renderFossilUI(fossils, threshold, rerollCost, currency, wildLife
   currentFossilThreshold = threshold;
   currentCurrency = currency;
   
-  // Clear regex display (only for scarabs)
-  clearRegexDisplay();
+  // Setup regex component for fossils
+  await setupRegexComponentForCategory('fossils', fossils);
   
   // Load selection state from LocalStorage (if available)
   const { loadSelectionState } = await import('./js/views/fossilListView.js');
   loadSelectionState(fossils);
   
-  // Hide/show selection panels based on category
-  const essenceSelectionPanel = document.getElementById('essence-selection-panel');
-  const fossilSelectionPanel = document.getElementById('fossil-selection-panel');
-  if (essenceSelectionPanel) {
-    essenceSelectionPanel.style.display = 'none';
-  }
-  if (fossilSelectionPanel) {
-    fossilSelectionPanel.style.display = '';
-  }
-  
   // Render Fossil list view
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) {
-    renderFossilList(listViewContainer, fossils, currency, fossilSelectionPanel);
+    renderFossilList(listViewContainer, fossils, currency);
   }
   
   const gridViewContainer = document.getElementById('grid-view');
@@ -1717,7 +1769,9 @@ function renderCatalystList(container) {
     const color = getProfitabilityColor(status);
     const bgColor = getProfitabilityBackgroundColor(status);
     const imagePath = `/assets/images/catalysts/${c.id}.png`;
-    return `<div class="catalyst-list-row" data-id="${c.id}" style="border-left: 4px solid ${color}; background-color: ${bgColor};">
+    const isSelected = selectionHas(c.id);
+    const selectedClass = isSelected ? 'item-selected' : '';
+    return `<div class="catalyst-list-row ${selectedClass}" data-id="${c.id}" style="border-left: 4px solid ${color}; background-color: ${bgColor};">
       <img class="catalyst-image" src="${imagePath}" alt="${c.name}" onerror="this.style.display='none'">
       <span class="catalyst-name">${c.name}</span>
       <span class="catalyst-weight">${weightStr}</span>
@@ -1739,6 +1793,24 @@ function renderCatalystList(container) {
     currentCatalystSort.field = field;
     currentCatalystSort.direction = direction;
   }, () => renderCatalystList(container));
+  
+  // Setup selection listeners
+  const catalystItems = container.querySelectorAll('.catalyst-list-row[data-id]');
+  catalystItems.forEach(item => {
+    const catalystId = item.getAttribute('data-id');
+    if (!catalystId) return;
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectionToggle(catalystId);
+      // Update visual state immediately
+      const isSelected = selectionHas(catalystId);
+      if (isSelected) {
+        item.classList.add('item-selected');
+      } else {
+        item.classList.remove('item-selected');
+      }
+    });
+  });
 }
 
 function renderOilList(container) {
@@ -1750,7 +1822,9 @@ function renderOilList(container) {
     const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
     const weightStr = o.dropWeight != null ? (o.dropWeight * 100).toFixed(2) + '%' : '—';
     const imagePath = `/assets/images/oils/${o.id}.png`;
-    return `<div class="oil-list-row" data-id="${o.id}">
+    const isSelected = selectionHas(o.id);
+    const selectedClass = isSelected ? 'item-selected' : '';
+    return `<div class="oil-list-row ${selectedClass}" data-id="${o.id}">
       <img class="oil-image" src="${imagePath}" alt="${o.name}" onerror="this.style.display='none'">
       <span class="oil-name">${o.name}</span>
       <span class="oil-weight">${weightStr}</span>
@@ -1772,6 +1846,24 @@ function renderOilList(container) {
     currentOilSort.field = field;
     currentOilSort.direction = direction;
   }, () => renderOilList(container));
+  
+  // Setup selection listeners
+  const oilItems = container.querySelectorAll('.oil-list-row[data-id]');
+  oilItems.forEach(item => {
+    const oilId = item.getAttribute('data-id');
+    if (!oilId) return;
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectionToggle(oilId);
+      // Update visual state immediately
+      const isSelected = selectionHas(oilId);
+      if (isSelected) {
+        item.classList.add('item-selected');
+      } else {
+        item.classList.remove('item-selected');
+      }
+    });
+  });
 }
 
 function renderDeliriumOrbList(container) {
@@ -1786,7 +1878,9 @@ function renderDeliriumOrbList(container) {
     const status = o.profitabilityStatus || 'unknown';
     const color = getProfitabilityColor(status);
     const bgColor = getProfitabilityBackgroundColor(status);
-    return `<div class="delirium-orb-list-row" data-id="${o.id}" style="border-left: 4px solid ${color}; background-color: ${bgColor};">
+    const isSelected = selectionHas(o.id);
+    const selectedClass = isSelected ? 'item-selected' : '';
+    return `<div class="delirium-orb-list-row ${selectedClass}" data-id="${o.id}" style="border-left: 4px solid ${color}; background-color: ${bgColor};">
       <img class="delirium-orb-image" src="${imagePath}" alt="${o.name}" onerror="this.style.display='none'">
       <span class="delirium-orb-name">${o.name}</span>
       <span class="delirium-orb-weight">${weightStr}</span>
@@ -1808,6 +1902,24 @@ function renderDeliriumOrbList(container) {
     currentDeliriumOrbSort.field = field;
     currentDeliriumOrbSort.direction = direction;
   }, () => renderDeliriumOrbList(container));
+  
+  // Setup selection listeners
+  const orbItems = container.querySelectorAll('.delirium-orb-list-row[data-id]');
+  orbItems.forEach(item => {
+    const orbId = item.getAttribute('data-id');
+    if (!orbId) return;
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectionToggle(orbId);
+      // Update visual state immediately
+      const isSelected = selectionHas(orbId);
+      if (isSelected) {
+        item.classList.add('item-selected');
+      } else {
+        item.classList.remove('item-selected');
+      }
+    });
+  });
 }
 
 function renderEmblemList(container) {
@@ -1819,7 +1931,9 @@ function renderEmblemList(container) {
     const value = currency === 'divine' ? (o.divineValue != null ? o.divineValue.toFixed(4) : '—') : (o.chaosValue != null ? o.chaosValue.toFixed(2) : '—');
     const weightStr = o.dropWeight != null ? (o.dropWeight * 100).toFixed(2) + '%' : '—';
     const imagePath = `/assets/images/legionEmblems/${o.id}.png`;
-    return `<div class="emblem-list-row" data-id="${o.id}">
+    const isSelected = selectionHas(o.id);
+    const selectedClass = isSelected ? 'item-selected' : '';
+    return `<div class="emblem-list-row ${selectedClass}" data-id="${o.id}">
       <img class="emblem-image" src="${imagePath}" alt="${o.name}" onerror="this.style.display='none'">
       <span class="emblem-name">${o.name}</span>
       <span class="emblem-weight">${weightStr}</span>
@@ -1841,6 +1955,24 @@ function renderEmblemList(container) {
     currentEmblemSort.field = field;
     currentEmblemSort.direction = direction;
   }, () => renderEmblemList(container));
+  
+  // Setup selection listeners
+  const emblemItems = container.querySelectorAll('.emblem-list-row[data-id]');
+  emblemItems.forEach(item => {
+    const emblemId = item.getAttribute('data-id');
+    if (!emblemId) return;
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectionToggle(emblemId);
+      // Update visual state immediately
+      const isSelected = selectionHas(emblemId);
+      if (isSelected) {
+        item.classList.add('item-selected');
+      } else {
+        item.classList.remove('item-selected');
+      }
+    });
+  });
 }
 
 function renderTattooList(container) {
@@ -1855,7 +1987,9 @@ function renderTattooList(container) {
     const status = t.profitabilityStatus || 'unknown';
     const color = getProfitabilityColor(status);
     const bgColor = getProfitabilityBackgroundColor(status);
-    return `<div class="tattoo-list-row" data-id="${t.id}" style="border-left: 4px solid ${color}; background-color: ${bgColor};">
+    const isSelected = selectionHas(t.id);
+    const selectedClass = isSelected ? 'item-selected' : '';
+    return `<div class="tattoo-list-row ${selectedClass}" data-id="${t.id}" style="border-left: 4px solid ${color}; background-color: ${bgColor};">
       <img class="tattoo-image" src="${imagePath}" alt="${t.name}" onerror="this.style.display='none'">
       <span class="tattoo-name">${t.name}</span>
       <span class="tattoo-weight">${weightStr}</span>
@@ -1876,6 +2010,24 @@ function renderTattooList(container) {
     currentTattooSort.field = field;
     currentTattooSort.direction = direction;
   }, () => renderTattooList(container));
+  
+  // Setup selection listeners
+  const tattooItems = container.querySelectorAll('.tattoo-list-row[data-id]');
+  tattooItems.forEach(item => {
+    const tattooId = item.getAttribute('data-id');
+    if (!tattooId) return;
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectionToggle(tattooId);
+      // Update visual state immediately
+      const isSelected = selectionHas(tattooId);
+      if (isSelected) {
+        item.classList.add('item-selected');
+      } else {
+        item.classList.remove('item-selected');
+      }
+    });
+  });
 }
 
 /**
@@ -1914,8 +2066,8 @@ async function renderCatalystUI(catalysts, currency) {
   currentCatalysts = catalystInstances;
   currentCurrency = currency;
 
-  // Clear regex display (only for scarabs)
-  clearRegexDisplay();
+  // Setup regex component for catalysts
+  await setupRegexComponentForCategory('catalysts', catalystInstances);
 
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) {
@@ -1969,8 +2121,8 @@ async function renderOilUI(oils, currency) {
   currentOils = oils;
   currentCurrency = currency;
 
-  // Clear regex display (only for scarabs)
-  clearRegexDisplay();
+  // Setup regex component for oils
+  await setupRegexComponentForCategory('oils', oils);
 
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) {
@@ -2022,8 +2174,8 @@ async function renderDeliriumOrbUI(items, currency, rerollCost = null, primalLif
   currentDeliriumOrbs = items;
   currentCurrency = currency;
 
-  // Clear regex display (only for scarabs)
-  clearRegexDisplay();
+  // Setup regex component for delirium-orbs
+  await setupRegexComponentForCategory('delirium-orbs', items);
 
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) {
@@ -2077,8 +2229,8 @@ async function renderEmblemUI(items, currency) {
   currentEmblems = items;
   currentCurrency = currency;
 
-  // Clear regex display (only for scarabs)
-  clearRegexDisplay();
+  // Setup regex component for emblems
+  await setupRegexComponentForCategory('emblems', items);
 
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) {
@@ -2146,8 +2298,8 @@ async function renderTattooUI(items, currency) {
   currentTattoos = tattooInstances;
   currentCurrency = currency;
 
-  // Clear regex display (only for scarabs)
-  clearRegexDisplay();
+  // Setup regex component for tattoos
+  await setupRegexComponentForCategory('tattoos', tattooInstances);
 
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) renderTattooList(listViewContainer);
@@ -2253,11 +2405,31 @@ async function handleRouteChange(category, page) {
   const categoryChanged = comingFromRoot || currentCategory !== category;
   const pageChanged = comingFromRoot || currentPage === null || currentPage !== page;
   
-  // Unsubscribe from selection changes if switching away from scarabs
-  if (categoryChanged && currentCategory === 'scarabs' && selectionUnsubscribeFn) {
-    selectionUnsubscribeFn();
-    selectionUnsubscribeFn = null;
-    selectionSubscriptionActive = false;
+  // Unsubscribe from selection changes if switching away from a category with regex support
+  if (categoryChanged && selectionUnsubscribeFn) {
+    const previousSusFileName = getSusFileName(currentCategory);
+    if (previousSusFileName) {
+      selectionUnsubscribeFn();
+      selectionUnsubscribeFn = null;
+      selectionSubscriptionActive = false;
+    }
+  }
+  
+  // Clean up list view subscriptions when switching categories
+  if (categoryChanged) {
+    if (currentCategory === 'essences') {
+      import('./js/views/essenceListView.js').then(module => {
+        if (module.cleanupSelectionSubscription) {
+          module.cleanupSelectionSubscription();
+        }
+      });
+    } else if (currentCategory === 'fossils') {
+      import('./js/views/fossilListView.js').then(module => {
+        if (module.cleanupSelectionSubscription) {
+          module.cleanupSelectionSubscription();
+        }
+      });
+    }
   }
   
   currentCategory = category;

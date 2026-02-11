@@ -276,6 +276,29 @@
       ]
     },
     {
+      "token": "",
+      "memberIds": [
+        "runegraft-of-bellows",
+        "runegraft-of-blasphemy",
+        "runegraft-of-gemcraft",
+        "runegraft-of-loyalty",
+        "runegraft-of-quaffing",
+        "runegraft-of-refraction",
+        "runegraft-of-restitching",
+        "runegraft-of-the-bound",
+        "runegraft-of-the-combatant",
+        "runegraft-of-the-fortress",
+        "runegraft-of-the-jeweller",
+        "runegraft-of-the-river",
+        "runegraft-of-the-sinistral",
+        "runegraft-of-the-soulwick",
+        "runegraft-of-the-warp",
+        "runegraft-of-the-witchmark",
+        "runegraft-of-time",
+        "runegraft-of-treachery"
+      ]
+    },
+    {
       "token": "%",
       "memberIds": [
         "runegraft-of-bellows",
@@ -1516,6 +1539,13 @@
       ]
     },
     {
+      "token": "+ t",
+      "memberIds": [
+        "runegraft-of-gemcraft",
+        "runegraft-of-refraction"
+      ]
+    },
+    {
       "token": " l",
       "memberIds": [
         "runegraft-of-gemcraft",
@@ -2270,6 +2300,22 @@
       ]
     },
     {
+      "token": "\n%",
+      "memberIds": [
+        "runegraft-of-quaffing",
+        "runegraft-of-the-bound",
+        "runegraft-of-the-fortress",
+        "runegraft-of-treachery"
+      ]
+    },
+    {
+      "token": "\n% r",
+      "memberIds": [
+        "runegraft-of-quaffing",
+        "runegraft-of-the-bound"
+      ]
+    },
+    {
       "token": "uc",
       "memberIds": [
         "runegraft-of-quaffing",
@@ -2769,6 +2815,14 @@
       ]
     },
     {
+      "token": "s\n%",
+      "memberIds": [
+        "runegraft-of-the-bound",
+        "runegraft-of-the-fortress",
+        "runegraft-of-treachery"
+      ]
+    },
+    {
       "token": " co",
       "memberIds": [
         "runegraft-of-the-combatant",
@@ -2979,7 +3033,7 @@
       ]
     },
     {
-      "token": "e w",
+      "token": " %",
       "memberIds": [
         "runegraft-of-the-warp",
         "runegraft-of-the-witchmark"

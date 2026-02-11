@@ -9766,6 +9766,143 @@
       ]
     },
     {
+      "token": " %",
+      "memberIds": [
+        "abyss-scarab-of-multitudes",
+        "anarchy-scarab-of-gigantification",
+        "anarchy-scarab-of-partnership",
+        "betrayal-scarab-of-reinforcements",
+        "beyond-scarab-of-haemophilia",
+        "beyond-scarab-of-resurgence",
+        "blight-scarab-of-blooming",
+        "breach-scarab-of-resonant-cascade",
+        "breach-scarab-of-splintering",
+        "cartography-scarab-of-the-multitude",
+        "delirium-scarab-of-mania",
+        "divination-scarab-of-plenty",
+        "divination-scarab-of-the-cloister",
+        "expedition-scarab-of-runefinding",
+        "expedition-scarab-of-verisium-powder",
+        "harbinger-scarab-of-regency",
+        "harvest-scarab-of-doubling",
+        "horned-scarab-of-bloodlines",
+        "horned-scarab-of-glittering",
+        "horned-scarab-of-pandemonium",
+        "incursion-scarab-of-champions",
+        "influencing-scarab-of-hordes",
+        "ritual-scarab-of-abundance",
+        "ritual-scarab-of-wisps",
+        "scarab-of-divinity",
+        "scarab-of-stability",
+        "sulphite-scarab",
+        "sulphite-scarab-of-fumes",
+        "titanic-scarab",
+        "titanic-scarab-of-treasures",
+        "torment-scarab",
+        "ultimatum-scarab-of-bribing"
+      ]
+    },
+    {
+      "token": " % i",
+      "memberIds": [
+        "abyss-scarab-of-multitudes",
+        "betrayal-scarab-of-reinforcements",
+        "beyond-scarab-of-haemophilia",
+        "beyond-scarab-of-resurgence",
+        "blight-scarab-of-blooming",
+        "cartography-scarab-of-the-multitude",
+        "divination-scarab-of-plenty",
+        "expedition-scarab-of-runefinding",
+        "expedition-scarab-of-verisium-powder",
+        "horned-scarab-of-bloodlines",
+        "incursion-scarab-of-champions",
+        "influencing-scarab-of-hordes",
+        "ritual-scarab-of-abundance",
+        "ritual-scarab-of-wisps",
+        "scarab-of-divinity",
+        "sulphite-scarab-of-fumes",
+        "titanic-scarab",
+        "titanic-scarab-of-treasures",
+        "ultimatum-scarab-of-bribing"
+      ]
+    },
+    {
+      "token": " % increased m",
+      "memberIds": [
+        "abyss-scarab-of-multitudes",
+        "beyond-scarab-of-haemophilia",
+        "cartography-scarab-of-the-multitude",
+        "horned-scarab-of-bloodlines"
+      ]
+    },
+    {
+      "token": "",
+      "memberIds": [
+        "abyss-scarab-of-multitudes",
+        "ambush-scarab",
+        "ambush-scarab-of-hidden-compartments",
+        "ambush-scarab-of-potency",
+        "anarchy-scarab",
+        "anarchy-scarab-of-gigantification",
+        "anarchy-scarab-of-partnership",
+        "bestiary-scarab-of-the-herd",
+        "betrayal-scarab-of-reinforcements",
+        "betrayal-scarab-of-the-allflame",
+        "beyond-scarab-of-haemophilia",
+        "beyond-scarab-of-resurgence",
+        "beyond-scarab-of-the-invasion",
+        "blight-scarab-of-blooming",
+        "breach-scarab",
+        "breach-scarab-of-resonant-cascade",
+        "breach-scarab-of-snares",
+        "breach-scarab-of-splintering",
+        "cartography-scarab-of-corruption",
+        "cartography-scarab-of-escalation",
+        "cartography-scarab-of-risk",
+        "cartography-scarab-of-the-multitude",
+        "delirium-scarab-of-mania",
+        "delirium-scarab-of-neuroses",
+        "delirium-scarab-of-paranoia",
+        "divination-scarab-of-plenty",
+        "divination-scarab-of-the-cloister",
+        "domination-scarab",
+        "domination-scarab-of-apparitions",
+        "essence-scarab",
+        "expedition-scarab-of-archaeology",
+        "expedition-scarab-of-runefinding",
+        "expedition-scarab-of-verisium-powder",
+        "harbinger-scarab",
+        "harbinger-scarab-of-regency",
+        "harvest-scarab-of-cornucopia",
+        "harvest-scarab-of-doubling",
+        "horned-scarab-of-bloodlines",
+        "horned-scarab-of-glittering",
+        "horned-scarab-of-nemeses",
+        "horned-scarab-of-pandemonium",
+        "incursion-scarab-of-champions",
+        "incursion-scarab-of-invasion",
+        "influencing-scarab-of-conversion",
+        "influencing-scarab-of-hordes",
+        "legion-scarab-of-officers",
+        "ritual-scarab-of-abundance",
+        "ritual-scarab-of-selectiveness",
+        "ritual-scarab-of-wisps",
+        "scarab-of-adversaries",
+        "scarab-of-divinity",
+        "scarab-of-monstrous-lineage",
+        "scarab-of-stability",
+        "scarab-of-wisps",
+        "sulphite-scarab",
+        "sulphite-scarab-of-fumes",
+        "titanic-scarab",
+        "titanic-scarab-of-legend",
+        "titanic-scarab-of-treasures",
+        "torment-scarab",
+        "torment-scarab-of-possession",
+        "ultimatum-scarab-of-bribing"
+      ]
+    },
+    {
       "token": "%",
       "memberIds": [
         "abyss-scarab-of-multitudes",
@@ -13888,6 +14025,84 @@
         "breach-scarab-of-resonant-cascade",
         "breach-scarab-of-snares",
         "breach-scarab-of-splintering"
+      ]
+    },
+    {
+      "token": "ns  a",
+      "memberIds": [
+        "ambush-scarab",
+        "anarchy-scarab",
+        "bestiary-scarab-of-the-herd",
+        "breach-scarab",
+        "domination-scarab",
+        "domination-scarab-of-apparitions",
+        "essence-scarab",
+        "harbinger-scarab",
+        "scarab-of-adversaries"
+      ]
+    },
+    {
+      "token": "s  additional s",
+      "memberIds": [
+        "ambush-scarab",
+        "domination-scarab"
+      ]
+    },
+    {
+      "token": "s  a",
+      "memberIds": [
+        "ambush-scarab",
+        "anarchy-scarab",
+        "bestiary-scarab-of-the-herd",
+        "breach-scarab",
+        "cartography-scarab-of-risk",
+        "domination-scarab",
+        "domination-scarab-of-apparitions",
+        "essence-scarab",
+        "harbinger-scarab",
+        "ritual-scarab-of-selectiveness",
+        "scarab-of-adversaries"
+      ]
+    },
+    {
+      "token": "  a",
+      "memberIds": [
+        "ambush-scarab",
+        "anarchy-scarab",
+        "bestiary-scarab-of-the-herd",
+        "beyond-scarab-of-the-invasion",
+        "blight-scarab-of-blooming",
+        "breach-scarab",
+        "breach-scarab-of-snares",
+        "cartography-scarab-of-risk",
+        "cartography-scarab-of-the-multitude",
+        "delirium-scarab-of-paranoia",
+        "divination-scarab-of-plenty",
+        "divination-scarab-of-the-cloister",
+        "domination-scarab",
+        "domination-scarab-of-apparitions",
+        "essence-scarab",
+        "expedition-scarab-of-archaeology",
+        "harbinger-scarab",
+        "harvest-scarab-of-cornucopia",
+        "horned-scarab-of-nemeses",
+        "incursion-scarab-of-invasion",
+        "legion-scarab-of-officers",
+        "ritual-scarab-of-selectiveness",
+        "scarab-of-adversaries",
+        "scarab-of-divinity",
+        "titanic-scarab-of-legend",
+        "torment-scarab",
+        "ultimatum-scarab-of-bribing"
+      ]
+    },
+    {
+      "token": "  additional s",
+      "memberIds": [
+        "ambush-scarab",
+        "domination-scarab",
+        "expedition-scarab-of-archaeology",
+        "legion-scarab-of-officers"
       ]
     },
     {
@@ -18174,6 +18389,39 @@
       ]
     },
     {
+      "token": "ns  additional r",
+      "memberIds": [
+        "anarchy-scarab",
+        "bestiary-scarab-of-the-herd"
+      ]
+    },
+    {
+      "token": "s  additional r",
+      "memberIds": [
+        "anarchy-scarab",
+        "bestiary-scarab-of-the-herd",
+        "cartography-scarab-of-risk"
+      ]
+    },
+    {
+      "token": "  additional r",
+      "memberIds": [
+        "anarchy-scarab",
+        "bestiary-scarab-of-the-herd",
+        "cartography-scarab-of-risk",
+        "delirium-scarab-of-paranoia",
+        "scarab-of-divinity",
+        "ultimatum-scarab-of-bribing"
+      ]
+    },
+    {
+      "token": "l ro",
+      "memberIds": [
+        "anarchy-scarab",
+        "ultimatum-scarab-of-bribing"
+      ]
+    },
+    {
       "token": "al r",
       "memberIds": [
         "anarchy-scarab",
@@ -18182,13 +18430,6 @@
         "delirium-scarab-of-paranoia",
         "scarab-of-divinity",
         "titanic-scarab-of-treasures",
-        "ultimatum-scarab-of-bribing"
-      ]
-    },
-    {
-      "token": "l ro",
-      "memberIds": [
-        "anarchy-scarab",
         "ultimatum-scarab-of-bribing"
       ]
     },
@@ -18724,6 +18965,37 @@
       ]
     },
     {
+      "token": "n area have a %",
+      "memberIds": [
+        "anarchy-scarab-of-gigantification",
+        "anarchy-scarab-of-partnership",
+        "beyond-scarab-of-haemophilia",
+        "harbinger-scarab-of-regency",
+        "horned-scarab-of-pandemonium",
+        "incursion-scarab-of-champions",
+        "torment-scarab"
+      ]
+    },
+    {
+      "token": "n area have a % chance t",
+      "memberIds": [
+        "anarchy-scarab-of-gigantification",
+        "anarchy-scarab-of-partnership",
+        "beyond-scarab-of-haemophilia",
+        "harbinger-scarab-of-regency",
+        "horned-scarab-of-pandemonium",
+        "torment-scarab"
+      ]
+    },
+    {
+      "token": "be rep",
+      "memberIds": [
+        "anarchy-scarab-of-gigantification",
+        "harbinger-scarab-of-regency",
+        "horned-scarab-of-pandemonium"
+      ]
+    },
+    {
       "token": "n area h",
       "memberIds": [
         "anarchy-scarab-of-gigantification",
@@ -18891,6 +19163,31 @@
       ]
     },
     {
+      "token": "a %",
+      "memberIds": [
+        "anarchy-scarab-of-gigantification",
+        "anarchy-scarab-of-partnership",
+        "beyond-scarab-of-haemophilia",
+        "harbinger-scarab-of-regency",
+        "horned-scarab-of-pandemonium",
+        "incursion-scarab-of-champions",
+        "scarab-of-stability",
+        "torment-scarab"
+      ]
+    },
+    {
+      "token": "% chance t",
+      "memberIds": [
+        "anarchy-scarab-of-gigantification",
+        "anarchy-scarab-of-partnership",
+        "beyond-scarab-of-haemophilia",
+        "harbinger-scarab-of-regency",
+        "horned-scarab-of-pandemonium",
+        "scarab-of-stability",
+        "torment-scarab"
+      ]
+    },
+    {
       "token": "a h",
       "memberIds": [
         "anarchy-scarab-of-gigantification",
@@ -18942,26 +19239,6 @@
         "titanic-scarab-of-treasures",
         "torment-scarab",
         "torment-scarab-of-possession"
-      ]
-    },
-    {
-      "token": "% chance t",
-      "memberIds": [
-        "anarchy-scarab-of-gigantification",
-        "anarchy-scarab-of-partnership",
-        "beyond-scarab-of-haemophilia",
-        "harbinger-scarab-of-regency",
-        "horned-scarab-of-pandemonium",
-        "scarab-of-stability",
-        "torment-scarab"
-      ]
-    },
-    {
-      "token": "be rep",
-      "memberIds": [
-        "anarchy-scarab-of-gigantification",
-        "harbinger-scarab-of-regency",
-        "horned-scarab-of-pandemonium"
       ]
     },
     {
@@ -21173,6 +21450,13 @@
       ]
     },
     {
+      "token": "if i",
+      "memberIds": [
+        "bestiary-scarab-of-the-herd",
+        "delirium-scarab-of-paranoia"
+      ]
+    },
+    {
       "token": "l re",
       "memberIds": [
         "bestiary-scarab-of-the-herd",
@@ -21192,13 +21476,6 @@
       "memberIds": [
         "bestiary-scarab-of-the-herd",
         "ultimatum-scarab-of-dueling"
-      ]
-    },
-    {
-      "token": "if i",
-      "memberIds": [
-        "bestiary-scarab-of-the-herd",
-        "delirium-scarab-of-paranoia"
       ]
     },
     {
@@ -22065,6 +22342,25 @@
       ]
     },
     {
+      "token": "rs in area have %",
+      "memberIds": [
+        "betrayal-scarab-of-reinforcements",
+        "expedition-scarab-of-runefinding",
+        "expedition-scarab-of-verisium-powder",
+        "harvest-scarab-of-doubling",
+        "titanic-scarab-of-treasures"
+      ]
+    },
+    {
+      "token": "rs in area have % i",
+      "memberIds": [
+        "betrayal-scarab-of-reinforcements",
+        "expedition-scarab-of-runefinding",
+        "expedition-scarab-of-verisium-powder",
+        "titanic-scarab-of-treasures"
+      ]
+    },
+    {
       "token": "rs i",
       "memberIds": [
         "betrayal-scarab-of-reinforcements",
@@ -22159,11 +22455,135 @@
       ]
     },
     {
+      "token": "a have %",
+      "memberIds": [
+        "betrayal-scarab-of-reinforcements",
+        "beyond-scarab-of-haemophilia",
+        "beyond-scarab-of-resurgence",
+        "expedition-scarab-of-runefinding",
+        "expedition-scarab-of-verisium-powder",
+        "harvest-scarab-of-doubling",
+        "incursion-scarab-of-champions",
+        "influencing-scarab-of-hordes",
+        "titanic-scarab-of-treasures"
+      ]
+    },
+    {
+      "token": "a have % i",
+      "memberIds": [
+        "betrayal-scarab-of-reinforcements",
+        "beyond-scarab-of-haemophilia",
+        "beyond-scarab-of-resurgence",
+        "expedition-scarab-of-runefinding",
+        "expedition-scarab-of-verisium-powder",
+        "incursion-scarab-of-champions",
+        "influencing-scarab-of-hordes",
+        "titanic-scarab-of-treasures"
+      ]
+    },
+    {
+      "token": " have % increased c",
+      "memberIds": [
+        "betrayal-scarab-of-reinforcements",
+        "beyond-scarab-of-resurgence"
+      ]
+    },
+    {
+      "token": " have %",
+      "memberIds": [
+        "betrayal-scarab-of-reinforcements",
+        "beyond-scarab-of-haemophilia",
+        "beyond-scarab-of-resurgence",
+        "blight-scarab-of-blooming",
+        "divination-scarab-of-the-cloister",
+        "expedition-scarab-of-runefinding",
+        "expedition-scarab-of-verisium-powder",
+        "harvest-scarab-of-doubling",
+        "incursion-scarab-of-champions",
+        "influencing-scarab-of-hordes",
+        "sulphite-scarab-of-fumes",
+        "titanic-scarab",
+        "titanic-scarab-of-treasures"
+      ]
+    },
+    {
+      "token": " have % i",
+      "memberIds": [
+        "betrayal-scarab-of-reinforcements",
+        "beyond-scarab-of-haemophilia",
+        "beyond-scarab-of-resurgence",
+        "blight-scarab-of-blooming",
+        "expedition-scarab-of-runefinding",
+        "expedition-scarab-of-verisium-powder",
+        "incursion-scarab-of-champions",
+        "influencing-scarab-of-hordes",
+        "sulphite-scarab-of-fumes",
+        "titanic-scarab",
+        "titanic-scarab-of-treasures"
+      ]
+    },
+    {
+      "token": "ve %",
+      "memberIds": [
+        "betrayal-scarab-of-reinforcements",
+        "beyond-scarab-of-haemophilia",
+        "beyond-scarab-of-resurgence",
+        "blight-scarab-of-blooming",
+        "divination-scarab-of-plenty",
+        "divination-scarab-of-the-cloister",
+        "expedition-scarab-of-runefinding",
+        "expedition-scarab-of-verisium-powder",
+        "harvest-scarab-of-doubling",
+        "incursion-scarab-of-champions",
+        "influencing-scarab-of-hordes",
+        "sulphite-scarab-of-fumes",
+        "titanic-scarab",
+        "titanic-scarab-of-treasures"
+      ]
+    },
+    {
+      "token": "e % i",
+      "memberIds": [
+        "betrayal-scarab-of-reinforcements",
+        "beyond-scarab-of-haemophilia",
+        "beyond-scarab-of-resurgence",
+        "blight-scarab-of-blooming",
+        "divination-scarab-of-plenty",
+        "expedition-scarab-of-runefinding",
+        "expedition-scarab-of-verisium-powder",
+        "incursion-scarab-of-champions",
+        "influencing-scarab-of-hordes",
+        "sulphite-scarab-of-fumes",
+        "titanic-scarab",
+        "titanic-scarab-of-treasures"
+      ]
+    },
+    {
       "token": "sed c",
       "memberIds": [
         "betrayal-scarab-of-reinforcements",
         "beyond-scarab-of-resurgence",
         "divination-scarab-of-plenty"
+      ]
+    },
+    {
+      "token": "e %",
+      "memberIds": [
+        "betrayal-scarab-of-reinforcements",
+        "beyond-scarab-of-haemophilia",
+        "beyond-scarab-of-resurgence",
+        "blight-scarab-of-blooming",
+        "breach-scarab-of-resonant-cascade",
+        "divination-scarab-of-plenty",
+        "divination-scarab-of-the-cloister",
+        "expedition-scarab-of-runefinding",
+        "expedition-scarab-of-verisium-powder",
+        "harvest-scarab-of-doubling",
+        "incursion-scarab-of-champions",
+        "influencing-scarab-of-hordes",
+        "sulphite-scarab-of-fumes",
+        "titanic-scarab",
+        "titanic-scarab-of-treasures"
       ]
     },
     {
@@ -24402,6 +24822,13 @@
       ]
     },
     {
+      "token": "rs in area have a %",
+      "memberIds": [
+        "beyond-scarab-of-haemophilia",
+        "harbinger-scarab-of-regency"
+      ]
+    },
+    {
       "token": "o g",
       "memberIds": [
         "beyond-scarab-of-haemophilia",
@@ -24451,6 +24878,13 @@
         "beyond-scarab-of-haemophilia",
         "blight-scarab-of-blooming",
         "sulphite-scarab-of-fumes"
+      ]
+    },
+    {
+      "token": "  s",
+      "memberIds": [
+        "beyond-scarab-of-haemophilia",
+        "harvest-scarab-of-cornucopia"
       ]
     },
     {
@@ -24946,6 +25380,21 @@
         "incursion-scarab-of-timelines",
         "influencing-scarab-of-conversion",
         "titanic-scarab"
+      ]
+    },
+    {
+      "token": "p %",
+      "memberIds": [
+        "beyond-scarab-of-resurgence",
+        "breach-scarab-of-splintering",
+        "cartography-scarab-of-the-multitude"
+      ]
+    },
+    {
+      "token": "p % i",
+      "memberIds": [
+        "beyond-scarab-of-resurgence",
+        "cartography-scarab-of-the-multitude"
       ]
     },
     {
@@ -25472,6 +25921,63 @@
       "memberIds": [
         "beyond-scarab-of-the-invasion",
         "divination-scarab-of-plenty"
+      ]
+    },
+    {
+      "token": "e  t",
+      "memberIds": [
+        "beyond-scarab-of-the-invasion",
+        "breach-scarab-of-snares"
+      ]
+    },
+    {
+      "token": "  t",
+      "memberIds": [
+        "beyond-scarab-of-the-invasion",
+        "breach-scarab-of-snares",
+        "cartography-scarab-of-the-multitude",
+        "divination-scarab-of-plenty",
+        "divination-scarab-of-the-cloister",
+        "incursion-scarab-of-invasion",
+        "ritual-scarab-of-selectiveness",
+        "torment-scarab-of-possession"
+      ]
+    },
+    {
+      "token": "  to",
+      "memberIds": [
+        "beyond-scarab-of-the-invasion",
+        "breach-scarab-of-snares",
+        "cartography-scarab-of-the-multitude",
+        "divination-scarab-of-plenty",
+        "divination-scarab-of-the-cloister",
+        "incursion-scarab-of-invasion",
+        "torment-scarab-of-possession"
+      ]
+    },
+    {
+      "token": "  to  a",
+      "memberIds": [
+        "beyond-scarab-of-the-invasion",
+        "breach-scarab-of-snares",
+        "cartography-scarab-of-the-multitude",
+        "divination-scarab-of-plenty",
+        "divination-scarab-of-the-cloister",
+        "incursion-scarab-of-invasion"
+      ]
+    },
+    {
+      "token": "o  a",
+      "memberIds": [
+        "beyond-scarab-of-the-invasion",
+        "blight-scarab-of-blooming",
+        "breach-scarab-of-snares",
+        "cartography-scarab-of-the-multitude",
+        "divination-scarab-of-plenty",
+        "divination-scarab-of-the-cloister",
+        "harvest-scarab-of-cornucopia",
+        "incursion-scarab-of-invasion",
+        "scarab-of-divinity"
       ]
     },
     {
@@ -26105,6 +26611,13 @@
       ]
     },
     {
+      "token": ", the b",
+      "memberIds": [
+        "blight-scarab-of-blooming",
+        "harvest-scarab-of-cornucopia"
+      ]
+    },
+    {
       "token": "p t",
       "memberIds": [
         "blight-scarab-of-blooming",
@@ -26112,6 +26625,14 @@
         "horned-scarab-of-glittering",
         "scarab-of-divinity",
         "torment-scarab-of-possession"
+      ]
+    },
+    {
+      "token": "p to  a",
+      "memberIds": [
+        "blight-scarab-of-blooming",
+        "harvest-scarab-of-cornucopia",
+        "scarab-of-divinity"
       ]
     },
     {
@@ -26149,6 +26670,14 @@
       "memberIds": [
         "blight-scarab-of-blooming",
         "cartography-scarab-of-corruption"
+      ]
+    },
+    {
+      "token": "s have %",
+      "memberIds": [
+        "blight-scarab-of-blooming",
+        "sulphite-scarab-of-fumes",
+        "titanic-scarab"
       ]
     },
     {
@@ -26431,13 +26960,6 @@
       "memberIds": [
         "blight-scarab-of-blooming",
         "essence-scarab-of-ascent"
-      ]
-    },
-    {
-      "token": ", the b",
-      "memberIds": [
-        "blight-scarab-of-blooming",
-        "harvest-scarab-of-cornucopia"
       ]
     },
     {
@@ -29026,6 +29548,15 @@
       ]
     },
     {
+      "token": "s  t",
+      "memberIds": [
+        "cartography-scarab-of-the-multitude",
+        "divination-scarab-of-plenty",
+        "divination-scarab-of-the-cloister",
+        "incursion-scarab-of-invasion"
+      ]
+    },
+    {
       "token": "al p",
       "memberIds": [
         "cartography-scarab-of-the-multitude",
@@ -29033,15 +29564,6 @@
         "divination-scarab-of-the-cloister",
         "incursion-scarab-of-invasion",
         "scarab-of-adversaries"
-      ]
-    },
-    {
-      "token": "ks o",
-      "memberIds": [
-        "cartography-scarab-of-the-multitude",
-        "divination-scarab-of-plenty",
-        "divination-scarab-of-the-cloister",
-        "incursion-scarab-of-invasion"
       ]
     },
     {
@@ -29090,6 +29612,13 @@
         "kalguuran-scarab-of-guarded-riches",
         "ritual-scarab-of-selectiveness",
         "scarab-of-bisection"
+      ]
+    },
+    {
+      "token": " % increased ma",
+      "memberIds": [
+        "cartography-scarab-of-the-multitude",
+        "horned-scarab-of-bloodlines"
       ]
     },
     {
@@ -29649,6 +30178,13 @@
       ]
     },
     {
+      "token": "l %",
+      "memberIds": [
+        "delirium-scarab-of-mania",
+        "scarab-of-divinity"
+      ]
+    },
+    {
       "token": "ster i",
       "memberIds": [
         "delirium-scarab-of-mania",
@@ -29699,6 +30235,14 @@
       "memberIds": [
         "delirium-scarab-of-mania",
         "sulphite-scarab-of-fumes"
+      ]
+    },
+    {
+      "token": "s %",
+      "memberIds": [
+        "delirium-scarab-of-mania",
+        "horned-scarab-of-bloodlines",
+        "sulphite-scarab"
       ]
     },
     {
@@ -30088,6 +30632,16 @@
         "harbinger-scarab-of-warhoards",
         "incursion-scarab-of-timelines",
         "legion-scarab-of-command"
+      ]
+    },
+    {
+      "token": "e  a",
+      "memberIds": [
+        "delirium-scarab-of-paranoia",
+        "expedition-scarab-of-archaeology",
+        "horned-scarab-of-nemeses",
+        "legion-scarab-of-officers",
+        "titanic-scarab-of-legend"
       ]
     },
     {
@@ -32839,6 +33393,30 @@
       ]
     },
     {
+      "token": "rs in area have  a",
+      "memberIds": [
+        "expedition-scarab-of-archaeology",
+        "horned-scarab-of-nemeses",
+        "titanic-scarab-of-legend"
+      ]
+    },
+    {
+      "token": "ve  a",
+      "memberIds": [
+        "expedition-scarab-of-archaeology",
+        "horned-scarab-of-nemeses",
+        "legion-scarab-of-officers",
+        "titanic-scarab-of-legend"
+      ]
+    },
+    {
+      "token": "e  additional s",
+      "memberIds": [
+        "expedition-scarab-of-archaeology",
+        "legion-scarab-of-officers"
+      ]
+    },
+    {
       "token": "uf",
       "memberIds": [
         "expedition-scarab-of-archaeology",
@@ -32948,6 +33526,30 @@
       "memberIds": [
         "expedition-scarab-of-runefinding",
         "ultimatum-scarab-of-catalysing"
+      ]
+    },
+    {
+      "token": "nters in area have %",
+      "memberIds": [
+        "expedition-scarab-of-runefinding",
+        "expedition-scarab-of-verisium-powder"
+      ]
+    },
+    {
+      "token": "ters in area have %",
+      "memberIds": [
+        "expedition-scarab-of-runefinding",
+        "expedition-scarab-of-verisium-powder",
+        "harvest-scarab-of-doubling",
+        "titanic-scarab-of-treasures"
+      ]
+    },
+    {
+      "token": "ters in area have % i",
+      "memberIds": [
+        "expedition-scarab-of-runefinding",
+        "expedition-scarab-of-verisium-powder",
+        "titanic-scarab-of-treasures"
       ]
     },
     {
@@ -33785,6 +34387,13 @@
       ]
     },
     {
+      "token": "sters in area have %",
+      "memberIds": [
+        "harvest-scarab-of-doubling",
+        "titanic-scarab-of-treasures"
+      ]
+    },
+    {
       "token": "bri",
       "memberIds": [
         "harvest-scarab-of-doubling",
@@ -34141,6 +34750,13 @@
       ]
     },
     {
+      "token": "  additional m",
+      "memberIds": [
+        "horned-scarab-of-nemeses",
+        "titanic-scarab-of-legend"
+      ]
+    },
+    {
       "token": "glo",
       "memberIds": [
         "horned-scarab-of-nemeses",
@@ -34484,6 +35100,13 @@
         "incursion-scarab-of-champions",
         "kalguuran-scarab-of-guarded-riches",
         "scarab-of-wisps"
+      ]
+    },
+    {
+      "token": "e % increased p",
+      "memberIds": [
+        "incursion-scarab-of-champions",
+        "influencing-scarab-of-hordes"
       ]
     },
     {
@@ -35156,6 +35779,13 @@
       ]
     },
     {
+      "token": "r %",
+      "memberIds": [
+        "ritual-scarab-of-abundance",
+        "titanic-scarab"
+      ]
+    },
+    {
       "token": "fav",
       "memberIds": [
         "ritual-scarab-of-abundance",
@@ -35223,17 +35853,17 @@
       ]
     },
     {
+      "token": "t %",
+      "memberIds": [
+        "ritual-scarab-of-wisps",
+        "ultimatum-scarab-of-bribing"
+      ]
+    },
+    {
       "token": "d tr",
       "memberIds": [
         "ritual-scarab-of-wisps",
         "scarab-of-hunted-traitors"
-      ]
-    },
-    {
-      "token": " tri",
-      "memberIds": [
-        "ritual-scarab-of-wisps",
-        "ultimatum-scarab-of-bribing"
       ]
     },
     {
