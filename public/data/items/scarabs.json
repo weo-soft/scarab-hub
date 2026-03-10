@@ -1,1092 +1,1182 @@
 [
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Abyss Scarab",
     "id": "abyss-scarab",
     "dropEnabledd": true,
     "limit": 2,
     "description": "Area contains an additional Abyss",
     "dropLevel": 68,
-    "flavourText": "They search forever for more souls to drag to the dark."
+    "flavourText": "They search forever for more souls to drag to the dark.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
+    "name": "Abyss Scarab of Descending",
+    "id": "abyss-scarab-of-descending",
+    "dropEnabledd": true,
+    "limit": 1,
+    "description": "Area contains an Abyssal Depths",
+    "dropLevel": 78,
+    "flavourText": "They invite you to meet them; to join them.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
+  },
+  {
     "name": "Abyss Scarab of Edifice",
     "id": "abyss-scarab-of-edifice",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Abysses in Area that do not lead to an Abyssal Depths lead to a Stygian Spire\nAbyss pits in Area that do not lead to an Abyssal Depths or spawn an Abyssal Trove will spawn Minor Stygian Spires",
     "dropLevel": 73,
-    "flavourText": "Their empires ghastly and gaunt glitter with gold."
+    "flavourText": "Their empires ghastly and gaunt glitter with gold.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Abyss Scarab of Multitudes",
     "id": "abyss-scarab-of-multitudes",
     "dropEnabledd": true,
     "limit": 2,
     "description": "Abysses in Area spawn 50% increased Monsters",
     "dropLevel": 73,
-    "flavourText": "They ceaselessly sprout from the murderous earth."
+    "flavourText": "They ceaselessly sprout from the murderous earth.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Abyss Scarab of Profound Depth",
     "id": "abyss-scarab-of-profound-depth",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Monsters from Abysses in Areas have increased Difficulty and Reward for\neach prior Pit in that Abyss",
     "dropLevel": 78,
-    "flavourText": "The deeper we dig, the more we find, be it fortune or foe."
+    "flavourText": "The deeper we dig, the more we find, be it fortune or foe.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ambush Scarab",
     "id": "ambush-scarab",
     "dropEnabledd": true,
     "limit": 3,
-    "description": "Area contains 3 additional Strongboxes",
+    "description": "Area contains 4 additional Strongboxes",
     "dropLevel": 68,
-    "flavourText": "Is it still an ambush if you're expecting it?"
+    "flavourText": "Is it still an ambush if you're expecting it?",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ambush Scarab of Containment",
     "id": "ambush-scarab-of-containment",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Area contains many additional Strongboxes\nArea's inhabitants are lying in ambush",
     "dropLevel": 78,
-    "flavourText": "The silence belies lurking doom."
+    "flavourText": "The silence belies lurking doom.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ambush Scarab of Discernment",
     "id": "ambush-scarab-of-discernment",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Strongboxes in Area are more likely to be rarer varieties",
     "dropLevel": 73,
-    "flavourText": "A keen eye sorts the worthy from the chaff."
+    "flavourText": "A keen eye sorts the worthy from the chaff.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ambush Scarab of Hidden Compartments",
     "id": "ambush-scarab-of-hidden-compartments",
     "dropEnabledd": true,
     "limit": 1,
     "description": "15% Chance for Strongboxes in Area to be openable again",
     "dropLevel": 73,
-    "flavourText": "Beneath the obvious lies the real treasure..."
+    "flavourText": "Beneath the obvious lies the real treasure...",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ambush Scarab of Potency",
     "id": "ambush-scarab-of-potency",
     "dropEnabledd": true,
     "limit": 1,
     "description": "75% Increased effect of Explicit Modifiers on Strongboxes in Area",
     "dropLevel": 73,
-    "flavourText": "The locksmith dreams of building a better box."
+    "flavourText": "The locksmith dreams of building a better box.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Anarchy Scarab",
     "id": "anarchy-scarab",
     "dropEnabledd": true,
     "limit": 5,
-    "description": "Area contains 4 additional Rogue Exiles",
+    "description": "Area contains 5 additional Rogue Exiles",
     "dropLevel": 68,
-    "flavourText": "On Wraeclast, it's kill or be killed."
+    "flavourText": "On Wraeclast, it's kill or be killed.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Anarchy Scarab of Gigantification",
     "id": "anarchy-scarab-of-gigantification",
     "dropEnabledd": true,
     "limit": 2,
     "description": "Wild Rogue Exiles in Area have a 30% chance to be replaced with a Rogue Giant",
     "dropLevel": 78,
-    "flavourText": "The consumption of sulphite can cause strange growth."
+    "flavourText": "The consumption of sulphite can cause strange growth.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Anarchy Scarab of Partnership",
     "id": "anarchy-scarab-of-partnership",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Wild Rogue Exiles in Area have a 50% chance to appear in pairs",
     "dropLevel": 73,
-    "flavourText": "Among exiles, alliances shift and change constantly."
+    "flavourText": "Among exiles, alliances shift and change constantly.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
+    "name": "Anarchy Scarab of the Exceptional",
+    "id": "anarchy-scarab-of-the-exceptional",
+    "dropEnabledd": true,
+    "limit": 2,
+    "description": "Area contains an additional Exceptional Rogue Exile",
+    "dropLevel": 78,
+    "flavourText": "Among many, one stands above the rest.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
+  },
+  {
     "name": "Bestiary Scarab",
     "id": "bestiary-scarab",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Area contains Einhar",
     "dropLevel": 68,
-    "flavourText": "The Beastmaster answers the call."
+    "flavourText": "The Beastmaster answers the call.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Bestiary Scarab of Duplicating",
     "id": "bestiary-scarab-of-duplicating",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Create a copy of Beasts captured in Area",
     "dropLevel": 73,
-    "flavourText": "\"What's better than one captured beast, exile?\""
+    "flavourText": "\"What's better than one captured beast, exile?\"",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Bestiary Scarab of the Herd",
     "id": "bestiary-scarab-of-the-herd",
     "dropEnabledd": true,
     "limit": 2,
     "description": "Area contains 5 additional Red Beasts if it contains Einhar",
     "dropLevel": 73,
-    "flavourText": "The First Ones ran rampant and free in the forests of old."
+    "flavourText": "The First Ones ran rampant and free in the forests of old.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
+    "name": "Bestiary Scarab of the Shadowed Crow",
+    "id": "bestiary-scarab-of-the-shadowed-crow",
+    "dropEnabledd": false,
+    "limit": 1,
+    "description": "Area contains The Black Mórrigan if it contains Einhar",
+    "dropLevel": 73,
+    "flavourText": "The Nameless begin to slip their bonds of nonexistence...",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
+  },
+  {
     "name": "Betrayal Scarab",
     "id": "betrayal-scarab",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Area contains Jun",
     "dropLevel": 68,
-    "flavourText": "The Syndicate must pay for what they have done."
+    "flavourText": "The Syndicate must pay for what they have done.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Betrayal Scarab of Reinforcements",
     "id": "betrayal-scarab-of-reinforcements",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Immortal Syndicate Members in Area have 50% increased chance to be accompanied by reinforcements",
     "dropLevel": 73,
-    "flavourText": "Move and countermove."
+    "flavourText": "Move and countermove.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Betrayal Scarab of the Allflame",
     "id": "betrayal-scarab-of-the-allflame",
     "dropEnabledd": true,
     "limit": 1,
     "description": "75% Increased number of Monster Packs Substituted by Allflame Embers in Area",
     "dropLevel": 73,
-    "flavourText": "Those that can never die fear only pain."
+    "flavourText": "Those that can never die fear only pain.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
+    "name": "Betrayal Scarab of Unbreaking",
+    "id": "betrayal-scarab-of-unbreaking",
+    "dropEnabledd": true,
+    "limit": 2,
+    "description": "Interrogated Immortal Syndicate targets in Area have a 50% chance to\nnot lose Rank upon completing Interrogation",
+    "dropLevel": 73,
+    "flavourText": "Dying over and over builds a tolerance to pain.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
+  },
+  {
     "name": "Beyond Scarab",
     "id": "beyond-scarab",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Slaying enemies close together in Area can attract monsters from Beyond this realm",
     "dropLevel": 68,
-    "flavourText": "The silent wall and the raging storm oppose the endless swarm."
+    "flavourText": "The silent wall and the raging storm oppose the endless swarm.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Beyond Scarab of Haemophilia",
     "id": "beyond-scarab-of-haemophilia",
     "dropEnabledd": true,
     "limit": 2,
     "description": "Beyond Portals in Area have 50% increased Merging Radius\nCharacters that Kill Beyond Rare Monsters in Area have a 30% chance to gain their Modifiers for 20 seconds",
     "dropLevel": 73,
-    "flavourText": "Reality itself begins to bleed."
+    "flavourText": "Reality itself begins to bleed.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Beyond Scarab of Resurgence",
     "id": "beyond-scarab-of-resurgence",
     "dropEnabledd": true,
     "limit": 1,
-    "description": "Beyond Bosses in Area are enraged on low life\nBeyond Bosses in Area drop 100% increased Tainted Currency\nBeyond Portals in Area have 30% increased chance to spawn a Unique Boss",
+    "description": "Beyond Bosses Spawned in Area are accompanied by Beyond Bosses of other Factions\nBeyond Bosses in Area drop 20% increased Tainted Currency\nBeyond Portals in Area have 30% increased chance to spawn a Unique Boss",
     "dropLevel": 78,
-    "flavourText": "They hunger."
+    "flavourText": "They hunger.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Beyond Scarab of the Invasion",
     "id": "beyond-scarab-of-the-invasion",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Rare and Unique Monsters slain in Area create 8 to 12 additional Beyond Portals",
     "dropLevel": 78,
-    "flavourText": "The fated hour is almost nigh."
+    "flavourText": "The fated hour is almost nigh.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
+    "name": "Beyond Scarab of Corruption",
+    "id": "beyond-scarab-of-corruption",
+    "dropEnabledd": false,
+    "limit": 1,
+    "description": "Items dropped by Beyond Demons in Area are Corrupted",
+    "dropLevel": 78,
+    "flavourText": "Their very flesh exudes Corruption.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
+  },
+  {
     "name": "Blight Scarab",
     "id": "blight-scarab",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Area contains a Blight Encounter",
     "dropLevel": 68,
-    "flavourText": "The tendrils creep and grow..."
+    "flavourText": "The tendrils creep and grow...",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Blight Scarab of Blooming",
     "id": "blight-scarab-of-blooming",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Blight Encounters in Area have up to 3 additional Unique Bosses\nUnique enemies in Blight Encounters have 100% increased life\nTier 14+ Blighted Maps found in Area drop as Blight-Ravaged Maps instead",
     "dropLevel": 78,
-    "flavourText": "Once a century, the Blight spills forth..."
+    "flavourText": "Once a century, the Blight spills forth...",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Blight Scarab of Invigoration",
     "id": "blight-scarab-of-invigoration",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Each Empowering Tower in Areas grants Blighted Monsters in\nrange increased Difficulty and Reward",
     "dropLevel": 78,
-    "flavourText": "Reversing the polarity of the compression modulator seems to have intriguing effects..."
+    "flavourText": "Reversing the polarity of the compression modulator seems to have intriguing effects...",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Blight Scarab of the Blightheart",
     "id": "blight-scarab-of-the-blightheart",
     "dropEnabledd": true,
     "limit": 1,
-    "description": "Blight Encounters in Area have one Blighted Chest\nBlight Encounters in Area spawn many more waves of Enemies\nBlighted Chests in Area grow larger and more\nrewarding the more Blighted Enemies are slain",
+    "description": "Blight Encounters in Area have one Blighted Chest\nBlight Encounters in Area spawn additional waves of Enemies\nBlighted Chests in Area grow larger and more\nrewarding the more Blighted Enemies are slain",
     "dropLevel": 73,
-    "flavourText": "The core grows larger with each cycle, doomed to spill forth..."
+    "flavourText": "The core grows larger with each cycle, doomed to spill forth...",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
-    "name": "Breach Scarab",
-    "id": "breach-scarab",
+    "name": "Breach Scarab of Instability",
+    "id": "breach-scarab-of-instability",
     "dropEnabledd": true,
-    "limit": 5,
-    "description": "Area contains 2 additional Breaches",
+    "limit": 2,
+    "description": "Area contains 2 additional Unstable Breaches",
     "dropLevel": 68,
-    "flavourText": "They are never far."
+    "flavourText": "Reality warps and bends.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
-    "name": "Breach Scarab of Lordship",
-    "id": "breach-scarab-of-lordship",
-    "dropEnabledd": true,
-    "limit": 1,
-    "description": "Breaches in Area each contain a Breachlord",
-    "dropLevel": 73,
-    "flavourText": "Their kingdoms always seek expansion."
-  },
-  {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Breach Scarab of Resonant Cascade",
     "id": "breach-scarab-of-resonant-cascade",
     "dropEnabledd": true,
     "limit": 1,
-    "description": "Breaches in Areas open and close 10% faster for each Breach already opened\nMonsters from Breaches in Areas have increased Difficulty and Reward for\neach Breach already opened",
+    "description": "Unstable Breaches in Areas are 10% faster for each Unstable Breach already opened\nMonsters from Unstable Breaches in Areas have increased Difficulty and Reward for\neach Unstable Breach already opened",
     "dropLevel": 78,
-    "flavourText": "Reality weakens with each new wound."
+    "flavourText": "Reality weakens with each new wound.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
-    "name": "Breach Scarab of Snares",
-    "id": "breach-scarab-of-snares",
+    "name": "Breach Scarab of the Hive",
+    "id": "breach-scarab-of-the-hive",
     "dropEnabledd": true,
     "limit": 1,
-    "description": "Breaches in Area have 3 to 5 additional Clasped Hands\nClasped Hands in Area are guarded by a rare Breach Monster",
-    "dropLevel": 78,
-    "flavourText": "Care where you step."
+    "description": "Area contains a Breach Hive",
+    "dropLevel": 68,
+    "flavourText": "Their kingdoms always seek expansion.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
-    "name": "Breach Scarab of Splintering",
-    "id": "breach-scarab-of-splintering",
+    "name": "Breach Scarab of the Incensed Swarm",
+    "id": "breach-scarab-of-the-incensed-swarm",
     "dropEnabledd": true,
-    "limit": 2,
-    "description": "Breach Monsters in Area drop 50% more Breach Splinters\nClasped Hands in Area drop 50% more Breach Splinters",
-    "dropLevel": 73,
-    "flavourText": "Bit by bit."
+    "limit": 1,
+    "description": "Ailith's skills in Area instead enrage the Hive, increasing the Difficulty\nand Reward of subsequent waves",
+    "dropLevel": 78,
+    "flavourText": "Their Domain expands further still.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
+    "name": "Breach Scarab of the Marshal",
+    "id": "breach-scarab-of-the-marshal",
+    "dropEnabledd": true,
+    "limit": 1,
+    "description": "Unstable Breaches in Area contain a Boss\nBreach Hives in Area lead to a Hive Fortress",
+    "dropLevel": 73,
+    "flavourText": "Engineered and Unwavering Loyalty.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
+  },
+  {
+    "name": "Breach Scarab of the Dreamer",
+    "id": "breach-scarab-of-the-dreamer",
+    "dropEnabledd": false,
+    "limit": 1,
+    "description": "Breaches in Area will always belong to Chayula",
+    "dropLevel": 78,
+    "flavourText": "Dreams quickly sour into Nightmare.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
+  },
+  {
     "name": "Cartography Scarab of Corruption",
     "id": "cartography-scarab-of-corruption",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Non-Unique Maps found in Area are Corrupted with 8 Modifiers",
     "dropLevel": 73,
-    "flavourText": "Corruption bleeds between realities."
+    "flavourText": "Corruption bleeds between realities.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Cartography Scarab of Escalation",
     "id": "cartography-scarab-of-escalation",
     "dropEnabledd": true,
     "limit": 1,
     "description": "10% increased Maps found in Area for each Map Modifier affecting Area",
     "dropLevel": 68,
-    "flavourText": "Opportunity thrives where dreams are most perilous."
+    "flavourText": "Opportunity thrives where dreams are most perilous.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Cartography Scarab of Risk",
     "id": "cartography-scarab-of-risk",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Area has 2 additional random Modifiers",
     "dropLevel": 78,
-    "flavourText": "What we see in the mirror can only be our own reflection."
+    "flavourText": "What we see in the mirror can only be our own reflection.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Cartography Scarab of the Multitude",
     "id": "cartography-scarab-of-the-multitude",
     "dropEnabledd": true,
     "limit": 3,
     "description": "Area contains 8 to 12 additional packs of\nDifficult and Rewarding Monsters which drop 300% increased Maps",
     "dropLevel": 73,
-    "flavourText": "There is no end, no horizon."
+    "flavourText": "There is no end, no horizon.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
+    "name": "Cartography Scarab of Singularity",
+    "id": "cartography-scarab-of-singularity",
+    "dropEnabledd": false,
+    "limit": 1,
+    "description": "A Unique Map will drop from the Final Map Boss",
+    "dropLevel": 78,
+    "flavourText": "Some regions of the Atlas never change.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
+  },
+  {
     "name": "Delirium Scarab",
     "id": "delirium-scarab",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Area contains a Mirror of Delirium",
     "dropLevel": 68,
-    "flavourText": "A perfectly innocuous Scarab that does nothing at all."
+    "flavourText": "A perfectly innocuous Scarab that does nothing at all.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Delirium Scarab of Delusions",
     "id": "delirium-scarab-of-delusions",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Maps found in Area have layers of Delirium",
     "dropLevel": 73,
-    "flavourText": "What are you talking about?The Atlas was always like this."
+    "flavourText": "What are you talking about?The Atlas was always like this.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Delirium Scarab of Mania",
     "id": "delirium-scarab-of-mania",
     "dropEnabledd": true,
     "limit": 2,
     "description": "Delirium Reward Meters fill 100% faster in Area\nDelirium in Area increases 50% faster with distance from the mirror",
     "dropLevel": 73,
-    "flavourText": "They're so loud! Why are they so loud?!All you can do is scream!"
+    "flavourText": "They're so loud! Why are they so loud?!All you can do is scream!",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Delirium Scarab of Neuroses",
     "id": "delirium-scarab-of-neuroses",
     "dropEnabledd": true,
     "limit": 1,
-    "description": "Delirium Encounters in Area contain all Unique Delirium Bosses\nCan only be used with Tier 11+ Maps",
+    "description": "Delirium Encounters in Area contain all Unique Delirium Bosses\nDelirium Reward Types in Area gain +1 to count on defeating a Unique Delirium Boss\nCan only be used with Tier 11+ Maps",
     "dropLevel": 73,
-    "flavourText": "Toothy grins shine in the dark."
+    "flavourText": "Toothy grins shine in the dark.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Delirium Scarab of Paranoia",
     "id": "delirium-scarab-of-paranoia",
     "dropEnabledd": true,
     "limit": 5,
     "description": "Delirium Encounters in Area generate 2 additional Reward types",
     "dropLevel": 73,
-    "flavourText": "If it seems too good to be true..."
+    "flavourText": "If it seems too good to be true...",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Divination Scarab of Pilfering",
     "id": "divination-scarab-of-pilfering",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Divination Cards which drop in Area are stolen by a Final Map Boss\nThat Final Map Boss becomes more Difficult and deals\nincreased Damage the more Divination Cards they have stolen\nThat Final Map Boss duplicates all stolen Divination Cards when defeated",
     "dropLevel": 78,
-    "flavourText": "If you do not seize your fate, someone else will."
+    "flavourText": "If you do not seize your fate, someone else will.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Divination Scarab of Plenty",
     "id": "divination-scarab-of-plenty",
     "dropEnabledd": true,
     "limit": 5,
     "description": "Area contains 6 to 10 additional Packs of Divination Touched Magic Monsters that\nhave 1000% increased chance to drop Divination Cards",
     "dropLevel": 73,
-    "flavourText": "We create a thousand futures with every action."
+    "flavourText": "We create a thousand futures with every action.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Divination Scarab of The Cloister",
     "id": "divination-scarab-of-the-cloister",
     "dropEnabledd": true,
     "limit": 5,
     "description": "Area contains 8 to 12 additional packs of Doedre's Devoted\nDoedre's Devoted have 1% additional chance to drop a Stacked Deck",
     "dropLevel": 68,
-    "flavourText": "No disease can be contained forever."
+    "flavourText": "No disease can be contained forever.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Domination Scarab",
     "id": "domination-scarab",
     "dropEnabledd": true,
     "limit": 4,
-    "description": "Area contains 2 additional Shrines",
+    "description": "Area contains 3 additional Shrines",
     "dropLevel": 68,
-    "flavourText": "A simple exchange. Blood for power."
+    "flavourText": "A simple exchange. Blood for power.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Domination Scarab of Apparitions",
     "id": "domination-scarab-of-apparitions",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Area contains 2 additional Apparition Shrines",
     "dropLevel": 78,
-    "flavourText": "Some paths to power lead only to madness."
+    "flavourText": "Some paths to power lead only to madness.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Domination Scarab of Evolution",
     "id": "domination-scarab-of-evolution",
     "dropEnabledd": true,
     "limit": 2,
     "description": "Area contains an additional Evolving Shrine",
     "dropLevel": 73,
-    "flavourText": "The Atlas and Wraeclast share one terrifying secret."
+    "flavourText": "The Atlas and Wraeclast share one terrifying secret.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Domination Scarab of Terrors",
     "id": "domination-scarab-of-terrors",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Shrines in Area are guarded by an Atlas Boss\nModifiers to the Final Map Boss also apply to these Atlas Bosses",
     "dropLevel": 78,
-    "flavourText": "Whatever the prize, fight for it."
+    "flavourText": "Whatever the prize, fight for it.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Essence Scarab",
     "id": "essence-scarab",
     "dropEnabledd": true,
     "limit": 5,
-    "description": "Area contains 2 additional Imprisoned Monsters",
+    "description": "Area contains 3 additional Imprisoned Monsters",
     "dropLevel": 68,
-    "flavourText": "It is perfectly safe, the creatures trapped inside couldn't possibly still be living."
+    "flavourText": "It is perfectly safe, the creatures trapped inside couldn't possibly still be living.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Essence Scarab of Adaptation",
     "id": "essence-scarab-of-adaptation",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Imprisoned Monsters released in Areas grant a random Essence Modifier to another Imprisoned Monster in the Area\nImprisoned Monsters in Areas have increased Difficulty and Reward for\neach Essence Modifier",
     "dropLevel": 78,
-    "flavourText": "The crystalline lattice expands in directions alien to the mortal mind."
+    "flavourText": "The crystalline lattice expands in directions alien to the mortal mind.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Essence Scarab of Ascent",
     "id": "essence-scarab-of-ascent",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Essences found in Area are a tier higher",
     "dropLevel": 73,
-    "flavourText": "A more perfect facet cannot be achieved."
+    "flavourText": "A more perfect facet cannot be achieved.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Essence Scarab of Calcification",
     "id": "essence-scarab-of-calcification",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Rare monsters that are natural inhabitants of the Area are imprisoned by Essences",
     "dropLevel": 78,
-    "flavourText": "The crystals... can spread?"
+    "flavourText": "The crystals... can spread?",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Essence Scarab of Stability",
     "id": "essence-scarab-of-stability",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Corrupting an Essence in Area can only result in\nupgrading or transforming Essences",
     "dropLevel": 73,
-    "flavourText": "With the right tools and a precise hand, the manipulation of the crystalscan be made predictable."
+    "flavourText": "With the right tools and a precise hand, the manipulation of the crystalscan be made predictable.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Expedition Scarab",
     "id": "expedition-scarab",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Area contains an Expedition Encounter",
     "dropLevel": 68,
-    "flavourText": "They come from across the sea in search of ancient truth."
+    "flavourText": "They come from across the sea in search of ancient truth.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Expedition Scarab of Archaeology",
     "id": "expedition-scarab-of-archaeology",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Remnants in Expedition Encounters in Area have 2 additional Suffixes and Prefixes",
     "dropLevel": 78,
-    "flavourText": "Curiosity leads to wisdom. Wisdom leads to power."
+    "flavourText": "Curiosity leads to wisdom. Wisdom leads to power.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
+    "name": "Expedition Scarab of Infusion",
+    "id": "expedition-scarab-of-infusion",
+    "dropEnabledd": true,
+    "limit": 1,
+    "description": "Logbooks found in Area always have 4 Implicits\nExpedition Monsters gain increased Difficulty and Reward for each Remnant detonated",
+    "dropLevel": 73,
+    "flavourText": "Starlight empowers even the dead if bathed long enough.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
+  },
+  {
     "name": "Expedition Scarab of Runefinding",
     "id": "expedition-scarab-of-runefinding",
     "dropEnabledd": true,
     "limit": 2,
     "description": "Expedition Encounters in Area have 100% increased\nnumber of Runic Monster Markers",
     "dropLevel": 73,
-    "flavourText": "That which came from the stars longs to return."
+    "flavourText": "That which came from the stars longs to return.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Expedition Scarab of Verisium Powder",
     "id": "expedition-scarab-of-verisium-powder",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Expedition Encounters in Area have 50% increased number of Explosives\n80% increased Explosive Radius",
     "dropLevel": 73,
-    "flavourText": "A properly refined pinch makes all the difference."
+    "flavourText": "A properly refined pinch makes all the difference.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
-    "name": "Harbinger Scarab",
-    "id": "harbinger-scarab",
-    "dropEnabledd": true,
-    "limit": 4,
-    "description": "Area contains 3 additional Harbingers",
-    "dropLevel": 68,
-    "flavourText": "Their troops came in numbers uncountable and from lands unknown."
-  },
-  {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
-    "name": "Harbinger Scarab of Obelisks",
-    "id": "harbinger-scarab-of-obelisks",
-    "dropEnabledd": true,
-    "limit": 1,
-    "description": "Harbingers in Area spawn Empowered Obelisks\nEmpowered Obelisks drop Currency Shards when defeated",
-    "dropLevel": 73,
-    "flavourText": "They seek to establish an unknown pattern."
-  },
-  {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
-    "name": "Harbinger Scarab of Regency",
-    "id": "harbinger-scarab-of-regency",
-    "dropEnabledd": true,
-    "limit": 1,
-    "description": "Harbingers in Area have a 50% chance to be replaced by a powerful Harbinger Boss",
-    "dropLevel": 73,
-    "flavourText": "The truly noble wage war from the front."
-  },
-  {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
-    "name": "Harbinger Scarab of Warhoards",
-    "id": "harbinger-scarab-of-warhoards",
-    "dropEnabledd": true,
-    "limit": 1,
-    "description": "Currency shards dropped by Harbingers in Area are duplicated",
-    "dropLevel": 73,
-    "flavourText": "For those who can leverage it, war can be as much a machine of profit as it is death."
-  },
-  {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Harvest Scarab",
     "id": "harvest-scarab",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Area contains the Sacred Grove",
     "dropLevel": 68,
-    "flavourText": "Hidden routes lead to vales of shadow and light..."
+    "flavourText": "Hidden routes lead to vales of shadow and light...",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Harvest Scarab of Cornucopia",
     "id": "harvest-scarab-of-cornucopia",
     "dropEnabledd": true,
     "limit": 1,
     "description": "If Area contains the Sacred Grove, it will contain up to 1 additional Tier 4 seed of each type, if possible",
     "dropLevel": 78,
-    "flavourText": "The taller the tree, the better the fruit."
+    "flavourText": "The taller the tree, the better the fruit.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Harvest Scarab of Doubling",
     "id": "harvest-scarab-of-doubling",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Lifeforce dropped by Harvest Monsters in Area is duplicated\nHarvest Monsters in Area have 100% more Life",
     "dropLevel": 73,
-    "flavourText": "A good season brings bounty."
+    "flavourText": "A good season brings bounty.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Horned Scarab of Awakening",
     "id": "horned-scarab-of-awakening",
     "dropEnabledd": true,
     "limit": 1,
-    "description": "You can select one Imbued crafting option on the Map Device",
+    "description": "Tier 16+ Areas contain the Bosses from a random Maven Invitation",
     "dropLevel": 81,
-    "flavourText": "The Atlas can be anything you want... and everything you want."
+    "flavourText": "The Atlas can be anything you want... and everything you want.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Horned Scarab of Bloodlines",
     "id": "horned-scarab-of-bloodlines",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Area has 150% increased Magic Monsters\nMagic Monsters in area have an additional Modifier",
     "dropLevel": 81,
-    "flavourText": "Only the hardiest survive. Only survivors perpetuate."
+    "flavourText": "Only the hardiest survive. Only survivors perpetuate.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Horned Scarab of Glittering",
     "id": "horned-scarab-of-glittering",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Players in Area gain increased Item Rarity for each Monster\nslain, up to 400%, decaying over time",
     "dropLevel": 81,
-    "flavourText": "Wealth flows to those that shine brightest."
+    "flavourText": "Wealth flows to those that shine brightest.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Horned Scarab of Nemeses",
     "id": "horned-scarab-of-nemeses",
     "dropEnabledd": true,
     "limit": 2,
     "description": "Rare Monsters in Area have 2 additional Modifiers",
     "dropLevel": 81,
-    "flavourText": "Glory draws ever tighter its own doom."
+    "flavourText": "Glory draws ever tighter its own doom.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Horned Scarab of Pandemonium",
     "id": "horned-scarab-of-pandemonium",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Monster packs in Area have a 15% chance to be replaced by a random Atlas Boss\nModifiers to the Final Map Boss also apply to these Atlas Bosses",
     "dropLevel": 81,
-    "flavourText": "Punctured dreams bleed into the mind."
+    "flavourText": "Punctured dreams bleed into the mind.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Horned Scarab of Preservation",
     "id": "horned-scarab-of-preservation",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Other Scarabs are not consumed on use",
     "dropLevel": 81,
-    "flavourText": "We must not forget those who came before."
+    "flavourText": "We must not forget those who came before.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Horned Scarab of Tradition",
     "id": "horned-scarab-of-tradition",
     "dropEnabledd": true,
     "limit": 1,
     "description": "All Rare and Unique Monsters in Area have dropped items\ntransformed by a Reward Modifier",
-    "dropLevel": 81,
-    "flavourText": "To the strongest, prosperity be thine."
+    "dropLevel": 83,
+    "flavourText": "To the strongest, prosperity be thine.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Incursion Scarab",
     "id": "incursion-scarab",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Area contains Alva",
     "dropLevel": 68,
-    "flavourText": "Uncover the secrets of the Vaal one incursion at a time."
+    "flavourText": "Uncover the secrets of the Vaal one incursion at a time.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Incursion Scarab of Champions",
     "id": "incursion-scarab-of-champions",
     "dropEnabledd": true,
     "limit": 2,
     "description": "Incursions in Area have a 35% chance for all Monsters to be at least Magic\nIncursions in Area have 15% increased Pack Size",
     "dropLevel": 73,
-    "flavourText": "Only the best served in Atzoatl."
+    "flavourText": "Only the best served in Atzoatl.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Incursion Scarab of Invasion",
     "id": "incursion-scarab-of-invasion",
     "dropEnabledd": true,
     "limit": 3,
     "description": "Area contains 12 to 16 additional packs of Incursion Monsters",
     "dropLevel": 73,
-    "flavourText": "A gate, once opened, may swing in either direction."
+    "flavourText": "A gate, once opened, may swing in either direction.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Incursion Scarab of Timelines",
     "id": "incursion-scarab-of-timelines",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Final Architect slain in Area will drop an Itemised Temple\nItemised Temples dropped in Area are generated based on current Temple layout, but with randomised room tiers",
     "dropLevel": 78,
-    "flavourText": "They say if you go far enough, you will meet yourself..."
+    "flavourText": "They say if you go far enough, you will meet yourself...",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
-    "name": "Influencing Scarab of Conversion",
-    "id": "influencing-scarab-of-conversion",
-    "dropEnabledd": true,
-    "limit": 1,
-    "description": "Tier 14+ Maps found in Area have a chance to drop as Shaper Guardian, Elder Guardian, Conqueror or Unique Synthesised Maps instead",
-    "dropLevel": 73,
-    "flavourText": "Memories resound in the Atlas, echoing forever."
-  },
-  {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Influencing Scarab of Hordes",
     "id": "influencing-scarab-of-hordes",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Influenced Monster Packs in Area have 40% increased Pack Size",
     "dropLevel": 73,
-    "flavourText": "Ideas cannot be contained."
+    "flavourText": "Ideas cannot be contained.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
+    "name": "Influencing Scarab of Interference",
+    "id": "influencing-scarab-of-interference",
+    "dropEnabledd": true,
+    "limit": 1,
+    "description": "A Map Boss is accompanied by a random Shaper Guardian, Elder Guardian, Conqueror or Synthesis Boss\nCan only be used with Tier 14+ Maps",
+    "dropLevel": 73,
+    "flavourText": "Memories resound in the Atlas, echoing forever.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
+  },
+  {
     "name": "Influencing Scarab of the Elder",
     "id": "influencing-scarab-of-the-elder",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Adds Elder Influence outcome to Area",
     "dropLevel": 68,
-    "flavourText": "Beyond the light lies only the void."
+    "flavourText": "Beyond the light lies only the void.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Influencing Scarab of the Shaper",
     "id": "influencing-scarab-of-the-shaper",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Adds Shaper Influence outcome to Area",
     "dropLevel": 68,
-    "flavourText": "A sea of stars awaits those who dare imagine."
+    "flavourText": "A sea of stars awaits those who dare imagine.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Kalguuran Scarab",
     "id": "kalguuran-scarab",
     "dropEnabledd": true,
     "limit": 2,
-    "description": "Area contains an additional Ore Deposit",
+    "description": "Area contains 2 additional Ore Deposits",
     "dropLevel": 68,
-    "flavourText": "Rich veins run deeper still."
+    "flavourText": "Rich veins run deeper still.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
+    "name": "Kalguuran Scarab of Enriching",
+    "id": "kalguuran-scarab-of-enriching",
+    "dropEnabledd": true,
+    "limit": 1,
+    "description": "Monsters guarding Ore Deposits have increased Difficulty and\nReward and Ore Deposits contain 15% increased Ore\nfor each Ore Deposit completed in Area",
+    "dropLevel": 73,
+    "flavourText": "The ore lives and breathes; and is not happy with your efforts.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
+  },
+  {
     "name": "Kalguuran Scarab of Guarded Riches",
     "id": "kalguuran-scarab-of-guarded-riches",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Monsters guarding Ore Deposits in Area are at least Magic",
     "dropLevel": 73,
-    "flavourText": "Digging's the easy part."
+    "flavourText": "Digging's the easy part.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Kalguuran Scarab of Refinement",
     "id": "kalguuran-scarab-of-refinement",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Ore Deposits in Area grant Smelted Bars instead of Marking Ore",
     "dropLevel": 78,
-    "flavourText": "Ore's true worth lies not in stone, but in what it becomes."
+    "flavourText": "Ore's true worth lies not in stone, but in what it becomes.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Legion Scarab",
     "id": "legion-scarab",
     "dropEnabledd": true,
     "limit": 5,
     "description": "Area contains an additional Legion Encounter",
     "dropLevel": 68,
-    "flavourText": "What good is peace to a warrior?"
+    "flavourText": "What good is peace to a warrior?",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
-    "name": "Legion Scarab of Command",
-    "id": "legion-scarab-of-command",
-    "dropEnabledd": true,
-    "limit": 1,
-    "description": "Legion Factions in Area are accompanied by a General",
-    "dropLevel": 73,
-    "flavourText": "Cut off the head and the snake will perish."
-  },
-  {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Legion Scarab of Eternal Conflict",
     "id": "legion-scarab-of-eternal-conflict",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Legion Monsters in Area can be broken out of Stasis multiple times\nLegion Monsters in Area gain increased Difficulty and Reward for each time they are broken out",
     "dropLevel": 78,
-    "flavourText": "An eternity of blood. Glorious."
+    "flavourText": "An eternity of blood. Glorious.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Legion Scarab of Officers",
     "id": "legion-scarab-of-officers",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Legion Factions in Area have 5 additional Sergeants",
     "dropLevel": 73,
-    "flavourText": "Even a battlefield has middle management."
+    "flavourText": "Even a battlefield has middle management.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
+    "name": "Legion Scarab of Treasures",
+    "id": "legion-scarab-of-treasures",
+    "dropEnabledd": true,
+    "limit": 3,
+    "description": "Legion Chests in Area have a 20% chance to spread their Rewards\nto Legion Monsters they release from stasis when they are broken out\nLegion Monsters that have gained Rewards have increased Difficulty",
+    "dropLevel": 73,
+    "flavourText": "Ancient Hoards imbued with powerful Artifacts.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
+  },
+  {
+    "name": "Legion Scarab of The Sekhema",
+    "id": "legion-scarab-of-the-sekhema",
+    "dropEnabledd": true,
+    "limit": 1,
+    "description": "Legion Encounters in Area always contain the Maraketh Faction",
+    "dropLevel": 73,
+    "flavourText": "Storms of blood-stained sand will drown the enemies of the Maraketh.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
+  },
+  {
     "name": "Ritual Scarab of Abundance",
     "id": "ritual-scarab-of-abundance",
     "dropEnabledd": true,
     "limit": 2,
     "description": "Rituals in Area offer 100% increased Favours",
     "dropLevel": 73,
-    "flavourText": "He draws ever closer..."
+    "flavourText": "He draws ever closer...",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
+    "name": "Ritual Scarab of Corpses",
+    "id": "ritual-scarab-of-corpses",
+    "dropEnabledd": true,
+    "limit": 2,
+    "description": "Rituals in Area contain an additional Rare Itemised Corpse Monster",
+    "dropLevel": 73,
+    "flavourText": "Reduced to mere Puppets; they yearn for life once more.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
+  },
+  {
     "name": "Ritual Scarab of Selectiveness",
     "id": "ritual-scarab-of-selectiveness",
     "dropEnabledd": true,
     "limit": 2,
-    "description": "Rerolling Favours at Ritual Altars in Area has no cost the first 2 times\nRitual Altars in Area allow rerolling Favours 1 additional time",
+    "description": "Rerolling Favours at Ritual Altars in Area has no cost the first 2 times\nRitual Altars in Area allow rerolling Favours 2 additional times",
     "dropLevel": 68,
-    "flavourText": "Pick and choose which sacred tenets you prefer..."
+    "flavourText": "Pick and choose which sacred tenets you prefer...",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ritual Scarab of Wisps",
     "id": "ritual-scarab-of-wisps",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Ritual Altars in Area spawn a Wildwood Wisp\nWildwood Wisps grant 100% increased Tribute Gained to nearby Players",
     "dropLevel": 73,
-    "flavourText": "Trust in the Draíocht, and you shall never be alone."
+    "flavourText": "Trust in the Draíocht, and you shall never be alone.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Scarab of Adversaries",
     "id": "scarab-of-adversaries",
     "dropEnabledd": true,
     "limit": 2,
     "description": "Area contains 4 additional Packs with Mirrored Rare Monsters",
     "dropLevel": 68,
-    "flavourText": "They stand against you with equal enmity."
+    "flavourText": "They stand against you with equal enmity.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
-    "name": "Scarab of Bisection",
-    "id": "scarab-of-bisection",
-    "dropEnabledd": true,
-    "limit": 1,
-    "description": "You can select the Nullify Prefixes or Nullify Suffixes crafting options on the Map Device",
-    "dropLevel": 78,
-    "flavourText": "When something is cut in half, which half is the original?"
-  },
-  {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Scarab of Divinity",
     "id": "scarab-of-divinity",
     "dropEnabledd": true,
     "limit": 3,
     "description": "Up to 3 additional Rare Monsters in Area will be Pantheon-Touched\nApparitions spawned by Pantheon-Touched Monsters deal 100% increased damage",
     "dropLevel": 73,
-    "flavourText": "Faith transforms."
+    "flavourText": "Faith transforms.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
-    "name": "Scarab of Hunted Traitors",
-    "id": "scarab-of-hunted-traitors",
-    "dropEnabledd": true,
-    "limit": 1,
-    "description": "Area contains Hunted Traitors",
-    "dropLevel": 73,
-    "flavourText": "Nothing is as unforgiveable."
-  },
-  {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Scarab of Monstrous Lineage",
     "id": "scarab-of-monstrous-lineage",
     "dropEnabledd": true,
     "limit": 2,
     "description": "40% increased Magic Pack Size",
     "dropLevel": 68,
-    "flavourText": "The bloodlines evolve faster than they can be culled."
+    "flavourText": "The bloodlines evolve faster than they can be culled.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Scarab of Radiant Storms",
     "id": "scarab-of-radiant-storms",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Area contains a Resplendent Tempest",
     "dropLevel": 78,
-    "flavourText": "The great cacophony of life roars to a crescendo."
+    "flavourText": "The great cacophony of life roars to a crescendo.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Scarab of Stability",
     "id": "scarab-of-stability",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Portals to Area have a 50% chance to not be consumed on use",
     "dropLevel": 78,
-    "flavourText": "Astonishing! A means to sustain the connection..."
+    "flavourText": "Astonishing! A means to sustain the connection...",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
+    "name": "Scarab of the Dextral",
+    "id": "scarab-of-the-dextral",
+    "dropEnabledd": true,
+    "limit": 1,
+    "description": "100% increased effect of Area Suffix Modifiers\nArea Prefix Modifiers have no effect",
+    "dropLevel": 73,
+    "flavourText": "Flip a coin, do you wish for Tails?",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
+  },
+  {
+    "name": "Scarab of the Sinistral",
+    "id": "scarab-of-the-sinistral",
+    "dropEnabledd": true,
+    "limit": 1,
+    "description": "100% increased effect of Area Prefix Modifiers\nArea Suffix Modifiers have no effect",
+    "dropLevel": 78,
+    "flavourText": "Flip a coin, do you wish for Heads?",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
+  },
+  {
     "name": "Scarab of Wisps",
     "id": "scarab-of-wisps",
     "dropEnabledd": true,
     "limit": 2,
     "description": "Monsters in Area have a chance to be Empowered by 2000 Wildwood Wisps",
     "dropLevel": 73,
-    "flavourText": "The Draíocht connects everything that lives."
+    "flavourText": "The Draíocht connects everything that lives.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Sulphite Scarab",
     "id": "sulphite-scarab",
     "dropEnabledd": true,
     "limit": 1,
-    "description": "Area contains Niko\nMap owner gains 150% more Sulphite",
+    "description": "Area contains Niko",
     "dropLevel": 68,
-    "flavourText": "Delve into darkness in search of the truth..."
+    "flavourText": "Delve into darkness in search of the truth...",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Sulphite Scarab of Fumes",
     "id": "sulphite-scarab-of-fumes",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Sulphite found in Map Area releases Enraging Fumes\nMonsters affected by Enraging Fumes have 50% increased Item Quantity\nSulphite in your maps is guarded by Monsters from the Azurite Mine",
     "dropLevel": 73,
-    "flavourText": "When the land itself is sick, even the very ground rots and spills forth."
+    "flavourText": "When the land itself is sick, even the very ground rots and spills forth.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
+    "name": "Sulphite Scarab of Greed",
+    "id": "sulphite-scarab",
+    "dropEnabledd": false,
+    "limit": 1,
+    "description": "Map owner gains 150% more Sulphite",
+    "dropLevel": 73,
+    "flavourText": "There is no such thing as 'enough'.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
+  },
+  {
     "name": "Titanic Scarab",
     "id": "titanic-scarab",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Unique Monsters have 1% increased Toughness, Damage, Rarity and Quantity of items dropped per 1% increased Pack Size of Area",
     "dropLevel": 68,
-    "flavourText": "What power lies in a name?"
+    "flavourText": "What power lies in a name?",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Titanic Scarab of Legend",
     "id": "titanic-scarab-of-legend",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Unique Monsters in Area have 4 additional Monster Modifiers",
     "dropLevel": 78,
-    "flavourText": "Power accumulates."
+    "flavourText": "Power accumulates.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Titanic Scarab of Treasures",
     "id": "titanic-scarab-of-treasures",
     "dropEnabledd": true,
     "limit": 3,
     "description": "Unique Monsters in Area have an additional Reward\nUnique Monsters in Area have 30% increased Toughness",
     "dropLevel": 73,
-    "flavourText": "Greed is a trap of the mind."
+    "flavourText": "Greed is a trap of the mind.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Torment Scarab",
     "id": "torment-scarab",
     "dropEnabledd": true,
     "limit": 2,
-    "description": "Area is haunted by 3 additional Tormented Spirits\nTormented Spirits in Area have a 50% chance to\nbe set free when Possessed Monsters are slain",
+    "description": "Area is haunted by 4 additional Tormented Spirits\nTormented Spirits in Area have a 10% chance to\nbe set free when Possessed Monsters are slain\nand dig up a Possessed Monster",
     "dropLevel": 68,
-    "flavourText": "Their crimes in life haunt you in death."
+    "flavourText": "Their crimes in life haunt you in death.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Torment Scarab of Peculiarity",
     "id": "torment-scarab-of-peculiarity",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Tormented Spirits in Area are replaced with unusual variants",
     "dropLevel": 73,
-    "flavourText": "Now there's a blood-curdling wail I haven't heard before!"
+    "flavourText": "Now there's a blood-curdling wail I haven't heard before!",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Torment Scarab of Possession",
     "id": "torment-scarab-of-possession",
     "dropEnabledd": true,
     "limit": 3,
     "description": "Rare Monsters in Area have a quarter chance to be Possessed by up to 3 Tormented Spirits",
     "dropLevel": 73,
-    "flavourText": "The strong are never truly alone."
+    "flavourText": "The strong are never truly alone.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
+    "name": "Torment Scarab of Release",
+    "id": "torment-scarab-of-release",
+    "dropEnabledd": true,
+    "limit": 2,
+    "description": "Tormented Spirits in Area have a 25% chance to\nbe set free when Possessed Monsters are slain",
+    "dropLevel": 73,
+    "flavourText": "If it could end, it wouldn't really be damnation.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
+  },
+  {
     "name": "Ultimatum Scarab",
     "id": "ultimatum-scarab",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Area contains an Ultimatum Encounter",
     "dropLevel": 68,
-    "flavourText": "A challenge may be requested at any time."
+    "flavourText": "A challenge may be requested at any time.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ultimatum Scarab of Bribing",
     "id": "ultimatum-scarab-of-bribing",
     "dropEnabledd": true,
     "limit": 2,
     "description": "Ultimatum Monsters grant 150% increased Experience\nUltimatum Encounters grant rewards as though you completed 2 additional Rounds",
     "dropLevel": 73,
-    "flavourText": "A trial is only as incorruptible as its judge."
+    "flavourText": "A trial is only as incorruptible as its judge.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ultimatum Scarab of Catalysing",
     "id": "ultimatum-scarab-of-catalysing",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Ultimatum Encounters in Area will only offer Catalysts\nas Rewards to the Map Owner",
     "dropLevel": 78,
-    "flavourText": "Most regret finding out how the powder is made."
+    "flavourText": "Most regret finding out how the powder is made.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ultimatum Scarab of Dueling",
     "id": "ultimatum-scarab-of-dueling",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Ultimatum Encounters in Area will always lead to a Unique Boss if possible",
     "dropLevel": 78,
-    "flavourText": "Victory is meaningless, failure will be mocked."
+    "flavourText": "Victory is meaningless, failure will be mocked.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   },
   {
-    "helpText": "Can be used in a personal Map Device to add modifiers to a Map.",
     "name": "Ultimatum Scarab of Inscription",
     "id": "ultimatum-scarab-of-inscription",
     "dropEnabledd": true,
     "limit": 1,
     "description": "Ultimatum Encounter rewards in Area offering Catalysts\nwill offer Inscribed Ultimatums to the Map Owner instead",
     "dropLevel": 73,
-    "flavourText": "There is always a wager to be made... if you can afford it."
+    "flavourText": "There is always a wager to be made... if you can afford it.",
+    "helpText": "Can be used in a personal Map Device to add modifiers to a Map."
   }
 ]

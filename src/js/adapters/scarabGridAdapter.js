@@ -19,17 +19,10 @@ function getScarabType(scarab) {
   const idLower = scarab.id.toLowerCase();
   const nameLower = (scarab.name || '').toLowerCase();
 
-  const misc2Order = SCARAB_ORDER_CONFIG['misc2'] || [];
-  if (misc2Order.includes(scarab.id)) return 'misc2';
-
-  const miscOrder = SCARAB_ORDER_CONFIG['misc'] || [];
-  if (miscOrder.includes(scarab.id)) return 'misc';
-
-  const horned2Order = SCARAB_ORDER_CONFIG['horned2'] || [];
-  if (horned2Order.includes(scarab.id)) return 'horned2';
-
-  const hornedOrder = SCARAB_ORDER_CONFIG['horned'] || [];
-  if (hornedOrder.includes(scarab.id)) return 'horned';
+  // Resolve from explicit order config first (misc and horned are vertical groups)
+  for (const [groupType, order] of Object.entries(SCARAB_ORDER_CONFIG)) {
+    if (Array.isArray(order) && order.includes(scarab.id)) return groupType;
+  }
 
   const idMatch = idLower.match(/^([^-]+)-scarab/);
   if (idMatch) {
