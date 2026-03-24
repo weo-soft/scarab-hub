@@ -203,7 +203,7 @@
     {
       "id": "cartography-scarab-of-the-multitude",
       "name": "Cartography Scarab of the Multitude",
-      "sus": "f\nD"
+      "sus": ", n"
     },
     {
       "id": "cartography-scarab-of-singularity",
@@ -243,7 +243,7 @@
     {
       "id": "divination-scarab-of-plenty",
       "name": "Divination Scarab of Plenty",
-      "sus": "t\nh"
+      "sus": "usa"
     },
     {
       "id": "divination-scarab-of-the-cloister",
@@ -343,7 +343,7 @@
     {
       "id": "horned-scarab-of-bloodlines",
       "name": "Horned Scarab of Bloodlines",
-      "sus": "\nMa"
+      "sus": "urv"
     },
     {
       "id": "horned-scarab-of-glittering",
@@ -368,7 +368,7 @@
     {
       "id": "horned-scarab-of-tradition",
       "name": "Horned Scarab of Tradition",
-      "sus": "\ntr"
+      "sus": "ges"
     },
     {
       "id": "incursion-scarab",
@@ -418,7 +418,7 @@
     {
       "id": "kalguuran-scarab-of-enriching",
       "name": "Kalguuran Scarab of Enriching",
-      "sus": "\nf"
+      "sus": "nri"
     },
     {
       "id": "kalguuran-scarab-of-guarded-riches",
@@ -448,7 +448,7 @@
     {
       "id": "legion-scarab-of-treasures",
       "name": "Legion Scarab of Treasures",
-      "sus": "t\nL"
+      "sus": "Hoa"
     },
     {
       "id": "legion-scarab-of-the-sekhema",
@@ -543,7 +543,7 @@
     {
       "id": "titanic-scarab-of-treasures",
       "name": "Titanic Scarab of Treasures",
-      "sus": "d\nU"
+      "sus": "p of"
     },
     {
       "id": "torment-scarab",
@@ -8820,19 +8820,6 @@
       ]
     },
     {
-      "token": "\na",
-      "memberIds": [
-        "abyss-scarab-of-edifice",
-        "ambush-scarab-of-containment",
-        "breach-scarab-of-the-incensed-swarm",
-        "scarab-of-divinity",
-        "scarab-of-the-dextral",
-        "scarab-of-the-sinistral",
-        "torment-scarab",
-        "ultimatum-scarab-of-catalysing"
-      ]
-    },
-    {
       "token": "s p",
       "memberIds": [
         "abyss-scarab-of-edifice",
@@ -13685,7 +13672,7 @@
       ]
     },
     {
-      "token": "r\ne",
+      "token": "as h",
       "memberIds": [
         "abyss-scarab-of-profound-depth",
         "breach-scarab-of-resonant-cascade",
@@ -14852,15 +14839,6 @@
         "essence-scarab-of-adaptation",
         "expedition-scarab-of-infusion",
         "legion-scarab-of-eternal-conflict"
-      ]
-    },
-    {
-      "token": "\ne",
-      "memberIds": [
-        "abyss-scarab-of-profound-depth",
-        "breach-scarab-of-resonant-cascade",
-        "essence-scarab-of-adaptation",
-        "expedition-scarab-of-infusion"
       ]
     },
     {
@@ -16795,23 +16773,6 @@
         "horned-scarab-of-awakening",
         "scarab-of-radiant-storms",
         "ultimatum-scarab"
-      ]
-    },
-    {
-      "token": "s\na",
-      "memberIds": [
-        "ambush-scarab-of-containment",
-        "scarab-of-the-dextral",
-        "scarab-of-the-sinistral",
-        "ultimatum-scarab-of-catalysing"
-      ]
-    },
-    {
-      "token": "\nar",
-      "memberIds": [
-        "ambush-scarab-of-containment",
-        "scarab-of-the-dextral",
-        "scarab-of-the-sinistral"
       ]
     },
     {
@@ -26345,13 +26306,6 @@
       ]
     },
     {
-      "token": "\nn",
-      "memberIds": [
-        "betrayal-scarab-of-unbreaking",
-        "expedition-scarab-of-runefinding"
-      ]
-    },
-    {
       "token": "los",
       "memberIds": [
         "betrayal-scarab-of-unbreaking",
@@ -27448,14 +27402,6 @@
       ]
     },
     {
-      "token": "\nc",
-      "memberIds": [
-        "beyond-scarab-of-haemophilia",
-        "delirium-scarab-of-neuroses",
-        "influencing-scarab-of-interference"
-      ]
-    },
-    {
       "token": "cte",
       "memberIds": [
         "beyond-scarab-of-haemophilia",
@@ -28388,32 +28334,6 @@
         "incursion-scarab-of-champions",
         "legion-scarab-of-officers",
         "scarab-of-divinity"
-      ]
-    },
-    {
-      "token": "s\nb",
-      "memberIds": [
-        "beyond-scarab-of-resurgence",
-        "blight-scarab-of-the-blightheart",
-        "breach-scarab-of-the-marshal"
-      ]
-    },
-    {
-      "token": "\nb",
-      "memberIds": [
-        "beyond-scarab-of-resurgence",
-        "blight-scarab-of-the-blightheart",
-        "breach-scarab-of-the-marshal",
-        "torment-scarab",
-        "torment-scarab-of-release"
-      ]
-    },
-    {
-      "token": "\nbe",
-      "memberIds": [
-        "beyond-scarab-of-resurgence",
-        "torment-scarab",
-        "torment-scarab-of-release"
       ]
     },
     {
@@ -29896,22 +29816,6 @@
       ]
     },
     {
-      "token": "\nu",
-      "memberIds": [
-        "blight-scarab-of-blooming",
-        "essence-scarab-of-stability",
-        "titanic-scarab-of-treasures",
-        "ultimatum-scarab-of-bribing"
-      ]
-    },
-    {
-      "token": "\nun",
-      "memberIds": [
-        "blight-scarab-of-blooming",
-        "titanic-scarab-of-treasures"
-      ]
-    },
-    {
       "token": "e ene",
       "memberIds": [
         "blight-scarab-of-blooming",
@@ -29978,16 +29882,6 @@
         "harvest-scarab-of-doubling",
         "ritual-scarab-of-corpses",
         "scarab-of-radiant-storms",
-        "torment-scarab"
-      ]
-    },
-    {
-      "token": "\nt",
-      "memberIds": [
-        "blight-scarab-of-blooming",
-        "divination-scarab-of-pilfering",
-        "horned-scarab-of-tradition",
-        "legion-scarab-of-treasures",
         "torment-scarab"
       ]
     },
@@ -30519,15 +30413,6 @@
       ]
     },
     {
-      "token": "\nr",
-      "memberIds": [
-        "blight-scarab-of-invigoration",
-        "blight-scarab-of-the-blightheart",
-        "kalguuran-scarab-of-enriching",
-        "ritual-scarab-of-selectiveness"
-      ]
-    },
-    {
       "token": "vers",
       "memberIds": [
         "blight-scarab-of-invigoration",
@@ -31026,7 +30911,7 @@
       ]
     },
     {
-      "token": "\nre",
+      "token": "f en",
       "memberIds": [
         "blight-scarab-of-the-blightheart",
         "kalguuran-scarab-of-enriching"
@@ -31556,32 +31441,6 @@
       ]
     },
     {
-      "token": "\nm",
-      "memberIds": [
-        "breach-scarab-of-resonant-cascade",
-        "domination-scarab-of-terrors",
-        "horned-scarab-of-bloodlines",
-        "horned-scarab-of-pandemonium",
-        "sulphite-scarab-of-fumes"
-      ]
-    },
-    {
-      "token": "\nmo",
-      "memberIds": [
-        "breach-scarab-of-resonant-cascade",
-        "domination-scarab-of-terrors",
-        "horned-scarab-of-pandemonium",
-        "sulphite-scarab-of-fumes"
-      ]
-    },
-    {
-      "token": "\nmon",
-      "memberIds": [
-        "breach-scarab-of-resonant-cascade",
-        "sulphite-scarab-of-fumes"
-      ]
-    },
-    {
       "token": "wea",
       "memberIds": [
         "breach-scarab-of-resonant-cascade",
@@ -31927,13 +31786,6 @@
         "breach-scarab-of-the-incensed-swarm",
         "divination-scarab-of-pilfering",
         "expedition-scarab-of-verisium-powder"
-      ]
-    },
-    {
-      "token": "\nan",
-      "memberIds": [
-        "breach-scarab-of-the-incensed-swarm",
-        "torment-scarab"
       ]
     },
     {
@@ -33139,15 +32991,6 @@
       ]
     },
     {
-      "token": "\nd",
-      "memberIds": [
-        "cartography-scarab-of-the-multitude",
-        "delirium-scarab-of-mania",
-        "delirium-scarab-of-neuroses",
-        "divination-scarab-of-the-cloister"
-      ]
-    },
-    {
       "token": "lt a",
       "memberIds": [
         "cartography-scarab-of-the-multitude",
@@ -33909,7 +33752,7 @@
       ]
     },
     {
-      "token": "\nde",
+      "token": "um r",
       "memberIds": [
         "delirium-scarab-of-mania",
         "delirium-scarab-of-neuroses"
@@ -34211,7 +34054,7 @@
       ]
     },
     {
-      "token": "\nca",
+      "token": "+ m",
       "memberIds": [
         "delirium-scarab-of-neuroses",
         "influencing-scarab-of-interference"
@@ -34740,15 +34583,6 @@
       ]
     },
     {
-      "token": "s\nt",
-      "memberIds": [
-        "divination-scarab-of-pilfering",
-        "horned-scarab-of-tradition",
-        "legion-scarab-of-treasures",
-        "torment-scarab"
-      ]
-    },
-    {
       "token": "t fi",
       "memberIds": [
         "divination-scarab-of-pilfering",
@@ -34825,22 +34659,6 @@
         "influencing-scarab-of-hordes",
         "scarab-of-divinity",
         "torment-scarab"
-      ]
-    },
-    {
-      "token": "\ni",
-      "memberIds": [
-        "divination-scarab-of-pilfering",
-        "essence-scarab-of-adaptation",
-        "incursion-scarab-of-champions",
-        "incursion-scarab-of-timelines"
-      ]
-    },
-    {
-      "token": "\nin",
-      "memberIds": [
-        "divination-scarab-of-pilfering",
-        "incursion-scarab-of-champions"
       ]
     },
     {
@@ -35016,7 +34834,7 @@
       ]
     },
     {
-      "token": "\nh",
+      "token": "nty",
       "memberIds": [
         "divination-scarab-of-plenty",
         "harvest-scarab-of-doubling"
@@ -35885,23 +35703,6 @@
         "domination-scarab-of-terrors",
         "horned-scarab-of-pandemonium",
         "influencing-scarab-of-interference"
-      ]
-    },
-    {
-      "token": "s\nm",
-      "memberIds": [
-        "domination-scarab-of-terrors",
-        "horned-scarab-of-bloodlines",
-        "horned-scarab-of-pandemonium",
-        "sulphite-scarab-of-fumes"
-      ]
-    },
-    {
-      "token": "s\nmo",
-      "memberIds": [
-        "domination-scarab-of-terrors",
-        "horned-scarab-of-pandemonium",
-        "sulphite-scarab-of-fumes"
       ]
     },
     {
@@ -38070,7 +37871,7 @@
       ]
     },
     {
-      "token": "\ns",
+      "token": "sed it",
       "memberIds": [
         "horned-scarab-of-glittering",
         "sulphite-scarab-of-fumes"
@@ -39238,7 +39039,7 @@
       ]
     },
     {
-      "token": "\nl",
+      "token": "bro",
       "memberIds": [
         "legion-scarab-of-eternal-conflict",
         "legion-scarab-of-treasures"
@@ -39319,13 +39120,6 @@
         "ultimatum-scarab-of-bribing",
         "ultimatum-scarab-of-catalysing",
         "ultimatum-scarab-of-inscription"
-      ]
-    },
-    {
-      "token": "\nto",
-      "memberIds": [
-        "legion-scarab-of-treasures",
-        "torment-scarab"
       ]
     },
     {
@@ -39505,13 +39299,6 @@
       "memberIds": [
         "ritual-scarab-of-wisps",
         "scarab-of-wisps"
-      ]
-    },
-    {
-      "token": "\nw",
-      "memberIds": [
-        "ritual-scarab-of-wisps",
-        "ultimatum-scarab-of-inscription"
       ]
     },
     {
@@ -39844,7 +39631,7 @@
       ]
     },
     {
-      "token": "o\nb",
+      "token": "set",
       "memberIds": [
         "torment-scarab",
         "torment-scarab-of-release"

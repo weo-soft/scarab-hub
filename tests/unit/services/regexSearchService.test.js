@@ -15,6 +15,14 @@ function buildCategoryNames(namesById) {
   };
 }
 
+/** PoE-style output wraps the alternation in double quotes; strip for JS RegExp tests. */
+function regexPatternFromQuoted(value) {
+  if (value.startsWith('"') && value.endsWith('"')) {
+    return value.slice(1, -1);
+  }
+  return value;
+}
+
 describe('regexSearchService', () => {
   describe('generateRegex', () => {
     it('returns null for empty selection', () => {
@@ -31,16 +39,24 @@ describe('regexSearchService', () => {
       const categoryNames = buildCategoryNames({ a: 'Alpha (Special)' });
       const result = generateRegex(new Set(['a']), categoryNames);
       expect(result).not.toBeNull();
-      expect(result.value).toBe('Alpha \\(Special\\)');
+      expect(result.value).toBe('"Alpha \\(Special\\)"');
       expect(result.length).toBeLessThanOrEqual(MAX_LENGTH);
       expect(result.selectedCount).toBe(1);
+    });
+
+    it('escapes ? with a single backslash (not doubled for quoted string)', () => {
+      const categoryNames = buildCategoryNames({ a: 'Foo? Bar' });
+      const result = generateRegex(new Set(['a']), categoryNames);
+      expect(result).not.toBeNull();
+      expect(result.value).toBe('"Foo\\? Bar"');
+      expect(result.value).not.toMatch(/\\\\\?/);
     });
 
     it('returns alternation for multiple selected items', () => {
       const categoryNames = buildCategoryNames({ a: 'Alpha', b: 'Beta', c: 'Gamma' });
       const result = generateRegex(new Set(['a', 'c']), categoryNames);
       expect(result).not.toBeNull();
-      expect(result.value).toMatch(/^\(.*\|.*\)$/);
+      expect(result.value).toMatch(/^".*\|.*"$/);
       expect(result.value).toContain('Alpha');
       expect(result.value).toContain('Gamma');
       expect(result.length).toBeLessThanOrEqual(MAX_LENGTH);
@@ -60,8 +76,8 @@ describe('regexSearchService', () => {
       const selectedIds = new Set(Object.keys(namesById));
       const result = generateRegex(selectedIds, categoryNames);
       expect(result).not.toBeNull();
-      expect(result.length).toBeLessThanOrEqual(MAX_LENGTH);
-      expect(result.value.length).toBeLessThanOrEqual(MAX_LENGTH);
+      expect(result.exceedsMaxLength).toBe(true);
+      expect(result.length).toBeGreaterThan(MAX_LENGTH);
     });
 
     it('exact match: regex matches only selected names', () => {
@@ -72,7 +88,7 @@ describe('regexSearchService', () => {
       });
       const result = generateRegex(new Set(['a', 'c']), categoryNames);
       expect(result).not.toBeNull();
-      const re = new RegExp(result.value);
+      const re = new RegExp(regexPatternFromQuoted(result.value));
       expect(re.test('Abyss Scarab')).toBe(true);
       expect(re.test('Anarchy Scarab')).toBe(true);
       expect(re.test('Ambush Scarab')).toBe(false);
@@ -82,11 +98,11 @@ describe('regexSearchService', () => {
       const categoryNames = buildCategoryNames({ a: 'Alpha' });
       const result = generateRegex(new Set(['a', 'missing']), categoryNames);
       expect(result).not.toBeNull();
-      expect(result.selectedCount).toBe(1);
-      expect(result.value).toBe('Alpha');
+      expect(result.selectedCount).toBe(2);
+      expect(result.value).toBe('"Alpha"');
     });
 
-    it('fallback: large selection produces regex ≤250 and exact match', () => {
+    it('fallback: large selection marks exceedsMaxLength and regex matches all names', () => {
       const namesById = {};
       const names = [];
       for (let i = 0; i < 30; i++) {
@@ -99,8 +115,8 @@ describe('regexSearchService', () => {
       const selectedIds = new Set(Object.keys(namesById));
       const result = generateRegex(selectedIds, categoryNames);
       expect(result).not.toBeNull();
-      expect(result.value.length).toBeLessThanOrEqual(MAX_LENGTH);
-      const re = new RegExp(result.value);
+      expect(result.exceedsMaxLength).toBe(true);
+      const re = new RegExp(regexPatternFromQuoted(result.value));
       names.forEach((n, i) => {
         expect(re.test(n)).toBe(true);
       });

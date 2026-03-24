@@ -184,12 +184,13 @@ export function generateRegex(selectedIds, categoryNames) {
 }
 
 /**
- * Escape content for use inside a double-quoted string (escape \ and ").
+ * Escape content for use inside a double-quoted PoE-style regex string.
+ * Only `"` is doubled-escaped; regex escapes from escapeRegex (e.g. `\?`, `\(`, `\\`) stay as one backslash.
  * @param {string} s
  * @returns {string}
  */
 function escapeForQuotedString(s) {
-  return s.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+  return s.replace(/"/g, '\\"');
 }
 
 /**
