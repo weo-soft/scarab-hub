@@ -18,7 +18,7 @@ Enable users to select items (via list entry or grid cell) and obtain a regular 
 **Storage**: In-memory selection state per category; optional LocalStorage for persistence (out of scope per spec unless added later)  
 **Testing**: Vitest (unit for regex service and selection logic; integration for list/grid selection and regex display)  
 **Target Platform**: Modern web browsers (Chrome, Firefox, Safari, Edge - latest 2 versions)  
-**Project Type**: Single-page web application (extension of existing Scarab Hub)  
+**Project Type**: Single-page web application (extension of existing PoE-Flipup)  
 **Performance Goals**:
 - Regex generation &lt;50ms for typical selections
 - Selection toggle and UI update &lt;100ms perceived latency

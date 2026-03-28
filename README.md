@@ -1,4 +1,4 @@
-# Flipping Scarabs - Path of Exile Vendor Profitability Calculator
+# PoE-Flipup - Path of Exile Vendor Profitability Calculator
 
 A single-page web application that helps Path of Exile players determine which Scarabs to vendor using the 3-to-1 recipe to maximize long-term profit.
 
@@ -103,5 +103,5 @@ tests/
 
 ## License
 
-This project is part of the Scarab Hub application.
+This project is part of the PoE-Flipup application.
 

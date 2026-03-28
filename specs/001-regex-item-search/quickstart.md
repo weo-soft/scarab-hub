@@ -10,7 +10,7 @@
 
 - Node.js 18+
 - Modern web browser (Chrome, Firefox, Safari, Edge - latest 2 versions)
-- Scarab Hub repository with dependencies installed
+- PoE-Flipup repository with dependencies installed
 
 ### Installation
 

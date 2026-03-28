@@ -11,7 +11,7 @@ Templates requiring updates:
 Follow-up TODOs: None
 -->
 
-# Scarab Hub Constitution
+# PoE-Flipup Constitution
 
 ## Core Principles
 

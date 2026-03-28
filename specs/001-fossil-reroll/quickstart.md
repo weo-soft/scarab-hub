@@ -10,7 +10,7 @@
 
 - Node.js 18+ installed
 - Modern web browser (Chrome, Firefox, Safari, Edge - latest 2 versions)
-- Existing Scarab Hub application running
+- Existing PoE-Flipup application running
 
 ### Installation
 

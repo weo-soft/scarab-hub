@@ -16,7 +16,7 @@ export function renderWelcomePage(container) {
   container.innerHTML = `
     <div class="welcome-page">
       <div class="welcome-header">
-        <h1>Welcome to Scarab Hub</h1>
+        <h1>Welcome to PoE-Flipup</h1>
         <p class="welcome-subtitle">Path of Exile Vendor Profitability Calculator</p>
       </div>
       
@@ -24,7 +24,7 @@ export function renderWelcomePage(container) {
         <section class="welcome-section">
           <h2>About This Tool</h2>
           <p>
-            Scarab Hub helps you maximize your profits in Path of Exile by analyzing vendor recipe profitability 
+            PoE-Flipup helps you maximize your profits in Path of Exile by analyzing vendor recipe profitability 
             across multiple item categories. Whether you're flipping Scarabs, rerolling Essences, or evaluating 
             other vendor recipes, this tool provides real-time price data and profitability calculations to guide 
             your trading decisions.
