@@ -364,14 +364,10 @@ async function init() {
     }
   }
   
-  // Set header visibility based on initial route (but don't set currentCategory/currentPage yet)
+  // Hide header title and Flipping/Simulation controls on category routes (including scarabs)
   const headerContent = document.querySelector('.header-content');
   if (headerContent) {
-    if (initialRoute.category === 'scarabs') {
-      headerContent.style.display = '';
-    } else {
-      headerContent.style.display = 'none';
-    }
+    headerContent.style.display = 'none';
   }
 
   try {
@@ -2494,15 +2490,10 @@ async function handleRouteChange(category, page) {
     }
   }
   
-  // Show/hide header content (title and page buttons) based on category
-  // Only show for scarabs category
+  // Hide header title and Flipping/Simulation controls on category routes (including scarabs)
   const headerContent = document.querySelector('.header-content');
   if (headerContent) {
-    if (category === 'scarabs') {
-      headerContent.style.display = '';
-    } else {
-      headerContent.style.display = 'none';
-    }
+    headerContent.style.display = 'none';
   }
   
   // Update selection category if category changed

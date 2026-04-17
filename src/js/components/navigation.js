@@ -52,14 +52,14 @@ export function renderNavigation(container, currentCategory = 'scarabs', current
   // Generate URLs for each category using the current page
   const categories = [
     { id: 'scarabs', label: 'Scarabs' },
-    { id: 'essences', label: 'Essences' },
-    { id: 'tattoos', label: 'Tattoos' },
-    { id: 'catalysts', label: 'Catalysts' },
-    { id: 'temple', label: 'Temple' },
     { id: 'fossils', label: 'Fossils' },
-    { id: 'oils', label: 'Oils' },
+    { id: 'catalysts', label: 'Catalysts' },
+    { id: 'essences', label: 'Essences' },
     { id: 'delirium-orbs', label: 'Delirium Orbs' },
-    { id: 'emblems', label: 'Emblems' }
+    { id: 'emblems', label: 'Emblems' },
+    { id: 'tattoos', label: 'Tattoos' },
+    { id: 'oils', label: 'Oils' },
+    { id: 'temple', label: 'Temple' }
   ];
 
   const navLinks = categories.map(cat => {
