@@ -3,12 +3,12 @@
     {
       "id": "clear-oil",
       "name": "Clear Oil",
-      "sus": "ar"
+      "sus": "Cle"
     },
     {
       "id": "sepia-oil",
       "name": "Sepia Oil",
-      "sus": "Se"
+      "sus": "ep"
     },
     {
       "id": "amber-oil",
@@ -28,7 +28,7 @@
     {
       "id": "azure-oil",
       "name": "Azure Oil",
-      "sus": "z"
+      "sus": "Az"
     },
     {
       "id": "indigo-oil",
@@ -38,7 +38,7 @@
     {
       "id": "violet-oil",
       "name": "Violet Oil",
-      "sus": "Vi"
+      "sus": "io"
     },
     {
       "id": "crimson-oil",
@@ -48,7 +48,7 @@
     {
       "id": "black-oil",
       "name": "Black Oil",
-      "sus": "la"
+      "sus": "Bla"
     },
     {
       "id": "opalescent-oil",
@@ -83,7 +83,14 @@
   ],
   "groups": [
     {
-      "token": "c",
+      "token": "ea",
+      "memberIds": [
+        "clear-oil",
+        "teal-oil"
+      ]
+    },
+    {
+      "token": "w",
       "memberIds": [
         "clear-oil",
         "sepia-oil",
@@ -104,23 +111,7 @@
       ]
     },
     {
-      "token": "ea",
-      "memberIds": [
-        "clear-oil",
-        "teal-oil"
-      ]
-    },
-    {
-      "token": "v",
-      "memberIds": [
-        "verdant-oil",
-        "violet-oil",
-        "silver-oil",
-        "reflective-oil"
-      ]
-    },
-    {
-      "token": "ve",
+      "token": "Ve",
       "memberIds": [
         "verdant-oil",
         "silver-oil",
@@ -128,21 +119,21 @@
       ]
     },
     {
-      "token": "ver",
+      "token": "Ver",
       "memberIds": [
         "verdant-oil",
         "silver-oil"
       ]
     },
     {
-      "token": "nt o",
+      "token": "nt O",
       "memberIds": [
         "verdant-oil",
         "opalescent-oil"
       ]
     },
     {
-      "token": "t o",
+      "token": "t O",
       "memberIds": [
         "verdant-oil",
         "violet-oil",
@@ -150,14 +141,7 @@
       ]
     },
     {
-      "token": "al",
-      "memberIds": [
-        "teal-oil",
-        "opalescent-oil"
-      ]
-    },
-    {
-      "token": "re",
+      "token": "e O",
       "memberIds": [
         "azure-oil",
         "reflective-oil"
@@ -178,7 +162,7 @@
       ]
     },
     {
-      "token": "n o",
+      "token": "n O",
       "memberIds": [
         "crimson-oil",
         "golden-oil"

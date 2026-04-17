@@ -53,12 +53,35 @@
     {
       "id": "unstable-catalyst",
       "name": "Unstable Catalyst",
-      "sus": "bl"
+      "sus": "Cr"
     }
   ],
   "groups": [
     {
-      "token": "",
+      "token": "w",
+      "memberIds": [
+        "abrasive-catalyst",
+        "accelerating-catalyst",
+        "fertile-catalyst",
+        "imbued-catalyst",
+        "intrinsic-catalyst",
+        "noxious-catalyst",
+        "prismatic-catalyst",
+        "tempering-catalyst",
+        "turbulent-catalyst",
+        "unstable-catalyst"
+      ]
+    },
+    {
+      "token": "e Ca",
+      "memberIds": [
+        "abrasive-catalyst",
+        "fertile-catalyst",
+        "unstable-catalyst"
+      ]
+    },
+    {
+      "token": "q",
       "memberIds": [
         "abrasive-catalyst",
         "accelerating-catalyst",
@@ -74,53 +97,6 @@
       ]
     },
     {
-      "token": "ab",
-      "memberIds": [
-        "abrasive-catalyst",
-        "unstable-catalyst"
-      ]
-    },
-    {
-      "token": "ra",
-      "memberIds": [
-        "abrasive-catalyst",
-        "accelerating-catalyst",
-        "tainted-catalyst"
-      ]
-    },
-    {
-      "token": "v",
-      "memberIds": [
-        "abrasive-catalyst",
-        "accelerating-catalyst",
-        "fertile-catalyst",
-        "imbued-catalyst",
-        "intrinsic-catalyst",
-        "noxious-catalyst",
-        "prismatic-catalyst",
-        "tempering-catalyst",
-        "turbulent-catalyst",
-        "unstable-catalyst"
-      ]
-    },
-    {
-      "token": "si",
-      "memberIds": [
-        "abrasive-catalyst",
-        "intrinsic-catalyst",
-        "noxious-catalyst",
-        "prismatic-catalyst"
-      ]
-    },
-    {
-      "token": "e c",
-      "memberIds": [
-        "abrasive-catalyst",
-        "fertile-catalyst",
-        "unstable-catalyst"
-      ]
-    },
-    {
       "token": "tt",
       "memberIds": [
         "abrasive-catalyst",
@@ -128,7 +104,7 @@
       ]
     },
     {
-      "token": "s a",
+      "token": "s A",
       "memberIds": [
         "abrasive-catalyst",
         "intrinsic-catalyst",
@@ -159,29 +135,14 @@
       ]
     },
     {
-      "token": "g c",
+      "token": "g C",
       "memberIds": [
         "accelerating-catalyst",
         "tempering-catalyst"
       ]
     },
     {
-      "token": "ed",
-      "memberIds": [
-        "accelerating-catalyst",
-        "imbued-catalyst",
-        "tainted-catalyst"
-      ]
-    },
-    {
-      "token": "d m",
-      "memberIds": [
-        "accelerating-catalyst",
-        "fertile-catalyst"
-      ]
-    },
-    {
-      "token": "le c",
+      "token": "le Ca",
       "memberIds": [
         "fertile-catalyst",
         "unstable-catalyst"
@@ -211,14 +172,14 @@
       ]
     },
     {
-      "token": "ed c",
+      "token": "ed C",
       "memberIds": [
         "imbued-catalyst",
         "tainted-catalyst"
       ]
     },
     {
-      "token": "d c",
+      "token": "d C",
       "memberIds": [
         "imbued-catalyst",
         "noxious-catalyst",
@@ -226,14 +187,14 @@
       ]
     },
     {
-      "token": "es c",
+      "token": "es C",
       "memberIds": [
         "imbued-catalyst",
         "unstable-catalyst"
       ]
     },
     {
-      "token": "s c",
+      "token": "s C",
       "memberIds": [
         "imbued-catalyst",
         "noxious-catalyst",
@@ -241,25 +202,17 @@
       ]
     },
     {
-      "token": "s ca",
+      "token": "s Ca",
       "memberIds": [
         "imbued-catalyst",
         "noxious-catalyst"
       ]
     },
     {
-      "token": "int",
+      "token": "Int",
       "memberIds": [
         "intrinsic-catalyst",
         "tainted-catalyst"
-      ]
-    },
-    {
-      "token": "nt",
-      "memberIds": [
-        "intrinsic-catalyst",
-        "tainted-catalyst",
-        "turbulent-catalyst"
       ]
     },
     {
@@ -277,7 +230,7 @@
       ]
     },
     {
-      "token": "c c",
+      "token": "c C",
       "memberIds": [
         "intrinsic-catalyst",
         "prismatic-catalyst"
@@ -308,22 +261,14 @@
       ]
     },
     {
-      "token": "s d",
+      "token": "s D",
       "memberIds": [
         "noxious-catalyst",
         "tempering-catalyst"
       ]
     },
     {
-      "token": " d",
-      "memberIds": [
-        "noxious-catalyst",
-        "tempering-catalyst",
-        "turbulent-catalyst"
-      ]
-    },
-    {
-      "token": "da",
+      "token": "Da",
       "memberIds": [
         "noxious-catalyst",
         "turbulent-catalyst"

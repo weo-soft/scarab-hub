@@ -8,6 +8,10 @@ export class Scarab {
     this.id = data.id;
     this.name = data.name;
     this.description = data.description || '';
+    // Needed for regex / search-text parity with compute-sus.js (tooltip is searchable in PoE)
+    if (typeof data.flavourText === 'string') this.flavourText = data.flavourText;
+    else if (typeof data.flavourtext === 'string') this.flavourText = data.flavourtext;
+    if (typeof data.helpText === 'string') this.helpText = data.helpText;
     this.dropWeight = data.dropWeight ?? null;
     this.dropLevel = data.dropLevel || 0;
     this.limit = data.limit || 1;

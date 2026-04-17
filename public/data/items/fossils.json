@@ -18,6 +18,7 @@
         "helpText": "Place in a Resonator to influence item crafting.\nShift click to unstack.",
         "name": "Bloodstained Fossil",
         "description": "Corrupted\nHas a Corrupted implicit modifier",
+        "doesNotApplyTo": "Contracts, Blueprints, Heist Equipment",
         "dropRestrictions": "Drops from completing a Stonewood Hollow node in Petrified Forest biomes in the Azurite Mine."
     },
     {
@@ -88,6 +89,7 @@
         "helpText": "Place in a Resonator to influence item crafting.\nShift click to unstack.",
         "name": "Glyphic Fossil",
         "description": "Has a Corrupt Essence modifier",
+        "appliesTo": "Weapons, Body Armour, Gloves, Boots, Helmets, Shields, Amulets, Belts, Rings, Quivers",
         "dropRestrictions": "Drops from completing a Time-Lost Cavern node in Frozen Hollow biomes in the Azurite Mine."
     },
     {
@@ -95,6 +97,7 @@
         "helpText": "Place in a Resonator to influence item crafting.\nShift click to unstack.",
         "name": "Hollow Fossil",
         "description": "Has an Abyssal socket",
+        "appliesTo": "Weapons, Helmets, Boots, Gloves, Body Armour",
         "dropRestrictions": "Drops from completing a Crystal Spire node in Abyssal Depths biomes in the Azurite Mine."
     },
     {

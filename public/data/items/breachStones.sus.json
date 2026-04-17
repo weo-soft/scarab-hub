@@ -3,7 +3,7 @@
     {
       "id": "chayula-s-breachstone",
       "name": "Chayula's Breachstone",
-      "sus": "y"
+      "sus": "ha"
     },
     {
       "id": "esh-s-breachstone",
@@ -28,7 +28,7 @@
   ],
   "groups": [
     {
-      "token": "c",
+      "token": "h",
       "memberIds": [
         "chayula-s-breachstone",
         "esh-s-breachstone",
@@ -38,7 +38,7 @@
       ]
     },
     {
-      "token": "u",
+      "token": "ul",
       "memberIds": [
         "chayula-s-breachstone",
         "tul-s-breachstone",

@@ -23,12 +23,12 @@
     {
       "id": "timeless-maraketh-emblem",
       "name": "Timeless Maraketh Emblem",
-      "sus": "ra"
+      "sus": "ak"
     }
   ],
   "groups": [
     {
-      "token": "t",
+      "token": "w",
       "memberIds": [
         "timeless-eternal-emblem",
         "timeless-karui-emblem",
@@ -38,39 +38,17 @@
       ]
     },
     {
-      "token": "et",
+      "token": "Et",
       "memberIds": [
         "timeless-eternal-emblem",
         "timeless-maraketh-emblem"
       ]
     },
     {
-      "token": "te",
-      "memberIds": [
-        "timeless-eternal-emblem",
-        "timeless-templar-emblem"
-      ]
-    },
-    {
-      "token": "al",
+      "token": "l E",
       "memberIds": [
         "timeless-eternal-emblem",
         "timeless-vaal-emblem"
-      ]
-    },
-    {
-      "token": "k",
-      "memberIds": [
-        "timeless-karui-emblem",
-        "timeless-maraketh-emblem"
-      ]
-    },
-    {
-      "token": "ar",
-      "memberIds": [
-        "timeless-karui-emblem",
-        "timeless-templar-emblem",
-        "timeless-maraketh-emblem"
       ]
     }
   ]

@@ -43,23 +43,47 @@ function buildGroupToIds(namesById) {
 }
 
 /**
- * Shortest substring of groupKey that appears in every nameInGroup and in no name in allOtherNames.
+ * Shortest substring of groupKey that appears in every nameInGroup and in no other item's searchable text.
  * Tries full groupKey then shorter prefixes to save characters.
- * @param {string[]} namesInGroup - e.g. ["Betrayal Scarab", "Betrayal Scarab of Reinforcements"]
- * @param {string[]} allOtherNames - all names NOT in this group
+ * @param {string[]} namesInGroup - display names for items in the group
+ * @param {string[]} allOtherSearchTexts - full searchable text per item NOT in this group (same shape as compute-sus)
  * @param {string} groupKey - e.g. "Betrayal"
  * @returns {string}
  */
-function getShortestCommonUniqueToken(namesInGroup, allOtherNames, groupKey) {
+function getShortestCommonUniqueToken(namesInGroup, allOtherSearchTexts, groupKey) {
   if (!groupKey || namesInGroup.length === 0) return groupKey;
-  const otherSet = new Set(allOtherNames);
   for (let len = groupKey.length; len >= 1; len--) {
     const token = groupKey.slice(0, len);
     const inAll = namesInGroup.every(n => n.includes(token));
-    const inNone = !otherSet.size || ![...otherSet].some(n => n.includes(token));
+    const inNone =
+      !allOtherSearchTexts.length || !allOtherSearchTexts.some(t => t.includes(token));
     if (inAll && inNone) return token;
   }
   return groupKey;
+}
+
+/**
+ * Ensure every selected item matches at least one alternation branch in PoE (searchable blob contains the substring).
+ * Needed for {@link generateRegex}: it runs for all lengths, while {@link optimizeRegex} only runs when over MAX_LENGTH.
+ * @param {string[]} patterns
+ * @param {Set<string>} selectedIds
+ * @param {{ namesById: Map<string, string>, searchTextById?: Map<string, string>, susById?: Map<string, string> }} categoryNames
+ * @returns {string[]}
+ */
+function ensureEverySelectedIdHasMatchingPattern(patterns, selectedIds, categoryNames) {
+  const namesById = categoryNames.namesById;
+  const susById = categoryNames.susById;
+  const getText = id => categoryNames.searchTextById?.get(id) ?? namesById.get(id) ?? '';
+  const list = [...patterns];
+  for (const id of selectedIds) {
+    if (!namesById.has(id)) continue;
+    const blob = getText(id);
+    if (list.some(p => p && blob.includes(p))) continue;
+    const sus = susById?.get(id);
+    if (sus && blob.includes(sus)) list.push(sus);
+    else list.push(namesById.get(id) ?? '');
+  }
+  return [...new Set(list.filter(Boolean))];
 }
 
 /**
@@ -76,6 +100,10 @@ function buildOptimizedPatternsWithGroups(selectedIds, categoryNames) {
   const coveredIds = new Set();
   const patterns = [];
 
+  function getText(id) {
+    return categoryNames.searchTextById?.get(id) ?? namesById.get(id) ?? '';
+  }
+
   // Prefer larger groups first to maximize character savings
   const sortedGroups = [...groups].sort(
     (a, b) => (b.memberIds?.length ?? 0) - (a.memberIds?.length ?? 0)
@@ -87,10 +115,12 @@ function buildOptimizedPatternsWithGroups(selectedIds, categoryNames) {
     if (!token || !Array.isArray(memberIds) || memberIds.length === 0) continue;
     const allSelected = memberIds.every(id => selectedIds.has(id));
     const noneCovered = memberIds.every(id => !coveredIds.has(id));
-    if (allSelected && noneCovered) {
-      patterns.push(token);
-      for (const id of memberIds) coveredIds.add(id);
-    }
+    if (!allSelected || !noneCovered) continue;
+    // Token must appear in every member's searchable text (same bug as optimizeRegex: JSON groups can be wrong for some items).
+    const everyMemberHasToken = memberIds.every(id => getText(id).includes(token));
+    if (!everyMemberHasToken) continue;
+    patterns.push(token);
+    for (const id of memberIds) coveredIds.add(id);
   }
 
   for (const id of selectedIds) {
@@ -101,7 +131,7 @@ function buildOptimizedPatternsWithGroups(selectedIds, categoryNames) {
     patterns.push(pattern);
   }
 
-  return patterns;
+  return ensureEverySelectedIdHasMatchingPattern(patterns, selectedIds, categoryNames);
 }
 
 /**
@@ -114,17 +144,25 @@ function buildOptimizedPatternsWithGroups(selectedIds, categoryNames) {
 function buildOptimizedPatternsFromNames(selectedIds, categoryNames) {
   const namesById = categoryNames.namesById;
   const susById = categoryNames.susById;
-  const allNames = categoryNames.names || [];
   const groupToIds = buildGroupToIds(namesById);
   const addedGroupKeys = new Set();
   const patterns = [];
+
+  function getText(id) {
+    return categoryNames.searchTextById?.get(id) ?? namesById.get(id) ?? '';
+  }
 
   for (const [groupKey, idsInGroup] of groupToIds) {
     const allSelected = idsInGroup.every(id => selectedIds.has(id));
     if (allSelected && idsInGroup.length > 0 && !addedGroupKeys.has(groupKey)) {
       const namesInGroup = idsInGroup.map(id => namesById.get(id)).filter(Boolean);
-      const allOtherNames = allNames.filter(n => !namesInGroup.includes(n));
-      const token = getShortestCommonUniqueToken(namesInGroup, allOtherNames, groupKey);
+      const allOtherSearchTexts = [...namesById.keys()]
+        .filter(id => !idsInGroup.includes(id))
+        .map(id => categoryNames.searchTextById?.get(id) ?? namesById.get(id))
+        .filter(Boolean);
+      const token = getShortestCommonUniqueToken(namesInGroup, allOtherSearchTexts, groupKey);
+      const everyHasToken = idsInGroup.every(id => getText(id).includes(token));
+      if (!everyHasToken) continue;
       patterns.push(token);
       addedGroupKeys.add(groupKey);
     }
@@ -139,7 +177,7 @@ function buildOptimizedPatternsFromNames(selectedIds, categoryNames) {
     patterns.push(pattern);
   }
 
-  return patterns;
+  return ensureEverySelectedIdHasMatchingPattern(patterns, selectedIds, categoryNames);
 }
 
 /**
@@ -209,7 +247,7 @@ function buildAlternation(names) {
  * (one token can match multiple items). Uses greedy set-cover: candidates are group tokens and
  * prefix substrings that don't match any non-selected name; pick best coverage per character until all covered.
  * @param {Set<string>} selectedIds
- * @param {{ namesById: Map<string, string>, names: string[], groups?: Array<{ token: string, memberIds: string[] }> }} categoryNames
+ * @param {{ namesById: Map<string, string>, names: string[], searchTextById?: Map<string, string>, susById?: Map<string, string>, groups?: Array<{ token: string, memberIds: string[] }> }} categoryNames
  * @param {string} currentRegexValue - current alternation string to beat
  * @returns {{ value: string, length: number } | null} shorter regex, or null if none found
  */
@@ -217,30 +255,45 @@ export function optimizeRegex(selectedIds, categoryNames, currentRegexValue) {
   if (!selectedIds?.size || !categoryNames?.namesById || !currentRegexValue) return null;
 
   const namesById = categoryNames.namesById;
-  const allNames = categoryNames.names || [];
-  const selectedNames = [];
-  const selectedSet = new Set();
-  for (const id of selectedIds) {
-    const name = namesById.get(id);
-    if (name) {
-      selectedNames.push(name);
-      selectedSet.add(name);
-    }
+  const searchTextById = categoryNames.searchTextById;
+  const susById = categoryNames.susById;
+
+  /** Full PoE-searchable blob per id (matches compute-sus segments). */
+  function getText(id) {
+    return searchTextById?.get(id) ?? namesById.get(id) ?? '';
   }
-  if (selectedNames.length === 0) return null;
 
-  const otherNames = allNames.filter(n => !selectedSet.has(n));
-  const otherSet = new Set(otherNames);
+  const allCategoryIds = [...namesById.keys()];
+  const selectedIdList = [...selectedIds].filter(id => namesById.has(id));
+  if (selectedIdList.length === 0) return null;
 
-  /** Token is valid if it doesn't appear in any non-selected name. */
+  const otherIds = allCategoryIds.filter(id => !selectedIds.has(id));
+
+  /** Token must not appear in any non-selected item's searchable text. */
   function tokenSafe(token) {
     if (!token) return false;
-    return !otherSet.size || ![...otherSet].some(n => n.includes(token));
+    return otherIds.every(oid => !getText(oid).includes(token));
   }
 
-  /** Which selected names contain this token? */
-  function coveredNames(token) {
-    return selectedNames.filter(n => n.includes(token));
+  /** Which selected ids' search text contains this token? */
+  function coveredIdsForToken(token) {
+    return selectedIdList.filter(id => getText(id).includes(token));
+  }
+
+  /** Token must appear in this id's blob (group entries from .sus.json can be wrong if JSON/runtime text diverge). */
+  function idsWithTokenInText(token, ids) {
+    return ids.filter(id => getText(id).includes(token));
+  }
+
+  /** When greedy / groups fail, pick a branch guaranteed to match this item in PoE (name last). */
+  function pickFallbackToken(id) {
+    const blob = getText(id);
+    const sus = susById?.get(id);
+    if (sus && blob.includes(sus) && tokenSafe(sus)) return sus;
+    const otherTexts = allCategoryIds.filter(oid => oid !== id).map(oid => getText(oid));
+    const u = shortestUniqueSubstring(blob, new Set(otherTexts));
+    if (u && blob.includes(u) && tokenSafe(u)) return u;
+    return namesById.get(id) ?? '';
   }
 
   const candidates = [];
@@ -252,65 +305,104 @@ export function optimizeRegex(selectedIds, categoryNames, currentRegexValue) {
   for (const group of groups) {
     const token = group?.token;
     const memberIds = group?.memberIds || [];
-    if (!token || !tokenSafe(token)) continue;
-    const namesInGroup = memberIds.map(id => namesById.get(id)).filter(Boolean);
-    if (namesInGroup.length > 0 && namesInGroup.every(n => selectedSet.has(n))) {
-      candidates.push({ token, names: namesInGroup });
-    }
+    if (!token || !Array.isArray(memberIds) || memberIds.length === 0) continue;
+    if (!memberIds.every(id => selectedIds.has(id))) continue;
+    if (!tokenSafe(token)) continue;
+    const ids = idsWithTokenInText(token, memberIds);
+    if (ids.length === 0) continue;
+    candidates.push({ token, ids });
   }
 
   for (const [groupKey, idsInGroup] of groupToIds) {
+    if (!idsInGroup.every(id => selectedIds.has(id))) continue;
     const namesInGroup = idsInGroup.map(id => namesById.get(id)).filter(Boolean);
-    if (namesInGroup.length === 0 || !namesInGroup.every(n => selectedSet.has(n))) continue;
-    const allOther = allNames.filter(n => !namesInGroup.includes(n));
-    const token = getShortestCommonUniqueToken(namesInGroup, allOther, groupKey);
+    if (namesInGroup.length === 0) continue;
+    const allOtherSearchTexts = allCategoryIds
+      .filter(id => !idsInGroup.includes(id))
+      .map(id => getText(id));
+    const token = getShortestCommonUniqueToken(namesInGroup, allOtherSearchTexts, groupKey);
     if (token && tokenSafe(token)) {
       const already = candidates.some(c => c.token === token);
-      if (!already) candidates.push({ token, names: namesInGroup });
-    }
-  }
-
-  // Per-name prefix substrings that don't match any non-selected (overlapping SUS)
-  const maxPrefixLen = 50;
-  for (const name of selectedNames) {
-    for (let len = 1; len <= Math.min(maxPrefixLen, name.length); len++) {
-      const token = name.slice(0, len);
-      if (!tokenSafe(token)) continue;
-      const covered = coveredNames(token);
-      if (covered.length > 0) {
-        const existing = candidates.find(c => c.token === token);
-        if (!existing) candidates.push({ token, names: covered });
+      if (!already) {
+        const ids = idsWithTokenInText(token, idsInGroup);
+        if (ids.length > 0) candidates.push({ token, ids });
       }
     }
   }
 
-  // Greedy set cover: pick candidate that maximizes (new names covered) / (cost)
+  // Prefix substrings of each selected item's searchable text (not name-only)
+  const maxPrefixLen = 50;
+  for (const id of selectedIdList) {
+    const blob = getText(id);
+    for (let len = 1; len <= Math.min(maxPrefixLen, blob.length); len++) {
+      const token = blob.slice(0, len);
+      if (!tokenSafe(token)) continue;
+      const covered = coveredIdsForToken(token);
+      if (covered.length > 0) {
+        const existing = candidates.find(c => c.token === token);
+        if (!existing) candidates.push({ token, ids: covered });
+      }
+    }
+  }
+
+  // Per-item SUS from .sus.json (may come from flavour/description; must match getText for coverage)
+  if (susById) {
+    for (const id of selectedIds) {
+      const name = namesById.get(id);
+      if (!name) continue;
+      const token = susById.get(id);
+      if (!token) continue;
+      if (!tokenSafe(token)) continue;
+      const covered = coveredIdsForToken(token);
+      if (covered.length === 0) continue;
+      const existing = candidates.find(c => c.token === token);
+      if (!existing) candidates.push({ token, ids: covered });
+    }
+  }
+
   const covered = new Set();
   const chosen = [];
 
-  while (covered.size < selectedNames.length) {
+  while (covered.size < selectedIdList.length) {
     let best = null;
     let bestScore = -1;
 
     for (const c of candidates) {
-      const newNames = c.names.filter(n => !covered.has(n));
-      if (newNames.length === 0) continue;
+      const newIds = c.ids.filter(id => !covered.has(id));
+      if (newIds.length === 0) continue;
       const cost = escapeRegex(c.token).length + (chosen.length > 0 ? 1 : 0);
-      const score = newNames.length / Math.max(1, cost);
+      const score = newIds.length / Math.max(1, cost);
       if (score > bestScore) {
         bestScore = score;
-        best = { ...c, newNames };
+        best = { ...c, newIds };
       }
     }
 
     if (!best) break;
     chosen.push(best.token);
-    for (const n of best.names) covered.add(n);
+    for (const id of best.ids) {
+      if (getText(id).includes(best.token)) covered.add(id);
+    }
   }
 
-  if (chosen.length === 0) return null;
+  // Append a guaranteed-matching token for any item not covered by greedy (fixes false "covered" from group ids).
+  for (const id of selectedIdList) {
+    const blob = getText(id);
+    if (chosen.some(tok => tok && blob.includes(tok))) continue;
+    chosen.push(pickFallbackToken(id));
+  }
 
-  const value = buildAlternation(chosen);
+  const chosenDeduped = [...new Set(chosen.filter(Boolean))];
+  if (chosenDeduped.length === 0) return null;
+
+  for (const id of selectedIdList) {
+    const blob = getText(id);
+    if (!chosenDeduped.some(tok => tok && blob.includes(tok))) {
+      return null;
+    }
+  }
+
+  const value = buildAlternation(chosenDeduped);
   if (value.length >= currentRegexValue.length) return null;
 
   return { value, length: value.length };

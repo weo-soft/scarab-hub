@@ -3,7 +3,7 @@
     {
       "id": "splinter-of-chayula",
       "name": "Splinter of Chayula",
-      "sus": "y"
+      "sus": "ha"
     },
     {
       "id": "splinter-of-esh",
@@ -28,7 +28,7 @@
   ],
   "groups": [
     {
-      "token": "",
+      "token": "h",
       "memberIds": [
         "splinter-of-chayula",
         "splinter-of-esh",
@@ -38,7 +38,7 @@
       ]
     },
     {
-      "token": "u",
+      "token": "ul",
       "memberIds": [
         "splinter-of-chayula",
         "splinter-of-tul",

@@ -5,6 +5,24 @@
  */
 
 /**
+ * Same searchable text as scripts/compute-sus.js (name + description + flavour + helpText).
+ * PoE search matches across this full tooltip text, not the name line alone.
+ * @param {{ name?: string, baseType?: string, description?: string, flavourText?: string, flavourtext?: string, helpText?: string }} item
+ * @returns {string}
+ */
+export function getItemSearchText(item) {
+  if (!item) return '';
+  const name = (item.name ?? item.baseType ?? '').trim();
+  if (!name) return '';
+  const parts = [name];
+  if (typeof item.description === 'string') parts.push(item.description);
+  const flavour = item.flavourText ?? item.flavourtext;
+  if (typeof flavour === 'string') parts.push(flavour);
+  if (typeof item.helpText === 'string') parts.push(item.helpText);
+  return parts.join('\n');
+}
+
+/**
  * Load SUS data for a category from public/data/items/{categoryId}.sus.json.
  * Supports legacy array format or new structure { entries, groups }.
  * @param {string} categoryId - e.g. 'scarabs'
@@ -47,10 +65,11 @@ export async function loadSusById(categoryId) {
  * @param {Array<{id: string, name?: string, baseType?: string}>} items - Items with id and name or baseType
  * @param {Map<string, string>} [susById] - Optional id → SUS token from loadSusById()
  * @param {Array<{ token: string, memberIds: string[] }>} [groups] - Optional groups for regex optimization (from .sus.json)
- * @returns {{ categoryId: string, namesById: Map<string, string>, names: string[], susById?: Map<string, string>, groups?: Array<{ token: string, memberIds: string[] }> }}
+ * @returns {{ categoryId: string, namesById: Map<string, string>, names: string[], searchTextById?: Map<string, string>, susById?: Map<string, string>, groups?: Array<{ token: string, memberIds: string[] }> }}
  */
 export function buildCategoryItemNames(categoryId, items, susById = null, groups = null) {
   const namesById = new Map();
+  const searchTextById = new Map();
   const names = [];
 
   if (!categoryId || !Array.isArray(items)) {
@@ -58,6 +77,7 @@ export function buildCategoryItemNames(categoryId, items, susById = null, groups
       categoryId: categoryId || '',
       namesById,
       names,
+      searchTextById: undefined,
       susById: susById || undefined,
       groups: groups && groups.length ? groups : undefined
     };
@@ -69,6 +89,7 @@ export function buildCategoryItemNames(categoryId, items, susById = null, groups
     const name = (item.name ?? item.baseType ?? '').trim();
     if (!name) continue;
     namesById.set(id, name);
+    searchTextById.set(id, getItemSearchText(item));
     names.push(name);
   }
 
@@ -76,6 +97,7 @@ export function buildCategoryItemNames(categoryId, items, susById = null, groups
     categoryId,
     namesById,
     names,
+    searchTextById,
     susById: susById || undefined,
     groups: groups && groups.length ? groups : undefined
   };
