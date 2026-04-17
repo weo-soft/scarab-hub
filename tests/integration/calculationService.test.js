@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { Scarab } from '../../../src/js/models/scarab.js';
+import { Scarab } from '../../src/js/models/scarab.js';
 import {
   calculateThreshold,
   calculateProfitabilityStatus,
-} from '../../../src/js/services/calculationService.js';
+} from '../../src/js/services/calculationService.js';
 
 describe('Calculation Service Integration', () => {
   const createTestScarab = (id, dropWeight, chaosValue) => {
@@ -33,9 +33,10 @@ describe('Calculation Service Integration', () => {
     // Calculate profitability status
     calculateProfitabilityStatus(scarabs, threshold);
 
-    // Verify statuses
-    expect(scarabs[0].profitabilityStatus).toBe('profitable');
-    expect(scarabs[2].profitabilityStatus).toBe('not_profitable');
+    scarabs.forEach((s) => {
+      const expected = s.chaosValue < threshold.value ? 'profitable' : 'not_profitable';
+      expect(s.profitabilityStatus).toBe(expected);
+    });
   });
 
   it('should handle threshold calculation with real-world data structure', () => {

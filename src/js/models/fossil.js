@@ -17,8 +17,11 @@ export class Fossil {
     // Drop weight from MLE (probability weight for reroll outcome); null if unavailable
     this.dropWeight = data.dropWeight ?? null;
 
-    // Classify reroll group automatically (all Fossils belong to 'fossil' group)
-    this.rerollGroup = data.rerollGroup ?? (this.name ? classifyRerollGroup(this.name) : null);
+    // Explicit rerollGroup (including null) wins; otherwise classify from name
+    this.rerollGroup =
+      data && Object.prototype.hasOwnProperty.call(data, 'rerollGroup')
+        ? data.rerollGroup
+        : (this.name ? classifyRerollGroup(this.name) : null);
     
     // Calculated fields (set after calculation)
     this.expectedValue = data.expectedValue ?? 0;

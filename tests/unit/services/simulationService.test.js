@@ -15,6 +15,8 @@ describe('SimulationService', () => {
       new Scarab({ id: 'scarab-1', name: 'Scarab 1', dropWeight: 100, chaosValue: 1.0 }),
       new Scarab({ id: 'scarab-2', name: 'Scarab 2', dropWeight: 200, chaosValue: 2.0 }),
       new Scarab({ id: 'scarab-3', name: 'Scarab 3', dropWeight: 300, chaosValue: 3.0 }),
+      // Return pool excludes all input scarabs each trade; need a fourth so the pool is never empty
+      new Scarab({ id: 'scarab-4', name: 'Scarab 4', dropWeight: 400, chaosValue: 4.0 }),
     ];
   });
   
@@ -43,15 +45,15 @@ describe('SimulationService', () => {
       expect(validation.valid).toBe(true);
     });
     
-    it('should reject configuration with fewer than 3 scarabs', () => {
+    it('should reject configuration with no scarabs', () => {
       const config = createConfiguration({
-        selectedScarabIds: ['scarab-1', 'scarab-2'],
+        selectedScarabIds: [],
         transactionCount: 1000,
       });
-      
+
       const validation = validateConfiguration(config, mockScarabs);
       expect(validation.valid).toBe(false);
-      expect(validation.error).toContain('3 scarabs');
+      expect(validation.error).toMatch(/at least 1 scarab/i);
     });
     
     it('should reject invalid transaction count', () => {

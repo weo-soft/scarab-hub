@@ -192,12 +192,13 @@ function sortEssences(essences, sort, currency) {
     let aValue, bValue;
 
     switch (sort.field) {
-      case 'value':
+      case 'value': {
         const aVal = currency === 'divine' ? a.divineValue : a.chaosValue;
         const bVal = currency === 'divine' ? b.divineValue : b.chaosValue;
         aValue = aVal === null || aVal === undefined ? Infinity : aVal;
         bValue = bVal === null || bVal === undefined ? Infinity : bVal;
         break;
+      }
       case 'name':
         aValue = a.name.toLowerCase();
         bValue = b.name.toLowerCase();
@@ -206,11 +207,12 @@ function sortEssences(essences, sort, currency) {
         aValue = a.dropWeight ?? Infinity;
         bValue = b.dropWeight ?? Infinity;
         break;
-      case 'group':
-        const groupOrder = { 'deafening': 0, 'shrieking': 1, 'special': 2 };
+      case 'group': {
+        const groupOrder = { deafening: 0, shrieking: 1, special: 2 };
         aValue = groupOrder[a.rerollGroup] ?? 3;
         bValue = groupOrder[b.rerollGroup] ?? 3;
         break;
+      }
       default:
         return 0;
     }

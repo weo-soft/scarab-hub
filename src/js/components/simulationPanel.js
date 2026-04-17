@@ -1009,12 +1009,8 @@ function loadConfiguration() {
  * @param {SimulationResult} result
  */
 function saveSimulationResult(result) {
-  try {
-    const results = JSON.parse(localStorage.getItem('scarabHub_simulationResults') || '[]');
-    
-    // Convert Map to object for JSON serialization
-    // Also convert transactions array (may be large, so we could optimize this)
-    const resultData = {
+  // Convert Map to object for JSON serialization (also used in quota error recovery)
+  const resultData = {
       simulationId: result.simulationId,
       configuration: {
         selectedScarabIds: result.configuration.selectedScarabIds,
@@ -1057,7 +1053,10 @@ function saveSimulationResult(result) {
       initialPhaseCumulativeProfitLoss: result.initialPhaseCumulativeProfitLoss ?? null,
       initialPhaseYieldCounts: result.initialPhaseYieldCounts ? Object.fromEntries(result.initialPhaseYieldCounts) : null,
     };
-    
+
+  try {
+    const results = JSON.parse(localStorage.getItem('scarabHub_simulationResults') || '[]');
+
     results.push(resultData);
     
     // Keep only last 10 results

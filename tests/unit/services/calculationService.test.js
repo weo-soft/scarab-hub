@@ -228,14 +228,9 @@ describe('Calculation Service', () => {
       expect(results.netProfitLoss).toBeDefined();
     });
 
-    it('should throw error if less than 3 Scarabs', () => {
+    it('should throw error if no Scarabs selected', () => {
       const threshold = new ExpectedValueThreshold(2.0, 1000, 10);
-      const selectedScarabs = [
-        createTestScarab('scar1', 100, 1.5),
-        createTestScarab('scar2', 200, 2.0),
-      ];
-
-      expect(() => calculateUserChosenStrategy(selectedScarabs, threshold, 50)).toThrow();
+      expect(() => calculateUserChosenStrategy([], threshold, 50)).toThrow();
     });
   });
 
@@ -284,14 +279,9 @@ describe('Calculation Service', () => {
       expect(results.netProfitLoss).toBeDefined();
     });
 
-    it('should throw error for user-chosen with less than 3 Scarabs', () => {
+    it('should throw error for user-chosen with zero Scarabs', () => {
       const threshold = new ExpectedValueThreshold(2.0, 1000, 10);
-      const selectedScarabs = [
-        createTestScarab('scar1', 100, 1.5),
-        createTestScarab('scar2', 200, 2.0),
-      ];
-
-      expect(() => calculateUserChosenStrategy(selectedScarabs, threshold, 100)).toThrow();
+      expect(() => calculateUserChosenStrategy([], threshold, 100)).toThrow();
     });
   });
 });

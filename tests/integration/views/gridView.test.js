@@ -1,13 +1,61 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+
+vi.mock('../../../src/js/utils/canvasUtils.js', async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    loadImage: vi.fn(() =>
+      Promise.resolve({ width: 825, height: 787, complete: true })
+    ),
+  };
+});
+
 import { initGridView, updateGridView } from '../../../src/js/views/gridView.js';
 import { Scarab } from '../../../src/js/models/scarab.js';
 
+function createMock2dContext() {
+  const store = {
+    fillStyle: '',
+    strokeStyle: '',
+    lineWidth: 1,
+    font: '',
+    textAlign: '',
+    textBaseline: '',
+    globalAlpha: 1,
+  };
+  return new Proxy(store, {
+    get(target, prop) {
+      if (prop === 'canvas') return { width: 2000, height: 2000 };
+      if (prop in target) return target[prop];
+      return vi.fn();
+    },
+    set(target, prop, value) {
+      target[prop] = value;
+      return true;
+    },
+  });
+}
+
 describe('Grid View Integration', () => {
   let canvas;
+  let getContextSpy;
 
   beforeEach(() => {
+    Object.defineProperty(window, 'devicePixelRatio', {
+      configurable: true,
+      value: 1,
+    });
+    getContextSpy = vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockImplementation((type) => {
+      if (type === '2d') return createMock2dContext();
+      return null;
+    });
     canvas = document.createElement('canvas');
     document.body.appendChild(canvas);
+  });
+
+  afterEach(() => {
+    getContextSpy?.mockRestore();
+    canvas?.remove();
   });
 
   it('should initialize grid view with canvas', async () => {

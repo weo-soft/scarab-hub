@@ -165,12 +165,13 @@ function sortFossils(fossils, sort, currency) {
     let aValue, bValue;
 
     switch (sort.field) {
-      case 'value':
+      case 'value': {
         const aVal = currency === 'divine' ? a.divineValue : a.chaosValue;
         const bVal = currency === 'divine' ? b.divineValue : b.chaosValue;
         aValue = aVal === null || aVal === undefined ? Infinity : aVal;
         bValue = bVal === null || bVal === undefined ? Infinity : bVal;
         break;
+      }
       case 'name':
         aValue = a.name.toLowerCase();
         bValue = b.name.toLowerCase();

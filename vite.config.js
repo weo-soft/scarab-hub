@@ -15,6 +15,8 @@ export default defineConfig({
     },
   },
   test: {
+    // App `root` is `src`; tests live at repo `tests/` — include explicitly so `npm test` discovers them.
+    include: ['../tests/**/*.test.js'],
     globals: true,
     environment: 'jsdom',
     coverage: {

@@ -38,8 +38,9 @@ describe('List View Integration', () => {
 
     expect(container.innerHTML).toContain('Test Scarab 1');
     expect(container.innerHTML).toContain('Test Scarab 2');
-    expect(container.innerHTML).toContain('Profitable to Vendor');
-    expect(container.innerHTML).toContain('Not Profitable');
+    // Compact list uses profitability border colors (see colorUtils), not status text in markup
+    expect(container.innerHTML).toContain('#4caf50');
+    expect(container.innerHTML).toContain('#f44336');
   });
 
   it('should handle empty Scarab array', () => {

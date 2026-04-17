@@ -1,14 +1,18 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { loadAndMergeScarabData, loadAndMergeFossilData, getWildLifeforcePrice } from '../../../src/js/services/dataService.js';
-import { Scarab } from '../../../src/js/models/scarab.js';
-import { Fossil } from '../../../src/js/models/fossil.js';
+import { loadAndMergeScarabData, loadAndMergeFossilData, getWildLifeforcePrice } from '../../src/js/services/dataService.js';
 
-// Mock fetch
-global.fetch = vi.fn();
+function jsonOk(data) {
+  return Promise.resolve({
+    ok: true,
+    json: async () => data,
+  });
+}
 
 describe('Data Service Integration', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    localStorage.clear();
+    globalThis.fetch = vi.fn();
   });
 
   it('should load and merge Scarab data correctly', async () => {
@@ -16,7 +20,6 @@ describe('Data Service Integration', () => {
       {
         id: 'abyss-scarab',
         name: 'Abyss Scarab',
-        dropWeight: 601.0,
         dropLevel: 68,
         limit: 2,
         dropEnabledd: true,
@@ -33,12 +36,15 @@ describe('Data Service Integration', () => {
       },
     ];
 
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockDetails,
-    }).mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockPrices,
+    globalThis.fetch.mockImplementation((url) => {
+      const u = String(url);
+      if (u.includes('/data/items/scarabs.json')) return jsonOk(mockDetails);
+      if (u.includes('poedata.dev') && u.includes('scarabs')) {
+        return jsonOk({ items: [{ id: 'abyss-scarab', weight: 601.0 }] });
+      }
+      if (u.includes('data.poeatlas.app') && u.includes('scarabPrices')) return jsonOk(mockPrices);
+      if (u.includes('/data/prices/') && u.includes('scarab')) return jsonOk(mockPrices);
+      return Promise.reject(new Error(`Unmocked fetch: ${u}`));
     });
 
     const result = await loadAndMergeScarabData();
@@ -47,6 +53,7 @@ describe('Data Service Integration', () => {
     expect(result[0].id).toBe('abyss-scarab');
     expect(result[0].chaosValue).toBe(0.4947);
     expect(result[0].divineValue).toBe(0.003294702);
+    expect(result[0].dropWeight).toBe(601.0);
   });
 
   it('should handle missing price data gracefully', async () => {
@@ -61,14 +68,17 @@ describe('Data Service Integration', () => {
       },
     ];
 
-    const mockPrices = []; // No matching price
+    const mockPrices = [];
 
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockDetails,
-    }).mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockPrices,
+    globalThis.fetch.mockImplementation((url) => {
+      const u = String(url);
+      if (u.includes('/data/items/scarabs.json')) return jsonOk(mockDetails);
+      if (u.includes('poedata.dev') && u.includes('scarabs')) {
+        return jsonOk({ items: [{ id: 'test-scarab', weight: 100 }] });
+      }
+      if (u.includes('data.poeatlas.app') && u.includes('scarabPrices')) return jsonOk(mockPrices);
+      if (u.includes('/data/prices/') && u.includes('scarab')) return jsonOk(mockPrices);
+      return Promise.reject(new Error(`Unmocked fetch: ${u}`));
     });
 
     const result = await loadAndMergeScarabData();
@@ -79,7 +89,7 @@ describe('Data Service Integration', () => {
   });
 
   it('should handle fetch errors', async () => {
-    fetch.mockRejectedValueOnce(new Error('Network error'));
+    globalThis.fetch.mockRejectedValueOnce(new Error('Network error'));
 
     await expect(loadAndMergeScarabData()).rejects.toThrow();
   });
@@ -88,9 +98,16 @@ describe('Data Service Integration', () => {
 describe('Fossil Data Service Integration', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    localStorage.clear();
+    globalThis.fetch = vi.fn();
   });
 
   it('should load and merge Fossil data correctly', async () => {
+    const mockDetails = [
+      { id: 'bound-fossil', name: 'Bound Fossil', description: 'More Minion' },
+      { id: 'fractured-fossil', name: 'Fractured Fossil', description: 'Splits' },
+    ];
+
     const mockPrices = [
       {
         name: 'Bound Fossil',
@@ -106,20 +123,20 @@ describe('Fossil Data Service Integration', () => {
       },
     ];
 
-    // Mock loadItemTypePrices to return mockPrices
-    vi.doMock('../../../src/js/services/dataService.js', async () => {
-      const actual = await vi.importActual('../../../src/js/services/dataService.js');
-      return {
-        ...actual,
-        loadItemTypePrices: vi.fn().mockResolvedValue(mockPrices),
-      };
-    });
-
-    // Since loadAndMergeFossilData uses loadItemTypePrices internally,
-    // we need to mock the fetch for the data fetcher
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockPrices,
+    globalThis.fetch.mockImplementation((url) => {
+      const u = String(url);
+      if (u.includes('/data/items/fossils.json')) return jsonOk(mockDetails);
+      if (u.includes('poedata.dev') && u.includes('fossils')) {
+        return jsonOk({
+          items: [
+            { id: 'bound-fossil', weight: 10 },
+            { id: 'fractured-fossil', weight: 5 },
+          ],
+        });
+      }
+      if (u.includes('data.poeatlas.app') && u.includes('fossilPrices')) return jsonOk(mockPrices);
+      if (u.includes('/data/prices/') && u.includes('fossil')) return jsonOk(mockPrices);
+      return Promise.reject(new Error(`Unmocked fetch: ${u}`));
     });
 
     const result = await loadAndMergeFossilData();
@@ -132,6 +149,7 @@ describe('Fossil Data Service Integration', () => {
   });
 
   it('should handle missing Fossil price data gracefully', async () => {
+    const mockDetails = [{ id: 'test-fossil', name: 'Test Fossil', description: 'x' }];
     const mockPrices = [
       {
         name: 'Test Fossil',
@@ -141,9 +159,15 @@ describe('Fossil Data Service Integration', () => {
       },
     ];
 
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockPrices,
+    globalThis.fetch.mockImplementation((url) => {
+      const u = String(url);
+      if (u.includes('/data/items/fossils.json')) return jsonOk(mockDetails);
+      if (u.includes('poedata.dev') && u.includes('fossils')) {
+        return jsonOk({ items: [{ id: 'test-fossil', weight: 1 }] });
+      }
+      if (u.includes('data.poeatlas.app') && u.includes('fossilPrices')) return jsonOk(mockPrices);
+      if (u.includes('/data/prices/') && u.includes('fossil')) return jsonOk(mockPrices);
+      return Promise.reject(new Error(`Unmocked fetch: ${u}`));
     });
 
     const result = await loadAndMergeFossilData();
@@ -159,7 +183,7 @@ describe('Fossil Data Service Integration', () => {
         name: 'Wild Crystallised Lifeforce',
         detailsId: 'wild-crystallised-lifeforce',
         chaosValue: 0.01353,
-        divineValue: 8.778264e-05,
+        divineValue: 8.778264e-5,
       },
       {
         name: 'Primal Crystallised Lifeforce',
@@ -169,9 +193,11 @@ describe('Fossil Data Service Integration', () => {
       },
     ];
 
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockLifeforcePrices,
+    globalThis.fetch.mockImplementation((url) => {
+      const u = String(url);
+      if (u.includes('data.poeatlas.app') && u.includes('lifeforcePrices')) return jsonOk(mockLifeforcePrices);
+      if (u.includes('/data/prices/') && u.includes('lifeforce')) return jsonOk(mockLifeforcePrices);
+      return Promise.reject(new Error(`Unmocked fetch: ${u}`));
     });
 
     const result = await getWildLifeforcePrice();
@@ -190,9 +216,11 @@ describe('Fossil Data Service Integration', () => {
       },
     ];
 
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockLifeforcePrices,
+    globalThis.fetch.mockImplementation((url) => {
+      const u = String(url);
+      if (u.includes('data.poeatlas.app') && u.includes('lifeforcePrices')) return jsonOk(mockLifeforcePrices);
+      if (u.includes('/data/prices/') && u.includes('lifeforce')) return jsonOk(mockLifeforcePrices);
+      return Promise.reject(new Error(`Unmocked fetch: ${u}`));
     });
 
     const result = await getWildLifeforcePrice();
@@ -200,4 +228,3 @@ describe('Fossil Data Service Integration', () => {
     expect(result).toBeNull();
   });
 });
-

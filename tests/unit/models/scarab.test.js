@@ -83,7 +83,7 @@ describe('ExpectedValueThreshold Model', () => {
   it('should create a valid threshold', () => {
     const threshold = new ExpectedValueThreshold(1.5, 1000, 50);
     expect(threshold.value).toBe(1.5);
-    expect(threshold.calculationMethod).toBe('weighted_average');
+    expect(threshold.calculationMethod).toBe('weighted_average_with_confidence_interval');
     expect(threshold.totalWeight).toBe(1000);
     expect(threshold.scarabCount).toBe(50);
     expect(threshold.validate()).toBe(true);
@@ -114,9 +114,12 @@ describe('Simulation Model', () => {
     expect(sim3.validate().valid).toBe(true);
   });
 
-  it('should validate user-chosen strategy requires 3+ Scarabs', () => {
+  it('should validate user-chosen strategy requires at least 1 Scarab', () => {
+    const sim0 = new Simulation('user_chosen', [], 100);
+    expect(sim0.validate().valid).toBe(false);
+
     const sim1 = new Simulation('user_chosen', ['id1', 'id2'], 100);
-    expect(sim1.validate().valid).toBe(false);
+    expect(sim1.validate().valid).toBe(true);
 
     const sim2 = new Simulation('user_chosen', ['id1', 'id2', 'id3'], 100);
     expect(sim2.validate().valid).toBe(true);

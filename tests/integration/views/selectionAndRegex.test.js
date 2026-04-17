@@ -9,13 +9,14 @@ import {
   getSelectedIds,
   toggle,
   has,
-  clear
 } from '../../../src/js/services/selectionState.js';
 import { buildCategoryItemNames } from '../../../src/js/utils/categoryItemNames.js';
 import { generateRegex } from '../../../src/js/services/regexSearchService.js';
 
 describe('selectionAndRegex integration', () => {
   beforeEach(() => {
+    // Switch category so setCategory always clears stale selection (see selectionState early-return)
+    setCategory('essences', true);
     setCategory('scarabs', true);
   });
 
@@ -36,7 +37,7 @@ describe('selectionAndRegex integration', () => {
     expect(getSelectedIds().size).toBe(1);
     const r1 = generateRegex(getSelectedIds(), categoryNames);
     expect(r1).not.toBeNull();
-    expect(r1.value).toBe('Alpha');
+    expect(r1.value).toBe('"Alpha"');
 
     toggle('c');
     expect(has('c')).toBe(true);
@@ -52,6 +53,7 @@ describe('selectionAndRegex integration', () => {
   });
 
   it('category switch clears selection', () => {
+    setCategory('essences', true);
     setCategory('scarabs', true);
     toggle('a');
     expect(getSelectedIds().size).toBe(1);

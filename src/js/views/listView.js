@@ -196,7 +196,7 @@ function sortScarabs(scarabs, sort, currency) {
     let aValue, bValue;
 
     switch (sort.field) {
-      case 'value':
+      case 'value': {
         const aVal = getScarabValue(a, currency);
         const bVal = getScarabValue(b, currency);
         // Move scarabs without values to the end
@@ -211,16 +211,18 @@ function sortScarabs(scarabs, sort, currency) {
           bValue = bVal;
         }
         break;
+      }
       case 'name':
         aValue = a.name.toLowerCase();
         bValue = b.name.toLowerCase();
         break;
-      case 'status':
+      case 'status': {
         // Order: profitable, not_profitable, unknown
-        const statusOrder = { 'profitable': 0, 'not_profitable': 1, 'unknown': 2 };
+        const statusOrder = { profitable: 0, not_profitable: 1, unknown: 2 };
         aValue = statusOrder[a.profitabilityStatus] ?? 3;
         bValue = statusOrder[b.profitabilityStatus] ?? 3;
         break;
+      }
       case 'weight':
         // Sort by dropWeight, move null/undefined to the end
         if (a.dropWeight === null || a.dropWeight === undefined) {
