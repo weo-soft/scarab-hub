@@ -4,6 +4,7 @@
  */
 
 import { getCacheInfo } from '../utils/dataFetcher.js';
+import { loadItemTypePrices } from '../services/dataService.js';
 import { priceUpdateService } from '../services/priceUpdateService.js';
 import { 
   getSelectedLeague, 
@@ -367,7 +368,6 @@ function setupEventListeners(container) {
           const scarabResult = results.get('scarab');
           if (scarabResult && scarabResult.success) {
             // Load Scarab prices for callback
-            const { loadItemTypePrices } = await import('../services/dataService.js');
             try {
               const scarabPrices = await loadItemTypePrices('scarab');
               onRefreshCallback(scarabPrices);

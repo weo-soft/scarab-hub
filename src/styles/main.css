@@ -1,4 +1,4 @@
-/* Global styles for Flipping Scarabs application - Path of Exile Trade Site Theme */
+/* Global styles for PoE Flipup application - Path of Exile Trade Site Theme */
 
 /*
  * Responsive Design Breakpoints:
@@ -1291,6 +1291,12 @@ header p {
   color: #a09070;
 }
 
+/* Tattoo: sortable list table (#list-view, right column) */
+.tattoo-table-section {
+  width: 100%;
+  margin-bottom: 0;
+}
+
 /* Tattoo grid layout: grouped by type (Strength, Dexterity, Intelligence) */
 .tattoo-type-section {
   margin-bottom: 40px;
@@ -1318,7 +1324,7 @@ header p {
 
 .tattoo-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
   width: 100%;
 }
@@ -1393,13 +1399,13 @@ header p {
 /* Responsive: reduce columns on smaller screens */
 @media (max-width: 1400px) {
   .tattoo-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 1100px) {
   .tattoo-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -1458,15 +1464,36 @@ header p {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  padding-right: 10px;
+  padding-right: 6px;
+}
+
+/* Tattoo table: narrower Drop weight column + tighter gaps so names get more space */
+.tattoo-list-header {
+  gap: 8px;
+  padding: 8px 8px 8px 6px;
+}
+
+.tattoo-list-header .tattoo-header-cell.weight-cell {
+  min-width: 72px;
+  width: 72px;
+  font-size: 0.78em;
+  letter-spacing: 0;
+}
+
+.tattoo-list-row {
+  gap: 8px;
+  padding: 8px 8px 8px 6px;
 }
 
 .tattoo-list-row .tattoo-weight {
-  min-width: 100px;
-  width: 100px;
+  min-width: 72px;
+  width: 72px;
   text-align: right;
   flex-shrink: 0;
   color: #a09070;
+  padding-left: 2px;
+  padding-right: 0;
+  box-sizing: border-box;
 }
 
 .tattoo-list-row .tattoo-value {
@@ -2469,6 +2496,39 @@ header p {
   max-width: fit-content;
 }
 
+/* Tattoos: grouped cards occupy the same column as other categories’ grid canvas */
+#grid-view.tattoo-grid-active {
+  flex: 1 1 42%;
+  max-width: none;
+  min-width: 0;
+  align-self: stretch;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+#tattoo-cards-container.tattoo-cards-container {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  min-height: 400px;
+  max-height: min(1200px, calc(100vh - 180px));
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 12px;
+  box-sizing: border-box;
+  border: 1px solid rgba(200, 170, 110, 0.2);
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+  background: #0a0a0a;
+}
+
+/* Tattoos: sortable list column width (right) */
+.merged-views-container:has(#grid-view.tattoo-grid-active) .list-wrapper {
+  flex: 0 0 clamp(280px, 32vw, 500px);
+  max-width: 500px;
+  min-width: 280px;
+}
+
 .grid-container {
   flex-shrink: 0;
   display: flex;
@@ -2516,6 +2576,12 @@ header p {
     overflow: visible; /* Allow content to flow naturally */
     padding-bottom: 60px; /* Increased padding below listview to prevent compression */
     margin-bottom: 40px; /* Increased margin for breathing room */
+  }
+
+  .merged-views-container:has(#grid-view.tattoo-grid-active) .list-wrapper {
+    flex: 1 1 auto;
+    max-width: 100%;
+    min-width: 0;
   }
   
   .list-container {
@@ -4597,8 +4663,6 @@ input:focus {
     grid-template-columns: 1fr; /* Single column on mobile */
     gap: 15px;
   }
-}
-  margin-top: 20px;
 }
 
 .welcome-category-card {

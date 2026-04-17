@@ -4,6 +4,7 @@
  */
 
 import { getRouteUrl } from '../services/router.js';
+import { openDataStatusOverlay } from './dataStatusOverlay.js';
 
 /**
  * Get icon image path for a category
@@ -254,9 +255,7 @@ function setupEventListeners(container) {
       e.preventDefault();
       if (btn.id === 'data-status-nav-item') {
         // Handle data status overlay
-        import('./dataStatusOverlay.js').then(module => {
-          module.openDataStatusOverlay();
-        });
+        openDataStatusOverlay();
         // Close mobile menu when opening overlay
         closeMobileMenu(container);
       }

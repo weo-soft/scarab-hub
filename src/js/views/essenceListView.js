@@ -6,7 +6,14 @@
 import { getProfitabilityColor, getProfitabilityBackgroundColor } from '../utils/colorUtils.js';
 import { loadPreferences, savePreferences } from '../services/dataService.js';
 import { highlightCellForEssence, clearEssenceHighlight } from './essenceGridView.js';
-import { toggle as selectionToggle, has as selectionHas, subscribe as subscribeSelection, getCategoryId } from '../services/selectionState.js';
+import {
+  toggle as selectionToggle,
+  has as selectionHas,
+  subscribe as subscribeSelection,
+  getCategoryId,
+  selectAll as selectionSelectAll,
+  clear as selectionClear
+} from '../services/selectionState.js';
 
 let currentEssences = [];
 let currentCurrency = 'chaos';
@@ -104,19 +111,14 @@ export function renderEssenceList(container, essences, currency = 'chaos') {
  * Handle select all
  */
 function handleSelectAll() {
-  import('../services/selectionState.js').then(({ selectAll }) => {
-    const allIds = currentEssences.map(e => e.id);
-    selectAll(allIds);
-  });
+  selectionSelectAll(currentEssences.map(e => e.id));
 }
 
 /**
  * Handle deselect all
  */
 function handleDeselectAll() {
-  import('../services/selectionState.js').then(({ clear }) => {
-    clear();
-  });
+  selectionClear();
 }
 
 /**

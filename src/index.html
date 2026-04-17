@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flipping Scarabs - Path of Exile</title>
+  <title>PoE Flipup - Path of Exile Flipping Profitability Calculator</title>
   <link rel="stylesheet" href="/styles/main.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
     <header>
       <div id="navigation"></div>
       <div class="header-content">
-        <h1>3-to-1 Flipping Scarabs</h1>
+        <h1>PoE Flipup - Path of Exile Flipping Profitability Calculator</h1>
         <div class="header-page-buttons" id="header-page-buttons">
           <button class="header-page-btn" data-page="flipping" aria-label="Flipping page">Flipping</button>
           <button class="header-page-btn" data-page="simulation" aria-label="Vendor Simulation page">Simulation</button>
@@ -23,12 +23,13 @@
       <!-- Welcome Page -->
       <div id="welcome-page" class="page-container"></div>
       
-      <!-- Flipping Scarabs Page -->
+      <!-- Flipping Page -->
       <div id="flipping-page" class="page-container active">
         <div id="view-switcher"></div>
         <div id="merged-views" class="merged-views-container">
           <div id="grid-view" class="view-container grid-container">
             <canvas id="scarab-grid-canvas"></canvas>
+            <div id="tattoo-cards-container" class="tattoo-cards-container" hidden></div>
             <button id="open-threshold-settings" class="settings-btn grid-settings-btn" aria-label="Open threshold settings" title="Threshold Settings">
               ⚙️
             </button>

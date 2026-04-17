@@ -1,6 +1,6 @@
 /**
  * Application Entry Point
- * Flipping Scarabs - Path of Exile vendor profitability calculator
+ * PoE Flipup - Path of Exile Flipping Profitability Calculator
  */
 
 import { loadAndMergeScarabData, loadPreferences, savePreferences, loadAllItemTypePrices, loadFullEssenceData, getPrimalLifeforcePrice, loadAndMergeFossilData, getWildLifeforcePrice, loadAndMergeCatalystData, loadFullFossilData, loadFullOilData, loadAndMergeDeliriumOrbData, loadFullDeliriumOrbData, loadFullEmblemData, loadFullTattooData, loadTempleUpgradeData } from './js/services/dataService.js';
@@ -9,7 +9,7 @@ import { calculateExpectedValueForGroup, calculateThresholdForGroup, calculatePr
 import { calculateExpectedValueForGroup as calculateFossilExpectedValueForGroup, calculateThresholdForGroup as calculateFossilThresholdForGroup, calculateProfitabilityStatus as calculateFossilProfitabilityStatus } from './js/services/fossilCalculationService.js';
 import { calculateExpectedValuesForGroup, calculateThresholdForOrb, calculateProfitabilityStatus as calculateDeliriumOrbProfitabilityStatus } from './js/services/deliriumOrbCalculationService.js';
 import { priceUpdateService } from './js/services/priceUpdateService.js';
-import { initLeagueService } from './js/services/leagueService.js';
+import { initLeagueService, getSelectedLeague } from './js/services/leagueService.js';
 import { Scarab } from './js/models/scarab.js';
 import { Catalyst } from './js/models/catalyst.js';
 import { Tattoo } from './js/models/tattoo.js';
@@ -19,8 +19,18 @@ import { DeliriumOrb } from './js/models/deliriumOrb.js';
 import { groupEssencesByRerollType, createRerollGroup } from './js/utils/essenceGroupUtils.js';
 import { groupFossilsByRerollType, createRerollGroup as createFossilRerollGroup } from './js/utils/fossilGroupUtils.js';
 import { groupDeliriumOrbsByRerollType } from './js/utils/deliriumOrbGroupUtils.js';
-import { renderEssenceList, showLoadingState as showEssenceLoadingState } from './js/views/essenceListView.js';
-import { renderFossilList, showLoadingState as showFossilLoadingState } from './js/views/fossilListView.js';
+import {
+  renderEssenceList,
+  showLoadingState as showEssenceLoadingState,
+  loadSelectionState as loadEssenceSelectionState,
+  cleanupSelectionSubscription as cleanupEssenceSelectionSubscription
+} from './js/views/essenceListView.js';
+import {
+  renderFossilList,
+  showLoadingState as showFossilLoadingState,
+  loadSelectionState as loadFossilSelectionState,
+  cleanupSelectionSubscription as cleanupFossilSelectionSubscription
+} from './js/views/fossilListView.js';
 import { renderTempleUpgradeList } from './js/views/templeUpgradeListView.js';
 import { renderThresholdDisplay } from './js/components/thresholdDisplay.js';
 import { getProfitabilityColor, getProfitabilityBackgroundColor } from './js/utils/colorUtils.js';
@@ -60,7 +70,7 @@ import { initRouter, navigateTo, parseRoute } from './js/services/router.js';
 import { handleMissingPriceData, handleMissingDropWeight, sanitizeScarabData } from './js/utils/errorHandler.js';
 import { hideTooltip } from './js/utils/tooltip.js';
 import { initDataStatusOverlay, setOnRefreshCallback } from './js/components/dataStatusOverlay.js';
-import { renderLeagueSelector, setOnLeagueChange } from './js/components/leagueSelector.js';
+import { renderLeagueSelector, setOnLeagueChange, updateLeagueSelector } from './js/components/leagueSelector.js';
 import { showErrorToast, showWarningToast } from './js/utils/toast.js';
 import { setCategory as setSelectionCategory, subscribe as subscribeSelection, toggle as selectionToggle, has as selectionHas } from './js/services/selectionState.js';
 import { buildCategoryItemNames, loadSusById } from './js/utils/categoryItemNames.js';
@@ -124,6 +134,33 @@ function getListSortIndicator(currentSort, field) {
   return currentSort.direction === 'asc' ? ' ↑' : ' ↓';
 }
 
+/** Clear tattoo card slot and show canvas + threshold button (other categories’ grid views). */
+function restoreCanvasGridSlot() {
+  const slot = document.getElementById('tattoo-cards-container');
+  const canvas = document.getElementById('scarab-grid-canvas');
+  const btn = document.getElementById('open-threshold-settings');
+  const gridView = document.getElementById('grid-view');
+  if (slot) {
+    slot.innerHTML = '';
+    slot.hidden = true;
+  }
+  if (canvas) canvas.style.display = '';
+  if (btn) btn.style.display = '';
+  if (gridView) gridView.classList.remove('tattoo-grid-active');
+}
+
+/** Tattoos: hide canvas, show left column card panel. */
+function showTattooCardsSlot() {
+  const slot = document.getElementById('tattoo-cards-container');
+  const canvas = document.getElementById('scarab-grid-canvas');
+  const btn = document.getElementById('open-threshold-settings');
+  const gridView = document.getElementById('grid-view');
+  if (canvas) canvas.style.display = 'none';
+  if (btn) btn.style.display = 'none';
+  if (slot) slot.hidden = false;
+  if (gridView) gridView.classList.add('tattoo-grid-active');
+}
+
 /**
  * Reload scarab data with updated prices
  * @param {Array|null} updatedPrices - Updated price data, or null to reload from service
@@ -179,9 +216,7 @@ async function reloadScarabDataWithPrices(updatedPrices) {
     if (navigationContainer) {
       const leagueSelectorContainer = navigationContainer.querySelector('#league-selector-container');
       if (leagueSelectorContainer) {
-        import('./js/components/leagueSelector.js').then(module => {
-          module.updateLeagueSelector(leagueSelectorContainer);
-        });
+        updateLeagueSelector(leagueSelectorContainer);
       }
     }
 
@@ -194,7 +229,6 @@ async function reloadScarabDataWithPrices(updatedPrices) {
     
     // Show error toast if it's a data loading error
     if (error.message && (error.message.includes('Unable to load') || error.message.includes('file not found') || error.message.includes('404'))) {
-      const { getSelectedLeague } = await import('./js/services/leagueService.js');
       const league = getSelectedLeague();
       const leagueName = league ? league.name : 'selected league';
       
@@ -464,7 +498,6 @@ async function init() {
     
     // Show error toast
     if (error.message && (error.message.includes('Unable to load') || error.message.includes('file not found') || error.message.includes('404'))) {
-      const { getSelectedLeague } = await import('./js/services/leagueService.js');
       const league = getSelectedLeague();
       const leagueName = league ? league.name : 'selected league';
       
@@ -547,6 +580,7 @@ function renderUI(scarabs, threshold, currency) {
   if (listViewContainer) {
     listViewContainer.innerHTML = '';
   }
+  restoreCanvasGridSlot();
 
   // Show grid view and filter panel for Scarabs
   const gridViewContainer = document.getElementById('grid-view');
@@ -1134,8 +1168,7 @@ async function renderEssenceUI(essences, thresholds, rerollCost, currency, allEs
   await setupRegexComponentForCategory('essences', essences);
   
   // Load selection state from LocalStorage (if available)
-  const { loadSelectionState } = await import('./js/views/essenceListView.js');
-  loadSelectionState(essences);
+  loadEssenceSelectionState(essences);
   
   // Render Essence list view
   const listViewContainer = document.getElementById('list-view');
@@ -1146,6 +1179,7 @@ async function renderEssenceUI(essences, thresholds, rerollCost, currency, allEs
   // Show grid view for Essences (use all essences so every slot shows the correct essence in the right position)
   const gridViewContainer = document.getElementById('grid-view');
   const gridCanvas = document.getElementById('scarab-grid-canvas');
+  restoreCanvasGridSlot();
   if (gridViewContainer) {
     gridViewContainer.style.display = 'block';
   }
@@ -1471,8 +1505,7 @@ async function renderFossilUI(fossils, threshold, rerollCost, currency, wildLife
   await setupRegexComponentForCategory('fossils', fossils);
   
   // Load selection state from LocalStorage (if available)
-  const { loadSelectionState } = await import('./js/views/fossilListView.js');
-  loadSelectionState(fossils);
+  loadFossilSelectionState(fossils);
   
   // Render Fossil list view
   const listViewContainer = document.getElementById('list-view');
@@ -1482,6 +1515,7 @@ async function renderFossilUI(fossils, threshold, rerollCost, currency, wildLife
   
   const gridViewContainer = document.getElementById('grid-view');
   const gridCanvas = document.getElementById('scarab-grid-canvas');
+  restoreCanvasGridSlot();
   if (gridFossils && gridFossils.length > 0 && gridViewContainer && gridCanvas) {
     gridViewContainer.style.display = 'block';
     try {
@@ -1985,27 +2019,98 @@ function getTattooType(tattoo) {
   return null;
 }
 
-function renderTattooList(container) {
+function syncTattooListAndGridHeights() {
+  const listWrapper = document.querySelector('.list-wrapper');
+  const cardsPanel = document.getElementById('tattoo-cards-container');
+  const listView = document.getElementById('list-view');
+  if (!listWrapper || !cardsPanel || !listView) return;
+  requestAnimationFrame(() => {
+    const h = Math.max(cardsPanel.offsetHeight, listView.offsetHeight);
+    if (h > 0) listWrapper.style.height = `${h}px`;
+  });
+}
+
+/** Sortable table only (#list-view, right column). */
+function renderTattooListTable(container) {
   if (!container || currentTattoos.length === 0) return;
   const currency = currentCurrency;
   const currencySymbol = currency === 'divine' ? 'Div' : 'c';
   const sorted = sortTattoos(currentTattoos, currentTattooSort, currency);
-  
-  // Group tattoos by type
+  const s = currentTattooSort;
+
+  const tableRows = sorted.map((t) => {
+    const weightStr = t.dropWeight != null ? (t.dropWeight * 100).toFixed(2) + '%' : '—';
+    const value = currency === 'divine' ? (t.divineValue != null ? t.divineValue.toFixed(4) : '—') : (t.chaosValue != null ? t.chaosValue.toFixed(2) : '—');
+    const imagePath = `/assets/images/tattoos/${t.id}.png`;
+    const status = t.profitabilityStatus || 'unknown';
+    const color = getProfitabilityColor(status);
+    const bgColor = getProfitabilityBackgroundColor(status);
+    const isSelected = selectionHas(t.id);
+    const selectedClass = isSelected ? 'item-selected' : '';
+    return `<div class="tattoo-list-row ${selectedClass}" data-id="${t.id}" style="border-left: 4px solid ${color}; background-color: ${bgColor};">
+      <img class="tattoo-image" src="${imagePath}" alt="${t.name}" onerror="this.style.display='none'">
+      <span class="tattoo-name">${t.name}</span>
+      <span class="tattoo-weight">${weightStr}</span>
+      <span class="tattoo-value">${value} ${currencySymbol}</span>
+    </div>`;
+  }).join('');
+
+  const tableSection = `
+    <div class="tattoo-table-section">
+      <div class="tattoo-list-header">
+        <div class="tattoo-header-cell image-cell"></div>
+        <div class="tattoo-header-cell name-cell sortable" data-sort-field="name">Name${getListSortIndicator(s, 'name')}</div>
+        <div class="tattoo-header-cell weight-cell sortable" data-sort-field="dropWeight">Drop Weight${getListSortIndicator(s, 'dropWeight')}</div>
+        <div class="tattoo-header-cell value-cell sortable" data-sort-field="value">Value (${currencySymbol})${getListSortIndicator(s, 'value')}</div>
+      </div>
+      <div class="tattoo-list">${tableRows}</div>
+    </div>
+  `;
+
+  container.innerHTML = tableSection;
+
+  setupListSort(container, '.tattoo-list-header .sortable', currentTattooSort, (field, direction) => {
+    currentTattooSort.field = field;
+    currentTattooSort.direction = direction;
+  }, () => renderTattooList(document.getElementById('list-view')));
+
+  const tattooListRows = container.querySelectorAll('.tattoo-list-row[data-id]');
+  tattooListRows.forEach(item => {
+    const tattooId = item.getAttribute('data-id');
+    if (!tattooId) return;
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectionToggle(tattooId);
+      const isSelected = selectionHas(tattooId);
+      if (isSelected) {
+        item.classList.add('item-selected');
+      } else {
+        item.classList.remove('item-selected');
+      }
+    });
+  });
+}
+
+/** Grouped cards only (#tattoo-cards-container, left column — grid view slot). */
+function renderTattooCardsPanel(container) {
+  if (!container || currentTattoos.length === 0) return;
+  const currency = currentCurrency;
+  const currencySymbol = currency === 'divine' ? 'Div' : 'c';
+  const sorted = sortTattoos(currentTattoos, currentTattooSort, currency);
+
   const grouped = {
     'Strength': [],
     'Dexterity': [],
     'Intelligence': []
   };
-  
+
   sorted.forEach(tattoo => {
     const type = getTattooType(tattoo);
     if (type && grouped[type]) {
       grouped[type].push(tattoo);
     }
   });
-  
-  // Render tattoo card
+
   const renderTattooCard = (t) => {
     const weightStr = t.dropWeight != null ? (t.dropWeight * 100).toFixed(2) + '%' : '—';
     const value = currency === 'divine' ? (t.divineValue != null ? t.divineValue.toFixed(4) : '—') : (t.chaosValue != null ? t.chaosValue.toFixed(2) : '—');
@@ -2024,8 +2129,7 @@ function renderTattooList(container) {
       </div>
     </div>`;
   };
-  
-  // Render section for a type
+
   const renderSection = (type, tattoos) => {
     if (tattoos.length === 0) return '';
     const cards = tattoos.map(renderTattooCard).join('');
@@ -2037,17 +2141,15 @@ function renderTattooList(container) {
       </div>
     `;
   };
-  
-  // Build HTML with all sections
+
   const sections = [
     renderSection('Strength', grouped.Strength),
     renderSection('Dexterity', grouped.Dexterity),
     renderSection('Intelligence', grouped.Intelligence)
-  ].filter(s => s).join('');
-  
+  ].filter(sec => sec).join('');
+
   container.innerHTML = sections;
-  
-  // Setup selection listeners
+
   const tattooItems = container.querySelectorAll('.tattoo-grid-card[data-id]');
   tattooItems.forEach(item => {
     const tattooId = item.getAttribute('data-id');
@@ -2055,7 +2157,6 @@ function renderTattooList(container) {
     item.addEventListener('click', (e) => {
       e.stopPropagation();
       selectionToggle(tattooId);
-      // Update visual state immediately
       const isSelected = selectionHas(tattooId);
       if (isSelected) {
         item.classList.add('item-selected');
@@ -2064,6 +2165,14 @@ function renderTattooList(container) {
       }
     });
   });
+}
+
+function renderTattooList(listViewContainer) {
+  if (!listViewContainer || currentTattoos.length === 0) return;
+  const cardsContainer = document.getElementById('tattoo-cards-container');
+  renderTattooListTable(listViewContainer);
+  if (cardsContainer) renderTattooCardsPanel(cardsContainer);
+  syncTattooListAndGridHeights();
 }
 
 /**
@@ -2112,6 +2221,7 @@ async function renderCatalystUI(catalysts, currency) {
 
   const gridViewContainer = document.getElementById('grid-view');
   const gridCanvas = document.getElementById('scarab-grid-canvas');
+  restoreCanvasGridSlot();
   if (gridViewContainer) {
     gridViewContainer.style.display = 'block';
   }
@@ -2167,6 +2277,7 @@ async function renderOilUI(oils, currency) {
 
   const gridViewContainer = document.getElementById('grid-view');
   const gridCanvas = document.getElementById('scarab-grid-canvas');
+  restoreCanvasGridSlot();
   if (gridViewContainer) {
     gridViewContainer.style.display = 'block';
   }
@@ -2220,6 +2331,7 @@ async function renderDeliriumOrbUI(items, currency, rerollCost = null, primalLif
 
   const gridViewContainer = document.getElementById('grid-view');
   const gridCanvas = document.getElementById('scarab-grid-canvas');
+  restoreCanvasGridSlot();
   if (gridViewContainer) gridViewContainer.style.display = 'block';
   if (gridCanvas) {
     try {
@@ -2275,6 +2387,7 @@ async function renderEmblemUI(items, currency) {
 
   const gridViewContainer = document.getElementById('grid-view');
   const gridCanvas = document.getElementById('scarab-grid-canvas');
+  restoreCanvasGridSlot();
   if (gridViewContainer) gridViewContainer.style.display = 'block';
   if (gridCanvas) {
     try {
@@ -2299,7 +2412,7 @@ async function renderEmblemUI(items, currency) {
 }
 
 /**
- * Render Tattoo UI (list view)
+ * Render Tattoo UI (sortable list table + grouped card grid)
  * @param {Array<Object>} items - Merged tattoo data (id, name, description, chaosValue, divineValue, dropWeight)
  * @param {string} currency - 'chaos' or 'divine'
  */
@@ -2337,11 +2450,12 @@ async function renderTattooUI(items, currency) {
   // Setup regex component for tattoos
   await setupRegexComponentForCategory('tattoos', tattooInstances);
 
+  showTattooCardsSlot();
+  const gridViewContainer = document.getElementById('grid-view');
+  if (gridViewContainer) gridViewContainer.style.display = 'block';
+
   const listViewContainer = document.getElementById('list-view');
   if (listViewContainer) renderTattooList(listViewContainer);
-
-  const gridViewContainer = document.getElementById('grid-view');
-  if (gridViewContainer) gridViewContainer.style.display = 'none';
 
   const filterPanelContainer = document.getElementById('filter-panel');
   if (filterPanelContainer) filterPanelContainer.style.display = 'none';
@@ -2375,6 +2489,7 @@ async function renderTempleUpgradeUI(combinations, currency) {
   if (gridViewContainer) {
     gridViewContainer.style.display = 'none';
   }
+  restoreCanvasGridSlot();
   
   const filterPanelContainer = document.getElementById('filter-panel');
   if (filterPanelContainer) {
@@ -2454,17 +2569,9 @@ async function handleRouteChange(category, page) {
   // Clean up list view subscriptions when switching categories
   if (categoryChanged) {
     if (currentCategory === 'essences') {
-      import('./js/views/essenceListView.js').then(module => {
-        if (module.cleanupSelectionSubscription) {
-          module.cleanupSelectionSubscription();
-        }
-      });
+      cleanupEssenceSelectionSubscription();
     } else if (currentCategory === 'fossils') {
-      import('./js/views/fossilListView.js').then(module => {
-        if (module.cleanupSelectionSubscription) {
-          module.cleanupSelectionSubscription();
-        }
-      });
+      cleanupFossilSelectionSubscription();
     }
   }
   

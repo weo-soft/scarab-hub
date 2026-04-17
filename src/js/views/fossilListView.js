@@ -6,7 +6,14 @@
 import { getProfitabilityColor, getProfitabilityBackgroundColor } from '../utils/colorUtils.js';
 import { loadPreferences, savePreferences } from '../services/dataService.js';
 import { highlightCellForFossil, clearFossilHighlight } from './fossilGridView.js';
-import { toggle as selectionToggle, has as selectionHas, subscribe as subscribeSelection, getCategoryId } from '../services/selectionState.js';
+import {
+  toggle as selectionToggle,
+  has as selectionHas,
+  subscribe as subscribeSelection,
+  getCategoryId,
+  selectAll as selectionSelectAll,
+  clear as selectionClear
+} from '../services/selectionState.js';
 
 let currentFossils = [];
 let currentCurrency = 'chaos';
@@ -103,19 +110,14 @@ export function renderFossilList(container, fossils, currency = 'chaos') {
  * Handle select all
  */
 function handleSelectAll() {
-  import('../services/selectionState.js').then(({ selectAll }) => {
-    const allIds = currentFossils.map(f => f.id);
-    selectAll(allIds);
-  });
+  selectionSelectAll(currentFossils.map(f => f.id));
 }
 
 /**
  * Handle deselect all
  */
 function handleDeselectAll() {
-  import('../services/selectionState.js').then(({ clear }) => {
-    clear();
-  });
+  selectionClear();
 }
 
 /**
